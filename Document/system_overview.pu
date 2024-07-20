@@ -1,0 +1,82 @@
+@startuml
+
+package "Unity" {
+	class "センサ受取クラス" as SensorReceiver{
+		- sensorData: Dictionary<string, float>
+		+ ReceiveSensorData(data: byte[]): void
+		+ GetLatestSensorData(): Dictionary<string, float>
+		- ParseSensorData(data: byte[]): void
+	}
+	class "センサ評価クラス" as SensorEvaluator{
+		- evaluationCriteria: List<EvaluationCriterion>
+		+ EvaluateSensorData(sensorData: Dictionary<string, float>): EvaluationResult
+		- CheckThreshold(value: float, criterion: EvaluationCriterion): bool
+		+ UpdateEvaluationCriteria(newCriteria: List<EvaluationCriterion>): void
+	}
+	class "行動決定クラス" as ActionDecider{
+		- actionRules: List<ActionRule>
+		- currentState: GameState
+		+ DecideAction(evaluationResult: EvaluationResult): Action
+		- CheckActionConditions(evaluationResult: EvaluationResult): List<Action>
+		+ UpdateActionRules(newRules: List<ActionRule>): void
+	}
+	class "命令送信クラス" as CommandSender{
+		- connectionStatus: bool
+		+ SendCommand(action: Action): bool
+		- TranslateActionToCommand(action: Action): byte[]
+		+ CheckConnection(): bool
+	}
+
+	object "評価リスト" as EvaluationList
+	object "行動リスト" as ActionList
+	object "モーションライブラリ" as MotionLibrary
+
+	class EvaluationCriterion {
+		+ SensorType: string
+		+ ThresholdValue: float
+		+ ComparisonOperator: Enum
+	}
+
+	class EvaluationResult {
+		+ Evaluations: Dictionary<string, bool>
+		+ OverallScore: float
+	}
+
+	class ActionRule {
+		+ Condition: Func<EvaluationResult, bool>
+		+ ResultingAction: Action
+	}
+
+	class Action {
+		+ ActionType: Enum
+		+ Parameters: Dictionary<string, object>
+	}
+
+	class GameState {
+		+ CurrentScore: int
+		+ TimeRemaining: float
+		+ PlayerPosition: Vector3
+	}
+
+	SensorReceiver --> SensorEvaluator : 集約された値を送信
+	SensorEvaluator --> ActionDecider : センサ情報の評価を送信
+	ActionDecider --> CommandSender : とるべき行動を送信
+
+	EvaluationList --> SensorEvaluator
+	ActionList --> ActionDecider
+	MotionLibrary --> ActionDecider
+
+	
+}
+
+package "外部デバイス" {
+	object "M5StickC" as M5StickC
+	object "toio" as Toio
+}
+
+M5StickC --> SensorReceiver : センサ情報を送信
+CommandSender --> Toio : 命令を送信
+
+note right of M5StickC : + HAT
+
+@enduml
