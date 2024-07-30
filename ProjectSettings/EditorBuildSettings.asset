@@ -4,5 +4,8 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Base/Joystick/Joystick.unity
+    guid: 22aed9a8af4807041901f0babbaf11cd
   m_configObjects: {}
