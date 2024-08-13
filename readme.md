@@ -1,29 +1,33 @@
-# 1. ppm toio WBS 兼企画設計いろいろ書
-
-本稿は、卒業研究「ppm toio」の WBS である。\
-WBS といいつつ、使うもの、補記等も記入するので、「この通りに作業進めればモチベ無いときでも仕事は進められるんじゃないですかね～」なドキュメントを目指している。
+# ppm toio WBS 兼企画設計いろいろ書<!-- omit in toc -->
 
 進捗表は[こちら](https://docs.google.com/spreadsheets/d/1U639k4QWcusb2OYTR_0ER-CtmLVivnQl1xtwEm9VkqM/edit?usp=sharing)\
 チェックボックスを埋めていくと、なんだか仕事している気がする……
 
-- [1. ppm toio WBS 兼企画設計いろいろ書](#1-ppm-toio-wbs-兼企画設計いろいろ書)
-	- [1.1. ハードウェア準備](#11-ハードウェア準備)
-		- [1.1.1. toio のセットアップ](#111-toio-のセットアップ)
-			- [接続](#接続)
-			- [Bluetooth 通信](#bluetooth-通信)
-		- [1.1.2. M5StickC のセットアップ](#112-m5stickc-のセットアップ)
-		- [1.1.3. HAT モジュールのセットアップ](#113-hat-モジュールのセットアップ)
-		- [1.1.4. センサーの調達と接続](#114-センサーの調達と接続)
-	- [1.2. ソフトウェア開発](#12-ソフトウェア開発)
-		- [1.2.1. Unity プロジェクトの作成](#121-unity-プロジェクトの作成)
-			- [1.2.1.1. プロジェクト構造の決定](#1211-プロジェクト構造の決定)
-			- [1.2.1.2. 必要なパッケージのインストール](#1212-必要なパッケージのインストール)
-		- [1.2.2. センサー受取クラスの実装](#122-センサー受取クラスの実装)
-			- [1.2.2.1. toio からのデータ取得](#1221-toio-からのデータ取得)
-			- [1.2.2.2. M5StickC からのデータ取得](#1222-m5stickc-からのデータ取得)
-	- [todo list](#todo-list)
+## 目次<!-- omit in toc -->
 
-## 1.1. ハードウェア準備
+1. [ドキュメント](#ドキュメント)
+2. [ハードウェア準備](#ハードウェア準備)
+	1. [toio のセットアップ](#toio-のセットアップ)
+	2. [接続](#接続)
+	3. [Bluetooth 通信](#bluetooth-通信)
+	4. [M5StickC のセットアップ](#m5stickc-のセットアップ)
+	5. [HAT モジュールのセットアップ](#hat-モジュールのセットアップ)
+	6. [センサーの調達と接続](#センサーの調達と接続)
+3. [ソフトウェア開発](#ソフトウェア開発)
+	1. [Unity プロジェクトの作成](#unity-プロジェクトの作成)
+	2. [プロジェクト構造の決定](#プロジェクト構造の決定)
+	3. [必要なパッケージのインストール](#必要なパッケージのインストール)
+	4. [センサー受取クラスの実装](#センサー受取クラスの実装)
+	5. [toio からのデータ取得](#toio-からのデータ取得)
+	6. [M5StickC からのデータ取得](#m5stickc-からのデータ取得)
+4. [todo list](#todo-list)
+
+## ドキュメント
+
+- [チュートリアル(Basic) toio-sdk-for-unity](https://github.com/morikatron/toio-sdk-for-unity/blob/main/docs/tutorials_basic.md)
+- [toio SDK for Unity ドキュメント | toio SDK for Unity](https://morikatron.github.io/toio-sdk-for-unity/docs/)
+
+## ハードウェア準備
 
 本プロジェクトで利用するハードウェアは次の 3 点である
 
@@ -31,17 +35,15 @@ WBS といいつつ、使うもの、補記等も記入するので、「この�
 - toio
 - M5Stick（以下「M5」）
 
-### 1.1.1. toio のセットアップ
+### toio のセットアップ
 
 toio との接続には特別な手順は必要ない。手順は toio の Github を確認すれば問題なく進行できる。以下にお世話になっているリンクを示す。
 
 - [toio Unity チュートリアル](https://github.com/morikatron/toio-sdk-for-unity/blob/main/docs/tutorials_basic.md)
-
 - [toio SDK for Unity](https://github.com/morikatron/toio-sdk-for-unity/blob/main/docs/download_sdk.md)
-
 - [toio Unity Package](https://github.com/morikatron/toio-sdk-for-unity/releases/)
 
-#### 接続
+### 接続
 
 Unity と toio の接続は、toio パッケージに入っている `Sample_ConnectType` というスクリプトを toio オブジェクトにアタッチすることで実現できる。
 
@@ -49,11 +51,11 @@ Unity と toio の接続は、toio パッケージに入っている `Sample_Con
 
 ただ接続が Bluetooth のほうが早いかもしれないので、おいおい比べていきたい。
 
-#### Bluetooth 通信
+### Bluetooth 通信
 
 Bluetooth 通信は `Assets/toio-sdk/Samples/Sample_Bluetooth/Sample_Bluetooth.unity` のサンプルプロジェクトで可能。ただ Bluetooth 以外の通信で基本的に可能？のようなので、必要ならやる。
 
-### 1.1.2. M5StickC のセットアップ
+### M5StickC のセットアップ
 
 ~~(2024/07/14 時点) M5StickC のコンパイルが Arduino IDE でできなくなってます。\
 原因不明。備え付けのスケッチ例をコンパイルしてもダメだったので、たぶんおれのせいではないはず。あるいはどれかのライブラリ or ボードが競合している？\
@@ -78,11 +80,11 @@ BluetoothSerial クラスの起動とか、他にもいろいろやることは�
 
 コーディング、コンパイル、および書き込みには Arduino IDE を使用する。
 
-### 1.1.3. HAT モジュールのセットアップ
+### HAT モジュールのセットアップ
 
 toio および M5 の基本的なデータ送受信が完成次第、必要に応じてセットアップする。
 
-### 1.1.4. センサーの調達と接続
+### センサーの調達と接続
 
 現在使用可能な HAT モジュールは
 
@@ -91,19 +93,15 @@ toio および M5 の基本的なデータ送受信が完成次第、必要に�
 
 の 2 点である。目下 HAT を使用して実装したいのは、二酸化炭素濃度測定機能の実装。けっこうあちこちで「ppm toio」のネタは話してきたので、なんとかして形にしたい。
 
-## 1.2. ソフトウェア開発
-
-本システムの俯瞰図を示す
-
-![システム俯瞰図](system_overview.jpg)
+## ソフトウェア開発
 
 こいつを実装できるように頑張る
 
-### 1.2.1. Unity プロジェクトの作成
+### Unity プロジェクトの作成
 
 通常の 3D プロジェクトでよろし
 
-#### 1.2.1.1. プロジェクト構造の決定
+### プロジェクト構造の決定
 
 審議中
 素材ごとに分けるか、シーンごとに分けるか
@@ -127,7 +125,7 @@ Assets
 	:
 ```
 
-#### 1.2.1.2. 必要なパッケージのインストール
+### 必要なパッケージのインストール
 
 - toio
   - [UniTask のインストール](https://github.com/morikatron/toio-sdk-for-unity/blob/main/docs/download_sdk.md)
@@ -135,15 +133,15 @@ Assets
 - M5
   - なし
 
-### 1.2.2. センサー受取クラスの実装
+### センサー受取クラスの実装
 
 toio、M5 それぞれのデータ受取クラスを作る
 
-#### 1.2.2.1. toio からのデータ取得
+### toio からのデータ取得
 
 (2024.07.13 時点)不明。M5 のセットアップが終わったらやります。
 
-#### 1.2.2.2. M5StickC からのデータ取得
+### M5StickC からのデータ取得
 
 前にやったのでできなくはないと思う。
 
