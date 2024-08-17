@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AutoPartol : MonoBehaviour
+public class _AutoPartol : MonoBehaviour
 {
 	public float moveSpeed = 5f;
 	public float rotationSpeed = 2f;

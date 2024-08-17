@@ -42,6 +42,7 @@ toio との接続には特別な手順は必要ない。手順は toio の Githu
 - [toio Unity チュートリアル](https://github.com/morikatron/toio-sdk-for-unity/blob/main/docs/tutorials_basic.md)
 - [toio SDK for Unity](https://github.com/morikatron/toio-sdk-for-unity/blob/main/docs/download_sdk.md)
 - [toio Unity Package](https://github.com/morikatron/toio-sdk-for-unity/releases/)
+- [『開発者向けマット（仮称）』について | toio blog | toio（トイオ）](https://toio.io/blog/detail/20200423-1.html)
 
 ### 接続
 
