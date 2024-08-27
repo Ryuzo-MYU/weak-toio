@@ -6,9 +6,11 @@ using UnityEngine;
 public class AutoPatrol : MonoBehaviour
 {
     CubeManager cubeManager;
-    Cube cube;
+    public int cubeCount;
     public ConnectType connectType;
     public int phase;
+    public int collisionThreshold;
+
     [SerializeField] int distance;
     [SerializeField] int speed;
     [SerializeField] float elapsedTime;
@@ -16,16 +18,24 @@ public class AutoPatrol : MonoBehaviour
     async void Start()
     {
         cubeManager = new CubeManager(connectType);
-        await cubeManager.SingleConnect();
-        foreach (var cube in cubeManager.syncCubes)
+        await cubeManager.MultiConnect(cubeCount);
+
+        foreach (var cube in cubeManager.cubes)
         {
             cube.collisionCallback.AddListener("AutoPatrol", OnCollision);
-            cube.ConfigCollisionThreshold(1);
+            cube.ConfigCollisionThreshold(collisionThreshold);
+
+            // デフォルト状態がオフのセンサーを有効化
+            await cube.ConfigMotorRead(true);
+            await cube.ConfigAttitudeSensor(Cube.AttitudeFormat.Eulers, 100, Cube.AttitudeNotificationType.OnChanged);
+            await cube.ConfigMagneticSensor(Cube.MagneticMode.MagnetState);
         }
     }
 
     private void Update()
     {
+        // 巡回挙動
+        //なにかに衝突したら下がって、向きを変えて、再度進む
         elapsedTime += Time.deltaTime;
         if (elapsedTime > 2.0f)
         {
@@ -53,11 +63,15 @@ public class AutoPatrol : MonoBehaviour
             }
         }
     }
-    void OnCollision(Cube cube)
+
+    void OnCollision(Cube c)
     {
-        Debug.Log("何かと衝突");
-        cube.PlayPresetSound(2);
-        phase = stop;
+        foreach (var cube in cubeManager.cubes)
+        {
+            Debug.Log("何かと衝突");
+            cube.PlayPresetSound(2);
+            phase = stop;
+        }
     }
 
     public void VirtualCollision()

@@ -1143,10 +1143,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b44ed7ed6478314c8bebae99a0a79ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  connectType: 0
+  cubeCount: 1
+  connectType: 2
   phase: 0
-  distance: 100
-  speed: 50
+  collisionThreshold: 4
+  distance: 70
+  speed: 100
   elapsedTime: 0
   stop: 2
 --- !u!1 &1028071692
@@ -2017,9 +2019,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 3909610859877989875, guid: 8bd6ea65c87536d49ac5878fd9e412fe, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2080255747}
-    - targetCorrespondingSourceObject: {fileID: 3909610859877989875, guid: 8bd6ea65c87536d49ac5878fd9e412fe, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2080255756}
   m_SourcePrefab: {fileID: 100100000, guid: 8bd6ea65c87536d49ac5878fd9e412fe, type: 3}
 --- !u!1 &2080255745 stripped
 GameObject:
@@ -2039,19 +2038,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   trashTag: trash
---- !u!114 &2080255756
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2080255745}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6ac920f4d3e545f46a08b9231b66fc9e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  autoPatrol: {fileID: 868237270}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
