@@ -9,7 +9,7 @@
 2. [ハードウェア準備](#ハードウェア準備)
 	1. [toio のセットアップ](#toio-のセットアップ)
 	2. [接続](#接続)
-	3. [Bluetooth 通信](#bluetooth-通信)
+	3. [toio の Bluetooth 通信](#toio-の-bluetooth-通信)
 	4. [M5StickC のセットアップ](#m5stickc-のセットアップ)
 	5. [HAT モジュールのセットアップ](#hat-モジュールのセットアップ)
 	6. [センサーの調達と接続](#センサーの調達と接続)
@@ -20,6 +20,8 @@
 	4. [センサー受取クラスの実装](#センサー受取クラスの実装)
 	5. [toio からのデータ取得](#toio-からのデータ取得)
 	6. [M5StickC からのデータ取得](#m5stickc-からのデータ取得)
+	7. [HAT をつかう](#hat-をつかう)
+		1. [ENV.2](#env2)
 4. [todo list](#todo-list)
 
 ## ドキュメント
@@ -52,7 +54,7 @@ Unity と toio の接続は、toio パッケージに入っている `Sample_Con
 
 ただ接続が Bluetooth のほうが早いかもしれないので、おいおい比べていきたい。
 
-### Bluetooth 通信
+### toio の Bluetooth 通信
 
 Bluetooth 通信は `Assets/toio-sdk/Samples/Sample_Bluetooth/Sample_Bluetooth.unity` のサンプルプロジェクトで可能。ただ Bluetooth 以外の通信で基本的に可能？のようなので、必要ならやる。
 
@@ -80,10 +82,13 @@ SerialBT.printf("%s\t", 任意のデータ); \\Bluetoothシリアル通信
 BluetoothSerial クラスの起動とか、他にもいろいろやることはあるが、細かいことは`Assets\M5Stick\SendSensorInfo`の`SendSensorInfo.ino`を参照のこと。
 
 コーディング、コンパイル、および書き込みには Arduino IDE を使用する。
+toio および M5 の基本的なデータ送受信が完成次第、必要に応じてセットアップする。
 
 ### HAT モジュールのセットアップ
 
-toio および M5 の基本的なデータ送受信が完成次第、必要に応じてセットアップする。
+[M5StickC Plus で ENV II （環境センサユニット）を動作させる - Qiita](https://qiita.com/visyeii/items/e28f8500f43166710664)
+
+これ。なぜかこの辺の編集履歴が一回消えててきれそう。まあいい。
 
 ### センサーの調達と接続
 
@@ -154,7 +159,7 @@ toio、M5 それぞれのデータ受取クラスを作る
 >
 > デフォルトでは `.NET Standard 2.1` となっているのを、 `.NET Framework` に変更\
 > これでよろし\
-> [情報元](https://qiita.com/Ninagawa123/items/f6595dcf788dd316be8a)
+> [ソース](https://qiita.com/Ninagawa123/items/f6595dcf788dd316be8a)
 
 シーン中に M5 のデータを受信させるオブジェクトを作成。そいつに
 
@@ -164,6 +169,22 @@ toio、M5 それぞれのデータ受取クラスを作る
 をアタッチ。
 
 `SerialHundler` の M5Ports には、M5 と接続されているポート番号を登録。
+
+### HAT をつかう
+
+ENV.2 と ToF HAT を使う
+
+- ENV.2
+  - 気温、湿度、気圧
+- ToF HAT
+  - 光学距離センサ
+  - オブジェクト検知とか？
+
+#### ENV.2
+
+ここのやつだと動く
+
+- [M5StickC Plus で ENV II （環境センサユニット）を動作させる - Qiita](https://qiita.com/visyeii/items/e28f8500f43166710664)
 
 ## todo list
 
