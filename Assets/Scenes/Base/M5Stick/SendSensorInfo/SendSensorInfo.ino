@@ -73,7 +73,7 @@ void loop() {
 void sendData() {
   // 送信するデータをフォーマット
   char data[150];
-  sprintf(data, "%s,%.6f,%.6f,%.6f,%.6f,%.6f,%.6f,%.2f,%.2f,%.2f,%.3f",
+  sprintf(data, "%s\t%.6f\t%.6f\t%.6f\t%.6f\t%.6f\t%.6f\t%.2f\t%.2f\t%.2f\t%.3f",
           Config::DEVICE_NAME,
           sensorData.accX, sensorData.accY, sensorData.accZ,
           sensorData.gyroX, sensorData.gyroY, sensorData.gyroZ,
