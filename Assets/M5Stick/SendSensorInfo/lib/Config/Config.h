@@ -7,8 +7,8 @@ struct Config {
   static constexpr int SERIAL_BAUD = 115200;                       // ボーレート
   static constexpr unsigned long LOOP_DELAY = 5000;                // ループ時間 (5秒)
   static constexpr unsigned long BATTERY_UPDATE_INTERVAL = 60000;  // バッテリー情報の更新間隔 (1分)
+  static constexpr unsigned long MPU_UPDATE_INTERVAL = 10000;      // M5StickCセンサの更新間隔 (10秒)
+  static constexpr unsigned long SENSOR_RETRY_LIMIT = 5;           // ENVセンサー初期化処理のリトライ上限
   static constexpr unsigned long ENV_UPDATE_INTERVAL = 30000;      // ENVの更新間隔 (30秒)
-  static constexpr unsigned long SENSOR_UPDATE_INTERVAL = 10000;   // M5StickCセンサの更新間隔 (10秒)
 };
-
 #endif
