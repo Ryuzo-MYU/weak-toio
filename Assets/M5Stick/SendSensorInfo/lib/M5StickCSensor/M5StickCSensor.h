@@ -1,7 +1,6 @@
 #ifndef M5STICKCSENSOR_H
 #define M5STICKCSENSOR_H
-#include <M5StickC.h>
-#include <Wire.h>
+#include <M5Unified.h>
 
 #include "Config.h"
 #include "Timer.h"
@@ -20,6 +19,7 @@ class M5StickCSensor {
 
     void begin();
     void update();
+	void setData();
     void updateMPU();
     void updateVbat();
 

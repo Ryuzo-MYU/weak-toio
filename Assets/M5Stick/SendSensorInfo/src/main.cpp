@@ -1,3 +1,19 @@
+// ==============================
+// M5StickC, ENV2で環境データを取得し、シリアル通信で送信
+// データリスト			対応する変数	単位
+// 0: 	デバイス名 		DEVICE_NAME		-
+// 1: 	X軸加速度 		accX			g(9.8 m/s^2)
+// 2. 	Y軸加速度 		accY			g(9.8 m/s^2)
+// 3. 	Z軸加速度 		accZ			g(9.8 m/s^2)
+// 4. 	X軸ジャイロ 	gyroX			deg/s
+// 5.	Y軸ジャイロ		gyroY			deg/s
+// 6.	Z軸ジャイロ		gyroZ			deg/s
+// 7.	気温		   	temperature		℃
+// 8.	湿度			humidity		%
+// 9.	気圧			pressure		Pa
+// 10.	バッテリー電圧	 vbat			mV
+// ==============================
+
 #include <Arduino.h>
 #include <BluetoothSerial.h>
 #include <Config.h>
@@ -16,9 +32,8 @@ BluetoothSerial SerialBT;
 void sendData();
 
 void setup() {
-    // 輝度0
-    M5.Axp.ScreenBreath(0);
-
+    // ディスプレイの輝度を0に
+    M5.Display.setBrightness(0);
     // シリアル通信の初期化
     Serial.begin(Config::SERIAL_BAUD);    // シリアル通信の初期化
     SerialBT.begin(Config::DEVICE_NAME);  // Bluetoothシリアルの初期化

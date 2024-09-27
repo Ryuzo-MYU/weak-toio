@@ -7,8 +7,7 @@ Timer vbatTimer(Config::BATTERY_UPDATE_INTERVAL);
 // M5StickCの初期化
 void M5StickCSensor::begin() {
     M5.begin();
-    Wire.begin();
-    M5.MPU6886.Init();
+    setData();
 }
 
 void M5StickCSensor::update() {
@@ -20,12 +19,18 @@ void M5StickCSensor::update() {
     }
 }
 
-void M5StickCSensor::updateMPU() {
-    M5.MPU6886.getAccelData(&accX, &accY, &accZ);
-    M5.MPU6886.getGyroData(&gyroX, &gyroY, &gyroZ);
+// 初期データを取得
+void M5StickCSensor::setData() {
+    updateMPU();
+    updateVbat();
 }
 
-void M5StickCSensor::updateVbat() { vbat = M5.Axp.GetVbatData() * 1.1 / 1000; }
+void M5StickCSensor::updateMPU() {
+    M5.Imu.getAccel(&accX, &accY, &accZ);
+    M5.Imu.getGyro(&gyroX, &gyroY, &gyroZ);
+}
+
+void M5StickCSensor::updateVbat() { vbat = M5.Power.getBatteryVoltage(); }
 
 float M5StickCSensor::getAccX() { return accX; }
 
