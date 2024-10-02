@@ -5,118 +5,125 @@ using System.Linq;
 
 public class SerialHandler : MonoBehaviour
 {
-    public delegate void SerialDataReceivedEventHandler(string message);
-    public event SerialDataReceivedEventHandler OnDataReceived;
+	public delegate void SerialDataReceivedEventHandler(string message);
+	public event SerialDataReceivedEventHandler OnDataReceived;
 
-    //ポート名
-    //例
-    //Linuxでは/dev/ttyUSB0
-    //windowsではCOM1
-    //Macでは/dev/tty.usbmodem1421など
-    public string[] m5Ports;
-    public string portName;
-    public int baudRate;
+	//ポート名
+	//例
+	//Linuxでは/dev/ttyUSB0
+	//windowsではCOM1
+	//Macでは/dev/tty.usbmodem1421など
+	public string[] m5Ports;
+	public string portName;
+	public int baudRate;
 
-    private SerialPort serialPort_;
-    private Thread thread_;
-    private bool isRunning_ = false;
+	private SerialPort serialPort_;
+	private Thread thread_;
+	private bool isRunning_ = false;
 
-    private string message_;
-    private bool isNewMessageReceived_ = false;
+	private string message_;
+	private bool isNewMessageReceived_ = false;
 
-    void Awake()
-    {
-        // 利用可能なシリアルポートの取得
-        string[] availablePorts = SerialPort.GetPortNames();
+	void Awake()
+	{
+		// 利用可能なシリアルポートの取得
+		string[] availablePorts = SerialPort.GetPortNames();
 
-        // 利用可能なポートと一致するポートを検索
-        portName = FindMatchingPort(m5Ports, availablePorts);
+		// 利用可能なポートと一致するポートを検索
+		portName = FindMatchingPort(m5Ports, availablePorts);
 
-        Open();
-    }
+    // 利用可能なポートと一致するポートを検索
+		if (string.IsNullOrEmpty(portName))
+		{
+			Debug.LogError("利用可能なシリアルポートが見つかりませんでした。");
+			return;
+		}
 
-    void Update()
-    {
-        if (isNewMessageReceived_)
-        {
-            OnDataReceived(message_);
-        }
-        isNewMessageReceived_ = false;
-    }
+		Open();
+	}
 
-    void OnDestroy()
-    {
-        Close();
-    }
+	void Update()
+	{
+		if (isNewMessageReceived_)
+		{
+			OnDataReceived(message_);
+		}
+		isNewMessageReceived_ = false;
+	}
 
-    // 利用可能なポートと一致するポートを検索するメソッド
-    private string FindMatchingPort(string[] allowedPorts, string[] availablePorts)
-    {
-        foreach (string port in availablePorts)
-        {
-            if (allowedPorts.Contains(port))
-            {
-                return port; // 一致するポートが見つかった場合、そのポートを返す
-            }
-        }
-        return null; // 一致するポートが見つからなかった場合、nullを返す
-    }
+	void OnDestroy()
+	{
+		Close();
+	}
 
-    private void Open()
-    {
-        serialPort_ = new SerialPort(portName, baudRate, Parity.None, 8, StopBits.One);
-        //または
-        //serialPort_ = new SerialPort(portName, baudRate);
-        serialPort_.Open();
+	// 利用可能なポートと一致するポートを検索するメソッド
+	private string FindMatchingPort(string[] allowedPorts, string[] availablePorts)
+	{
+		foreach (string port in availablePorts)
+		{
+			if (allowedPorts.Contains(port))
+			{
+				return port; // 一致するポートが見つかった場合、そのポートを返す
+			}
+		}
+		return null; // 一致するポートが見つからなかった場合、nullを返す
+	}
 
-        isRunning_ = true;
+	private void Open()
+	{
+		serialPort_ = new SerialPort(portName, baudRate, Parity.None, 8, StopBits.One);
+		//または
+		//serialPort_ = new SerialPort(portName, baudRate);
+		serialPort_.Open();
 
-        thread_ = new Thread(Read);
-        thread_.Start();
-    }
+		isRunning_ = true;
 
-    private void Close()
-    {
-        isNewMessageReceived_ = false;
-        isRunning_ = false;
+		thread_ = new Thread(Read);
+		thread_.Start();
+	}
 
-        if (thread_ != null && thread_.IsAlive)
-        {
-            thread_.Join();
-        }
+	private void Close()
+	{
+		isNewMessageReceived_ = false;
+		isRunning_ = false;
 
-        if (serialPort_ != null && serialPort_.IsOpen)
-        {
-            serialPort_.Close();
-            serialPort_.Dispose();
-        }
-    }
+		if (thread_ != null && thread_.IsAlive)
+		{
+			thread_.Join();
+		}
 
-    private void Read()
-    {
-        while (isRunning_ && serialPort_ != null && serialPort_.IsOpen)
-        {
-            try
-            {
-                message_ = serialPort_.ReadLine();
-                isNewMessageReceived_ = true;
-            }
-            catch (System.Exception e)
-            {
-                Debug.LogWarning(e.Message);
-            }
-        }
-    }
+		if (serialPort_ != null && serialPort_.IsOpen)
+		{
+			serialPort_.Close();
+			serialPort_.Dispose();
+		}
+	}
 
-    public void Write(string message)
-    {
-        try
-        {
-            serialPort_.Write(message);
-        }
-        catch (System.Exception e)
-        {
-            Debug.LogWarning(e.Message);
-        }
-    }
+	private void Read()
+	{
+		while (isRunning_ && serialPort_ != null && serialPort_.IsOpen)
+		{
+			try
+			{
+				message_ = serialPort_.ReadLine();
+				isNewMessageReceived_ = true;
+			}
+			catch (System.Exception e)
+			{
+				Debug.LogWarning(e.Message);
+			}
+		}
+	}
+
+	public void Write(string message)
+	{
+		try
+		{
+			serialPort_.Write(message);
+		}
+		catch (System.Exception e)
+		{
+			Debug.LogWarning(e.Message);
+		}
+	}
 }

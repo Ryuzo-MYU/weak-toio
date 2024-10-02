@@ -1475,6 +1475,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3768373393467162848, guid: 350f057c39c052346b71723cde5cc8d6, type: 3}
+      propertyPath: m5Ports.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3768373393467162848, guid: 350f057c39c052346b71723cde5cc8d6, type: 3}
       propertyPath: m5Ports.Array.data[0]
       value: COM9
       objectReference: {fileID: 0}
@@ -1485,6 +1489,10 @@ PrefabInstance:
     - target: {fileID: 5688909272964287642, guid: 350f057c39c052346b71723cde5cc8d6, type: 3}
       propertyPath: m_Name
       value: M5StickC
+      objectReference: {fileID: 0}
+    - target: {fileID: 5688909272964287642, guid: 350f057c39c052346b71723cde5cc8d6, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1834,6 +1842,61 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2029669133}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &2044542217
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2044542219}
+  - component: {fileID: 2044542218}
+  m_Layer: 0
+  m_Name: DummyData
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2044542218
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2044542217}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 389287b42fab83c40a0769d19c99ad09, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  serialHandler: {fileID: 0}
+  sensorInfo:
+    deviceName: 
+    accelaration: {x: 0, y: 0, z: 0}
+    gyro: {x: 0, y: 0, z: 0}
+    temp: 0
+    humidity: 0
+    pressure: 0
+    vbat: 0
+  sendInterval: 1
+  deviceName: M5-01
+--- !u!4 &2044542219
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2044542217}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.82900006, z: -0.24000001}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &2080255744
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1922,3 +1985,4 @@ SceneRoots:
   - {fileID: 2080255744}
   - {fileID: 205906128}
   - {fileID: 1901801539}
+  - {fileID: 2044542219}
