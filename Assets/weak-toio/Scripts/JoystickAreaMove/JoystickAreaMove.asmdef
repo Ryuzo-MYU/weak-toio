@@ -1,0 +1,16 @@
+{
+    "name": "JoystickAreaMove",
+    "rootNamespace": "",
+    "references": [
+        "GUID:38f608e0bc1f6494690b76123e3fd7ad"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

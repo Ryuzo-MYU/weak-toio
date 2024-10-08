@@ -1,0 +1,8 @@
+{
+	"Temperature": {
+		"dataType": "Temperature"
+	},
+	"Humidity": {
+		"dataType": "Humidity"
+	}
+}
