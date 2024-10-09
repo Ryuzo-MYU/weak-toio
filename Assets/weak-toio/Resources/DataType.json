@@ -1,8 +1,10 @@
 {
 	"Temperature": {
-		"dataType": "Temperature"
+		"DataType": "float",
+		"Unit": "C"
 	},
 	"Humidity": {
-		"dataType": "Humidity"
+		"DataType": "int",
+		"Unit": "%"
 	}
 }
