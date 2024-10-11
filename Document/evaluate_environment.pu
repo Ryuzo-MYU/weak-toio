@@ -1,0 +1,52 @@
+@startuml
+
+package Robot{
+	class ActorUnit{
+		- actionSender : ActionSender
+		+ Act(LowLevelActionOpetration)
+	}
+	class SensorUnit{
+		+ getSensorData()
+	}
+}
+
+package EvaluationSystem{
+	class Env{
+		- sensorUnit : SensorUnit
+		- envData : float
+		+ GetEnvData() : float
+	}
+	abstract AbstractEvaluate{
+		- env : Env
+		- evaluationResult : Result
+		+ EvaluateEnvironment(Env) : Result
+	}
+	struct Result
+	class ConcleteEvaluate{
+		+ ConcleteEvaluateEnvironment(Env) : Result
+	}
+}
+
+SensorUnit --> Env : 環境データを送信
+Env --> AbstractEvaluate : 評価したいデータを送信
+AbstractEvaluate <-- Result : 評価結果のフォーマットを定義
+AbstractEvaluate <|-- ConcleteEvaluate : 個々の評価ロジックを実装
+
+
+package ActionDecisionSystem{
+	class Operator{
+		- evaluation : AbstractEvaluate
+		- result : Result
+	}
+	struct Action
+	class ActionSender{
+		+ SendAction(Action)
+	}
+}
+
+AbstractEvaluate --> Operator : 評価結果を送信
+Action --> Operator : ActorUnitに送信するアクションのフォーマットを定義
+Operator --> ActionSender : 決定されたアクションデータを送信
+ActionSender --> ActorUnit : 低レイヤーの行動命令を送信
+
+@enduml
