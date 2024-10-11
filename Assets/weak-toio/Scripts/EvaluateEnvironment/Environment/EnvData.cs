@@ -2,15 +2,9 @@ using UnityEngine;
 using System.Collections.Generic;
 using System.IO;
 
-namespace EvaluateEnvironment
+public class EnvData
 {
-	public abstract class EnvData
-	{
-		protected float data;
-		protected EnvData(float data)
-		{
-			this.data = data;
-		}
-		public float Data => data;
-	}
+	private M5DataReceiver sensorUnit;
+	private float sensorData;
+	public float SensorData { get; }
 }
