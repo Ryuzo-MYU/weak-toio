@@ -16,26 +16,28 @@ package EvaluationSystem{
 		- envData : float
 		+ GetEnvData() : float
 	}
-	abstract AbstractEvaluate{
+	abstract AbstractEvaluation{
 		- env : Env
 		- evaluationResult : Result
 		+ EvaluateEnvironment(Env) : Result
 	}
-	struct Result
-	class ConcleteEvaluate{
+	class ConcleteEvaluation{
 		+ ConcleteEvaluateEnvironment(Env) : Result
 	}
+	abstract Result
+	class EvaluationResult
 }
 
 SensorUnit --> Env : 環境データを送信
-Env --> AbstractEvaluate : 評価したいデータを送信
-AbstractEvaluate <-- Result : 評価結果のフォーマットを定義
-AbstractEvaluate <|-- ConcleteEvaluate : 個々の評価ロジックを実装
+Env --> AbstractEvaluation : 評価したいデータを送信
+AbstractEvaluation <-- Result : 評価結果のフォーマットを定義
+AbstractEvaluation <|-- ConcleteEvaluation : 実装
+Result <|-- EvaluationResult : 実装
 
 
 package ActionDecisionSystem{
 	class Operator{
-		- evaluation : AbstractEvaluate
+		- evaluation : AbstractEvaluation
 		- result : Result
 	}
 	struct Action
@@ -44,7 +46,7 @@ package ActionDecisionSystem{
 	}
 }
 
-AbstractEvaluate --> Operator : 評価結果を送信
+AbstractEvaluation --> Operator : 評価結果を送信
 Action --> Operator : ActorUnitに送信するアクションのフォーマットを定義
 Operator --> ActionSender : 決定されたアクションデータを送信
 ActionSender --> ActorUnit : 低レイヤーの行動命令を送信

@@ -2,36 +2,27 @@ using UnityEngine;
 
 public class DummyDataGenerator : M5DataReceiver
 {
-	// データ送信の間隔（秒）
-	public float sendInterval = 1.0f;
-	private float timer = 0f;
-
-	[SerializeField] private string deviceName;
+	private string deviceName;
 	// 前回の値を保持するフィールド
-	private Vector3 previousAccel = Vector3.zero;
-	private Vector3 previousGyro = Vector3.zero;
-	private float previousTemperature = 25f;
-	private float previousHumidity = 50f;
-	private float previousPressure = 101325f; // https://w.wiki/3DDH
-	private float previousBatteryVoltage = 4.0f;
-	void Start()
+	private Vector3 previousAccel;
+	private Vector3 previousGyro;
+	private float previousTemperature;
+	private float previousHumidity;
+	private float previousPressure;
+	private float previousBatteryVoltage;
+
+	public DummyDataGenerator()
 	{
-		// 初期化などがあればここで
+		deviceName = "This-is-Dummy";
+		previousAccel = Vector3.zero;
+		previousGyro = Vector3.zero;
+		previousTemperature = 25f;
+		previousHumidity = 50f;
+		previousPressure = 101325f; // https://w.wiki/3DDH
+		previousBatteryVoltage = 4.0f;
 	}
 
-	void Update()
-	{
-		timer += Time.deltaTime;
-
-		// 一定間隔でダミーデータを生成
-		if (timer >= sendInterval)
-		{
-			SendDummyData();
-			timer = 0f;  // タイマーリセット
-		}
-	}
-
-	void SendDummyData()
+	public void SendDummyData()
 	{
 		// デバイス名を定義
 		string deviceName = this.deviceName;
@@ -67,9 +58,5 @@ public class DummyDataGenerator : M5DataReceiver
 			pressure,
 			batteryVoltage
 		);
-
-		// シリアル通信で送信されるような処理（ここではデバッグ表示）
-		Debug.Log("Generated Dummy Data: " + sensorInfo);
-
 	}
 }

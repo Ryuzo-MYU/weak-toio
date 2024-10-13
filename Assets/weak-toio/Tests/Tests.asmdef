@@ -4,7 +4,8 @@
     "references": [
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner",
-        "weak-toio-scripts"
+        "weak-toio-scripts",
+        "toio-sdk-scripts"
     ],
     "includePlatforms": [
         "Editor"

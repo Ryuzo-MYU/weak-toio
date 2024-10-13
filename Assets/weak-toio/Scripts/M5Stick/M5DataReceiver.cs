@@ -1,21 +1,14 @@
-using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Networking.PlayerConnection;
 
-public class M5DataReceiver : MonoBehaviour
+public class M5DataReceiver
 {
 	public SerialHandler serialHandler;
 	public SensorInfo sensorInfo;
 
-
-	void Start()
-	{
-		//信号を受信したときに、そのメッセージの処理を行う
-		serialHandler.OnDataReceived += OnDataReceived;
-	}
-
 	//受信した信号(message)に対する処理
-	void OnDataReceived(string message)
+	public void OnDataReceived(string message)
 	{
 		Debug.Log(message);
 		var data = message.Split(
@@ -57,8 +50,7 @@ public class M5DataReceiver : MonoBehaviour
 	}
 
 	// M5が取得したセンサー情報
-	[Serializable]
-	public struct SensorInfo
+	public struct SensorInfo : IEnumerable<object>
 	{
 		public string deviceName;
 
@@ -80,6 +72,21 @@ public class M5DataReceiver : MonoBehaviour
 			this.humidity = humidity;
 			this.pressure = pressure;
 			this.vbat = vbat;
+		}
+		// IEnumerable<object>のGetEnumerator()の実装
+		public IEnumerator<object> GetEnumerator()
+		{
+			yield return deviceName;
+			yield return accelaration;
+			yield return gyro;
+			yield return temp;
+			yield return humidity;
+			yield return pressure;
+			yield return vbat;
+		}
+		IEnumerator IEnumerable.GetEnumerator()
+		{
+			return GetEnumerator();
 		}
 	}
 }
