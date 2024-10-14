@@ -1,3 +1,5 @@
+using System;
+using System.Linq;
 using UnityEngine;
 public class DummyDataGeneratorComponent : MonoBehaviour
 {
@@ -24,17 +26,23 @@ public class DummyDataGeneratorComponent : MonoBehaviour
 	}
 	void UpdateDummyData()
 	{
-		// 文字列の連結のためのStringBuilderを使用（効率的な文字列操作のため）
-		System.Text.StringBuilder debugMessage = new System.Text.StringBuilder();
-		debugMessage.AppendLine("Generated Dummy Data");
+		string debugMessage = "";
+		debugMessage += "Generated Dummy Data\n";
 
 		// SensorInfoの各フィールドを列挙し、名前と値を文字列に追加
 		foreach (var data in dummyDataGenerator.sensorInfo)
 		{
-			debugMessage.AppendLine(data.ToString());
+			if (data is Vector3 vector)
+			{
+				debugMessage += $"Vector3: {vector.ToString()}\n";
+			}
+			else
+			{
+				debugMessage += data.ToString() + "\n";
+			}
 		}
 
 		// 1回のDebug.Logで全ての情報を出力
-		Debug.Log(debugMessage.ToString());
+		Debug.Log(debugMessage);
 	}
 }

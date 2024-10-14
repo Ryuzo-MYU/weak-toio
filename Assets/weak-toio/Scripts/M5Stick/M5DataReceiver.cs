@@ -73,6 +73,7 @@ public class M5DataReceiver
 			this.pressure = pressure;
 			this.vbat = vbat;
 		}
+
 		// IEnumerable<object>のGetEnumerator()の実装
 		public IEnumerator<object> GetEnumerator()
 		{
