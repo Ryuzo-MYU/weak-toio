@@ -1,7 +1,5 @@
 using System;
-using System.IO;
 using EvaluateEnvironment;
-using UnityEngine;
 
 /// <summary>
 /// 気温データを取得し、評価をするクラス
