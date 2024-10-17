@@ -1,0 +1,26 @@
+\begin{thebibliography}{1}
+
+\bibitem{岡田美智男-2012-ゴミ箱ロ}
+{岡田美智男}.
+\newblock ゴミ箱ロボット{\texthorizontalbar}関係論的なロボットの目指すもの.
+\newblock 計測と制御, Vol.~51, No.~8, pp. 753--758, 2012.
+
+\bibitem{Yamaji-2010-STBHumandependentSociableTrash}
+Yuto Yamaji, Taisuke Miyake, Yuta Yoshiike, P.~Ravindra~S. De~Silva, and Michio Okada.
+\newblock {{STB}}: Human-dependent sociable trash box.
+\newblock In {\em Proceedings of the 5th {{ACM}}/{{IEEE}} International Conference on {{Human-robot}} Interaction}, {{HRI}} '10, pp. 197--198, Osaka, Japan, March 2010. IEEE Press.
+
+\bibitem{Breazeal-2004-SocialInteractionsHRIRobot}
+C.~Breazeal.
+\newblock Social interactions in {{HRI}}: The robot view.
+\newblock {\em IEEE Transactions on Systems, Man, and Cybernetics, Part C (Applications and Reviews)}, Vol.~34, No.~2, pp. 181--186, May 2004.
+
+\bibitem{--TweenbotsKacieKinzer}
+Tweenbots - {{Kacie Kinzer}}.
+\newblock http://www.tweenbots.com/.
+
+\bibitem{Group-2020-HERMITS}
+Tangible~Media Group.
+\newblock {{HERMITS}}, October 2020.
+
+\end{thebibliography}

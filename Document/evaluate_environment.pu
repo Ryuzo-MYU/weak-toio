@@ -37,19 +37,19 @@ Result <|-- EvaluationResult : 実装
 
 
 package ActionDecisionSystem{
-	class Operator{
+	class ActionOperator{
 		- evaluation : Evaluation
 		- result : Result
 	}
-	struct Action
+	class Action
 	class ActionSender{
 		+ SendAction(Action)
 	}
 }
 
-Evaluation --> Operator : 評価結果を送信
-Action --> Operator : ActorUnitに送信するアクションのフォーマットを定義
-Operator --> ActionSender : 決定されたアクションデータを送信
+Evaluation --> ActionOperator : 評価結果を送信
+ActionOperator --> Action : Actionを生成
+Action --> ActionSender : Actionを送信。内容を読み取り
 ActionSender --> ActorUnit : 低レイヤーの行動命令を送信
 
 @enduml
