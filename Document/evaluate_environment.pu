@@ -25,15 +25,26 @@ package EvaluationSystem{
 		+ ConcleteEvaluateEnvironment(Env) : Result
 	}
 
-	abstract Result
-	class EvaluationResult
+	abstract Result{
+		' 対象とする環境の評価データ
+		' 負(過小、不足) < 0(適度) < 正(過度、過剰)
+		int evaluationScore
+		int GetEvaluationScore(params int[] numbers)
+	}
+	class TemperatureResult{
+		int temperatureScore
+	}
+	class HumidityResult{
+		int humidityScore
+	}
 }
 
 SensorUnit --> Env : 環境データを送信
 Env --> Evaluation : 評価したいデータを送信
 Evaluation <-- Result : 評価結果のフォーマットを定義
 Evaluation <|-- ConcleteEvaluation : 実装
-Result <|-- EvaluationResult : 実装
+Result <|-- TemperatureResult : 実装
+Result <|-- HumidityResult : 実装
 
 
 package ActionDecisionSystem{

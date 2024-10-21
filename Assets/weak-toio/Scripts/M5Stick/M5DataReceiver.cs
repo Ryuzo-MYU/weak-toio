@@ -1,5 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 public class M5DataReceiver
@@ -49,8 +48,9 @@ public class M5DataReceiver
 		}
 	}
 
+	[Serializable]
 	// M5が取得したセンサー情報
-	public struct SensorInfo : IEnumerable<object>
+	public struct SensorInfo
 	{
 		public string deviceName;
 
@@ -72,22 +72,6 @@ public class M5DataReceiver
 			this.humidity = humidity;
 			this.pressure = pressure;
 			this.vbat = vbat;
-		}
-
-		// IEnumerable<object>のGetEnumerator()の実装
-		public IEnumerator<object> GetEnumerator()
-		{
-			yield return deviceName;
-			yield return accelaration;
-			yield return gyro;
-			yield return temp;
-			yield return humidity;
-			yield return pressure;
-			yield return vbat;
-		}
-		IEnumerator IEnumerable.GetEnumerator()
-		{
-			return GetEnumerator();
 		}
 	}
 }

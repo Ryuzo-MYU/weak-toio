@@ -1,48 +1,39 @@
-using System;
-using System.Linq;
 using UnityEngine;
 public class DummyDataGeneratorComponent : MonoBehaviour
 {
 	private float timer = 0f;
 	// データ送信の間隔（秒）
 	public float sendInterval = 1.0f;
-	public DummyDataGenerator dummyDataGenerator;
+	public DummyDataGenerator dummy;
 	void Start()
 	{
-		dummyDataGenerator = new DummyDataGenerator();
+		dummy = new DummyDataGenerator();
 	}
 
 	void Update()
 	{
-		UpdateDummyData();
 		timer += Time.deltaTime;
 
 		// 一定間隔でダミーデータを生成
 		if (timer >= sendInterval)
 		{
-			dummyDataGenerator.SendDummyData();
+			UpdateDummyData();
 			timer = 0f;  // タイマーリセット
 		}
 	}
 	void UpdateDummyData()
 	{
-		string debugMessage = "";
-		debugMessage += "Generated Dummy Data\n";
-
-		// SensorInfoの各フィールドを列挙し、名前と値を文字列に追加
-		foreach (var data in dummyDataGenerator.sensorInfo)
-		{
-			if (data is Vector3 vector)
-			{
-				debugMessage += $"Vector3: {vector.ToString()}\n";
-			}
-			else
-			{
-				debugMessage += data.ToString() + "\n";
-			}
-		}
-
-		// 1回のDebug.Logで全ての情報を出力
-		Debug.Log(debugMessage);
+		dummy.Update();
+		ExportLog();
+	}
+	void ExportLog()
+	{
+		Debug.Log($"Device: {dummy.sensorInfo.deviceName}");
+		Debug.Log($"Acceleration: {dummy.sensorInfo.accelaration}");
+		Debug.Log($"Gyro: {dummy.sensorInfo.gyro}");
+		Debug.Log($"Temperature: {dummy.sensorInfo.temp}°C");
+		Debug.Log($"Humidity: {dummy.sensorInfo.humidity}%");
+		Debug.Log($"Pressure: {dummy.sensorInfo.pressure}Pa");
+		Debug.Log($"Battery Voltage: {dummy.sensorInfo.vbat}V\n");
 	}
 }

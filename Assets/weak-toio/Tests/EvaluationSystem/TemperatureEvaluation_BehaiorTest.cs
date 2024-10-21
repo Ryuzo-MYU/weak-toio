@@ -18,7 +18,6 @@ public class TemperatureEvaluationBehaviorTest
 	public void TestTemperatureEvaluation_BehaviorTest()
 	{
 		var temperatureEvaluation = new TemperatureEvaluation();
-		Debug.Log("BaseTemp: " + temperatureEvaluation.BaseTemperature);
 
 		for (int i = 0; i < 10; i++)
 		{

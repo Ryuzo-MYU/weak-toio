@@ -688,6 +688,9 @@ Unityでスクリプトつくるうえで結構大事そうなことも分かっ
 
 次回はResultに入れるデータフォーマットおよびそれを入れる部分の作り直し。設計の修正。あといろいろやっておいてくれ。
 
+\section*{2024.10.21(月)}
+Resultの内容を前回決まった数値判定式に変えた。\href{https://www.mhlw.go.jp/content/11300000/000905329.pdf}{厚生省}のドキュメントによると18℃~28℃が適温らしいから、その範囲に従って採点するように作り変えた。次回はDummyDataGeneratorと合わせて採点が動くところまで確認したい。
+
 \section*{エラー集}
 \subsection*{Adafruit BMP280 not found}
 ENV用のサンプルスケッチを使うには別途「Adafruit BMP280 Library」のインストールが必要。Arduino IDEのライブラリマネージャーからDLしたら解決

@@ -6,16 +6,14 @@ using EvaluateEnvironment;
 /// </summary>
 public class TemperatureEvaluation : Evaluation
 {
-	private const float BASE_TEMPERATURE = 27.0f;
-	private const float HOT_THRESHOLD = 28.0f;  // 暑すぎる基準
-	private const float COLD_THRESHOLD = 24.0f; // 寒すぎる基準
+	private const float LOWER_BOUND = 18.0f; // 寒すぎる基準
+	private const float UPPER_BOUND = 28.0f;  // 暑すぎる基準
 	private const string UNIT = "℃";
 	public float CurrentTemperature { get; private set; }
-	public float BaseTemperature => BASE_TEMPERATURE;
-	public string Condition { get; private set; }
+	public int Condition { get; private set; }
 
 	/// <summary>
-	/// M5DataReceiverから気温のデータを取得し、基準となる気温と比較した結果を返す
+	/// M5DataReceiverから気温のデータを取得し、労働環境の適温範囲と比較した結果を返す
 	/// </summary>
 	/// <param name="m5">M5DataReceiverインスタンス</param>
 	/// <returns>評価結果を集約したResult型データ</returns>
@@ -23,21 +21,21 @@ public class TemperatureEvaluation : Evaluation
 	{
 		CurrentTemperature = m5.sensorInfo.temp; // M5DataReceiverから気温を取得
 
-		// 基準値と比較して評価
-		if (CurrentTemperature >= HOT_THRESHOLD)
+		// 気温に基づく評価
+		if (CurrentTemperature < LOWER_BOUND)
 		{
-			Condition = "HOT";
+			Condition = (int)(CurrentTemperature - LOWER_BOUND); // マイナスのスコア
 		}
-		else if (CurrentTemperature <= COLD_THRESHOLD)
+		else if (CurrentTemperature > UPPER_BOUND)
 		{
-			Condition = "COLD";
+			Condition = (int)(CurrentTemperature - UPPER_BOUND); // プラスのスコア
 		}
 		else
 		{
-			Condition = "SUITABLE";
+			Condition = 0; // 適温
 		}
 
-		TemperatureResult temperatureResult = new TemperatureResult(Condition, CurrentTemperature, BaseTemperature, UNIT);
+		TemperatureResult temperatureResult = new TemperatureResult(Condition, CurrentTemperature, LOWER_BOUND, UPPER_BOUND, UNIT);
 		return temperatureResult;
 	}
 }
@@ -47,22 +45,28 @@ public class TemperatureEvaluation : Evaluation
 /// </summary>
 public class TemperatureResult : Result
 {
-	public string Condition { get; }
+	public int Condition { get; }
 	public float CurrentTemperature { get; }
-	public float BaseTemperature { get; }
+	public float LowerBound { get; }
+	public float UpperBound { get; }
 	public string Unit { get; }
 	public string Message
 	{
 		get
 		{
-			return $"現在の気温は{CurrentTemperature} {Unit}です。{Condition}です。平均気温から{Math.Abs(BaseTemperature - CurrentTemperature)}{Unit}離れています。";
+			string tempCondition = Condition == 0 ? "適温"
+				: Condition > 0 ? "暑い"
+				: "寒い";
+
+			return $"現在の気温は{CurrentTemperature}{Unit}です。評価: {Condition}。{tempCondition}と判断されました。";
 		}
 	}
-	public TemperatureResult(string condition, float currentTemp, float baseTemp, string unit)
+	public TemperatureResult(int condition, float currentTemp, float lowerBound, float upperBound, string unit)
 	{
 		Condition = condition;
 		CurrentTemperature = currentTemp;
-		BaseTemperature = baseTemp;
+		LowerBound = lowerBound;
+		UpperBound = upperBound;
 		Unit = unit;
 	}
 }
