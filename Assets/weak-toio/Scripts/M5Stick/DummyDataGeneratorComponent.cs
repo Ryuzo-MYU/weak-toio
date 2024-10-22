@@ -28,12 +28,13 @@ public class DummyDataGeneratorComponent : MonoBehaviour
 	}
 	void ExportLog()
 	{
-		Debug.Log($"Device: {dummy.sensorInfo.deviceName}");
-		Debug.Log($"Acceleration: {dummy.sensorInfo.accelaration}");
-		Debug.Log($"Gyro: {dummy.sensorInfo.gyro}");
-		Debug.Log($"Temperature: {dummy.sensorInfo.temp}°C");
-		Debug.Log($"Humidity: {dummy.sensorInfo.humidity}%");
-		Debug.Log($"Pressure: {dummy.sensorInfo.pressure}Pa");
-		Debug.Log($"Battery Voltage: {dummy.sensorInfo.vbat}V\n");
+		Debug.Log($"Device: {dummy.sensorInfo.deviceName}\n" +
+				  $"Acceleration: {dummy.sensorInfo.accelaration}\n" +
+				  $"Gyro: {dummy.sensorInfo.gyro}\n" +
+				  $"Temperature: {dummy.sensorInfo.temp}°C\n" +
+				  $"Humidity: {dummy.sensorInfo.humidity}%\n" +
+				  $"Pressure: {dummy.sensorInfo.pressure}Pa\n" +
+				  $"Battery Voltage: {dummy.sensorInfo.vbat}V\n");
+
 	}
 }

@@ -50,7 +50,7 @@ public class TemperatureResult : Result
 	public float LowerBound { get; }
 	public float UpperBound { get; }
 	public string Unit { get; }
-	public string Message
+	public override string Message
 	{
 		get
 		{
@@ -58,7 +58,7 @@ public class TemperatureResult : Result
 				: Condition > 0 ? "暑い"
 				: "寒い";
 
-			return $"現在の気温は{CurrentTemperature}{Unit}です。評価: {Condition}。{tempCondition}と判断されました。";
+			return $"現在の気温は{CurrentTemperature}{Unit}です。コンディション: {Condition}。{tempCondition}です。";
 		}
 	}
 	public TemperatureResult(int condition, float currentTemp, float lowerBound, float upperBound, string unit)
