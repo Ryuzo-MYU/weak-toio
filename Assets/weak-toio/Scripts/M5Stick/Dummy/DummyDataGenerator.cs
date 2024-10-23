@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class DummyDataGenerator : M5DataReceiver
+public class DummyDataGenerator : SensorUnit
 {
 	public string DeviceName { get; private set; }
 	// 前回の値を保持するフィールド
@@ -22,7 +22,8 @@ public class DummyDataGenerator : M5DataReceiver
 		PreviousBatteryVoltage = 4.0f;
 	}
 
-	public void Update()
+	public override void Start() { }
+	public override void Update()
 	{
 		// 加速度とジャイロのダミーデータ（前回の値に基づいて変動）
 		float accelX = PreviousAccel.x + Random.Range(-2f, 2f);

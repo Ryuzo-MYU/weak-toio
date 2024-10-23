@@ -689,7 +689,31 @@ Unityでスクリプトつくるうえで結構大事そうなことも分かっ
 次回はResultに入れるデータフォーマットおよびそれを入れる部分の作り直し。設計の修正。あといろいろやっておいてくれ。
 
 \section*{2024.10.21(月)}
-Resultの内容を前回決まった数値判定式に変えた。\href{https://www.mhlw.go.jp/content/11300000/000905329.pdf}{厚生省}のドキュメントによると18℃~28℃が適温らしいから、その範囲に従って採点するように作り変えた。次回はDummyDataGeneratorと合わせて採点が動くところまで確認したい。
+Resultの内容を前回決まった数値判定式に変えた。\href{https://www.mhlw.go.jp/content/11300000/000905329.pdf}{厚生省}のドキュメントによると18℃~28℃が適温らしいから、その範囲に従って採点するように作り変えた。次回はDummyDataGeneratorと合わせて採点が動くところまで確認した
+
+\section*{2024.10.22(火)}
+ダミーデータを生成してEvaluationで評価する部分を作った。コルーチンの使い方もなんとなく覚えた。問題なく数値は流れていたので、次回はActionの決定部分を作っていく。
+
+\section*{2024.10.23(水)}
+データ渡す部分ができたので、行動決定の部分を作っていく。いまの構想としては点数化したResultをActionOperatorに渡し、点数にしたがってアクションを決める。非常に単純。
+
+ダミーデータでの挙動チェックは前回やったが、実際のセンサーユニットを使った挙動チェックはやっていなかったので、そこもやっておきたい。チェックが終わったら行動決定をの設計をする。時間があれば実装まで着手。
+
+SensorUnitがアタッチできない。なので付け替え実装というより、M5とダミーのメインループを行うコンポーネントを作って、都度アクティブにするような運用。
+
+SerialHundlerをオブジェクト指向に取り込むためには、SerialHundlerをシングルトンにする。んでもってUnityのシステムを一切使わせないようにする。関数はそのまま、SerialHundlerを使うスクリプトで呼び出させる。んでもって、COMポートとかボーレートはエディタで設定できた方が便利だから、ScriptableObjectかMonobehaviorとしてつくる。
+
+センサー部分をポリモーフィズム使用としたら思ったより難しくて中断。でも設計はしたので、面倒だけど次回からやっていく。
+設計は図\ref{fig:serial-config}の通り。
+
+\fboxsep=0pt            %画像と枠線をくっつける．
+\fboxrule=1pt            %枠線の太さを1ptにする．
+\begin{figure}[h]
+  \centering
+  \fbox{\includegraphics[keepaspectratio, clip, width=0.8\columnwidth]{resources/20241023_SerialConfig.png}}
+  \caption{}
+  \label{fig:serial-config}
+\end{figure}
 
 \section*{エラー集}
 \subsection*{Adafruit BMP280 not found}

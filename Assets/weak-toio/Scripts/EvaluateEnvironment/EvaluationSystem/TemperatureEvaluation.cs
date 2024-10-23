@@ -13,13 +13,13 @@ public class TemperatureEvaluation : Evaluation
 	public int Condition { get; private set; }
 
 	/// <summary>
-	/// M5DataReceiverから気温のデータを取得し、労働環境の適温範囲と比較した結果を返す
+	/// SensorUnitから気温のデータを取得し、労働環境の適温範囲と比較した結果を返す
 	/// </summary>
-	/// <param name="m5">M5DataReceiverインスタンス</param>
+	/// <param name="sensor">SensorUnitインスタンス</param>
 	/// <returns>評価結果を集約したResult型データ</returns>
-	public override Result Evaluate(M5DataReceiver m5)
+	public override Result Evaluate(SensorUnit sensor)
 	{
-		CurrentTemperature = m5.sensorInfo.temp; // M5DataReceiverから気温を取得
+		CurrentTemperature = sensor.sensorInfo.Temp; // SensorUnitから気温を取得
 
 		// 気温に基づく評価
 		if (CurrentTemperature < LOWER_BOUND)

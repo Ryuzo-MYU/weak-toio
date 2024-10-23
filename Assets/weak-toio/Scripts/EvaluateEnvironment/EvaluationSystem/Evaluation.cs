@@ -2,8 +2,8 @@ namespace EvaluateEnvironment
 {
 	public abstract class Evaluation
 	{
-		protected M5DataReceiver m5;
-		public abstract Result Evaluate(M5DataReceiver m5);
+		protected SensorUnit sensor;
+		public abstract Result Evaluate(SensorUnit sensor);
 	}
 
 	/// <summary>

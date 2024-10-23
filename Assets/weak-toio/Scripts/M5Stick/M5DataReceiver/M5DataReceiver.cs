@@ -1,10 +1,8 @@
-using System;
 using UnityEngine;
 
-public class M5DataReceiver
+public class M5DataReceiver : SensorUnit
 {
 	public SerialHandler serialHandler;
-	public SensorInfo sensorInfo;
 
 	//受信した信号(message)に対する処理
 	public void OnDataReceived(string message)
@@ -47,31 +45,17 @@ public class M5DataReceiver
 			Debug.LogError(e.StackTrace);
 		}
 	}
-
-	[Serializable]
-	// M5が取得したセンサー情報
-	public struct SensorInfo
+	public void Awake()
 	{
-		public string deviceName;
-
-		public Vector3 accelaration;
-		public Vector3 gyro;
-
-		public float temp; // M5StickCの内部温度
-		public float humidity; // ENV2の湿度
-		public float pressure; // ENV2の気圧
-		public float vbat; // バッテリー残量
-
-		// コンストラクタ
-		public SensorInfo(string name, Vector3 accelaration, Vector3 gyro, float temp, float humidity, float pressure, float vbat)
-		{
-			this.deviceName = name;
-			this.accelaration = accelaration;
-			this.gyro = gyro;
-			this.temp = temp;
-			this.humidity = humidity;
-			this.pressure = pressure;
-			this.vbat = vbat;
-		}
+		serialHandler = new SerialHandler();
+		serialHandler.Awake();
+	}
+	public override void Start()
+	{
+		serialHandler.OnDataReceived += this.OnDataReceived;
+	}
+	public override void Update()
+	{
+		serialHandler.Update();
 	}
 }

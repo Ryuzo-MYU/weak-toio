@@ -24,7 +24,7 @@ public class SerialHandler : MonoBehaviour
 	private string message_;
 	private bool isNewMessageReceived_ = false;
 
-	void Awake()
+	public void Awake()
 	{
 		// 利用可能なシリアルポートの取得
 		string[] availablePorts = SerialPort.GetPortNames();
@@ -32,7 +32,7 @@ public class SerialHandler : MonoBehaviour
 		// 利用可能なポートと一致するポートを検索
 		portName = FindMatchingPort(m5Ports, availablePorts);
 
-    // 利用可能なポートと一致するポートを検索
+		// 利用可能なポートと一致するポートを検索
 		if (string.IsNullOrEmpty(portName))
 		{
 			Debug.LogError("利用可能なシリアルポートが見つかりませんでした。");
@@ -42,7 +42,7 @@ public class SerialHandler : MonoBehaviour
 		Open();
 	}
 
-	void Update()
+	public void Update()
 	{
 		if (isNewMessageReceived_)
 		{
@@ -51,7 +51,7 @@ public class SerialHandler : MonoBehaviour
 		isNewMessageReceived_ = false;
 	}
 
-	void OnDestroy()
+	public void OnDestroy()
 	{
 		Close();
 	}

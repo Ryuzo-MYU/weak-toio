@@ -64,3 +64,52 @@ Action --> ActionSender : Actionを送信。内容を読み取り
 ActionSender --> ActorUnit : 低レイヤーの行動命令を送信
 
 @enduml
+
+@startuml Sensor and Dummy
+
+interface SensorUnit {
+	+ GetSensorInfo() : SensorInfo
+}
+
+class Sensor {
+	+ GetSensorInfo() : SensorInfo
+}
+
+class Dummy {
+	+ GetSensorInfo() : SensorInfo
+}
+
+class Evaluation {
+	- sensorUnit : SensorUnit
+	+ ReadInfo() : void
+}
+
+SensorUnit <|.. Sensor : implements
+SensorUnit <|.. Dummy : implements
+Evaluation -left-> SensorUnit
+
+@enduml
+
+@startuml rebuild
+Package Unity{
+	class toio_sdk{}
+	struct SerialConfig{}
+}
+Package weak-toio{
+	class SerialHundler{}
+	class M5DataReceiver{}
+	class DummyDataGenerator{}
+	abstract SensorUnit{}
+	abstract Evaluation{}
+	class Action{}
+
+	SerialConfig --> SerialHundler : シリアル通信を設定
+	SerialHundler --> M5DataReceiver : シリアルデータを送信
+	SensorUnit <|-- M5DataReceiver : 継承
+	SensorUnit <|-- DummyDataGenerator : 継承
+	Evaluation <-- SensorUnit : センサー情報を送信
+	Evaluation --> Action : 評価結果を送信
+	Action --> toio_sdk : 行動命令を送信
+
+}
+@enduml
