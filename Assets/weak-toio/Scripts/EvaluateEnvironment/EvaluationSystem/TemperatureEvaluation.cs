@@ -1,13 +1,14 @@
 using System;
 using EvaluateEnvironment;
+using UnityEngine; // デバッグ用
 
 /// <summary>
 /// 気温データを取得し、評価をするクラス
 /// </summary>
 public class TemperatureEvaluation : Evaluation
 {
-	private const float LOWER_BOUND = 18.0f; // 寒すぎる基準
-	private const float UPPER_BOUND = 28.0f;  // 暑すぎる基準
+	private const float LOWER_BOUND = 22.0f; // 寒すぎる基準
+	private const float UPPER_BOUND = 27.0f;  // 暑すぎる基準
 	private const string UNIT = "℃";
 	public float CurrentTemperature { get; private set; }
 	public int Condition { get; private set; }
@@ -19,7 +20,7 @@ public class TemperatureEvaluation : Evaluation
 	/// <returns>評価結果を集約したResult型データ</returns>
 	public override Result Evaluate(SensorUnit sensor)
 	{
-		CurrentTemperature = sensor.sensorInfo.Temp; // SensorUnitから気温を取得
+		CurrentTemperature = sensor.sensorInfo.temp; // SensorUnitから気温を取得
 
 		// 気温に基づく評価
 		if (CurrentTemperature < LOWER_BOUND)
@@ -36,6 +37,9 @@ public class TemperatureEvaluation : Evaluation
 		}
 
 		TemperatureResult temperatureResult = new TemperatureResult(Condition, CurrentTemperature, LOWER_BOUND, UPPER_BOUND, UNIT);
+
+		Debug.Log($"評価成功 \n Condition = {Condition}");
+
 		return temperatureResult;
 	}
 }
@@ -59,6 +63,13 @@ public class TemperatureResult : Result
 				: "寒い";
 
 			return $"現在の気温は{CurrentTemperature}{Unit}です。コンディション: {Condition}。{tempCondition}です。";
+		}
+	}
+	public override int Score
+	{
+		get
+		{
+			return Condition;
 		}
 	}
 	public TemperatureResult(int condition, float currentTemp, float lowerBound, float upperBound, string unit)

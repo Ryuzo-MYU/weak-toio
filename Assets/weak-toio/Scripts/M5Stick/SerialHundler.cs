@@ -2,8 +2,9 @@ using UnityEngine;
 using System.IO.Ports;
 using System.Threading;
 using System.Linq;
+using System;
 
-public class SerialHandler : MonoBehaviour
+public class SerialHandler
 {
 	public delegate void SerialDataReceivedEventHandler(string message);
 	public event SerialDataReceivedEventHandler OnDataReceived;
@@ -13,9 +14,9 @@ public class SerialHandler : MonoBehaviour
 	//Linuxでは/dev/ttyUSB0
 	//windowsではCOM1
 	//Macでは/dev/tty.usbmodem1421など
-	public string[] m5Ports;
-	public string portName;
-	public int baudRate;
+	public string[] ports;
+	public string portname;
+	public int baudrate;
 
 	private SerialPort serialPort_;
 	private Thread thread_;
@@ -24,16 +25,22 @@ public class SerialHandler : MonoBehaviour
 	private string message_;
 	private bool isNewMessageReceived_ = false;
 
+	public SerialHandler(string[] ports, string portname, int baud)
+	{
+		this.ports = ports;
+		this.portname = portname;
+		this.baudrate = baud;
+	}
 	public void Awake()
 	{
 		// 利用可能なシリアルポートの取得
 		string[] availablePorts = SerialPort.GetPortNames();
 
 		// 利用可能なポートと一致するポートを検索
-		portName = FindMatchingPort(m5Ports, availablePorts);
+		portname = FindMatchingPort(ports, availablePorts);
 
 		// 利用可能なポートと一致するポートを検索
-		if (string.IsNullOrEmpty(portName))
+		if (string.IsNullOrEmpty(portname))
 		{
 			Debug.LogError("利用可能なシリアルポートが見つかりませんでした。");
 			return;
@@ -41,7 +48,6 @@ public class SerialHandler : MonoBehaviour
 
 		Open();
 	}
-
 	public void Update()
 	{
 		if (isNewMessageReceived_)
@@ -57,7 +63,7 @@ public class SerialHandler : MonoBehaviour
 	}
 
 	// 利用可能なポートと一致するポートを検索するメソッド
-	private string FindMatchingPort(string[] allowedPorts, string[] availablePorts)
+	public string FindMatchingPort(string[] allowedPorts, string[] availablePorts)
 	{
 		foreach (string port in availablePorts)
 		{
@@ -69,11 +75,13 @@ public class SerialHandler : MonoBehaviour
 		return null; // 一致するポートが見つからなかった場合、nullを返す
 	}
 
-	private void Open()
+	public void Open()
 	{
-		serialPort_ = new SerialPort(portName, baudRate, Parity.None, 8, StopBits.One);
+		// serialPort_ = new SerialPort(portname, baudrate, Parity.None, 8, StopBits.One);
 		//または
-		//serialPort_ = new SerialPort(portName, baudRate);
+		serialPort_ = new SerialPort(portname, baudrate);
+		serialPort_.ReadTimeout = 1000;  // 読み取りタイムアウトを1000msに設定
+		serialPort_.WriteTimeout = 1000; // 書き込みタイムアウトを1000msに設定
 		serialPort_.Open();
 
 		isRunning_ = true;
@@ -101,12 +109,26 @@ public class SerialHandler : MonoBehaviour
 
 	private void Read()
 	{
+		int retryCount = 0;
+		int maxRetryCount = 3; // リトライ回数の上限
+
 		while (isRunning_ && serialPort_ != null && serialPort_.IsOpen)
 		{
 			try
 			{
 				message_ = serialPort_.ReadLine();
 				isNewMessageReceived_ = true;
+				retryCount = 0; // 成功したらリセット
+			}
+			catch (TimeoutException)
+			{
+				retryCount++;
+				if (retryCount >= maxRetryCount)
+				{
+					Debug.LogWarning("連続タイムアウトが発生しました。");
+					Close();
+					break;
+				}
 			}
 			catch (System.Exception e)
 			{
@@ -114,6 +136,7 @@ public class SerialHandler : MonoBehaviour
 			}
 		}
 	}
+
 
 	public void Write(string message)
 	{

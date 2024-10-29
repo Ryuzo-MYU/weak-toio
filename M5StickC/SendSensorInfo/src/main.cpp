@@ -32,8 +32,17 @@ BluetoothSerial SerialBT;
 void sendData();
 
 void setup() {
-    // ディスプレイの輝度を0に
-    M5.Display.setBrightness(0);
+    M5.begin();
+
+    M5.Lcd.setRotation(3);  // ディスプレイの向きを調整（お好みで）
+    // 輝度設定
+    M5.Lcd.fillScreen(BLACK);
+    M5.Lcd.setTextColor(WHITE);
+    // 文字サイズ設定とデバイス名の表示
+    M5.Lcd.setTextSize(2);
+    M5.Lcd.setCursor(10, 30);  // 表示位置調整
+    M5.Lcd.print(Config::DEVICE_NAME);
+
     // シリアル通信の初期化
     Serial.begin(Config::SERIAL_BAUD);    // シリアル通信の初期化
     SerialBT.begin(Config::DEVICE_NAME);  // Bluetoothシリアルの初期化
