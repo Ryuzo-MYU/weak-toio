@@ -6,123 +6,215 @@ namespace ActionDecisionSystem
 {
 	public class TemperatureExpression
 	{
-		private CubeManager cm;
-		private float deg;
-		private float repeatRate = 0.5f;  // デフォルト値を設定
-		private float elapsedTime;
-		private bool isRotating;
-		private float rotationStartTime;
-		private float rotationDuration = 0.5f;  // 回転にかかる時間を0.5秒に短縮
+		protected CubeManager cm;
+		protected float elapsedTime;
+		protected bool isMoving;
+		protected MovementState currentState;
+		protected MovementState targetState;  // 遷移先の状態
+		protected bool isTransitioning;       // 状態遷移中かどうか
+		protected float transitionTimer;      // 遷移用タイマー
+		protected const float PAUSE_DURATION = 1.0f;  // 一時停止の時間（秒）
 
-		// デバッグ用
-		private int previousScore = 0;
-		private bool isInitialized = false;
+		// 現在の動作パラメータを保持
+		protected MovementParams currentParams;
+
+		// 各状態での動作パラメータ
+		protected struct MovementParams
+		{
+			public float minDeg;
+			public float maxDeg;
+			public int minSpeed;
+			public int maxSpeed;
+			public float interval;  // 動作の更新間隔（秒）
+		}
+
+		protected MovementParams coldParams = new MovementParams
+		{
+			minDeg = -20f,
+			maxDeg = 20f,
+			minSpeed = 30,
+			maxSpeed = 50,
+			interval = 0.3f
+		};
+
+		protected MovementParams suitableParams = new MovementParams
+		{
+			minDeg = -180f,
+			maxDeg = 180f,
+			minSpeed = 40,
+			maxSpeed = 60,
+			interval = 2.0f
+		};
+
+		protected MovementParams hotParams = new MovementParams
+		{
+			minDeg = -360f,
+			maxDeg = 360f,
+			minSpeed = 150,
+			maxSpeed = 230,
+			interval = 0.5f
+		};
 
 		public async void Start(ConnectType connect, int cubeCount)
 		{
 			cm = new CubeManager(connect);
 			await cm.MultiConnect(cubeCount);
 			elapsedTime = 0f;
-			isRotating = false;
-			isInitialized = true;
-			Debug.Log("TemperatureExpression initialized");
+			isMoving = false;
+			isTransitioning = false;
+			transitionTimer = 0f;
+			currentState = MovementState.Suitable;
+			targetState = MovementState.Suitable;
+			currentParams = suitableParams;
 		}
 
-		public void Update(Result result)
+		public void Update(int score)
 		{
-			if (!isInitialized)
+			if (cm.handles == null) return;
+
+			MovementState newState = DetermineState(score);
+
+			// 状態変更の検出と遷移開始
+			if (newState != currentState && !isTransitioning)
 			{
-				Debug.LogWarning("TemperatureExpression not initialized");
+				StartTransition(newState);
 				return;
 			}
 
-			if (cm == null || cm.handles == null || cm.handles.Count == 0)
+			// 遷移中の処理
+			if (isTransitioning)
 			{
-				Debug.LogError("CubeManager not properly initialized");
+				HandleTransition();
 				return;
 			}
 
-			// 現在の回転が完了したかチェック
-			if (isRotating && Time.time - rotationStartTime > rotationDuration)
-			{
-				isRotating = false;
-				Debug.Log("Rotation completed");
-			}
-
-			// repeatRateの時間間隔を確認
+			// 通常の動作更新
 			elapsedTime += Time.deltaTime;
-			if (elapsedTime < repeatRate)
+			if (elapsedTime >= currentParams.interval)
 			{
-				return;
-			}
-
-			// 環境データの評価結果(score)に応じて、回転の度合いを変える
-			int score = result.Score;
-
-			// スコアが変化したときのみログを出力
-			if (score != previousScore)
-			{
-				Debug.Log($"Score changed from {previousScore} to {score}");
-				previousScore = score;
-			}
-
-			if (score < 0)
-			{
-				deg = 5;
-				repeatRate = 0.217f;
-				Debug.Log($"寒い (deg: {deg}, repeatRate: {repeatRate})");
-			}
-			else if (0 < score)
-			{
-				deg = 60;
-				repeatRate = 0.333f;
-				Debug.Log($"暑い (deg: {deg}, repeatRate: {repeatRate})");
-			}
-			else
-			{
-				deg = 120;
-				repeatRate = 0.667f;
-				Debug.Log($"適温 (deg: {deg}, repeatRate: {repeatRate})");
-			}
-
-			// 回転中でなければ新しい回転を開始
-			if (!isRotating)
-			{
-				RobotExpression(deg);
+				ExecuteMovement();
 				elapsedTime = 0f;
 			}
 		}
 
-		private void RobotExpression(float deg)
+		protected void StartTransition(MovementState newState)
 		{
-			if (cm == null || cm.handles == null)
+			isTransitioning = true;
+			targetState = newState;
+			transitionTimer = 0f;
+
+			// 現在の動きを停止
+			StopAllMovement();
+
+			Debug.Log($"状態遷移開始: {currentState} → {targetState}");
+		}
+
+		protected void HandleTransition()
+		{
+			transitionTimer += Time.deltaTime;
+
+			if (transitionTimer >= PAUSE_DURATION)
 			{
-				Debug.LogError("CubeManager not initialized in RobotExpression");
-				return;
+				// 遷移完了
+				currentState = targetState;
+				currentParams = GetParamsForState(currentState);
+				isTransitioning = false;
+				elapsedTime = currentParams.interval; // 即座に新しい動きを開始
+
+				Debug.Log($"状態遷移完了: {currentState}");
 			}
+		}
+
+		protected void StopAllMovement()
+		{
+			if (cm.handles == null) return;
 
 			foreach (var handle in cm.handles)
 			{
-				if (handle == null)
-				{
-					Debug.LogWarning("Null handle found");
-					continue;
-				}
-
-				handle.Update();
-
-				Movement rotate = handle.Rotate2Deg(deg);
-				handle.Move(rotate);
-				// 逆回転
-				rotate = handle.Rotate2Deg(-deg);
-				handle.Move(rotate);
-
-				Debug.Log($"Rotating cube by {deg} degrees");
+				// モーターを停止
+				handle.Stop();
 			}
+		}
 
-			isRotating = true;
-			rotationStartTime = Time.time;
-			Debug.Log("RobotExpression executed");
+		protected MovementState DetermineState(int score)
+		{
+			if (score < 0) return MovementState.Cold;
+			if (score > 0) return MovementState.Hot;
+			return MovementState.Suitable;
+		}
+
+		protected MovementParams GetParamsForState(MovementState state)
+		{
+			switch (state)
+			{
+				case MovementState.Cold:
+					return coldParams;
+				case MovementState.Hot:
+					return hotParams;
+				default:
+					return suitableParams;
+			}
+		}
+
+		protected void ExecuteMovement()
+		{
+			if (isTransitioning) return;
+
+			switch (currentState)
+			{
+				case MovementState.Cold:
+					ShiverMovement();
+					break;
+				case MovementState.Suitable:
+					SmoothRotation();
+					break;
+				case MovementState.Hot:
+					IntenseRotation();
+					break;
+			}
+		}
+
+		protected void ShiverMovement()
+		{
+			foreach (var handle in cm.handles)
+			{
+				float randomDeg = Random.Range(currentParams.minDeg, currentParams.maxDeg);
+				int randomSpeed = Random.Range(currentParams.minSpeed, currentParams.maxSpeed);
+
+				Movement movement = handle.RotateByDeg(randomDeg, randomSpeed);
+				handle.Move(movement, false);
+			}
+		}
+
+		protected void SmoothRotation()
+		{
+			foreach (var handle in cm.handles)
+			{
+				float deg = Random.value > 0.5f ? currentParams.maxDeg : -currentParams.maxDeg;
+				int speed = Random.Range(currentParams.minSpeed, currentParams.maxSpeed);
+
+				Movement movement = handle.RotateByDeg(deg, speed);
+				handle.Move(movement, false);
+			}
+		}
+
+		protected void IntenseRotation()
+		{
+			foreach (var handle in cm.handles)
+			{
+				float randomDeg = Random.Range(currentParams.minDeg, currentParams.maxDeg);
+				int speed = currentParams.maxSpeed;
+
+				Movement movement = handle.RotateByDeg(randomDeg, speed);
+				handle.Move(movement, false);
+			}
+		}
+
+		protected enum MovementState
+		{
+			Cold,
+			Suitable,
+			Hot
 		}
 	}
 }
