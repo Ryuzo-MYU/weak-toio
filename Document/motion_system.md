@@ -1,31 +1,46 @@
 ```mermaid
 classDiagram
-	class MotionManager{
-		Motion motion
-		void Exec(Motion motion)
+	namespace Motion発行{
+		class MotionGenerator{
+		 	normalMotions: NormalMotion[]
+			abnormalMotions: AbNormalMotion[]
+			+ Update(Result result) void
+			- GenerateNormalMotion() NormalMotion[]
+			- GenerateAbnormalMotion(int score) AbNormalMotion[]
+		}
+		class NormalMotion{
+
+		}
+		class AbNormalMotion{
+
+		}
+		class Motion{
+
+		}
+		class MotionType{
+			<<enumeration>>
+			Translate
+			RotateByDeg
+			RotateByRad
+		}
 	}
-	class MotionGenerator{
-			Result result
-			MotionTable table
-			Motion GenerateMotion(Result result)
+	namespace 評価{
+		class Evaluate
+		class Result
 	}
-	class Motion{
-		Movement movement
-		Movementに使う変数
+	namespace エージェント{
+		class toio
+		class SensorUnit
 	}
-	class Result{
-		int motionID
-		int score
+	namespace モーション実行{
+		class MotionOperator
+		class Motion
 	}
-	class MotionTable{
-		int motionID
-		Movement movement
-	}
-	MotionManager <-- Motion : モーションデータを渡す
-	Motion <-- MotionGenerator : 生成
-	Result <-- Evaluate : 生成
-	MotionTable -- Evaluate : 参照
-	MotionGenerator <-- Result : 参照
-	Evaluate <-- SensorUnit : センサー情報を渡す
-	MotionGenerator -- MotionTable : 参照
+
+	Evaluate --> SensorUnit: 環境データを取得
+	Result --> Evaluate: Resultを生成
+	MotionGenerator --> Result: 評価スコアを参照
+	Motion --> MotionGenerator: Motionを生成
+	MotionOperator --> Motion: Motionの内容に沿って行動命令を発行
+	toio --> MotionOperator: 行動命令を受信
 ```
