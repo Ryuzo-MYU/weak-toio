@@ -25,8 +25,12 @@ classDiagram
 		}
 	}
 	namespace 評価{
-		class Evaluate
-		class Result
+		class Evaluate{
+			+ Evaluate(SensorUnit) Result
+		}
+		class Result{
+			+get/set Score: int
+		}
 	}
 	namespace エージェント{
 		class toio
