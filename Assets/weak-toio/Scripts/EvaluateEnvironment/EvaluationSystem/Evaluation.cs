@@ -13,6 +13,5 @@ namespace EvaluateEnvironment
 	{
 		public abstract string Message { get; }
 		public abstract int Score { get; }
-
 	}
 }

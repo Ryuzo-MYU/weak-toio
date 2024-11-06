@@ -4,7 +4,11 @@ using UnityEngine;
 
 namespace ActionDecisionSystem
 {
-	public class TemperatureExpression
+	public class TemperatureActionGenerator : ActionGenerator
+	{
+
+	}
+	public class TemperatureAction : ActionDecisionSystem.Action
 	{
 		protected CubeManager cm;
 		protected float elapsedTime;
