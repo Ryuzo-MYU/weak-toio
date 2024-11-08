@@ -1,41 +1,49 @@
 @startuml overview
 skinparam Linetype ortho
 
-class Robot{
-	int id
-	Toio toio
-	Environment env
+abstract Sensor{
+	- SensorInfo info
 	+ Update(): void
-}
-class Evaluate{
-	int 評価スコア
-}
-abstract Environment{
-	+ Update(): void
-	+ センサー情報の送信(SensorInfo sensor): void
+	+ GetSensorInfo(): SensorInfo
 }
 class M5StickC{
-	+ シリアル通信 : void
+	+ Update() : void
+	- デシリアライズ() : void
 }
 class SerialHundler{
-	デシリアライズ : void
+	+ Update() : void
+	- シリアル通信() : void
 }
-class DummyEnvironment{
-	+ ダミーデータ生成 : void
+class DummySensor{
+	+ Update() : void
+	- ダミーデータ生成 : void
 }
 struct SensorInfo{
-	String envType
+	string deviceName
 	float[] acceleration
 	float[] gyro
 	float temp
 	float humidity
-	float vbat
+	float battery
 }
+abstract Evaluate{
+	+ EvaluateEnvironment() : Result
+}
+class ConcleteEvaluate{
 
-Robot "1" - "*" Evaluate
-Evaluate "*" - "1" Environment
-Environment <|-- M5StickC
-Environment <|-- DummyEnvironment
-Environment *-- SensorInfo
+}
+abstract Result
+class ConcleteResult
+
+class Toio
+
+Sensor <-right- Evaluate
+Sensor <|-- M5StickC
+Sensor <|-- DummySensor
+Sensor *-- SensorInfo
 M5StickC o-- SerialHundler
+Evaluate -right- Result
+Evaluate <|-down-ConcleteEvaluate
+Result <|-down- ConcleteResult
+ConcleteEvaluate -right- ConcleteResult
 @enduml
