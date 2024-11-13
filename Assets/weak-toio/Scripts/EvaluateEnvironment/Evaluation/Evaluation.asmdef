@@ -1,0 +1,16 @@
+{
+    "name": "Evaluation",
+    "rootNamespace": "",
+    "references": [
+        "GUID:74bb8c7c9a8bd6344828979393676e61"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

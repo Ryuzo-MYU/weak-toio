@@ -19,7 +19,7 @@ public class TemperatureEvaluation : MonoBehaviour
 	private void Start()
 	{
 		// SensorUnitの取得
-		sensor = sensorObject.GetComponent<M5Connector>().m5;
+		sensor = sensorObject.GetComponent<M5DataReceiver>();
 
 		// 評価システムの初期化
 		tempEval = new TemperatureEvaluate();

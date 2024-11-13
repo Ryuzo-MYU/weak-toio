@@ -5,20 +5,15 @@ namespace Environment
 {
 	public class M5DataReceiver : SensorUnit
 	{
-		private SerialHandler serial;
-		public string[] PORTS { get; set; }
-		public string PORTNAME { get; set; }
-		public int BAUDRATE { get; set; }
+		[SerializeField] SerialHandler serial;
 
-		public M5DataReceiver(string[] ports, string portname, int baud)
+		public override void Update()
 		{
-			PORTS = ports;
-			PORTNAME = portname;
-			BAUDRATE = baud;
+			string message = serial.Message;
+			DeserializeMessade(message);
 		}
-
 		//受信した信号(message)に対する処理
-		public void OnDataReceived(string message)
+		public void DeserializeMessade(string message)
 		{
 			var data = message.Split(
 					new string[] { "\t" }, System.StringSplitOptions.None);
@@ -54,19 +49,6 @@ namespace Environment
 				Debug.LogWarning(e.Message);
 				Debug.LogError(e.StackTrace);
 			}
-		}
-		public void Awake()
-		{
-			serial = new SerialHandler(PORTS, PORTNAME, BAUDRATE);
-			serial.Awake();
-			serial.OnDataReceived += this.OnDataReceived;
-
-			Debug.Log("M5 Awake End");
-		}
-		public override void Update()
-		{
-			serial.Update();
-			// LogSensorInfo(sensorInfo);
 		}
 
 		public static void LogSensorInfo(SensorInfo sensorInfo, string prefix = "")

@@ -1379,6 +1379,14 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 22176196447484195, guid: 4dbb8aa7bb4e36a439f92a0590a88b3d, type: 3}
+      propertyPath: PORTS.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 22176196447484195, guid: 4dbb8aa7bb4e36a439f92a0590a88b3d, type: 3}
+      propertyPath: PORTS.Array.data[0]
+      value: COM5
+      objectReference: {fileID: 0}
+    - target: {fileID: 22176196447484195, guid: 4dbb8aa7bb4e36a439f92a0590a88b3d, type: 3}
       propertyPath: PORTS.Array.data[1]
       value: COM8
       objectReference: {fileID: 0}
@@ -1393,6 +1401,10 @@ PrefabInstance:
     - target: {fileID: 5465441186832745223, guid: 4dbb8aa7bb4e36a439f92a0590a88b3d, type: 3}
       propertyPath: cubeCount
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5465441186832745223, guid: 4dbb8aa7bb4e36a439f92a0590a88b3d, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6958355810227449641, guid: 4dbb8aa7bb4e36a439f92a0590a88b3d, type: 3}
       propertyPath: deg
@@ -1490,7 +1502,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 22176196447484195, guid: 4dbb8aa7bb4e36a439f92a0590a88b3d, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []

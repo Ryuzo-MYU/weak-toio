@@ -1,0 +1,18 @@
+{
+    "name": "EvaluateEnvironment",
+    "rootNamespace": "",
+    "references": [
+        "GUID:74bb8c7c9a8bd6344828979393676e61",
+        "GUID:5363fe3ed8ef81342bf191ff8494b276",
+        "GUID:992ef44b714652545b3ce4a7996bb4f7"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
