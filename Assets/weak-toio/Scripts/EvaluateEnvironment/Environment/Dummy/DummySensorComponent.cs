@@ -1,13 +1,14 @@
+using Environment;
 using UnityEngine;
-public class DummyDataGeneratorComponent : MonoBehaviour
+public class DummySensorComponent : MonoBehaviour
 {
 	private float timer = 0f;
 	// データ送信の間隔（秒）
 	public float sendInterval = 1.0f;
-	public DummyDataGenerator dummy;
+	public DummySensor dummy;
 	void Start()
 	{
-		dummy = new DummyDataGenerator();
+		dummy = new DummySensor();
 	}
 
 	void Update()

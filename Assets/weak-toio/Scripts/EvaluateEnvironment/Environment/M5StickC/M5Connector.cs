@@ -1,15 +1,16 @@
 using System;
-using System.Collections;
+using Environment;
 using UnityEngine;
 public class M5Connector : MonoBehaviour
 {
 	public M5DataReceiver m5;
 
-	public string[] PORTS; // 接続用ポートリスト
-	public string PORTNAME; // ポート名
-	public int BAUDRATE; // ボーレート
+	[Tooltip("PCの「デバイスマネージャー」or Bluetooth設定の「その他のBluetooth設定」から、M5StickCがつながっているCOMポートを確認して指定。")]
+	public string[] PORTS = { "COM9", "COM10" }; // 接続用ポートリスト
+	public string PORTNAME = "m5-02"; // ポート名
+	public int BAUDRATE = 112500; // ボーレート
 	Action updateCoroutine;
-	[SerializeField] int interval;
+	[SerializeField] int interval = 1;
 	[SerializeField] SensorInfo sensorInfo;
 
 	private void Awake()

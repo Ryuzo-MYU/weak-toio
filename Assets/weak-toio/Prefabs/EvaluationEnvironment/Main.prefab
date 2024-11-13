@@ -9,7 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9117530351136922933}
-  - component: {fileID: 6958355810227449641}
+  - component: {fileID: 22176196447484195}
+  - component: {fileID: 5465441186832745223}
   m_Layer: 0
   m_Name: Main
   m_TagString: Untagged
@@ -32,7 +33,33 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6958355810227449641
+--- !u!114 &22176196447484195
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1497616521433323900}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2d79cac13811af42a18c6bde029f8ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PORTS:
+  - COM9
+  - COM10
+  PORTNAME: m5-02
+  BAUDRATE: 112500
+  interval: 1
+  sensorInfo:
+    deviceName: 
+    accelaraiton: {x: 0, y: 0, z: 0}
+    gyro: {x: 0, y: 0, z: 0}
+    temp: 0
+    humidity: 0
+    pressure: 0
+    vbat: 0
+--- !u!114 &5465441186832745223
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -44,8 +71,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 682ce7479f4c73147949ab53a5c88321, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  COM_PORTS:
-  - COM8
-  - COM9
-  PORTNAME: 
-  BAUDRATE: 112500
+  sensorObject: {fileID: 1497616521433323900}
