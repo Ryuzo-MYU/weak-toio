@@ -1,276 +1,215 @@
-using System.Collections.Generic;
+/// <summary>
+/// シリアル通信を行うスクリプト
+/// https://qiita.com/mori_166/items/9487aeddd3b9fa9a8f1d 
+/// </summary>
+
 using UnityEngine;
+using System.Collections;
 using System.IO.Ports;
 using System.Threading;
-using System.Threading.Tasks;
+using System.Collections.Generic;
 
 public class SerialHandler : MonoBehaviour
 {
-	// Deviceのリストを保持するフィールドを追加
-	[SerializeField] private List<string> DeviceList = new List<string>();
+	public delegate void SerialDataReceivedEventHandler(string message);
+	public delegate void SerialErrorEventHandler(string errorMessage);
+	public event SerialDataReceivedEventHandler OnDataReceived;
+	public event SerialErrorEventHandler OnError;
 
-	private static SerialHandler instance;
-	public static SerialHandler Instance
-	{
-		get
-		{
-			if (instance == null)
-			{
-				instance = FindObjectOfType<SerialHandler>();
-				if (instance == null)
-				{
-					Debug.LogError("MySerialHandler instance not found in the scene. Please ensure MySerialHandler is attached to a GameObject in the scene.");
-				}
-			}
-			return instance;
-		}
-	}
-
-	[SerializeField] string[] activePorts = null;
 	public string portName = null;
-	public int baudRate = 112500;
+	public int baudRate = 115200;
 
-	private SerialPort serialPort;
-	private Thread thread;
+	private SerialPort serialPort_;
+	private Thread thread_;
+	private bool isRunning_ = false;
 
-	private string message;
-	public string Message;//ほかのスクリプトからアクセスするためのプロパティ
-	private bool isPortOpen;//シリアルポートが既に開かれているかどうかを示すフラグ
+	private string message_;
+	private bool isNewMessageReceived_ = false;
 
-	async void Awake()
-	{
+	// 使用中のポートを追跡する静的コレクション
+	private static HashSet<string> usedPorts = new HashSet<string>();
+	private static readonly object portLock = new object();
 
-		Debug.Log("Start");
-
-		// instanceがすでにあったら自分を消去する。
-		if (instance && this != instance)
-		{
-			Debug.Log("Destroyed");
-			Destroy(this.gameObject);
-			return; // この行を追加して、以下のコードが実行されないようにする
-
-		}
-
-		instance = this;
-		// Scene遷移で破棄されなようにする。      
-		DontDestroyOnLoad(this);
-
-		Thread.Sleep(2000);
-
-		if (!isPortOpen)//ポート名がnullの場合、接続を試みる
-		{
-			portName = await SearchPort();
-		}
-
-		Debug.Log(portName + " is setting to Device");
-		if (portName != null)
-		{
-			OpenToRead();// Deviceのポートを開く
-			Thread.Sleep(100);// 100ms待つ
-			Write("SetDevice");// 使用するDeviceに設定する
-			await ReadAsync();// 非同期にデータを読み取る
-
-		}
-		else
-		{
-			Debug.Log("Device is not found but try to open COM3");
-			manualOpen();// ポート名がnullの場合、COM3を開く
-			Thread.Sleep(100); // 100ms待つ
-			Write("setDevice");// 使用するDeviceに設定する
-			await ReadAsync();// 非同期にデータを読み取る
-		}
-
-	}
-
-	private async Task<string> SearchPort()
-	{
-		Debug.Log("SearchPort Start");
-		activePorts = SerialPort.GetPortNames();
-
-		foreach (string port in activePorts)
-		{
-			Debug.Log(port + " is active");
-
-		}
-
-		for (int i = 0; i < activePorts.Length; i++)
-		{
-			//Debug.Log(activePorts[i] + " is active");
-			portName = activePorts[i]; // activePortの名前をportNameに代入する
-
-			message = null; // メッセージをクリアする
-			try
-			{
-				OpenToSearch();
-
-				Thread.Sleep(2000);
-
-				Write("areyouDevice");//デバイスにシリアル通信で文字列を送信する
-
-				await ReadAreYouDevice();// 非同期にデータを読み取る
-
-				Close();
-
-				if (message != null && message.Contains("iamDevice"))
-				{
-					Debug.Log(portName + " is Device!");
-
-
-
-					DeviceList.Add(portName);// Deviceのリストに追加
-
-					Debug.Log(portName);
-
-					return portName;// Deviceのポート名を返す
-				}
-				else
-				{
-					Debug.Log(portName + " is not Device");
-					Close();
-
-					Thread.Sleep(1000);
-				}
-			}
-			catch (System.Exception e)
-			{
-				Debug.Log(e);
-				Close();
-			}
-
-		}
-
-		Debug.Log("Device is not found in active ports");
-		return null;
-	}
-
-	private void OpenToSearch()
-	{
-		Debug.Log(portName + " will be opened to search");
-		serialPort = new SerialPort(portName, baudRate, Parity.None, 8, StopBits.One)
-		{
-			ReadTimeout = 500//タイムアウトの設定
-		};
-
-		serialPort.Open();//ポートを開く
-		isPortOpen = true; // ポートが開かれたことを示す
-	}
-
-	private void OpenToRead()
-	{
-		Debug.Log(portName + " will be opened to read");
-		serialPort = new SerialPort(portName, baudRate, Parity.None, 8, StopBits.One)
-		{
-		};
-		serialPort.Open();//ポートを開く
-		isPortOpen = true; // ポートが開かれたことを示す
-	}
-
-	public void Close()
-	{
-		if (thread != null && thread.IsAlive)//もしスレッドがあったら
-		{
-			thread.Join();//リードの処理が終わるまで待つ
-			thread = null; // スレッドをクリアする
-		}
-		if (serialPort != null && serialPort.IsOpen)//もしシリアルポートが開いていたら
-		{
-			serialPort.Close();//ポートを閉じる
-			Debug.Log(portName + " is closed");
-			serialPort.Dispose();//リソースの解放
-			Debug.Log("Resource is cleared");
-			serialPort = null; // シリアルポートをクリアする
-			isPortOpen = false; // ポートが閉じられたことを示す
-		}
-	}
-
-	private async Task<string> ReadAreYouDevice()//areyoudeviceのメッセージを読み取る
-	{
-		message = null;
-		await Task.Run(() =>
-		{
-			if (serialPort != null && serialPort.IsOpen)
-			{
-				try
-				{
-					message = serialPort.ReadLine();
-				}
-				catch (System.Exception e)
-				{
-					Debug.LogWarning("1:" + e.Message);
-					Close();
-				}
-			}
-		});
-		return message; // 読み取ったメッセージを返す
-
-	}
-
-	public async Task<string> ReadAsync()//非同期でデータを読み取る
-	{
-		message = null;
-		await Task.Run(() =>
-		{
-			while (true)
-			{
-				if (serialPort != null && serialPort.IsOpen)
-				{
-					try
-					{
-						message = serialPort.ReadLine();
-						//Debug.Log(message + " is received");
-					}
-					catch (System.Exception e)
-					{
-						Debug.LogWarning("2:" + e.Message);
-						Close();
-						break;
-					}
-				}
-				else
-				{
-					break;
-				}
-			}
-		});
-		Message = message;
-		return message;
-	}
-
-	public void Write(string message)
+	void Awake()
 	{
 		try
 		{
-			serialPort.Write(message);
-			serialPort.Write("\n");
-			Debug.Log(message + " is sent");
+			// 利用可能なポートをチェック
+			string[] availablePorts = GetAvailableSerialPorts();
+			if (availablePorts.Length == 0)
+			{
+				throw new System.InvalidOperationException("利用可能なシリアルポートがありません");
+			}
 
+			// ポート名が指定されていない場合は最初の利用可能なポートを使用
+			if (string.IsNullOrEmpty(portName))
+			{
+				portName = availablePorts[0];
+				Debug.Log($"ポート名が指定されていないため、{portName}を使用します");
+			}
+			// 指定されたポートが利用可能かチェック
+			else if (!System.Array.Exists(availablePorts, port => port == portName))
+			{
+				string availablePortsStr = string.Join(", ", availablePorts);
+				throw new System.InvalidOperationException(
+					$"指定されたポート {portName} は利用できません\n" +
+					$"利用可能なポート: {availablePortsStr}");
+			}
+
+			Open();
 		}
 		catch (System.Exception e)
 		{
-
-			Debug.LogWarning("3:" + e.Message);
+			Debug.LogError($"シリアルポートの初期化に失敗しました: {e.Message}");
+			OnError?.Invoke($"シリアルポート初期化エラー: {e.Message}");
 		}
 	}
 
-	private void OnApplicationQuit()
+	// ポートが使用可能かチェック
+	private bool IsPortAvailable(string port)
 	{
-		Write("exit");
+		if (string.IsNullOrEmpty(port)) return false;
+
+		lock (portLock)
+		{
+			if (usedPorts.Contains(port))
+			{
+				return false;
+			}
+
+			// システムで利用可能なポートかチェック
+			string[] availablePorts = SerialPort.GetPortNames();
+			if (!System.Array.Exists(availablePorts, p => p == port))
+			{
+				return false;
+			}
+
+			return true;
+		}
+	}
+
+	private void RegisterPort(string port)
+	{
+		lock (portLock)
+		{
+			usedPorts.Add(port);
+		}
+	}
+
+	private void UnregisterPort(string port)
+	{
+		lock (portLock)
+		{
+			usedPorts.Remove(port);
+		}
+	}
+
+	void Update()
+	{
+		if (isNewMessageReceived_ && OnDataReceived != null)
+		{
+			OnDataReceived(message_);
+			isNewMessageReceived_ = false;
+		}
+	}
+
+	void OnDestroy()
+	{
 		Close();
 	}
 
-	private void manualOpen()
+	private void Open()
 	{
-		if (portName == null)
+		if (string.IsNullOrEmpty(portName))
 		{
-			portName = "COM3";
-			OpenToRead();
+			throw new System.ArgumentException("ポート名が指定されていません");
+		}
+
+		try
+		{
+			RegisterPort(portName);  // ポートを使用中としてマーク
+
+			serialPort_ = new SerialPort(portName, baudRate, Parity.None, 8, StopBits.One);
+			serialPort_.ReadTimeout = 1000;
+			serialPort_.WriteTimeout = 1000;
+			serialPort_.Open();
+
+			isRunning_ = true;
+
+			thread_ = new Thread(Read);
+			thread_.Start();
+
+			Debug.Log($"ポート {portName} に接続しました");
+		}
+		catch (System.Exception e)
+		{
+			UnregisterPort(portName);  // エラー時はポートの使用をキャンセル
+			throw new System.InvalidOperationException($"シリアルポートのオープンに失敗しました: {e.Message}", e);
 		}
 	}
 
-	public string SendToAnotherScript()
+	private void Read()
 	{
-		return message;
+		while (isRunning_ && serialPort_ != null && serialPort_.IsOpen)
+		{
+			try
+			{
+				message_ = serialPort_.ReadLine();
+				isNewMessageReceived_ = true;
+			}
+			catch (System.TimeoutException)
+			{
+				continue;
+			}
+			catch (System.Exception e)
+			{
+				Debug.LogError($"シリアル通信でエラーが発生: {e.Message}");
+				OnError?.Invoke($"読み取りエラー: {e.Message}");
+				isRunning_ = false;
+				break;
+			}
+		}
 	}
 
-}
+	private void Close()
+	{
+		isNewMessageReceived_ = false;
+		isRunning_ = false;
 
+		if (thread_ != null && thread_.IsAlive)
+		{
+			thread_.Join();
+		}
+
+		if (serialPort_ != null)
+		{
+			if (serialPort_.IsOpen)
+			{
+				serialPort_.Close();
+				serialPort_.Dispose();
+			}
+			UnregisterPort(portName);  // ポートの使用を解除
+			Debug.Log($"ポート {portName} を解放しました");
+		}
+	}
+
+	// 利用可能なポートの一覧を取得
+	public static string[] GetAvailableSerialPorts()
+	{
+		var availablePorts = new List<string>();
+		string[] systemPorts = SerialPort.GetPortNames();
+
+		lock (portLock)
+		{
+			foreach (string port in systemPorts)
+			{
+				if (!usedPorts.Contains(port))
+				{
+					availablePorts.Add(port);
+				}
+			}
+		}
+
+		return availablePorts.ToArray();
+	}
+}

@@ -24,7 +24,7 @@ namespace Environment
 			previousVbat = 4.0f;
 		}
 
-		public override void Update()
+		public void Update()
 		{
 			// 加速度とジャイロのダミーデータ（前回の値に基づいて変動）
 			float accelX = previousAccel.x + Random.Range(-2f, 2f);

@@ -4,10 +4,9 @@ namespace Environment
 {
 	public abstract class SensorUnit : MonoBehaviour
 	{
-		public SensorInfo sensorInfo { get; protected set; }
-		// M5が取得したセンサー情報
-		public abstract void Update();
+		public SensorInfo sensorInfo;
 
+		// M5が取得したセンサー情報
 		[System.Serializable]
 		public struct SensorInfo
 		{

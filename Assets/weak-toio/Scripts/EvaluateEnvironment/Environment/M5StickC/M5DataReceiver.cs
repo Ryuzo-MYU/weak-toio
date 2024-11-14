@@ -7,13 +7,13 @@ namespace Environment
 	{
 		[SerializeField] SerialHandler serial;
 
-		public override void Update()
+		public void Start()
 		{
-			string message = serial.Message;
-			DeserializeMessade(message);
+			serial.OnDataReceived += OnDateReceived;
 		}
+		
 		//受信した信号(message)に対する処理
-		public void DeserializeMessade(string message)
+		public void OnDateReceived(string message)
 		{
 			var data = message.Split(
 					new string[] { "\t" }, System.StringSplitOptions.None);

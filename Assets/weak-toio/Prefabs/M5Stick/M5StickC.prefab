@@ -9,7 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2138935701058731023}
-  - component: {fileID: 4976290337522187929}
+  - component: {fileID: 2235956735540663441}
+  - component: {fileID: 8907874974652615381}
   m_Layer: 0
   m_Name: M5StickC
   m_TagString: Untagged
@@ -32,7 +33,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4976290337522187929
+--- !u!114 &2235956735540663441
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -41,10 +42,32 @@ MonoBehaviour:
   m_GameObject: {fileID: 5688909272964287642}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d2d79cac13811af42a18c6bde029f8ed, type: 3}
+  m_Script: {fileID: 11500000, guid: 0462734d6d79e0a4cab9162bc072ef4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PORTS:
-  - COM9
-  - COM10
-  PORTNAME: m5-02
+  DeviceList: []
+  _manualPort: COM9
+  activePorts: []
+  portName: 
+  baudRate: 112500
+--- !u!114 &8907874974652615381
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5688909272964287642}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7250834f846e62d4fb518aa471303512, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sensorInfo:
+    deviceName: 
+    acceleration: {x: 0, y: 0, z: 0}
+    gyro: {x: 0, y: 0, z: 0}
+    temp: 0
+    humidity: 0
+    pressure: 0
+    vbat: 0
+  serial: {fileID: 0}
