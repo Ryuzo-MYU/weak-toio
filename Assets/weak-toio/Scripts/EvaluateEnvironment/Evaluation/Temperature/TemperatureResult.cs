@@ -36,6 +36,15 @@ namespace Evaluation
 				return Condition;
 			}
 		}
+		public TemperatureResult()
+		{
+			Condition = 0;
+			CurrentTemperature = 0;
+			LowerBound = 0;
+			UpperBound = 0;
+			Unit = null;
+		}
+
 		public TemperatureResult(int condition, float currentTemp, float lowerBound, float upperBound, string unit)
 		{
 			Condition = condition;

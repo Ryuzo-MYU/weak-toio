@@ -9,7 +9,7 @@ public class TemperatureEvaluation : MonoBehaviour
 	public int cubeCount = 0;
 	[Tooltip("Mainをぶち込め")]
 	public GameObject sensorObject;
-	SensorUnit sensor;
+	[SerializeField] SensorUnit sensor;
 	Evaluate tempEval;
 	ActionGenerator tempAction;
 	ActionSender sender;

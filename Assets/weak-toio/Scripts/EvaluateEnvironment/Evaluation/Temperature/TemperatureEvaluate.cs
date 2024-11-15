@@ -8,6 +8,10 @@ namespace Evaluation
 	/// </summary>
 	public class TemperatureEvaluate : Evaluate
 	{
+		private TemperatureRange suitableRange = new TemperatureRange(20.0f, 22.0f);
+		private TemperatureRange cautionRange = new TemperatureRange(19.9f, 22.1f);
+		private TemperatureRange dangerRange = new TemperatureRange(15.0f, 27.0f);
+
 		private const float LOWER_BOUND = 22.0f; // 寒すぎる基準
 		private const float UPPER_BOUND = 27.0f;  // 暑すぎる基準
 		private const string UNIT = "℃";
