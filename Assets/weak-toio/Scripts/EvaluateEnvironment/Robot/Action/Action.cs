@@ -1,3 +1,4 @@
+using System.Collections;
 using toio;
 
 namespace Robot
@@ -7,33 +8,12 @@ namespace Robot
 	/// </summary>
 	public abstract class Action
 	{
-		public abstract string ActionName { get; protected set; }
-		public abstract EnvType Env { get; set; }
-		public abstract ActionType AcType { get; protected set; }
-		public abstract double Dist { get; protected set; }
-		public abstract double Deg { get; protected set; }
-		public abstract double Speed { get; protected set; }
-		public abstract Movement[] Movements { get; protected set; }
-
-		public float Interval
+		public string ActionName { get; protected set; }
+		public IEnumerator[] MoveOperations { get; protected set; }
+		public Action(string name, IEnumerator[] operations)
 		{
-			get { return Interval; }
-
-			private set
-			{
-				if (AcType == ActionType.Rotate)
-				{
-					Interval = (float)(Deg / Speed);
-					return;
-				}
-				if (AcType == ActionType.Translate)
-				{
-					Interval = (float)(Dist / Speed);
-					return;
-				}
-				Interval = 0;
-				return;
-			}
+			ActionName = name;
+			MoveOperations = operations;
 		}
 	}
 }

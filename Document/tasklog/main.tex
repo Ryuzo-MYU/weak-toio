@@ -820,6 +820,32 @@ MotionOperatorで行動を実行するから、MotionGeneratorではモーショ
 
 TAやってたら「概要設計」っていう話が出てきた。システムの振る舞いを関数、クラス、コンポーネント単位で記述する。仕様に書いたことを実装するべきだし、仕様にないことは実装するべきではない。おれのシステムの概要設計ってどうなるだろうか?
 
+\section*{2024.11.18(月)}
+前回までは、センサープログラムを修正した。Actionを作っていく。
+
+TemperatureActionにいろいろアクション生成っぽい関数があるので、これを実装していく。
+
+どういうアクションがそれっぽいかな？寒い方は震える。暑い方は？わからないので回転させる。
+
+ベースにCold、Hotそれぞれにアクションの方針があり、Danger圏内になったら露骨にする。
+
+コルーチンがだんだん分かってきた。フェーズ式のモーション実行なんかはコルーチンにすればいける。今日は検証の時間って感じだったので、次回次々回くらいには動きの一つでも実装してみたい。
+
+\section*{2024.11.19(火)}
+Movementは他のCubeHandlerから作ったものでも使い回すことができる。
+
+ActionGeneratorから作ったActionをActionSenderに流す。コルーチンを使う場合、ActionGeneratorではIEnumeratorを生成する。SenderではIEnumeratorをStartCoroutineする。
+
+アクション命令送信回りのデータの流れが上手くいっていないので、次回は終端からデータの流れを見直す。これメモ。
+
+\fboxsep=0pt            %画像と枠線をくっつける．
+\fboxrule=1pt            %枠線の太さを1ptにする．
+\begin{figure}[h]
+  \centering
+  \fbox{\includegraphics[keepaspectratio, clip, width=0.8\columnwidth]{resources/20241119_memo.JPG}}
+  \caption{}
+  \label{fig:}
+\end{figure}
 \section*{エラー集}
 \subsection*{Adafruit BMP280 not found}
 ENV用のサンプルスケッチを使うには別途「Adafruit BMP280 Library」のインストールが必要。Arduino IDEのライブラリマネージャーからDLしたら解決
