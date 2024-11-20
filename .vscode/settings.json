@@ -52,5 +52,9 @@
         "Temp/": true
     },
 	"dotnet.defaultSolution": "weak-toio.sln",
+<<<<<<< HEAD
 	"gitdoc.enabled": false
+=======
+	"gitdoc.enabled": true
+>>>>>>> 67056135a83a67740c1bbddf9c476d67fe62f666
 }
