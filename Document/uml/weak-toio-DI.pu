@@ -1,0 +1,85 @@
+@startuml
+title weak-toio DI設計
+skinparam Linetype ortho
+
+' オブジェクト
+class RealSensor{
+	+ センサー情報を送信
+}
+class M5Stick{
+	+ GetSensorInfo() : SensorInfo
+	- Update() : void
+}
+class DummySensor{
+	+ GetSensorInfo() : SensorInfo
+	- Update() : void
+}
+struct SensorInfo{}
+
+interface SensorUnit{
+	+ GetSensorInfo() : SensorInfo
+	- Update() : void
+}
+class Evaluate{
+	+ GetEvaluationResult(SensorUnit) : Result
+}
+struct Result{
+	int score
+}
+
+interface EvaluationResultSender{
+	+ GetEvaluationResult(SensorUnit) : Result
+}
+class ActionGenerator{
+	+ GenerateAction(Result) : Action
+	- CautionAction() : Action
+	- DangerAction() : Action
+}
+struct Action{
+	Movement movement
+	float interval
+}
+
+interface ActionSender{
+	+ GenerateAction(Result) : Action
+}
+class Toio{
+	+ Move(Action) : void
+	- int id
+	- CubeHandler handle
+	- EnvType type
+}
+package toioSdk{
+	class CubeManager
+	class CubeHandler{
+		+ TranslateByDist()
+		+ RotateByDeg()
+		+ RotateByRad()
+	}
+}
+interface ToioActor{
+	+ Move(Action) : void
+}
+
+' 関係
+SensorUnit <-- M5Stick : 実装
+M5Stick --> RealSensor : 利用
+SensorUnit <-- DummySensor : 実装
+
+SensorUnit <-- Evaluate : 利用
+Evaluate o-- SensorInfo : データフォーマットを定義
+SensorUnit --> SensorInfo
+Evaluate <-- Result : 生成
+
+Evaluate --|> EvaluationResultSender : 実装
+EvaluationResultSender <-- ActionGenerator : 利用
+ActionGenerator <-- Action : 生成
+
+ActionGenerator -|> ActionSender
+ActionSender <-- Toio : 利用
+Toio --> CubeHandler : 所持
+CubeHandler -> CubeManager : 所持
+Toio -right--|> ToioActor : 実装
+ToioActor <-- Main : 使用
+
+@enduml
