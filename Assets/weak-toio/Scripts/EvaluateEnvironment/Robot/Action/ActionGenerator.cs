@@ -1,4 +1,3 @@
-using System.Collections;
 using Evaluation;
 using toio;
 
@@ -7,36 +6,41 @@ namespace Robot
 	public abstract class ActionGenerator
 	{
 		protected readonly IToioMovement _toio;
-		protected Result result;
-		public abstract MovementOperation GenerateAction(Result result);
+		protected Result _result;
 
 		/// <summary>
 		/// 前後移動のMovementを返す
 		/// </summary>
 		/// <param name="dist">距離</param>
 		/// <param name="speed">速度</param>
-		/// <returns></returns>
-		protected MovementOperation Translate(float dist, double speed)
+		/// <returns>Movement</returns>
+		protected Action Translate(float dist, double speed)
 		{
 			Movement translate = _toio.Translate(dist, speed);
 			float intarval = (float)dist / (float)speed;
-			MovementOperation operation = new MovementOperation(translate, intarval);
+			Action operation = new Action(translate, intarval);
 			return operation;
 		}
 
-		protected MovementOperation Rotate(float deg, double speed)
+		/// <summary>
+		/// 回転移動のMovementを返す
+		/// </summary>
+		/// <param name="deg">角度</param>
+		/// <param name="speed">速度</param>
+		/// <returns>Movement</returns>
+		protected Action Rotate(float deg, double speed)
 		{
 			Movement rotate = _toio.Rotate(deg, speed);
 			float intarval = (float)deg / (float)speed;
-			MovementOperation operation = new MovementOperation(rotate, intarval);
+			Action operation = new Action(rotate, intarval);
 			return operation;
 		}
 	}
-	public struct MovementOperation
+	public struct Action
 	{
 		public Movement Movement;
 		public float interval;
-		public MovementOperation(Movement _movement, float _intervel)
+		public Action(Movement _movement, float _intervel)
 		{
 			Movement = _movement;
 			interval = _intervel;

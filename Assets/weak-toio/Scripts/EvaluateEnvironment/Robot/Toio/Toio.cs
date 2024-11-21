@@ -12,7 +12,7 @@ namespace Robot
 		Cube cube;
 		CubeHandle handle;
 		EnvType appointedType;
-		MovementOperation[] _movementQueue;
+		Action[] _action;
 		
 	}
 }

@@ -6,25 +6,25 @@ using UnityEngine;
 
 namespace Robot
 {
-	public class TemperatureActionGenerator : ActionGenerator
+	public class TemperatureActionGenerator : ActionGenerator, ActionSender
 	{
 		BoundaryRange SuitableRange = new BoundaryRange(0);
 		BoundaryRange CautionRange = new BoundaryRange(-5, 5);
 		BoundaryRange DangerRange = new BoundaryRange(-10, 10);
 
-		public override MovementOperation GenerateAction(Result result)
+		public Action GenerateAction(Result result)
 		{
 			// 型チェック
 			TemperatureResult temperatureResult = new TemperatureResult();
 			if (result.GetType() != temperatureResult.GetType())
 			{
 				Debug.Assert(false, "TemperatureResult以外のクラスをいれるな");
-				MovementOperation doAnything = new MovementOperation(new Movement(), 0);
+				Action doAnything = new Action(new Movement(), 0);
 			}
 
 			// 型チェックして問題なければ処理を進める
 			int score = result.Score;
-			MovementOperation action;
+			Action action;
 			if (score == 0)
 			{
 				action = SuitableAction();
@@ -42,30 +42,30 @@ namespace Robot
 			return action;
 		}
 
-		private MovementOperation SuitableAction()
+		private Action SuitableAction()
 		{
-			MovementOperation operation = new MovementOperation();
-			return operation;
+			Action action = new Action();
+			return action;
 		}
-		private MovementOperation ColdCautionAction()
+		private Action ColdCautionAction()
 		{
-			MovementOperation operation = new MovementOperation();
-			return operation;
+			Action action = new Action();
+			return action;
 		}
-		private MovementOperation HotCautionAction()
+		private Action HotCautionAction()
 		{
-			MovementOperation operation = new MovementOperation();
-			return operation;
+			Action action = new Action();
+			return action;
 		}
-		private MovementOperation ColdDangerAction()
+		private Action ColdDangerAction()
 		{
-			MovementOperation operation = new MovementOperation();
-			return operation;
+			Action action = new Action();
+			return action;
 		}
-		private MovementOperation HotDangerAction()
+		private Action HotDangerAction()
 		{
-			MovementOperation operation = new MovementOperation();
-			return operation;
+			Action action = new Action();
+			return action;
 		}
 	}
 }
