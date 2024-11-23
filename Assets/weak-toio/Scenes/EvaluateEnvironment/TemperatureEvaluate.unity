@@ -888,7 +888,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1287374848
 Transform:
   m_ObjectHideFlags: 0
@@ -1639,7 +1639,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5465441186832745223, guid: 4dbb8aa7bb4e36a439f92a0590a88b3d, type: 3}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5465441186832745223, guid: 4dbb8aa7bb4e36a439f92a0590a88b3d, type: 3}
       propertyPath: sensorObject
