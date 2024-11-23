@@ -6,10 +6,11 @@ namespace Evaluation
 	/// <summ
 	/// 気温データを取得し、評価をするクラス
 	/// </summary>
-	public class TemperatureEvaluate : Evaluate, EvaluationResultSender
+	public class TemperatureEvaluate : EvaluationResultSender
 	{
 		private const float LOWER_BOUND = 22.0f; // 寒すぎる基準
 		private const float UPPER_BOUND = 27.0f;  // 暑すぎる基準
+		private BoundaryRange suitableRange = new BoundaryRange(UPPER_BOUND, LOWER_BOUND);
 		private const string UNIT = "℃";
 		public float CurrentTemperature { get; private set; }
 		public int Condition { get; private set; }
@@ -42,11 +43,6 @@ namespace Evaluation
 			Debug.Log($"評価成功 \n Condition = {Condition}");
 
 			return temperatureResult;
-		}
-
-		public override EnvType GetEnvType()
-		{
-			return EnvType.Temperature;
 		}
 	}
 }
