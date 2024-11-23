@@ -23,7 +23,7 @@ namespace Robot
 			}
 
 			// 型チェックして問題なければ処理を進める
-			int score = result.Score;
+			float score = result.Score;
 			Action action;
 			if (score == 0)
 			{
@@ -41,7 +41,6 @@ namespace Robot
 			}
 			return action;
 		}
-
 		private Action SuitableAction()
 		{
 			Action action = new Action();

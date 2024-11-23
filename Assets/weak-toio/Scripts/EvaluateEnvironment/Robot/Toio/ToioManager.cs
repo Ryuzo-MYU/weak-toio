@@ -1,9 +1,10 @@
 using System.Collections.Generic;
 using toio;
+using UnityEngine;
 
 namespace Robot
 {
-	public class ToioManager
+	public class ToioManager : MonoBehaviour
 	{
 		public int CubeCount { get; private set; }
 		CubeManager cubeManager;
@@ -13,26 +14,26 @@ namespace Robot
 		{
 			CubeCount = cubeCount;
 		}
-
-		public async void Start(EnvType appointedType)
+		public async void Start()
 		{
 			cubeManager = new CubeManager();
 			await cubeManager.MultiConnect(CubeCount);
 
+			int id = 0;
 			for (int count = 0; count < cubeManager.cubes.Count; count++)
 			{
 				var cube = cubeManager.cubes[count];
 				var handle = cubeManager.handles[count];
-				Toio toio = new Toio(appointedType, cube, handle);
+				Toio toio = new Toio(id, cube, handle);
 				Toios.Add(toio);
+				id++;
 			}
 		}
-
-		public void Update(Action nextAc)
+		public void UpdateAction(Action nextAc)
 		{
 			foreach (Toio toio in Toios)
 			{
-				toio.Update(nextAc);
+				StartCoroutine(toio.UpdateAction(nextAc));
 			}
 		}
 	}
