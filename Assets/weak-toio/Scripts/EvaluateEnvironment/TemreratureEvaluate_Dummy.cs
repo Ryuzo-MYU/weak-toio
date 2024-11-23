@@ -14,7 +14,7 @@ public class TemreratureEvaluate_Dummy : MonoBehaviour
 	ActionSender tempAction;
 	ToioManager toioManager;
 
-	private void Start()
+	private async void Start()
 	{
 		sensor = new DummySensor();
 		sensor.Start();
@@ -22,8 +22,8 @@ public class TemreratureEvaluate_Dummy : MonoBehaviour
 		// 評価システムの初期化
 		tempEval = new TemperatureEvaluate();
 		toioManager = new ToioManager(connectType, cubeCount);
+		await toioManager.Setup();
 		tempAction = new TemperatureActionGenerator(toioManager.GetToio(0));
-		toioManager.Setup();
 	}
 	private void Update()
 	{

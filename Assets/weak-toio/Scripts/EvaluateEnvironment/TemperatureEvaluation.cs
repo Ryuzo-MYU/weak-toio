@@ -14,13 +14,13 @@ public class TemperatureEvaluation : MonoBehaviour
 	ActionSender tempAction;
 	ToioManager toioManager;
 
-	private void Start()
+	private async void Start()
 	{
 		// 評価システムの初期化
 		tempEval = new TemperatureEvaluate();
 		toioManager = new ToioManager(connectType, cubeCount);
+		await toioManager.Setup();
 		tempAction = new TemperatureActionGenerator(toioManager.GetToio(0));
-		toioManager.Setup();
 	}
 	private void Update()
 	{

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using toio;
 using UnityEditor.PackageManager;
 using UnityEngine;
@@ -17,7 +18,7 @@ namespace Robot
 			this.connectType = connectType;
 			this.cubeCount = cubeCount;
 		}
-		public async void Setup()
+		public async Task Setup()
 		{
 			cubeManager = new CubeManager(connectType);
 			await cubeManager.MultiConnect(cubeCount);
