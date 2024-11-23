@@ -11,9 +11,9 @@ namespace Evaluation
 		private const float LOWER_BOUND = 22.0f; // 寒すぎる基準
 		private const float UPPER_BOUND = 27.0f;  // 暑すぎる基準
 		private BoundaryRange suitableRange = new BoundaryRange(UPPER_BOUND, LOWER_BOUND);
-		private Unit celsius = new Unit("℃");
+		private Unit _celsius = new Unit("℃");
 		public float CurrentTemperature { get; private set; }
-		public int Condition { get; private set; }
+		private int _score;
 
 		/// <summary>
 		/// SensorUnitから気温のデータを取得し、労働環境の適温範囲と比較した結果を返す
@@ -27,20 +27,20 @@ namespace Evaluation
 			// 気温に基づく評価
 			if (CurrentTemperature < LOWER_BOUND)
 			{
-				Condition = (int)(CurrentTemperature - LOWER_BOUND); // マイナスのスコア
+				_score = (int)(CurrentTemperature - LOWER_BOUND); // マイナスのスコア
 			}
 			else if (CurrentTemperature > UPPER_BOUND)
 			{
-				Condition = (int)(CurrentTemperature - UPPER_BOUND); // プラスのスコア
+				_score = (int)(CurrentTemperature - UPPER_BOUND); // プラスのスコア
 			}
 			else
 			{
-				Condition = 0; // 適温
+				_score = 0; // 適温
 			}
 
-			Result temperatureResult = new Result();
+			Result temperatureResult = new Result(_score, _celsius);
 
-			Debug.Log($"評価成功 \n Condition = {Condition}");
+			Debug.Log($"評価成功 \n Condition = {_score}");
 
 			return temperatureResult;
 		}

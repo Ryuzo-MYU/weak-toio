@@ -5,12 +5,10 @@ namespace Evaluation
 	/// </summary>
 	public struct Result
 	{
-		public string Message;
 		public int Score;
 		public Unit Unit;
-		public Result(string _message, int _score, Unit _unit)
+		public Result(int _score, Unit _unit)
 		{
-			Message = _message;
 			Score = _score;
 			Unit = _unit;
 		}
