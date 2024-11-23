@@ -6,7 +6,7 @@ namespace Evaluation
 	/// <summ
 	/// 気温データを取得し、評価をするクラス
 	/// </summary>
-	public class TemperatureEvaluate : Evaluate
+	public class TemperatureEvaluate : Evaluate, EvaluationResultSender
 	{
 		private const float LOWER_BOUND = 22.0f; // 寒すぎる基準
 		private const float UPPER_BOUND = 27.0f;  // 暑すぎる基準
@@ -19,7 +19,7 @@ namespace Evaluation
 		/// </summary>
 		/// <param name="sensor">SensorUnitインスタンス</param>
 		/// <returns>評価結果を集約したResult型データ</returns>
-		public override Result EvaluateEnv(SensorUnit sensor)
+		public Result GetEvaluationResult(SensorUnit sensor)
 		{
 			CurrentTemperature = sensor.sensorInfo.temp; // SensorUnitから気温を取得
 

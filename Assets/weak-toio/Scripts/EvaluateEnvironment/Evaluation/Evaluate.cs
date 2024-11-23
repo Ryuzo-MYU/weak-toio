@@ -9,8 +9,7 @@ namespace Evaluation
 	{
 		protected SensorUnit sensor;
 		protected EnvType envType;
-		public abstract Result EvaluateEnv(SensorUnit sensor);
-		
+
 		/// <summary>
 		/// 対象とする環境タイプの取得。ない場合はエラーを返す 
 		/// </summary>
