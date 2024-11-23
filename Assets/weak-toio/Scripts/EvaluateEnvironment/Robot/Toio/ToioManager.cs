@@ -6,18 +6,20 @@ namespace Robot
 {
 	public class ToioManager : MonoBehaviour
 	{
-		public int CubeCount { get; private set; }
+		private ConnectType connectType;
+		private int cubeCount;
 		CubeManager cubeManager;
 		List<Toio> Toios;
 
-		public ToioManager(int cubeCount)
+		public ToioManager(ConnectType connectType, int cubeCount)
 		{
-			CubeCount = cubeCount;
+			this.connectType = connectType;
+			this.cubeCount = cubeCount;
 		}
 		public async void Start()
 		{
-			cubeManager = new CubeManager();
-			await cubeManager.MultiConnect(CubeCount);
+			cubeManager = new CubeManager(connectType);
+			await cubeManager.MultiConnect(cubeCount);
 
 			int id = 0;
 			for (int count = 0; count < cubeManager.cubes.Count; count++)
@@ -34,11 +36,11 @@ namespace Robot
 				toio.StartMovement();
 			}
 		}
-		public void UpdateAction(Action nextAc)
+		public void UpdateAction(Motion[] nextMotions)
 		{
 			foreach (Toio toio in Toios)
 			{
-				StartCoroutine(toio.UpdateAction(nextAc));
+				StartCoroutine(toio.UpdateAction(nextMotions));
 			}
 		}
 	}

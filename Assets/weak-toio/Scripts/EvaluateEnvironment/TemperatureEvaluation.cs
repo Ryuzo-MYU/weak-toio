@@ -25,7 +25,7 @@ public class TemperatureEvaluation : MonoBehaviour
 	private void Update()
 	{
 		Result result = tempEval.GetEvaluationResult(sensor);
-		Action action = tempAction.GenerateAction(result);
+		Robot.Motion action = tempAction.GenerateAction(result);
 		toioManager.UpdateAction(action);
 	}
 }

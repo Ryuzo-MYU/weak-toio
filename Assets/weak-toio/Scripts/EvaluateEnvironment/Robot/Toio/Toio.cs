@@ -11,6 +11,7 @@ namespace Robot
 		Cube cube;
 		CubeHandle handle;
 		Queue<Action> actions;
+		Action currentAction;
 
 		public Toio(int _id, Cube _cube, CubeHandle _handle)
 		{
@@ -26,12 +27,18 @@ namespace Robot
 		{
 			while (actions.Count != 0)
 			{
-				Action action = actions.Dequeue();
-				handle.Move(action.Movement);
-				yield return new WaitForSeconds(action.interval);
+				Motion motion = currentAction.GetNextMotion();
+				handle.Move(motion.Movement);
+
+				// 現在のアクションが実行されきったらアクションを更新
+				if (currentAction.Count() == 0)
+				{
+					currentAction = actions.Dequeue();
+				}
+				yield return new WaitForSeconds(motion.interval);
 			}
 		}
-		public IEnumerator UpdateAction(Action action)
+		public IEnumerator AddNewAction(Action action)
 		{
 			while (true)
 			{

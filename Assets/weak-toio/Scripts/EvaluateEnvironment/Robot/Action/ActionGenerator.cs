@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Evaluation;
 using toio;
 
@@ -14,11 +15,11 @@ namespace Robot
 		/// <param name="dist">距離</param>
 		/// <param name="speed">速度</param>
 		/// <returns>Movement</returns>
-		protected Action Translate(float dist, double speed)
+		protected Motion Translate(float dist, double speed)
 		{
 			Movement translate = _toio.Translate(dist, speed);
 			float intarval = (float)dist / (float)speed;
-			Action operation = new Action(translate, intarval);
+			Motion operation = new Motion(translate, intarval);
 			return operation;
 		}
 
@@ -28,19 +29,35 @@ namespace Robot
 		/// <param name="deg">角度</param>
 		/// <param name="speed">速度</param>
 		/// <returns>Movement</returns>
-		protected Action Rotate(float deg, double speed)
+		protected Motion Rotate(float deg, double speed)
 		{
 			Movement rotate = _toio.Rotate(deg, speed);
 			float intarval = (float)deg / (float)speed;
-			Action operation = new Action(rotate, intarval);
+			Motion operation = new Motion(rotate, intarval);
 			return operation;
 		}
 	}
 	public struct Action
 	{
+		Queue<Motion> motions;
+		public Action(Queue<Motion> motions)
+		{
+			this.motions = motions;
+		}
+		public Motion GetNextMotion()
+		{
+			return motions.Dequeue();
+		}
+		public readonly int Count()
+		{
+			return motions.Count;
+		}
+	}
+	public struct Motion
+	{
 		public Movement Movement;
 		public float interval;
-		public Action(Movement _movement, float _intervel)
+		public Motion(Movement _movement, float _intervel)
 		{
 			Movement = _movement;
 			interval = _intervel;

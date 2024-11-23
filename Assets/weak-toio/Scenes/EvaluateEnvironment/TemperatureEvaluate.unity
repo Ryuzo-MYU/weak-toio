@@ -888,7 +888,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1287374848
 Transform:
   m_ObjectHideFlags: 0
@@ -989,6 +989,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0462734d6d79e0a4cab9162bc072ef4c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1444033347 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8907874974652615381, guid: 350f057c39c052346b71723cde5cc8d6, type: 3}
+  m_PrefabInstance: {fileID: 1444033344}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1444033345}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7250834f846e62d4fb518aa471303512, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!4 &1444033348 stripped
@@ -1684,12 +1695,16 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5465441186832745223, guid: 4dbb8aa7bb4e36a439f92a0590a88b3d, type: 3}
+      propertyPath: sensor
+      value: 
+      objectReference: {fileID: 1444033347}
+    - target: {fileID: 5465441186832745223, guid: 4dbb8aa7bb4e36a439f92a0590a88b3d, type: 3}
       propertyPath: cubeCount
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5465441186832745223, guid: 4dbb8aa7bb4e36a439f92a0590a88b3d, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5465441186832745223, guid: 4dbb8aa7bb4e36a439f92a0590a88b3d, type: 3}
       propertyPath: sensorObject
