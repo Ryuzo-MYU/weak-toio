@@ -11,7 +11,8 @@ namespace Robot
 		private ConnectType connectType;
 		private int cubeCount;
 		CubeManager cubeManager;
-		List<Toio> Toios;
+		List<Toio> Toios = new List<Toio>();
+		public bool IsInitialized { get; private set; }
 
 		public ToioManager(ConnectType connectType, int cubeCount)
 		{
@@ -37,6 +38,8 @@ namespace Robot
 			{
 				toio.StartMovement();
 			}
+
+			IsInitialized = true;
 		}
 		public void AddNewAction(Action nextMotions)
 		{

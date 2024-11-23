@@ -27,6 +27,8 @@ public class TemreratureEvaluate_Dummy : MonoBehaviour
 	}
 	private void Update()
 	{
+		if (!toioManager.IsInitialized) return;
+
 		sensor.Update();
 		Result result = tempEval.GetEvaluationResult(sensor);
 		Action action = tempAction.GenerateAction(result);
