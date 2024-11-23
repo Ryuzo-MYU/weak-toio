@@ -44,34 +44,47 @@ namespace Robot
 		}
 		private Action SuitableAction()
 		{
-			Queue<Motion> motions = new Queue<Motion>();
-			motions.Enqueue(Translate(30, 30));
+			Queue<Motion> suitableRotate = new Queue<Motion>();
+			suitableRotate.Enqueue(Translate(90, 100));
+			suitableRotate.Enqueue(Translate(-90, 100));
 
-			Action action = new Action(motions);
+			Action action = new Action(suitableRotate);
 			return action;
 		}
 		private Action ColdCautionAction()
 		{
-			Queue<Motion> motions = new Queue<Motion>();
-			Action action = new Action(motions);
-			return action;
-		}
-		private Action HotCautionAction()
-		{
-			Queue<Motion> motions = new Queue<Motion>();
-			Action action = new Action(motions);
+			Queue<Motion> CautionShiver = new Queue<Motion>();
+			CautionShiver.Enqueue(Translate(10, 20));
+			CautionShiver.Enqueue(Translate(-10, 20));
+
+			Action action = new Action(CautionShiver);
 			return action;
 		}
 		private Action ColdDangerAction()
 		{
-			Queue<Motion> motions = new Queue<Motion>();
-			Action action = new Action(motions);
+			Queue<Motion> DangerShiver = new Queue<Motion>();
+			DangerShiver.Enqueue(Translate(20, 80));
+			DangerShiver.Enqueue(Translate(-20, 80));
+
+			Action action = new Action(DangerShiver);
+			return action;
+		}
+		private Action HotCautionAction()
+		{
+			Queue<Motion> CautionTwist = new Queue<Motion>();
+			CautionTwist.Enqueue(Translate(45, 45));
+			CautionTwist.Enqueue(Translate(-45, 45));
+
+			Action action = new Action(CautionTwist);
 			return action;
 		}
 		private Action HotDangerAction()
 		{
-			Queue<Motion> motions = new Queue<Motion>();
-			Action action = new Action(motions);
+			Queue<Motion> DangerTwist = new Queue<Motion>();
+			DangerTwist.Enqueue(Translate(90, 100));
+			DangerTwist.Enqueue(Translate(-90, 100));
+
+			Action action = new Action(DangerTwist);
 			return action;
 		}
 	}
