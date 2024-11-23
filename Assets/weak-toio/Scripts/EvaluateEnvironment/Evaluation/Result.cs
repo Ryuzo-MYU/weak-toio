@@ -3,10 +3,16 @@ namespace Evaluation
 	/// <summary>
 	/// 環境データの評価結果を格納するクラス
 	/// </summary>
-	public abstract class Result
+	public struct Result
 	{
-		public abstract string Message { get; }
-		public abstract int Score { get; }
-		public abstract string EnvType { get; }
+		public string Message;
+		public int Score;
+		public EnvType Type;
+		public Result(string message, int score, EnvType type)
+		{
+			Message = message;
+			Score = score;
+			Type = type;
+		}
 	}
 }

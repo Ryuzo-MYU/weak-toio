@@ -15,7 +15,7 @@ namespace Robot
 		public Action GenerateAction(Result result)
 		{
 			// 型チェック
-			TemperatureResult temperatureResult = new TemperatureResult();
+			Result temperatureResult = new Result();
 			if (result.GetType() != temperatureResult.GetType())
 			{
 				Debug.Assert(false, "TemperatureResult以外のクラスをいれるな");

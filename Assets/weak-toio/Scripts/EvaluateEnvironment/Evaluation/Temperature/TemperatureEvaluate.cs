@@ -37,7 +37,7 @@ namespace Evaluation
 				Condition = 0; // 適温
 			}
 
-			TemperatureResult temperatureResult = new TemperatureResult(Condition, CurrentTemperature, LOWER_BOUND, UPPER_BOUND, UNIT);
+			Result temperatureResult = new Result(Condition, CurrentTemperature, LOWER_BOUND, UPPER_BOUND, UNIT);
 
 			Debug.Log($"評価成功 \n Condition = {Condition}");
 
