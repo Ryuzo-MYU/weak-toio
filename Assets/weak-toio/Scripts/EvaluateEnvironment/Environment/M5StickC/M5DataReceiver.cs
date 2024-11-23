@@ -19,6 +19,10 @@ namespace Environment
 		{
 			serial.OnDataReceived += OnDateReceived;
 		}
+		public void Update()
+		{
+			// 何もしない
+		}
 
 		//受信した信号(message)に対する処理
 		public void OnDateReceived(string message)

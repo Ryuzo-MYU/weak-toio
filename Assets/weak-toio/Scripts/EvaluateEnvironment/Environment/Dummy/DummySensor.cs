@@ -1,3 +1,4 @@
+using System.Collections;
 using Evaluation;
 
 namespace Environment
@@ -27,6 +28,10 @@ namespace Environment
 		public SensorInfo GetSensorInfo()
 		{
 			return sensorInfo;
+		}
+		public void Start()
+		{
+			// 何もしない
 		}
 		public void Update()
 		{

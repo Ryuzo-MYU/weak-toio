@@ -22,7 +22,7 @@ namespace Evaluation
 		/// <returns>評価結果を集約したResult型データ</returns>
 		public Result GetEvaluationResult(SensorUnit sensor)
 		{
-			CurrentTemperature = sensor.sensorInfo.temp; // SensorUnitから気温を取得
+			CurrentTemperature = sensor.GetSensorInfo().temp; // SensorUnitから気温を取得
 
 			// 気温に基づく評価
 			// 適温範囲内なら
@@ -38,7 +38,7 @@ namespace Evaluation
 			else
 			{
 				_score = CurrentTemperature - suitableRange.UpperLimit;
-			 }
+			}
 
 
 			Result temperatureResult = new Result(_score, _celsius);
