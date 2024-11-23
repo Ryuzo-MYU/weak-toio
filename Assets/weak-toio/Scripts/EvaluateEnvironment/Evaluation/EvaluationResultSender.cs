@@ -2,11 +2,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Environment;
 
-namespace weak-toio.Assets.weak-toio.Scripts.EvaluateEnvironment.Evaluation
+namespace Evaluation
 {
-    public interface EvaluationResultSender
-    {
-        
-    }
+	public interface EvaluationResultSender
+	{
+		public Result GetEvaluationResult(SensorUnit sensor);
+	}
 }
