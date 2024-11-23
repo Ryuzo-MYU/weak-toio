@@ -16,9 +16,6 @@ public class TemperatureEvaluation : MonoBehaviour
 
 	private void Start()
 	{
-		// センサーの初期化 
-		sensor = new DummySensor();
-
 		// 評価システムの初期化
 		tempEval = new TemperatureEvaluate();
 		tempAction = new TemperatureActionGenerator();
