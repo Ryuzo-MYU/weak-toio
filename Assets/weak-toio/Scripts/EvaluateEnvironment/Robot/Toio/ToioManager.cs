@@ -16,7 +16,7 @@ namespace Robot
 			this.connectType = connectType;
 			this.cubeCount = cubeCount;
 		}
-		public async void Start()
+		public async void Setup()
 		{
 			cubeManager = new CubeManager(connectType);
 			await cubeManager.MultiConnect(cubeCount);

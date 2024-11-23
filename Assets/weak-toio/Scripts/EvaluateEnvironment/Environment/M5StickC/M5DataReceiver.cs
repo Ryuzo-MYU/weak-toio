@@ -1,17 +1,25 @@
-using System.Text;
+using Evaluation;
 using UnityEngine;
+using System.Numerics;
+using Vector3 = System.Numerics.Vector3;
+using System.Text;
 
 namespace Environment
 {
-	public class M5DataReceiver : SensorUnit
+	public class M5DataReceiver : MonoBehaviour, SensorUnit
 	{
-		[SerializeField] SerialHandler serial;
+		SerialHandler serial;
+		SensorInfo sensorInfo;
 
+		public SensorInfo GetSensorInfo()
+		{
+			return sensorInfo;
+		}
 		public void Start()
 		{
 			serial.OnDataReceived += OnDateReceived;
 		}
-		
+
 		//受信した信号(message)に対する処理
 		public void OnDateReceived(string message)
 		{
@@ -77,7 +85,7 @@ namespace Environment
 
 		private static string FormatVector3(Vector3 vector)
 		{
-			return $"(X: {vector.x:F3}, Y: {vector.y:F3}, Z: {vector.z:F3})";
+			return $"(X: {vector.X:F3}, Y: {vector.Y:F3}, Z: {vector.Z:F3})";
 		}
 	}
 }
