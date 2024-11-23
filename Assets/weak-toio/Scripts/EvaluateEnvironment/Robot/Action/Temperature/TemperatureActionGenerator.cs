@@ -12,7 +12,7 @@ namespace Robot
 		BoundaryRange CautionRange = new BoundaryRange(-5, 5);
 		BoundaryRange DangerRange = new BoundaryRange(-10, 10);
 
-		public Motion GenerateAction(Result result)
+		public Action GenerateAction(Result result)
 		{
 			// 型チェック
 			Result temperatureResult = new Result();
@@ -24,7 +24,7 @@ namespace Robot
 
 			// 型チェックして問題なければ処理を進める
 			float score = result.Score;
-			Motion action;
+			Action action;
 			if (score == 0)
 			{
 				action = SuitableAction();
@@ -41,29 +41,29 @@ namespace Robot
 			}
 			return action;
 		}
-		private Motion SuitableAction()
+		private Action SuitableAction()
 		{
-			Motion action = new Motion();
+			Action action = new Action();
 			return action;
 		}
-		private Motion ColdCautionAction()
+		private Action ColdCautionAction()
 		{
-			Motion action = new Motion();
+			Action action = new Action();
 			return action;
 		}
-		private Motion HotCautionAction()
+		private Action HotCautionAction()
 		{
-			Motion action = new Motion();
+			Action action = new Action();
 			return action;
 		}
-		private Motion ColdDangerAction()
+		private Action ColdDangerAction()
 		{
-			Motion action = new Motion();
+			Action action = new Action();
 			return action;
 		}
-		private Motion HotDangerAction()
+		private Action HotDangerAction()
 		{
-			Motion action = new Motion();
+			Action action = new Action();
 			return action;
 		}
 	}
