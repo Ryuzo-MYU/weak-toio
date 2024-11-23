@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using Codice.Client.Commands;
 using Evaluation;
 using toio;
@@ -43,27 +44,34 @@ namespace Robot
 		}
 		private Action SuitableAction()
 		{
-			Action action = new Action();
+			Queue<Motion> motions = new Queue<Motion>();
+			motions.Enqueue(Translate(30, 30));
+
+			Action action = new Action(motions);
 			return action;
 		}
 		private Action ColdCautionAction()
 		{
-			Action action = new Action();
+			Queue<Motion> motions = new Queue<Motion>();
+			Action action = new Action(motions);
 			return action;
 		}
 		private Action HotCautionAction()
 		{
-			Action action = new Action();
+			Queue<Motion> motions = new Queue<Motion>();
+			Action action = new Action(motions);
 			return action;
 		}
 		private Action ColdDangerAction()
 		{
-			Action action = new Action();
+			Queue<Motion> motions = new Queue<Motion>();
+			Action action = new Action(motions);
 			return action;
 		}
 		private Action HotDangerAction()
 		{
-			Action action = new Action();
+			Queue<Motion> motions = new Queue<Motion>();
+			Action action = new Action(motions);
 			return action;
 		}
 	}
