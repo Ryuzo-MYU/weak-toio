@@ -7,8 +7,8 @@ namespace Evaluation
 	{
 		public string Message;
 		public int Score;
-		public EnvType Type;
-		public Result(string message, int score, EnvType type)
+		public Unit Type;
+		public Result(string message, int score, Unit type)
 		{
 			Message = message;
 			Score = score;

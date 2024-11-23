@@ -1,6 +1,4 @@
-public enum EnvType
+public class Unit
 {
-	NoneType,
-	Temperature,
-	Humidity,
-}
+	
+} 
