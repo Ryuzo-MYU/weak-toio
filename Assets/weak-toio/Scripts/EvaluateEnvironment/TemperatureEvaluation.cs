@@ -22,7 +22,6 @@ public class TemperatureEvaluation : MonoBehaviour
 		toioManager = new ToioManager(cubeCount);
 		toioManager.Start();
 	}
-
 	private void Update()
 	{
 		Result result = tempEval.GetEvaluationResult(sensor);
