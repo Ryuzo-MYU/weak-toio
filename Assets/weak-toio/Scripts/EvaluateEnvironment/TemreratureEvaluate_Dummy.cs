@@ -21,8 +21,8 @@ public class TemreratureEvaluate_Dummy : MonoBehaviour
 
 		// 評価システムの初期化
 		tempEval = new TemperatureEvaluate();
-		tempAction = new TemperatureActionGenerator();
 		toioManager = new ToioManager(connectType, cubeCount);
+		tempAction = new TemperatureActionGenerator(toioManager.GetToio(0));
 		toioManager.Setup();
 	}
 	private void Update()

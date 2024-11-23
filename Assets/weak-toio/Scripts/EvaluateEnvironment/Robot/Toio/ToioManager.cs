@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using toio;
+using UnityEditor.PackageManager;
 using UnityEngine;
 
 namespace Robot
@@ -42,6 +43,12 @@ namespace Robot
 			{
 				StartCoroutine(toio.AddNewAction(nextMotions));
 			}
+		}
+		public Toio GetToio(int index)
+		{
+			if (Toios[index] == null) Debug.LogWarning("キューブないです");
+
+			return Toios[index];
 		}
 	}
 }

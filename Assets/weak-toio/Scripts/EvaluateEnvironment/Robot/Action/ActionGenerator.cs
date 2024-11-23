@@ -6,7 +6,7 @@ namespace Robot
 {
 	public abstract class ActionGenerator
 	{
-		protected readonly IToioMovement _toio;
+		protected IToioMovement _toio;
 		protected Result _result;
 
 		/// <summary>
