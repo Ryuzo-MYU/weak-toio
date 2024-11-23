@@ -36,11 +36,11 @@ namespace Robot
 				toio.StartMovement();
 			}
 		}
-		public void UpdateAction(Motion[] nextMotions)
+		public void AddNewAction(Action nextMotions)
 		{
 			foreach (Toio toio in Toios)
 			{
-				StartCoroutine(toio.UpdateAction(nextMotions));
+				StartCoroutine(toio.AddNewAction(nextMotions));
 			}
 		}
 	}
