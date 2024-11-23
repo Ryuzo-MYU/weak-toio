@@ -28,6 +28,11 @@ namespace Robot
 				Toios.Add(toio);
 				id++;
 			}
+
+			foreach (IToioMovement toio in Toios)
+			{
+				toio.StartMovement();
+			}
 		}
 		public void UpdateAction(Action nextAc)
 		{
