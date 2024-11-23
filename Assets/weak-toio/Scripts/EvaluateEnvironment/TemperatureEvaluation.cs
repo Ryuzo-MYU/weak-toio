@@ -10,11 +10,10 @@ public class TemperatureEvaluation : MonoBehaviour
 	[Tooltip("Mainをぶち込め")]
 	public GameObject sensorObject;
 	[SerializeField] SensorUnit sensor;
-	Evaluate tempEval;
-	ActionGenerator tempAction;
-	ActionSender sender;
+	EvaluationResultSender tempEval;
+	ActionSender tempAction;
+	IToioMovement toioMovement;
 	ToioManager toioManager;
-	EnvType envType;
 
 	private void Start()
 	{
@@ -24,21 +23,15 @@ public class TemperatureEvaluation : MonoBehaviour
 		// 評価システムの初期化
 		tempEval = new TemperatureEvaluate();
 		tempAction = new TemperatureActionGenerator();
-		sender = new ActionSender();
 
-		envType = tempEval.GetEnvType();
 		toioManager = new ToioManager(cubeCount);
-		toioManager.Start(envType);
 
 	}
 
 	private void Update()
 	{
-		var result = tempEval.EvaluateEnv(sensor);
+		var result = tempEval.GetEvaluationResult(sensor);
 		var action = tempAction.GenerateAction(result);
-		sender.Update(action);
 
-		var nextAc = sender.NextAction();
-		toioManager.Update(nextAc);
 	}
 }
