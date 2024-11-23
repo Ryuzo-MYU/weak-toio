@@ -5,9 +5,9 @@ namespace Evaluation
 	/// </summary>
 	public struct Result
 	{
-		public int Score;
+		public float Score;
 		public Unit Unit;
-		public Result(int _score, Unit _unit)
+		public Result(float _score, Unit _unit)
 		{
 			Score = _score;
 			Unit = _unit;

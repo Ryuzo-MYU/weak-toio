@@ -13,7 +13,7 @@ namespace Evaluation
 		private BoundaryRange suitableRange = new BoundaryRange(UPPER_BOUND, LOWER_BOUND);
 		private Unit _celsius = new Unit("℃");
 		public float CurrentTemperature { get; private set; }
-		private int _score;
+		private float _score;
 
 		/// <summary>
 		/// SensorUnitから気温のデータを取得し、労働環境の適温範囲と比較した結果を返す
@@ -25,18 +25,21 @@ namespace Evaluation
 			CurrentTemperature = sensor.sensorInfo.temp; // SensorUnitから気温を取得
 
 			// 気温に基づく評価
-			if (CurrentTemperature < LOWER_BOUND)
+			// 適温範囲内なら
+			if (suitableRange.isWithInRange(CurrentTemperature))
 			{
-				_score = (int)(CurrentTemperature - LOWER_BOUND); // マイナスのスコア
+				_score = 0;
 			}
-			else if (CurrentTemperature > UPPER_BOUND)
+			// 適温より寒ければ
+			else if (CurrentTemperature < suitableRange.LowerLimit)
 			{
-				_score = (int)(CurrentTemperature - UPPER_BOUND); // プラスのスコア
+				_score = CurrentTemperature - suitableRange.LowerLimit;
 			}
 			else
 			{
-				_score = 0; // 適温
-			}
+				_score = CurrentTemperature - suitableRange.UpperLimit;
+			 }
+
 
 			Result temperatureResult = new Result(_score, _celsius);
 
