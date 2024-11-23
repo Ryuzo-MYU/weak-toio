@@ -11,7 +11,7 @@ namespace Evaluation
 		private const float LOWER_BOUND = 22.0f; // 寒すぎる基準
 		private const float UPPER_BOUND = 27.0f;  // 暑すぎる基準
 		private BoundaryRange suitableRange = new BoundaryRange(UPPER_BOUND, LOWER_BOUND);
-		private const string UNIT = "℃";
+		private Unit unit;
 		public float CurrentTemperature { get; private set; }
 		public int Condition { get; private set; }
 
