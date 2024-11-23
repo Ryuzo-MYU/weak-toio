@@ -7,12 +7,12 @@ namespace Evaluation
 	{
 		public string Message;
 		public int Score;
-		public Unit Type;
-		public Result(string message, int score, Unit type)
+		public Unit Unit;
+		public Result(string _message, int _score, Unit _unit)
 		{
-			Message = message;
-			Score = score;
-			Type = type;
+			Message = _message;
+			Score = _score;
+			Unit = _unit;
 		}
 	}
 }
