@@ -12,6 +12,7 @@ public class TemperatureEvaluation : MonoBehaviour
 	[Tooltip("接続したいtoioの数")] public int cubeCount = 0;
 	[Tooltip("Mainをぶち込め")][SerializeField] SensorUnit sensor;
 	public bool UseDummy;
+	[SerializeField] TempBoundary tempBoundary;
 	EvaluationResultSender tempEval;
 	ActionSender tempAction;
 	ToioManager toioManager;
@@ -28,7 +29,7 @@ public class TemperatureEvaluation : MonoBehaviour
 		try
 		{
 			// 評価システムの初期化
-			tempEval = new TemperatureEvaluate();
+			tempEval = new TemperatureEvaluate(tempBoundary.UpperBound, tempBoundary.LowerBound);
 			toioManager = new ToioManager(connectType, cubeCount);
 
 			// Connect処理の完了を確実に待機
@@ -65,5 +66,12 @@ public class TemperatureEvaluation : MonoBehaviour
 		Result result = tempEval.GetEvaluationResult(sensor);
 		Robot.Action action = tempAction.GenerateAction(result);
 		toioManager.AddNewAction(action);
+	}
+
+	[Serializable]
+	struct TempBoundary
+	{
+		public float UpperBound;
+		public float LowerBound;
 	}
 }
