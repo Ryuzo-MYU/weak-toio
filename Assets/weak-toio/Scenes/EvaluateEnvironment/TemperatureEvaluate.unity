@@ -1649,6 +1649,14 @@ PrefabInstance:
       propertyPath: sensorObject
       value: 
       objectReference: {fileID: 1444033345}
+    - target: {fileID: 5465441186832745223, guid: 4dbb8aa7bb4e36a439f92a0590a88b3d, type: 3}
+      propertyPath: tempBoundary.LowerBound
+      value: 22
+      objectReference: {fileID: 0}
+    - target: {fileID: 5465441186832745223, guid: 4dbb8aa7bb4e36a439f92a0590a88b3d, type: 3}
+      propertyPath: tempBoundary.UpperBound
+      value: 27
+      objectReference: {fileID: 0}
     - target: {fileID: 6958355810227449641, guid: 4dbb8aa7bb4e36a439f92a0590a88b3d, type: 3}
       propertyPath: deg
       value: 30
