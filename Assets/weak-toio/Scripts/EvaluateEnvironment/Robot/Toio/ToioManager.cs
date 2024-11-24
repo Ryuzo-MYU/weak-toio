@@ -19,11 +19,12 @@ namespace Robot
 			this.connectType = connectType;
 			this.cubeCount = cubeCount;
 		}
-		public async Task Setup()
+		public async Task Connect()
 		{
 			cubeManager = new CubeManager(connectType);
 			await cubeManager.MultiConnect(cubeCount);
-
+		}
+		public void SetUp(){
 			int id = 0;
 			for (int count = 0; count < cubeManager.cubes.Count; count++)
 			{
