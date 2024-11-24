@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Environment;
 using Evaluation;
 using Robot;
@@ -13,6 +14,7 @@ public class TemperatureEvaluation : MonoBehaviour
 	[Tooltip("Mainをぶち込め")][SerializeField] SensorUnit sensor;
 	public bool UseDummy;
 	[SerializeField] TempBoundary tempBoundary;
+	[SerializeField] List<GameObject> Cubes;
 	EvaluationResultSender tempEval;
 	ActionSender tempAction;
 	ToioManager toioManager;

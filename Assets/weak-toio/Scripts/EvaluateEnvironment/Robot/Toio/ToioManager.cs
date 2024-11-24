@@ -10,7 +10,6 @@ namespace Robot
 	{
 		private ConnectType connectType;
 		private int cubeCount;
-		public List<GameObject> Cubes;
 		CubeManager cubeManager;
 		List<Toio> Toios = new List<Toio>();
 		public bool IsInitialized { get; private set; }
