@@ -16,6 +16,7 @@ public class TemperatureEvaluation : MonoBehaviour
 	EvaluationResultSender tempEval;
 	ActionSender tempAction;
 	ToioManager toioManager;
+	private bool connected = false;
 
 	private async void Start()
 	{
@@ -33,7 +34,7 @@ public class TemperatureEvaluation : MonoBehaviour
 			toioManager = new ToioManager(connectType, cubeCount);
 
 			// Connect処理の完了を確実に待機
-			bool connected = await toioManager.Connect();
+			connected = await toioManager.Connect();
 
 			// 接続が成功したか確認
 			if (!connected)
@@ -62,10 +63,13 @@ public class TemperatureEvaluation : MonoBehaviour
 	}
 	private void Update()
 	{
-		sensor.Update();
-		Result result = tempEval.GetEvaluationResult(sensor);
-		Robot.Action action = tempAction.GenerateAction(result);
-		toioManager.AddNewAction(action);
+		if (connected)
+		{
+			sensor.Update();
+			Result result = tempEval.GetEvaluationResult(sensor);
+			Robot.Action action = tempAction.GenerateAction(result);
+			toioManager.AddNewAction(action);
+		}
 	}
 
 	[Serializable]
