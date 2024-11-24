@@ -37,7 +37,6 @@ public class TemperatureEvaluation : MonoBehaviour
 
 			// Connect処理の完了を確実に待機
 			connected = await toioManager.Connect();
-
 			// 接続が成功したか確認
 			if (!connected)
 			{
@@ -46,10 +45,15 @@ public class TemperatureEvaluation : MonoBehaviour
 			}
 
 			// 接続成功後の処理
-			toioManager.SetUp();
+			List<Toio> toios = new List<Toio>();
+			foreach (GameObject cube in Cubes)
+			{
+				toios.Add(cube.GetComponent<Toio>());
+			}
+			toioManager.Setup(toios);
 
 			// nullチェックを追加
-			var toio = toioManager.GetToio(0);
+			var toio = toioManager.GetHandle();
 			if (toio == null)
 			{
 				Debug.LogError("toioの取得に失敗しました");

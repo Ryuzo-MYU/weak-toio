@@ -11,7 +11,7 @@ namespace Robot
 		private ConnectType connectType;
 		private int cubeCount;
 		CubeManager cubeManager;
-		List<Toio> Toios = new List<Toio>();
+		List<Toio> Toios;
 
 		public ToioManager(ConnectType connectType, int cubeCount)
 		{
@@ -41,9 +41,15 @@ namespace Robot
 				return false;
 			}
 		}
-		public void SetUp()
+		public void Setup(List<Toio> toios)
 		{
-			
+			for (int i = 0; i < cubeManager.cubes.Count; i++)
+			{
+				Cube cube = cubeManager.cubes[i];
+				CubeHandle handle = cubeManager.handles[i];
+				toios[i].Setup(i, cube, handle);
+			}
+			Toios = toios;
 		}
 		public void AddNewAction(Action nextMotions)
 		{
@@ -52,15 +58,14 @@ namespace Robot
 				StartCoroutine(toio.AddNewAction(nextMotions));
 			}
 		}
-		public Toio GetToio(int index)
+		public IToioMovement GetHandle()
 		{
-			if (index > Toios.Count)
+			if (cubeManager.handles.Count < 1)
 			{
-				Debug.LogWarning("配列外参照してます");
+				Debug.LogWarning("キューブ無いっす");
 				return null;
 			}
-
-			return Toios[index];
+			return Toios[0];
 		}
 	}
 }
