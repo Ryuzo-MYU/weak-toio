@@ -12,7 +12,6 @@ namespace Robot
 		private int cubeCount;
 		CubeManager cubeManager;
 		List<Toio> Toios = new List<Toio>();
-		public bool IsInitialized { get; private set; }
 
 		public ToioManager(ConnectType connectType, int cubeCount)
 		{
@@ -44,22 +43,7 @@ namespace Robot
 		}
 		public void SetUp()
 		{
-			int id = 0;
-			for (int count = 0; count < cubeManager.cubes.Count; count++)
-			{
-				var cube = cubeManager.cubes[count];
-				var handle = cubeManager.handles[count];
-				Toio toio = new Toio(id, cube, handle);
-				Toios.Add(toio);
-				id++;
-			}
-
-			foreach (IToioMovement toio in Toios)
-			{
-				toio.StartMovement();
-			}
-
-			IsInitialized = true;
+			
 		}
 		public void AddNewAction(Action nextMotions)
 		{
