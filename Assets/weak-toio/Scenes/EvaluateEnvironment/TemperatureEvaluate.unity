@@ -1634,12 +1634,16 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1444033347}
     - target: {fileID: 5465441186832745223, guid: 4dbb8aa7bb4e36a439f92a0590a88b3d, type: 3}
+      propertyPath: UseDummy
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5465441186832745223, guid: 4dbb8aa7bb4e36a439f92a0590a88b3d, type: 3}
       propertyPath: cubeCount
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5465441186832745223, guid: 4dbb8aa7bb4e36a439f92a0590a88b3d, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5465441186832745223, guid: 4dbb8aa7bb4e36a439f92a0590a88b3d, type: 3}
       propertyPath: sensorObject
@@ -1745,6 +1749,7 @@ PrefabInstance:
     - {fileID: 22176196447484195, guid: 4dbb8aa7bb4e36a439f92a0590a88b3d, type: 3}
     - {fileID: 0}
     - {fileID: 0}
+    - {fileID: 7734939616895756992, guid: 4dbb8aa7bb4e36a439f92a0590a88b3d, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []

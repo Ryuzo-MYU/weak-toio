@@ -11,12 +11,20 @@ public class TemperatureEvaluation : MonoBehaviour
 
 	[Tooltip("接続したいtoioの数")] public int cubeCount = 0;
 	[Tooltip("Mainをぶち込め")][SerializeField] SensorUnit sensor;
+	public bool UseDummy;
 	EvaluationResultSender tempEval;
 	ActionSender tempAction;
 	ToioManager toioManager;
 
 	private async void Start()
 	{
+		// ダミーセンサーを使う場合
+		if (UseDummy)
+		{
+			// ダミーセンサーの初期化
+			sensor = new DummySensor();
+		}
+
 		try
 		{
 			// 評価システムの初期化
@@ -53,6 +61,7 @@ public class TemperatureEvaluation : MonoBehaviour
 	}
 	private void Update()
 	{
+		sensor.Update();
 		Result result = tempEval.GetEvaluationResult(sensor);
 		Robot.Action action = tempAction.GenerateAction(result);
 		toioManager.AddNewAction(action);
