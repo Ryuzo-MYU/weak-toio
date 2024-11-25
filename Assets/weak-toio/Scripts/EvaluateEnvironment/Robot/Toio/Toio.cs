@@ -19,7 +19,7 @@ namespace Robot
 			Cube = _cube;
 			Handle = _handle;
 			actions = new Queue<Action>();
-			currentAction = new Action();
+			currentAction = new Robot.Action();
 		}
 		public IEnumerator Move()
 		{
