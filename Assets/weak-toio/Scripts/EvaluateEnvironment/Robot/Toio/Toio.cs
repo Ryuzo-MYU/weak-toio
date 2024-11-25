@@ -50,7 +50,7 @@ namespace Robot
 		public void AddNewAction(Action action)
 		{
 			actions.Enqueue(action);
-			Debug.Log("");
+			Debug.Log("アクション足しました");
 		}
 
 		// アクション作成関数の実装部分。ActionGeneratorで利用
