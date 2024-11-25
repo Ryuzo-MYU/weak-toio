@@ -49,8 +49,13 @@ namespace Robot
 		}
 		public void AddNewAction(Action action)
 		{
+			if (actions.Count > 10)
+			{
+				Debug.Log("action溜まってんね"); return;
+			}
 			actions.Enqueue(action);
 			Debug.Log("アクション足しました");
+			return;
 		}
 
 		// アクション作成関数の実装部分。ActionGeneratorで利用

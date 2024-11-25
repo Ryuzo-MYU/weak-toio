@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using Environment;
 using Evaluation;
 using Robot;
@@ -49,15 +50,25 @@ public class Main_Temperature_Single : MonoBehaviour
 				  $"メソッド名: {System.Reflection.MethodBase.GetCurrentMethod().Name}\n" +
 				  $"行番号: {new System.Diagnostics.StackTrace(e, true).GetFrame(0).GetFileLineNumber()}");
 		}
+
+		StartCoroutine(UpdateEvaluate());
 	}
 	private void Update()
 	{
-		if (connected)
+	}
+
+	IEnumerator UpdateEvaluate()
+	{
+		while (true)
 		{
-			sensor.Update();
-			Result result = tempEval.GetEvaluationResult(sensor);
-			Robot.Action action = tempAction.GenerateAction(result);
-			toio.AddNewAction(action);
+			if (connected)
+			{
+				sensor.Update();
+				Result result = tempEval.GetEvaluationResult(sensor);
+				Robot.Action action = tempAction.GenerateAction(result);
+				toio.AddNewAction(action);
+				yield return new WaitForSeconds(1.0f);
+			}
 		}
 	}
 
