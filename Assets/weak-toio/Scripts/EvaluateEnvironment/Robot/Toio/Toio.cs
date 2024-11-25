@@ -19,7 +19,7 @@ namespace Robot
 			cube = _cube;
 			handle = _handle;
 		}
-		public IEnumerator MoveOperation(CubeHandle handle)
+		public IEnumerator Move(CubeHandle handle)
 		{
 			while (actions.Count != 0)
 			{
@@ -34,13 +34,9 @@ namespace Robot
 				yield return new WaitForSeconds(motion.interval);
 			}
 		}
-		public IEnumerator AddNewAction(Action action)
+		public void AddNewAction(Action action)
 		{
-			while (true)
-			{
-				actions.Enqueue(action);
-				yield return null;
-			}
+			actions.Enqueue(action);
 		}
 
 		// アクション作成関数の実装部分。ActionGeneratorで利用
