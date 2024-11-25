@@ -47,6 +47,7 @@ namespace Robot
 					}
 					else
 					{
+						yield return null;
 						continue;
 					}
 				}
