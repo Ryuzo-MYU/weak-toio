@@ -51,13 +51,7 @@ namespace Robot
 			}
 			Toios = toios;
 		}
-		public void AddNewAction(Action nextMotions)
-		{
-			foreach (Toio toio in Toios)
-			{
-				StartCoroutine(toio.AddNewAction(nextMotions));
-			}
-		}
+		
 		public IToioMovement GetHandle()
 		{
 			if (cubeManager.handles.Count < 1)
