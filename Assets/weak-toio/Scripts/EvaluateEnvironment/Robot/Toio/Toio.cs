@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Robot
 {
-	public class Toio : MonoBehaviour, IToioMovement
+	public class Toio : IToioMovement
 	{
 		public int id;
 		public Cube cube;
@@ -19,11 +19,7 @@ namespace Robot
 			cube = _cube;
 			handle = _handle;
 		}
-		public void StartMovement()
-		{
-			StartCoroutine(MoveOperation(handle));
-		}
-		private IEnumerator MoveOperation(CubeHandle handle)
+		public IEnumerator MoveOperation(CubeHandle handle)
 		{
 			while (actions.Count != 0)
 			{
