@@ -23,9 +23,14 @@ namespace Robot
 			actions = new Queue<Action>();
 			currentAction = new Robot.Action();
 		}
+		public void StartMove(MonoBehaviour mono)
+		{
+			Debug.Log("StartMoveが呼ばれたよ");
+			mono.StartCoroutine(Move());
+		}
 		public IEnumerator Move()
 		{
-			while (actions.Count > 0)
+			while (actions.Count != 0)
 			{
 				Debug.Log("ほな動きますね");
 
@@ -45,6 +50,7 @@ namespace Robot
 		public void AddNewAction(Action action)
 		{
 			actions.Enqueue(action);
+			Debug.Log("");
 		}
 
 		// アクション作成関数の実装部分。ActionGeneratorで利用

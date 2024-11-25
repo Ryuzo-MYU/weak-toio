@@ -32,14 +32,14 @@ public class Main_Temperature_Single : MonoBehaviour
 			// toioに接続
 			cubeManager = new CubeManager(connectType);
 			await cubeManager.SingleConnect();
+			Debug.Log("接続完了");
 
 			int id = 0;
 			toio = new Toio(id, cubeManager);
 
 			tempAction = new TemperatureActionGenerator(toio);
 
-			StartCoroutine(toio.Move());
-			Debug.Log("接続完了");
+			toio.StartMove(this);
 		}
 		catch (Exception e)
 		{
