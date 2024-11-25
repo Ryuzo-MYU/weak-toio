@@ -18,8 +18,8 @@ namespace Robot
 		{
 			ID = _id;
 			cubeManager = _cubeManager;
-			Cube = cubeManager.syncCubes[_id];
-			Handle = cubeManager.syncHandles[ID];
+			Cube = cubeManager.cubes[ID];
+			Handle = cubeManager.handles[ID];
 			actions = new Queue<Action>();
 			currentAction = new Robot.Action();
 		}

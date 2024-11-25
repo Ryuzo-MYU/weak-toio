@@ -33,7 +33,7 @@ public class Main_Temperature_Single : MonoBehaviour
 			cubeManager = new CubeManager(connectType);
 			await cubeManager.SingleConnect();
 
-			int id = cubeManager.cubes.Count;
+			int id = 0;
 			toio = new Toio(id, cubeManager);
 
 			tempAction = new TemperatureActionGenerator(toio);
