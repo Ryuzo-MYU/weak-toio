@@ -34,6 +34,9 @@ namespace Robot
 				yield return new WaitForSeconds(motion.interval);
 			}
 		}
+		public void MoveOperation(CubeHandle handle){
+
+		}
 		public void AddNewAction(Action action)
 		{
 			actions.Enqueue(action);
