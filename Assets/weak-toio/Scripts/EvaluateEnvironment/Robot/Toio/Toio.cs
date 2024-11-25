@@ -18,6 +18,8 @@ namespace Robot
 			ID = _id;
 			Cube = _cube;
 			Handle = _handle;
+			actions = new Queue<Action>();
+			currentAction = new Action();
 		}
 		public IEnumerator Move()
 		{

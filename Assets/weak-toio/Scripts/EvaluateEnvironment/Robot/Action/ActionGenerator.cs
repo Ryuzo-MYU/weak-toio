@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Evaluation;
 using toio;
@@ -51,6 +52,11 @@ namespace Robot
 		public readonly int Count()
 		{
 			return motions.Count;
+		}
+
+		public static implicit operator Queue<object>(Action v)
+		{
+			throw new NotImplementedException();
 		}
 	}
 	public struct Motion
