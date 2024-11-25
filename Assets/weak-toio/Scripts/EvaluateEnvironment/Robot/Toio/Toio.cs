@@ -13,13 +13,13 @@ namespace Robot
 		Queue<Action> actions;
 		Action currentAction;
 
-		public void Setup(int _id, Cube _cube, CubeHandle _handle)
+		public Toio(int _id, Cube _cube, CubeHandle _handle)
 		{
 			id = _id;
 			cube = _cube;
 			handle = _handle;
 		}
-		public IEnumerator Move(CubeHandle handle)
+		public IEnumerator Move()
 		{
 			while (actions.Count != 0)
 			{
@@ -33,9 +33,6 @@ namespace Robot
 				}
 				yield return new WaitForSeconds(motion.interval);
 			}
-		}
-		public void MoveOperation(CubeHandle handle){
-
 		}
 		public void AddNewAction(Action action)
 		{
