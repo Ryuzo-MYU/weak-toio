@@ -28,6 +28,7 @@ namespace Robot
 				Debug.Log("ほな動きますね");
 
 				Motion motion = currentAction.GetNextMotion();
+				Handle.Update();
 				Handle.Move(motion.Movement);
 
 				// 現在のアクションが実行されきったらアクションを更新
