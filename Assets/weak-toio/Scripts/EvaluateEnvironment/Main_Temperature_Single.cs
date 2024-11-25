@@ -63,9 +63,9 @@ public class Main_Temperature_Single : MonoBehaviour
 
 				if (!toio.AddNewAction(action))
 				{
-					Debug.LogWarning("アクション追加失敗");
+					Debug.LogWarning("アクション溜まってんね");
 				}
-				yield return new WaitForSeconds(1.0f);
+				yield return new WaitForSeconds(2.0f);
 			}
 			else
 			{

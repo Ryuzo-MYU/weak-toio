@@ -7,6 +7,7 @@ namespace Robot
 {
 	public class Toio : IToioMovement
 	{
+		private int ACTION_MAX_COUNT = 10;
 		public int ID { get; private set; }
 		public Cube Cube { get; private set; }
 		public CubeHandle Handle { get; private set; }
@@ -68,9 +69,8 @@ namespace Robot
 				Debug.LogWarning("null のアクション送るな");
 				return false;
 			}
-			if (actions.Count > 10)
+			if (actions.Count > ACTION_MAX_COUNT)
 			{
-				Debug.Log("action溜まってんね");
 				return false;
 			}
 			actions.Enqueue(action);
