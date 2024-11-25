@@ -46,10 +46,7 @@ namespace Evaluation
 				_score = CurrentTemperature - suitableRange.UpperLimit;
 			}
 
-
 			Result temperatureResult = new Result(_score, _celsius);
-
-			Debug.Log($"評価成功 \n Condition = {_score}");
 
 			return temperatureResult;
 		}
