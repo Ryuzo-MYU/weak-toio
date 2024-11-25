@@ -41,8 +41,8 @@ namespace Robot
 				}
 
 				Motion motion = currentAction.GetNextMotion();
-				cubeManager.handles[ID].Update();
-				cubeManager.handles[ID].Move(motion.Movement);
+				Handle.Update();
+				Handle.Move(motion.Movement);
 
 				yield return new WaitForSeconds(motion.interval);
 			}
