@@ -61,12 +61,20 @@ public class Main_Temperature_Single : MonoBehaviour
 	{
 		while (true)
 		{
-			if (connected)
+			if (connected && sensor != null)
 			{
 				sensor.Update();
 				Result result = tempEval.GetEvaluationResult(sensor);
 				Robot.Action action = tempAction.GenerateAction(result);
-				toio.AddNewAction(action);
+
+				if (!toio.AddNewAction(action))
+				{
+					Debug.LogWarning("アクション追加失敗");
+				}
+				yield return new WaitForSeconds(1.0f);
+			}
+			else
+			{
 				yield return new WaitForSeconds(1.0f);
 			}
 		}
