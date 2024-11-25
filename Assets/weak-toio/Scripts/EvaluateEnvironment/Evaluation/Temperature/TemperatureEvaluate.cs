@@ -47,6 +47,8 @@ namespace Evaluation
 			}
 
 			Result temperatureResult = new Result(_score, _celsius);
+			Debug.Log($"評価成功。Score: {_score}\n" +
+					$"もとの気温は{CurrentTemperature}{_celsius}です");
 
 			return temperatureResult;
 		}

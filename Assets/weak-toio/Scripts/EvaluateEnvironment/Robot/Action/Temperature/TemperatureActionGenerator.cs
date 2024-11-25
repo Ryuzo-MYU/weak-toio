@@ -49,8 +49,8 @@ namespace Robot
 		private Action SuitableAction()
 		{
 			Queue<Motion> suitableRotate = new Queue<Motion>();
-			suitableRotate.Enqueue(Rotate(90, 100));
-			suitableRotate.Enqueue(Rotate(-90, 100));
+			suitableRotate.Enqueue(Rotate(90, 45));
+			suitableRotate.Enqueue(Rotate(-90, 45));
 
 			Action action = new Action(suitableRotate);
 			return action;
