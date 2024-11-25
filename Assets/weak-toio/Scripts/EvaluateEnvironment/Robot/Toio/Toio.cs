@@ -33,17 +33,17 @@ namespace Robot
 			while (actions.Count != 0)
 			{
 				Debug.Log("ほな動きますね");
-
-				Motion motion = currentAction.GetNextMotion();
-				cubeManager.handles[ID].Update();
-				cubeManager.handles[ID].Move(motion.Movement);
-
 				// 現在のアクションが実行されきったらアクションを更新
 				if (currentAction.Count() == 0)
 				{
 					currentAction = actions.Dequeue();
 					Debug.Log("アクション無いんで入れ替えますね");
 				}
+
+				Motion motion = currentAction.GetNextMotion();
+				cubeManager.handles[ID].Update();
+				cubeManager.handles[ID].Move(motion.Movement);
+
 				yield return new WaitForSeconds(motion.interval);
 			}
 		}
