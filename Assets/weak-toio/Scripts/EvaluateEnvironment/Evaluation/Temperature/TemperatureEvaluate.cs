@@ -8,13 +8,19 @@ namespace Evaluation
 	/// </summary>
 	public class TemperatureEvaluate : EvaluationResultSender
 	{
-		private const float LOWER_BOUND = 22.0f; // 寒すぎる基準
-		private const float UPPER_BOUND = 27.0f;  // 暑すぎる基準
-		private BoundaryRange suitableRange = new BoundaryRange(UPPER_BOUND, LOWER_BOUND);
+		private float UPPER_BOUND;  // 暑すぎる基準
+		private float LOWER_BOUND; // 寒すぎる基準
+		private BoundaryRange suitableRange;
 		private Unit _celsius = new Unit("℃");
 		public float CurrentTemperature { get; private set; }
 		private float _score;
 
+		public TemperatureEvaluate(float _upperBound, float _lowerBound)
+		{
+			UPPER_BOUND = _upperBound;
+			LOWER_BOUND = _lowerBound;
+			suitableRange = new BoundaryRange(UPPER_BOUND, LOWER_BOUND);
+		}
 		/// <summary>
 		/// SensorUnitから気温のデータを取得し、労働環境の適温範囲と比較した結果を返す
 		/// </summary>

@@ -1,7 +1,7 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using toio;
-using UnityEditor.PackageManager;
 using UnityEngine;
 
 namespace Robot
@@ -11,35 +11,45 @@ namespace Robot
 		private ConnectType connectType;
 		private int cubeCount;
 		CubeManager cubeManager;
-		List<Toio> Toios = new List<Toio>();
-		public bool IsInitialized { get; private set; }
+		List<Toio> Toios;
 
 		public ToioManager(ConnectType connectType, int cubeCount)
 		{
 			this.connectType = connectType;
 			this.cubeCount = cubeCount;
 		}
-		public async Task Setup()
+		public async Task<bool> Connect()
 		{
-			cubeManager = new CubeManager(connectType);
-			await cubeManager.MultiConnect(cubeCount);
-
-			int id = 0;
-			for (int count = 0; count < cubeManager.cubes.Count; count++)
+			try
 			{
-				var cube = cubeManager.cubes[count];
-				var handle = cubeManager.handles[count];
-				Toio toio = new Toio(id, cube, handle);
-				Toios.Add(toio);
-				id++;
-			}
+				cubeManager = new CubeManager(connectType);
+				await cubeManager.MultiConnect(cubeCount);
 
-			foreach (IToioMovement toio in Toios)
+				// 接続されたcubeの数を確認
+				if (cubeManager.cubes.Count < cubeCount)
+				{
+					Debug.LogWarning($"要求された数のtoioに接続できませんでした。要求数: {cubeCount}, 接続数: {cubeManager.cubes.Count}");
+					return false;
+				}
+
+				Debug.Log($"toioへの接続に成功しました。接続数: {cubeManager.cubes.Count}");
+				return true;
+			}
+			catch (Exception e)
 			{
-				toio.StartMovement();
+				Debug.LogError($"toioとの接続中にエラーが発生しました: {e.Message}");
+				return false;
 			}
-
-			IsInitialized = true;
+		}
+		public void Setup(List<Toio> toios)
+		{
+			for (int i = 0; i < cubeManager.cubes.Count; i++)
+			{
+				Cube cube = cubeManager.cubes[i];
+				CubeHandle handle = cubeManager.handles[i];
+				toios[i].Setup(i, cube, handle);
+			}
+			Toios = toios;
 		}
 		public void AddNewAction(Action nextMotions)
 		{
@@ -48,11 +58,14 @@ namespace Robot
 				StartCoroutine(toio.AddNewAction(nextMotions));
 			}
 		}
-		public Toio GetToio(int index)
+		public IToioMovement GetHandle()
 		{
-			if (Toios[index] == null) Debug.LogWarning("キューブないです");
-
-			return Toios[index];
+			if (cubeManager.handles.Count < 1)
+			{
+				Debug.LogWarning("キューブ無いっす");
+				return null;
+			}
+			return Toios[0];
 		}
 	}
 }

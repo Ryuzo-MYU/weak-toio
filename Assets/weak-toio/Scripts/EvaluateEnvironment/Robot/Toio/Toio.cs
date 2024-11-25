@@ -7,13 +7,13 @@ namespace Robot
 {
 	public class Toio : MonoBehaviour, IToioMovement
 	{
-		int id;
-		Cube cube;
-		CubeHandle handle;
+		public int id;
+		public Cube cube;
+		public CubeHandle handle;
 		Queue<Action> actions;
 		Action currentAction;
 
-		public Toio(int _id, Cube _cube, CubeHandle _handle)
+		public void Setup(int _id, Cube _cube, CubeHandle _handle)
 		{
 			id = _id;
 			cube = _cube;
