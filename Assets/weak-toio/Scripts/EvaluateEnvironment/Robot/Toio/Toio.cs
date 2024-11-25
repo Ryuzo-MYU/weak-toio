@@ -22,7 +22,7 @@ namespace Robot
 			Cube = cubeManager.cubes[ID];
 			Handle = cubeManager.handles[ID];
 			actions = new Queue<Action>();
-			currentAction = null;
+			currentAction = new Action();
 		}
 		public void StartMove(MonoBehaviour mono)
 		{
@@ -37,7 +37,7 @@ namespace Robot
 		{
 			while (isMoving)
 			{
-				if (currentAction == null || currentAction.Count() == 0)
+				if (currentAction.Count() == 0)
 				{
 					if (actions.Count > 0)
 					{
