@@ -50,15 +50,15 @@ namespace Robot
 					yield return new WaitForSeconds(0.1f);
 					continue;
 				}
-			}
 
-			Motion motion = currentAction.GetNextMotion();
-			if (motion != null)
-			{
-				Debug.Log("ほな動きますね");
-				Handle.Update();
-				Handle.Move(motion.Movement);
-				yield return new WaitForSeconds(motion.interval);
+				Motion motion = currentAction.GetNextMotion();
+				if (motion != null)
+				{
+					Debug.Log("ほな動きますね");
+					Handle.Update();
+					Handle.Move(motion.Movement);
+					yield return new WaitForSeconds(motion.interval);
+				}
 			}
 		}
 		public bool AddNewAction(Action action)
