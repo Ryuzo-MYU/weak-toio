@@ -32,6 +32,7 @@ namespace Robot
 				if (currentAction.Count() == 0)
 				{
 					currentAction = actions.Dequeue();
+					Debug.Log("アクション無いんで入れ替えますね");
 				}
 				yield return new WaitForSeconds(motion.interval);
 			}
