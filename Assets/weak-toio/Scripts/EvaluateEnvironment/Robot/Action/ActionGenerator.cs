@@ -41,7 +41,10 @@ namespace Robot
 	public class Action
 	{
 		Queue<Motion> motions;
-		public Action() { }
+		public Action()
+		{
+			motions = new Queue<Motion>();
+		}
 		public Action(Queue<Motion> motions)
 		{
 			this.motions = motions;
