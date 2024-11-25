@@ -48,7 +48,10 @@ public class Main_Temperature_Single : MonoBehaviour
 		}
 		catch (Exception e)
 		{
-			Debug.LogError($"エラーが発生しました: {e.Message}");
+			Debug.LogError($"エラー: {e.Message}\n" +
+				  $"場所: {e.StackTrace}\n" +
+				  $"メソッド名: {System.Reflection.MethodBase.GetCurrentMethod().Name}\n" +
+				  $"行番号: {new System.Diagnostics.StackTrace(e, true).GetFrame(0).GetFileLineNumber()}");
 		}
 
 		StartCoroutine(toio.Move());
