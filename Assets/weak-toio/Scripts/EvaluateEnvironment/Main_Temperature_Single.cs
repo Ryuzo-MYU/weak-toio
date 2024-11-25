@@ -8,7 +8,8 @@ using UnityEngine;
 
 public class Main_Temperature_Single : MonoBehaviour
 {
-	[Tooltip("UnityEditor上ならSimmurator、現実ならReal、お任せならAuto")] public ConnectType connectType = ConnectType.Auto;
+	[Tooltip("UnityEditor上ならSimmurator、現実ならReal、お任せならAuto")]
+	 public ConnectType connectType = ConnectType.Auto;
 
 	[Tooltip("接続したいtoioの数")] public int cubeCount = 0;
 	[Tooltip("Mainをぶち込め")][SerializeField] SensorUnit sensor;
