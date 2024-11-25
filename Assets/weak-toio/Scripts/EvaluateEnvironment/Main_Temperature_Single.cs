@@ -31,8 +31,7 @@ public class Main_Temperature_Single : MonoBehaviour
 		{
 			// toioに接続
 			cubeManager = new CubeManager(connectType);
-			await cubeManager.SingleConnect();
-			connected = true;
+			Cube cube =  await cubeManager.SingleConnect(); 
 
 			// 接続が成功したか確認
 			if (!connected)
@@ -44,8 +43,6 @@ public class Main_Temperature_Single : MonoBehaviour
 			if (connected)
 			{
 				int id = cubeManager.cubes.Count;
-				Cube cube = cubeManager.cubes[0];
-				CubeHandle handle = cubeManager.handles[0];
 				toio = new Toio(id, cubeManager);
 
 				tempAction = new TemperatureActionGenerator(toio);
