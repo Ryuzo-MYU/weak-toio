@@ -63,7 +63,7 @@ namespace Robot
 			throw new NotImplementedException();
 		}
 	}
-	public struct Motion
+	public class Motion
 	{
 		public Movement Movement;
 		public float interval;
