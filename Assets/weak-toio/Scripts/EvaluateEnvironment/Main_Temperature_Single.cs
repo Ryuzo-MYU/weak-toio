@@ -58,7 +58,6 @@ public class Main_Temperature_Single : MonoBehaviour
 				  $"メソッド名: {System.Reflection.MethodBase.GetCurrentMethod().Name}\n" +
 				  $"行番号: {new System.Diagnostics.StackTrace(e, true).GetFrame(0).GetFileLineNumber()}");
 		}
-
 	}
 	private void Update()
 	{
