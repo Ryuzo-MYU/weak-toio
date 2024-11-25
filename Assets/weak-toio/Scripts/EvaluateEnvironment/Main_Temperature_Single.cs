@@ -9,7 +9,7 @@ using UnityEngine;
 public class Main_Temperature_Single : MonoBehaviour
 {
 	[Tooltip("UnityEditor上ならSimmurator、現実ならReal、お任せならAuto")]
-	 public ConnectType connectType = ConnectType.Auto;
+	public ConnectType connectType = ConnectType.Auto;
 
 	[Tooltip("接続したいtoioの数")] public int cubeCount = 0;
 	[Tooltip("Mainをぶち込め")][SerializeField] SensorUnit sensor;
@@ -23,8 +23,7 @@ public class Main_Temperature_Single : MonoBehaviour
 
 	private async void Start()
 	{
-		// ダミーセンサーを使う場合
-		if (UseDummy) sensor = new DummySensor();
+		if (UseDummy) sensor = new DummySensor(); // ダミーセンサーを使う場合
 
 		// 評価システムの初期化
 		tempEval = new TemperatureEvaluate(tempBoundary.UpperBound, tempBoundary.LowerBound);
@@ -37,11 +36,8 @@ public class Main_Temperature_Single : MonoBehaviour
 			connected = true;
 			Debug.Log("接続完了");
 
-			int id = 0;
-			toio = new Toio(id, cubeManager);
-
+			toio = new Toio(0, cubeManager);
 			tempAction = new TemperatureActionGenerator(toio);
-
 			toio.StartMove(this);
 		}
 		catch (Exception e)
@@ -53,9 +49,6 @@ public class Main_Temperature_Single : MonoBehaviour
 		}
 
 		StartCoroutine(UpdateEvaluate());
-	}
-	private void Update()
-	{
 	}
 
 	IEnumerator UpdateEvaluate()
