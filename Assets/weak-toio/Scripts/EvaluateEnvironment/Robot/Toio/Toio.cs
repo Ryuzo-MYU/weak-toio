@@ -13,7 +13,7 @@ namespace Robot
 		Queue<Action> actions;
 		Action currentAction;
 		CubeManager cubeManager;
-		bool isMoving;
+		bool isMoving = false;
 
 		public Toio(int _id, CubeManager _cubeManager)
 		{
@@ -23,7 +23,6 @@ namespace Robot
 			Handle = cubeManager.handles[ID];
 			actions = new Queue<Action>();
 			currentAction = null;
-			isMoving = false;
 		}
 		public void StartMove(MonoBehaviour mono)
 		{
