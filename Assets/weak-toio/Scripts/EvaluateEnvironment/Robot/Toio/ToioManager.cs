@@ -41,17 +41,6 @@ namespace Robot
 				return false;
 			}
 		}
-		public void Setup(List<Toio> toios)
-		{
-			for (int i = 0; i < cubeManager.cubes.Count; i++)
-			{
-				Cube cube = cubeManager.cubes[i];
-				CubeHandle handle = cubeManager.handles[i];
-				toios[i] = new Toio(i, cube, handle);
-			}
-			Toios = toios;
-		}
-
 		public IToioMovement GetHandle()
 		{
 			if (cubeManager.handles.Count < 1)

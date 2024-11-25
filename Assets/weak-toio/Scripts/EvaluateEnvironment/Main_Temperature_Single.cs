@@ -41,15 +41,18 @@ public class Main_Temperature_Single : MonoBehaviour
 				return;
 			}
 
-			int id = cubeManager.cubes.Count;
-			Cube cube = cubeManager.cubes[0];
-			CubeHandle handle = cubeManager.handles[0];
-			toio = new Toio(id, cube, handle);
+			if (connected)
+			{
+				int id = cubeManager.cubes.Count;
+				Cube cube = cubeManager.cubes[0];
+				CubeHandle handle = cubeManager.handles[0];
+				toio = new Toio(id, cubeManager);
 
-			tempAction = new TemperatureActionGenerator(toio);
+				tempAction = new TemperatureActionGenerator(toio);
 
-			StartCoroutine(toio.Move());
-			Debug.Log("接続完了");
+				StartCoroutine(toio.Move());
+				Debug.Log("接続完了");
+			}
 		}
 		catch (Exception e)
 		{

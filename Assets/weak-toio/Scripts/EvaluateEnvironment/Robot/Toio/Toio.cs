@@ -12,12 +12,14 @@ namespace Robot
 		public CubeHandle Handle { get; private set; }
 		Queue<Action> actions;
 		Action currentAction;
+		CubeManager cubeManager;
 
-		public Toio(int _id, Cube _cube, CubeHandle _handle)
+		public Toio(int _id, CubeManager _cubeManager)
 		{
 			ID = _id;
-			Cube = _cube;
-			Handle = _handle;
+			cubeManager = _cubeManager;
+			Cube = cubeManager.cubes[ID];
+			Handle = cubeManager.handles[ID];
 			actions = new Queue<Action>();
 			currentAction = new Robot.Action();
 		}
@@ -28,8 +30,8 @@ namespace Robot
 				Debug.Log("ほな動きますね");
 
 				Motion motion = currentAction.GetNextMotion();
-				Handle.Update();
-				Handle.Move(motion.Movement);
+				cubeManager.handles[ID].Update();
+				cubeManager.handles[ID].Move(motion.Movement);
 
 				// 現在のアクションが実行されきったらアクションを更新
 				if (currentAction.Count() == 0)
