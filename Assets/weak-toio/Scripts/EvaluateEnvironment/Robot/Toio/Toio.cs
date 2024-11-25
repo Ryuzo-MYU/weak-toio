@@ -44,11 +44,11 @@ namespace Robot
 						currentAction = actions.Dequeue();
 						Debug.Log("アクション無いんで入れ替えますね");
 					}
-				}
-				else
-				{
-					yield return new WaitForSeconds(0.1f);
-					continue;
+					else
+					{
+						yield return new WaitForSeconds(0.1f);
+						continue;
+					}
 				}
 
 				Motion motion = currentAction.GetNextMotion();
