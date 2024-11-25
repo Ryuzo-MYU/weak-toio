@@ -23,7 +23,7 @@ namespace Robot
 		}
 		public IEnumerator Move()
 		{
-			while (actions.Count != 0)
+			while (actions.Count > 0)
 			{
 				Debug.Log("ほな動きますね");
 
