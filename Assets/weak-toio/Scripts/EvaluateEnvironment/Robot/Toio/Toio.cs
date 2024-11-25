@@ -37,7 +37,7 @@ namespace Robot
 		{
 			while (isMoving)
 			{
-				if (currentAction.Count() == 0)
+				if (currentAction == null || currentAction.Count() == 0)
 				{
 					if (actions.Count > 0)
 					{
