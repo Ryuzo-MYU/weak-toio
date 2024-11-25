@@ -33,13 +33,6 @@ public class Main_Temperature_Single : MonoBehaviour
 			cubeManager = new CubeManager(connectType);
 			await cubeManager.SingleConnect();
 
-			// 接続が成功したか確認
-			if (!connected)
-			{
-				Debug.LogError("toioの接続に失敗しました");
-				return;
-			}
-
 			int id = cubeManager.cubes.Count;
 			toio = new Toio(id, cubeManager);
 
