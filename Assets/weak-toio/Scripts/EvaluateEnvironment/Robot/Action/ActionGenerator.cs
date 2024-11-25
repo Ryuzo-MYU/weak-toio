@@ -38,9 +38,10 @@ namespace Robot
 			return operation;
 		}
 	}
-	public struct Action
+	public class Action
 	{
 		Queue<Motion> motions;
+		public Action() { }
 		public Action(Queue<Motion> motions)
 		{
 			this.motions = motions;
@@ -49,7 +50,7 @@ namespace Robot
 		{
 			return motions.Dequeue();
 		}
-		public readonly int Count()
+		public int Count()
 		{
 			return motions.Count;
 		}
