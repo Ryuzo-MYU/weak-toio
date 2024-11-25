@@ -67,10 +67,6 @@ public class Main_Temperature_Single : MonoBehaviour
 				}
 				yield return new WaitForSeconds(2.0f);
 			}
-			else
-			{
-				yield return new WaitForSeconds(1.0f);
-			}
 		}
 	}
 
