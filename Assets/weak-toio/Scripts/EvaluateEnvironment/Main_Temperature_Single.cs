@@ -48,6 +48,7 @@ public class Main_Temperature_Single : MonoBehaviour
 
 			tempAction = new TemperatureActionGenerator(toio);
 
+			StartCoroutine(toio.Move());
 			Debug.Log("接続完了");
 		}
 		catch (Exception e)
@@ -58,7 +59,6 @@ public class Main_Temperature_Single : MonoBehaviour
 				  $"行番号: {new System.Diagnostics.StackTrace(e, true).GetFrame(0).GetFileLineNumber()}");
 		}
 
-		StartCoroutine(toio.Move());
 	}
 	private void Update()
 	{

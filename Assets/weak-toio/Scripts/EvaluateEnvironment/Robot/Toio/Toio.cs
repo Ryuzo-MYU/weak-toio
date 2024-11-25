@@ -25,6 +25,8 @@ namespace Robot
 		{
 			while (actions.Count != 0)
 			{
+				Debug.Log("ほな動きますね");
+
 				Motion motion = currentAction.GetNextMotion();
 				Handle.Move(motion.Movement);
 
