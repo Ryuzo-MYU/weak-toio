@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using Environment;
 using Evaluation;
 using Robot;
@@ -48,6 +47,8 @@ public class Main_Temperature_Single : MonoBehaviour
 			toio = new Toio(id, cube, handle);
 
 			tempAction = new TemperatureActionGenerator(toio);
+
+			Debug.Log("接続完了");
 		}
 		catch (Exception e)
 		{
