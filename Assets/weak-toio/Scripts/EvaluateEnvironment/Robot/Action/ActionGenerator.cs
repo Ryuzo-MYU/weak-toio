@@ -70,7 +70,7 @@ namespace Robot
 		public Motion(Movement _movement, float _intervel)
 		{
 			Movement = _movement;
-			interval = _intervel;
+			interval = Math.Abs(_intervel);
 		}
 	}
 }
