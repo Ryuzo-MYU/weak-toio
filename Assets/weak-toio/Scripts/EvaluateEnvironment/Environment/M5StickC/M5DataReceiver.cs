@@ -8,7 +8,7 @@ namespace Environment
 {
 	public class M5DataReceiver : MonoBehaviour, SensorUnit
 	{
-		SerialHandler serial;
+		public SerialHandler serial;
 		SensorInfo sensorInfo;
 
 		public SensorInfo GetSensorInfo()
