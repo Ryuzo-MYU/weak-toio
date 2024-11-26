@@ -64,6 +64,7 @@ public class Main_Temperature_Single : MonoBehaviour
 				{
 					Debug.LogWarning("アクション溜まってんね");
 				}
+				Debug.Log("動きます");
 				yield return StartCoroutine(toio.Move());
 			}
 		}
