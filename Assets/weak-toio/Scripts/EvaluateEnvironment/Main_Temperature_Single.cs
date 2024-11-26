@@ -38,7 +38,6 @@ public class Main_Temperature_Single : MonoBehaviour
 
 			toio = new Toio(0, cubeManager);
 			tempAction = new TemperatureActionGenerator(toio);
-			toio.StartMove(this);
 		}
 		catch (Exception e)
 		{
@@ -65,7 +64,7 @@ public class Main_Temperature_Single : MonoBehaviour
 				{
 					Debug.LogWarning("アクション溜まってんね");
 				}
-				yield return null;
+				yield return StartCoroutine(toio.Move());
 			}
 		}
 	}
