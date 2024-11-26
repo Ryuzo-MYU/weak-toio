@@ -58,8 +58,8 @@ namespace Robot
 		private Action ColdCautionAction()
 		{
 			Queue<Motion> CautionShiver = new Queue<Motion>();
-			CautionShiver.Enqueue(Rotate(10, 20));
-			CautionShiver.Enqueue(Rotate(-10, 20));
+			CautionShiver.Enqueue(Rotate(10, 50));
+			CautionShiver.Enqueue(Rotate(-10, 50));
 
 			Action action = new Action(CautionShiver);
 			return action;
@@ -67,8 +67,8 @@ namespace Robot
 		private Action ColdDangerAction()
 		{
 			Queue<Motion> DangerShiver = new Queue<Motion>();
-			DangerShiver.Enqueue(Rotate(20, 80));
-			DangerShiver.Enqueue(Rotate(-20, 80));
+			DangerShiver.Enqueue(Rotate(10, 100));
+			DangerShiver.Enqueue(Rotate(-10, 100));
 
 			Action action = new Action(DangerShiver);
 			return action;
@@ -76,8 +76,8 @@ namespace Robot
 		private Action HotCautionAction()
 		{
 			Queue<Motion> CautionTwist = new Queue<Motion>();
-			CautionTwist.Enqueue(Rotate(45, 45));
-			CautionTwist.Enqueue(Rotate(-45, 45));
+			CautionTwist.Enqueue(Rotate(45, 50));
+			CautionTwist.Enqueue(Rotate(-45, 50));
 
 			Action action = new Action(CautionTwist);
 			return action;
@@ -85,8 +85,8 @@ namespace Robot
 		private Action HotDangerAction()
 		{
 			Queue<Motion> DangerTwist = new Queue<Motion>();
-			DangerTwist.Enqueue(Rotate(90, 100));
-			DangerTwist.Enqueue(Rotate(-90, 100));
+			DangerTwist.Enqueue(Rotate(90, 200));
+			DangerTwist.Enqueue(Rotate(-90, 200));
 
 			Action action = new Action(DangerTwist);
 			return action;
