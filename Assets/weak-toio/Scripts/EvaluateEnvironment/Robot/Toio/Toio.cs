@@ -38,7 +38,6 @@ namespace Robot
 		{
 			while (!isMoving)
 			{
-				isMoving = true;
 				if (currentAction == null || currentAction.Count() == 0)
 				{
 					if (actions.Count > 0)
@@ -62,7 +61,6 @@ namespace Robot
 					Debug.Log($"インターバル: {motion.interval}");
 					yield return new WaitForSeconds(motion.interval);
 				}
-				isMoving = false;
 			}
 		}
 		public bool AddNewAction(Action action)
