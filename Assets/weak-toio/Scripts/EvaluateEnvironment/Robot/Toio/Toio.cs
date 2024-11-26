@@ -28,7 +28,7 @@ namespace Robot
 
 		public IEnumerator Move()
 		{
-			while (actions.Count < 0)
+			while (actions.Count > 0)
 			{
 				if (currentAction == null || currentAction.Count() == 0)
 				{
