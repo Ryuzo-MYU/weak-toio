@@ -50,6 +50,10 @@ public class Main_Temperature_Single : MonoBehaviour
 
 		StartCoroutine(UpdateEvaluate());
 	}
+	private void Update()
+	{
+		sensor.Update();
+	}
 
 	IEnumerator UpdateEvaluate()
 	{
@@ -57,7 +61,6 @@ public class Main_Temperature_Single : MonoBehaviour
 		{
 			if (connected && sensor != null)
 			{
-				sensor.Update();
 				Result result = tempEval.GetEvaluationResult(sensor);
 				Robot.Action action = tempAction.GenerateAction(result);
 
@@ -65,7 +68,7 @@ public class Main_Temperature_Single : MonoBehaviour
 				{
 					Debug.LogWarning("アクション溜まってんね");
 				}
-				yield return new WaitForSeconds(2.0f);
+				yield return new WaitForSeconds(1.0f);
 			}
 		}
 	}
