@@ -65,7 +65,7 @@ public class Main_Temperature_Single : MonoBehaviour
 				{
 					Debug.LogWarning("アクション溜まってんね");
 				}
-				yield return new WaitForSeconds(2.0f);
+				yield return null;
 			}
 		}
 	}

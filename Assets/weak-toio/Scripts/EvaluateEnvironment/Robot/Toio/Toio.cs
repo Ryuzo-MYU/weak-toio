@@ -58,6 +58,7 @@ namespace Robot
 					Debug.Log("ほな動きますね");
 					Handle.Update();
 					Handle.Move(motion.Movement);
+					Debug.Log($"インターバル: {motion.interval}");
 					yield return new WaitForSeconds(motion.interval);
 				}
 			}
