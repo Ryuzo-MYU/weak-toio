@@ -6,7 +6,6 @@ namespace Robot
 {
 	public interface IToioMovement
 	{
-		public void StartMove(MonoBehaviour mono);
 		public IEnumerator Move();
 		public bool AddNewAction(Action action);
 		public Movement Translate(float dist, double speed);
