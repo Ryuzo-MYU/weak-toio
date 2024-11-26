@@ -25,18 +25,10 @@ namespace Robot
 			actions = new Queue<Action>();
 			currentAction = new Action();
 		}
-		public void StartMove(MonoBehaviour mono)
-		{
-			if (!isMoving)
-			{
-				Debug.Log("StartMoveが呼ばれたよ");
-				isMoving = true;
-				mono.StartCoroutine(Move());
-			}
-		}
+
 		public IEnumerator Move()
 		{
-			while (isMoving)
+			while (actions.Count > 0)
 			{
 				if (currentAction == null || currentAction.Count() == 0)
 				{
