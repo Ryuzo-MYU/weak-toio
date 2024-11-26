@@ -12,7 +12,8 @@ public class Main_Temperature_Single : MonoBehaviour
 	public ConnectType connectType = ConnectType.Auto;
 
 	[Tooltip("接続したいtoioの数")] public int cubeCount = 0;
-	[Tooltip("Mainをぶち込め")][SerializeField] SensorUnit sensor;
+	[Tooltip("Mainをぶち込め")][SerializeField] M5DataReceiver m5;
+	SensorUnit sensor;
 	public bool UseDummy;
 	[SerializeField] TempBoundary tempBoundary;
 	EvaluationResultSender tempEval;
@@ -23,7 +24,13 @@ public class Main_Temperature_Single : MonoBehaviour
 
 	private async void Start()
 	{
+		if (m5 == null)
+		{
+			Debug.LogWarning("M5入ってねえぞ！");
+			return;
+		}
 		if (UseDummy) sensor = new DummySensor(); // ダミーセンサーを使う場合
+		else sensor = m5;
 
 		// 評価システムの初期化
 		tempEval = new TemperatureEvaluate(tempBoundary.UpperBound, tempBoundary.LowerBound);
