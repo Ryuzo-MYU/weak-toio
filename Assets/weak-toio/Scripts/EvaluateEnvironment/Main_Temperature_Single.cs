@@ -62,7 +62,6 @@ public class Main_Temperature_Single : MonoBehaviour
 			{
 				Result result = tempEval.GetEvaluationResult(sensor);
 				Robot.Action action = tempAction.GenerateAction(result);
-
 				if (!toio.AddNewAction(action))
 				{
 					Debug.LogWarning("アクション溜まってんね");
