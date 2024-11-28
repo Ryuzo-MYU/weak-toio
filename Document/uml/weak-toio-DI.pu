@@ -36,14 +36,15 @@ class ActionGenerator{
 	- DangerAction() : Action
 }
 class Action{
-	Queue<Motion> motions 
+	Queue<Motion> motions
 	+ Action()
 	+ GetNextMotion() : Motion
-	+ Count() : int 
-	
+	+ Count() : int
 }
 class Motion{
-
+	+ delegate operation{get; private set;}
+	+ float interval{get; private set;}
+	+ Motion(delegate, float)
 }
 
 interface ActionSender{
@@ -66,7 +67,7 @@ package toioSdk{
 	}
 }
 interface ToioActor{
-	+ Move(Action) : void
+	+ Move() : void
 }
 
 ' 関係
@@ -82,6 +83,8 @@ Evaluate <-- Result : 生成
 Evaluate --|> EvaluationResultSender : 実装
 EvaluationResultSender <-- ActionGenerator : 利用
 ActionGenerator <-- Action : 生成
+Action o-- Motion : 所持
+Toio o-left- Action : 所持
 
 ActionGenerator -|> ActionSender
 ActionSender <-- Toio : 利用
