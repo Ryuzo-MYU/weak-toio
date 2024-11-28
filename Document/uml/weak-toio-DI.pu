@@ -37,7 +37,8 @@ class ActionGenerator{
 }
 class Action{
 	Queue<Motion> motions 
-	float interval
+	+ Action()
+	+ GetNextM
 }
 class Motion{
 
