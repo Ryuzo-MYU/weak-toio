@@ -38,7 +38,9 @@ class ActionGenerator{
 class Action{
 	Queue<Motion> motions 
 	+ Action()
-	+ GetNextM
+	+ GetNextMotion() : Motion
+	+ Count() : int 
+	
 }
 class Motion{
 
