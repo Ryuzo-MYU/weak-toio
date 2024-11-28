@@ -35,11 +35,13 @@ class ActionGenerator{
 	- CautionAction() : Action
 	- DangerAction() : Action
 }
-struct Action{
-	Movement movement
+class Action{
+	Queue<Motion> motions 
 	float interval
 }
+class Motion{
 
+}
 
 interface ActionSender{
 	+ GenerateAction(Result) : Action
