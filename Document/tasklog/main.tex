@@ -876,6 +876,15 @@ DIでAction部分を設計し直したら結局全部作り直すことになっ
 \section*{2024.11.28(木)}
 バリエーションを作る前に、キューブの動作方式をHandleからCubeに変えたい。いや、Handleの動きに対する強さはそのままに、Cubeで使える便利な機能も使えるようにしたい。
 
+拡張性も考えると、動作はデリゲートにして、動作の主体になるCube、CubeHandleと動作命令を引数にする。
+
+\begin{lstlisting}[caption=,label=]
+% ここにソースコードを挿入
+Toio.Move(CubeHandle, Movement)
+Toio.PlaySound(Cube, SoundOperation)
+Toio.LED(Cube, Li)
+\end{lstlisting}
+
 \section*{エラー集}
 \subsection*{Adafruit BMP280 not found}
 ENV用のサンプルスケッチを使うには別途「Adafruit BMP280 Library」のインストールが必要。Arduino IDEのライブラリマネージャーからDLしたら解決
