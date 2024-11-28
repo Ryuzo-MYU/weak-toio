@@ -44,10 +44,11 @@ interface ActionSender{
 	+ GenerateAction(Result) : Action
 }
 class Toio{
-	+ Move(Action) : void
+	+ StartMove() : IEnumerator
 	- int id
+	- Cube cube
 	- CubeHandler handle
-	- EnvType type
+	- 
 }
 package toioSdk{
 	class CubeManager
