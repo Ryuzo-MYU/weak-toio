@@ -74,23 +74,23 @@ interface IToioActor{
 }
 
 ' 関係
-SensorUnit <-- M5Stick : 実装
+ISensorUnit <-- M5Stick : 実装
 M5Stick --> RealSensor : 利用
-SensorUnit <-- DummySensor : 実装
+ISensorUnit <-- DummySensor : 実装
 
-SensorUnit <-- Evaluate : 利用
+ISensorUnit <-- Evaluate : 利用
 Evaluate o-- SensorInfo : データフォーマットを定義
-SensorUnit --> SensorInfo
+ISensorUnit --> SensorInfo
 Evaluate <-- Result : 生成
 
-Evaluate --|> EvaluationResultSender : 実装
-EvaluationResultSender <-- ActionGenerator : 利用
+Evaluate --|> IEvaluationResultSender : 実装
+IEvaluationResultSender <-- ActionGenerator : 利用
 ActionGenerator <-- Action : 生成
 Action o-- Motion : 所持
 Toio o-left- Action : 所持
 
-ActionGenerator -|> ActionSender
-ActionSender <-- Toio : 利用
+ActionGenerator -|> IActionSender
+IActionSender <-- Toio : 利用
 Toio --> CubeHandler : 所持
 CubeHandler -> CubeManager : 所持
 Toio -right--|> ToioActor : 実装
