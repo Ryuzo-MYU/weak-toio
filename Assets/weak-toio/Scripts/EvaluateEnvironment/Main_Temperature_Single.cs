@@ -34,6 +34,7 @@ public class Main_Temperature_Single : MonoBehaviour
 
 		// 評価システムの初期化
 		tempEval = new TemperatureEvaluate(tempBoundary.UpperBound, tempBoundary.LowerBound);
+		tempAction = new TemperatureActionGenerator();
 
 		try
 		{
@@ -44,7 +45,6 @@ public class Main_Temperature_Single : MonoBehaviour
 			Debug.Log("接続完了");
 
 			toio = new Toio(0, cubeManager);
-			tempAction = new TemperatureActionGenerator();
 		}
 		catch (Exception e)
 		{
