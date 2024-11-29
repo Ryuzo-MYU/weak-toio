@@ -18,7 +18,7 @@ public class Main_Temperature_Single : MonoBehaviour
 	[SerializeField] TempBoundary tempBoundary;
 	EvaluationResultSender tempEval;
 	ActionSender tempAction;
-	IToioActionGenerator toio;
+	Toio toio;
 	CubeManager cubeManager;
 	private bool connected = false;
 
