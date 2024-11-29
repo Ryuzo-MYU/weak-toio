@@ -14,6 +14,7 @@ public class RadRotateCommand : IToioCommand
 	{
 		CubeHandle handle = toio.Handle;
 		Movement radRotate = handle.RotateByRad(rad, speed);
+		handle.Update();
 		handle.Move(radRotate);
 	}
 }

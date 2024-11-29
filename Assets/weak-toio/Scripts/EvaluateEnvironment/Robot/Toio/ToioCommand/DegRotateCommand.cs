@@ -14,6 +14,7 @@ public class DegRotateCommand : IToioCommand
 	{
 		CubeHandle handle = toio.Handle;
 		Movement rotate = handle.RotateByDeg(deg, speed);
+		handle.Update();
 		handle.Move(rotate);
 	}
 }

@@ -15,6 +15,7 @@ namespace Robot
 		{
 			CubeHandle handle = toio.Handle;
 			Movement translate = handle.TranslateByDist(dist, speed);
+			handle.Update();
 			handle.Move(translate);
 		}
 	}

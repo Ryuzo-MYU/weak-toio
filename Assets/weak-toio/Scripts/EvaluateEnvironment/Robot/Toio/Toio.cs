@@ -109,8 +109,7 @@ public class ToioActionExecutor : IToioActionExecutor
 			if (motion != null)
 			{
 				Debug.Log("ほな動きますね");
-				Handle.Update();
-				Handle.Move(motion.Movement);
+				motion.command.Execute(this);
 				Debug.Log($"インターバル: {motion.interval}");
 				yield return new WaitForSeconds(motion.interval);
 			}
