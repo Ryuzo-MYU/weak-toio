@@ -44,7 +44,7 @@ public class Main_Temperature_Single : MonoBehaviour
 			Debug.Log("接続完了");
 
 			toio = new Toio(0, cubeManager);
-			tempAction = new TemperatureActionGenerator(toio);
+			tempAction = new TemperatureActionGenerator();
 		}
 		catch (Exception e)
 		{

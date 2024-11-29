@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Evaluation;
 using toio;
@@ -5,7 +6,7 @@ using UnityEngine;
 
 namespace Robot
 {
-	public class TemperatureActionGenerator : ActionSender
+	public class TemperatureActionGenerator : ActionGenerator, ActionSender
 	{
 		BoundaryRange SuitableRange = new BoundaryRange(0);
 		BoundaryRange CautionRange = new BoundaryRange(-5, 5);
@@ -43,8 +44,9 @@ namespace Robot
 		private Action SuitableAction()
 		{
 			Queue<Motion> suitableRotate = new Queue<Motion>();
-			suitableRotate.Enqueue(DegRotateCommand(90, 45), 90 / 45);
-			suitableRotate.Enqueue(Rotate(-90, 45));
+			float deg = 90;
+			suitableRotate.Enqueue(DegRotate(deg, 45));
+			suitableRotate.Enqueue(DegRotate(-deg, 45));
 
 			Action action = new Action(suitableRotate);
 			return action;
@@ -52,8 +54,9 @@ namespace Robot
 		private Action ColdCautionAction()
 		{
 			Queue<Motion> CautionShiver = new Queue<Motion>();
-			CautionShiver.Enqueue(Rotate(10, 50));
-			CautionShiver.Enqueue(Rotate(-10, 50));
+			float rad = (float)(10 * Math.PI / 180);
+			CautionShiver.Enqueue(RadRotate(rad, 50));
+			CautionShiver.Enqueue(RadRotate(-rad, 50));
 
 			Action action = new Action(CautionShiver);
 			return action;
@@ -61,8 +64,9 @@ namespace Robot
 		private Action ColdDangerAction()
 		{
 			Queue<Motion> DangerShiver = new Queue<Motion>();
-			DangerShiver.Enqueue(Rotate(10, 100));
-			DangerShiver.Enqueue(Rotate(-10, 100));
+			float deg = 10f;
+			DangerShiver.Enqueue(DegRotate(deg, 100));
+			DangerShiver.Enqueue(DegRotate(-deg, 100));
 
 			Action action = new Action(DangerShiver);
 			return action;
@@ -70,8 +74,9 @@ namespace Robot
 		private Action HotCautionAction()
 		{
 			Queue<Motion> CautionTwist = new Queue<Motion>();
-			CautionTwist.Enqueue(Rotate(45, 50));
-			CautionTwist.Enqueue(Rotate(-45, 50));
+			float deg = 50f;
+			CautionTwist.Enqueue(DegRotate(deg, 50));
+			CautionTwist.Enqueue(DegRotate(-deg, 50));
 
 			Action action = new Action(CautionTwist);
 			return action;
@@ -79,8 +84,9 @@ namespace Robot
 		private Action HotDangerAction()
 		{
 			Queue<Motion> DangerTwist = new Queue<Motion>();
-			DangerTwist.Enqueue(Rotate(90, 200));
-			DangerTwist.Enqueue(Rotate(-90, 200));
+			float deg = 90f;
+			DangerTwist.Enqueue(DegRotate(deg, 200));
+			DangerTwist.Enqueue(DegRotate(-deg, 200));
 
 			Action action = new Action(DangerTwist);
 			return action;
