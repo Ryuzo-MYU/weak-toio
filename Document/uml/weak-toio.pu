@@ -41,22 +41,22 @@ class Action{
 	+ GetNextMotion() : Motion
 	+ Count() : int
 }
-class Motion{
-	+ delegate operation{get; private set;}
+class Motion {
+	+ IToioCommand command{get; private set;}
 	+ float interval{get; private set;}
 	+ Motion(delegate, float)
+	+ Motion(IToioCommand, float)
 }
 
 interface IActionSender{
 	+ GenerateAction(Result) : Action
 }
 interface IToioActionGenerator{
-	+ GetTranslateAction(Toio) : delegate
-	+ GetRotateAction(Toio) : delegate
-	+ GetSoundAction(Toio) : delegate
-	+ GetLEDAction(Toio) : delegate
+	+ GetTranslateAction(Toio) : IEnumerator
+	+ GetRotateAction(Toio) : IEnumerator
+	+ GetSoundAction(Toio) : IEnumerator
+	+ GetLEDAction(Toio) : IEnumerator
 }
-interface IToio
 class Toio{
 	- int id
 	- Cube cube
@@ -72,6 +72,43 @@ package toioSdk{
 		+ RotateByDeg()
 		+ RotateByRad()
 	}
+}
+
+interface IToioCommand {
+	+ Execute(Toio toio) : IEnumerator
+}
+
+class TranslateCommand {
+	- float distance
+	+ TranslateCommand(float distance)
+	+ Execute(Toio toio) : IEnumerator
+}
+
+class RotateCommand {
+	- float angle
+	+ RotateCommand(float angle)
+	+ Execute(Toio toio) : IEnumerator
+}
+
+class SoundCommand {
+	- int soundId
+	+ SoundCommand(int soundId)
+	+ Execute(Toio toio) : IEnumerator
+}
+
+class LEDCommand {
+	- byte r
+	- byte g
+	- byte b
+	+ LEDCommand(byte r, byte g, byte b)
+	+ Execute(Toio toio) : IEnumerator
+}
+
+class ToioCommandFactory {
+	+ CreateTranslateCommand(float distance) : IToioCommand
+	+ CreateRotateCommand(float angle) : IToioCommand
+	+ CreateSoundCommand(int soundId) : IToioCommand
+	+ CreateLEDCommand(byte r, byte g, byte b) : IToioCommand
 }
 
 
@@ -98,5 +135,13 @@ Toio --> CubeHandler : 所持
 CubeHandler -> CubeManager : 所持
 Toio -right--|> IToioActionExecutor : 実装
 IToioActionExecutor <-- Main : 使用
+
+IToioCommand <|-- TranslateCommand
+IToioCommand <|-- RotateCommand
+IToioCommand <|-- SoundCommand
+IToioCommand <|-- LEDCommand
+ToioCommandFactory ..> IToioCommand : 生成
+Motion o-- IToioCommand : 所持
+IToioActionGenerator <-- ToioCommandFactory : 実装
 
 @enduml
