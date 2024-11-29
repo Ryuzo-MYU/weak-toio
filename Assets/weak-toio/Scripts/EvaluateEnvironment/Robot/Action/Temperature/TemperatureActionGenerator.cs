@@ -5,16 +5,12 @@ using UnityEngine;
 
 namespace Robot
 {
-	public class TemperatureActionGenerator : ActionGenerator, ActionSender
+	public class TemperatureActionGenerator : ActionSender
 	{
 		BoundaryRange SuitableRange = new BoundaryRange(0);
 		BoundaryRange CautionRange = new BoundaryRange(-5, 5);
 		BoundaryRange DangerRange = new BoundaryRange(-10, 10);
 
-		public TemperatureActionGenerator(Toio toio)
-		{
-			_toio = toio;
-		}
 		public Action GenerateAction(Result result)
 		{
 			// 型チェック
@@ -22,7 +18,7 @@ namespace Robot
 			if (result.GetType() != temperatureResult.GetType())
 			{
 				Debug.Assert(false, "TemperatureResult以外のクラスをいれるな");
-				Motion doAnything = new Motion(new Movement(), 0);
+				Motion doAnything = new Motion(new TranslateCommand(0, 0), 0);
 			}
 
 			// 型チェックして問題なければ処理を進める
@@ -47,7 +43,7 @@ namespace Robot
 		private Action SuitableAction()
 		{
 			Queue<Motion> suitableRotate = new Queue<Motion>();
-			suitableRotate.Enqueue(Rotate(90, 45));
+			suitableRotate.Enqueue(DegRotateCommand(90, 45), 90 / 45);
 			suitableRotate.Enqueue(Rotate(-90, 45));
 
 			Action action = new Action(suitableRotate);

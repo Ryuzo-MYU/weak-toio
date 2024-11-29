@@ -14,7 +14,6 @@ public class SoundCommand : IToioCommand
 		repeatCount = _repeatCount;
 		sounds = _sounds;
 	}
-
 	public void Execute(Toio toio)
 	{
 		Cube cube = toio.Cube;
