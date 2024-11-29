@@ -75,25 +75,25 @@ package toioSdk{
 }
 
 interface IToioCommand {
-	+ Execute(Toio toio) : IEnumerator
+	+ Execute(Toio toio) : void
 }
 
 class TranslateCommand {
 	- float distance
 	+ TranslateCommand(float distance)
-	+ Execute(Toio toio) : IEnumerator
+	+ Execute(Toio toio) : void
 }
 
 class RotateCommand {
 	- float angle
 	+ RotateCommand(float angle)
-	+ Execute(Toio toio) : IEnumerator
+	+ Execute(Toio toio) : void
 }
 
 class SoundCommand {
 	- int soundId
 	+ SoundCommand(int soundId)
-	+ Execute(Toio toio) : IEnumerator
+	+ Execute(Toio toio) : void
 }
 
 class LEDCommand {
@@ -101,7 +101,7 @@ class LEDCommand {
 	- byte g
 	- byte b
 	+ LEDCommand(byte r, byte g, byte b)
-	+ Execute(Toio toio) : IEnumerator
+	+ Execute(Toio toio) : void
 }
 
 class ToioCommandFactory {

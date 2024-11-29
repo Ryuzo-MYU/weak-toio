@@ -1,12 +1,7 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
 namespace Robot
 {
 	public interface IToioCommand
 	{
-public 
+		public void Execute(Toio toio);
 	}
 }
