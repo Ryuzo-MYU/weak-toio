@@ -41,7 +41,7 @@ namespace Robot
 				return false;
 			}
 		}
-		public IToioMovement GetHandle()
+		public IToioActionGenerator GetHandle()
 		{
 			if (cubeManager.handles.Count < 1)
 			{

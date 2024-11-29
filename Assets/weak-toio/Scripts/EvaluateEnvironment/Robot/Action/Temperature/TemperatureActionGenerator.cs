@@ -11,7 +11,7 @@ namespace Robot
 		BoundaryRange CautionRange = new BoundaryRange(-5, 5);
 		BoundaryRange DangerRange = new BoundaryRange(-10, 10);
 
-		public TemperatureActionGenerator(IToioMovement toio)
+		public TemperatureActionGenerator(IToioActionGenerator toio)
 		{
 			_toio = toio;
 		}
