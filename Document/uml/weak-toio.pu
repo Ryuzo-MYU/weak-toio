@@ -50,6 +50,13 @@ class Motion{
 interface IActionSender{
 	+ GenerateAction(Result) : Action
 }
+interface IToioActionGenerator{
+	+ GetTranslateAction(Toio) : delegate
+	+ GetRotateAction(Toio) : delegate
+	+ GetSoundAction(Toio) : delegate
+	+ GetLEDAction(Toio) : delegate
+}
+interface IToio
 class Toio{
 	- int id
 	- Cube cube
@@ -57,12 +64,6 @@ class Toio{
 	- Queue<Action> actions
 	- Action currentAction
 	+ StartMove() : IEnumerator
-}
-interface IToioActionGenerator{
-	+ GetTranslateAction(Toio) : delegate
-	+ GetRotateAction(Toio) : delegate
-	+ GetSoundAction(Toio) : delegate
-	+ GetLEDAction(Toio) : delegate
 }
 package toioSdk{
 	class CubeManager
@@ -72,9 +73,7 @@ package toioSdk{
 		+ RotateByRad()
 	}
 }
-interface IToioActor{
-	+ StartMove() : void
-}
+
 
 ' 関係
 ISensorUnit <-- M5Stick : 実装
@@ -97,7 +96,7 @@ ActionGenerator -|> IActionSender
 IActionSender <-- Toio : 利用
 Toio --> CubeHandler : 所持
 CubeHandler -> CubeManager : 所持
-Toio -right--|> IToioActor : 実装
-IToioActor <-- Main : 使用
+Toio -right--|> IToioActionExecutor : 実装
+IToioActionExecutor <-- Main : 使用
 
 @enduml
