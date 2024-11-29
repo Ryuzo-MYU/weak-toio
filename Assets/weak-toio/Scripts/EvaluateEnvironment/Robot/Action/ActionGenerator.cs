@@ -65,11 +65,11 @@ namespace Robot
 	}
 	public class Motion
 	{
-		public Movement Movement;
+		public IToioCommand command;
 		public float interval;
-		public Motion(Movement _movement, float _intervel)
+		public Motion(IToioCommand _command, float _intervel)
 		{
-			Movement = _movement;
+			command = _command;
 			interval = Math.Abs(_intervel);
 		}
 	}

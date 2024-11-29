@@ -14,8 +14,8 @@ namespace Robot
 		public void Execute(Toio toio)
 		{
 			CubeHandle handle = toio.Handle;
-			Movement movement = handle.TranslateByDist(dist, speed);
-			handle.Move(movement);
+			Movement translate = handle.TranslateByDist(dist, speed);
+			handle.Move(translate);
 		}
 	}
 }
