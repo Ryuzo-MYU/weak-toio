@@ -59,7 +59,10 @@ class Toio{
 	+ StartMove() : IEnumerator
 }
 interface IToioActionGenerator{
-	+ GetTranslateAction() : delegate
+	+ GetTranslateAction(Toio) : delegate
+	+ GetRotateAction(Toio) : delegate
+	+ GetSoundAction(Toio) : delegate
+	+ GetLEDAction(Toio) : delegate
 }
 package toioSdk{
 	class CubeManager
@@ -70,7 +73,7 @@ package toioSdk{
 	}
 }
 interface IToioActor{
-	+ Move() : void
+	+ StartMove() : void
 }
 
 ' 関係
@@ -88,12 +91,13 @@ IEvaluationResultSender <-- ActionGenerator : 利用
 ActionGenerator <-- Action : 生成
 Action o-- Motion : 所持
 Toio o-left- Action : 所持
+IToioActionGenerator <-right- ActionGenerator : 利用
 
 ActionGenerator -|> IActionSender
 IActionSender <-- Toio : 利用
 Toio --> CubeHandler : 所持
 CubeHandler -> CubeManager : 所持
-Toio -right--|> ToioActor : 実装
-ToioActor <-- Main : 使用
+Toio -right--|> IToioActor : 実装
+IToioActor <-- Main : 使用
 
 @enduml
