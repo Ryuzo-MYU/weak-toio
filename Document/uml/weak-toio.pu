@@ -16,7 +16,7 @@ class DummySensor{
 }
 struct SensorInfo{}
 
-interface SensorUnit{
+interface ISensorUnit{
 	+ GetSensorInfo() : SensorInfo
 	- Update() : void
 }
