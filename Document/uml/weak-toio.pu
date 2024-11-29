@@ -1,5 +1,5 @@
 @startuml
-title weak-toio DI設計
+title weak-toio 設計
 skinparam Linetype ortho
 
 ' オブジェクト
@@ -27,7 +27,7 @@ struct Result{
 	int score
 }
 
-interface EvaluationResultSender{
+interface IEvaluationResultSender{
 	+ GetEvaluationResult(SensorUnit) : Result
 }
 class ActionGenerator{
@@ -47,7 +47,7 @@ class Motion{
 	+ Motion(delegate, float)
 }
 
-interface ActionSender{
+interface IActionSender{
 	+ GenerateAction(Result) : Action
 }
 class Toio{
@@ -58,6 +58,9 @@ class Toio{
 	- Action currentAction
 	+ StartMove() : IEnumerator
 }
+interface IToioActionGenerator{
+	+ GetTranslateAction() : delegate
+}
 package toioSdk{
 	class CubeManager
 	class CubeHandler{
@@ -66,7 +69,7 @@ package toioSdk{
 		+ RotateByRad()
 	}
 }
-interface ToioActor{
+interface IToioActor{
 	+ Move() : void
 }
 
