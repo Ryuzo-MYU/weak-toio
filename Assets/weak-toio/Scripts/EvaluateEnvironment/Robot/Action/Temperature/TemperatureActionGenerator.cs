@@ -43,52 +43,60 @@ namespace Robot
 		}
 		private Action SuitableAction()
 		{
-			Queue<Motion> suitableRotate = new Queue<Motion>();
+			Queue<Motion> suitableAction = new Queue<Motion>();
 			float deg = 90;
-			suitableRotate.Enqueue(DegRotate(deg, 45));
-			suitableRotate.Enqueue(DegRotate(-deg, 45));
+			double speed = 45;
+			suitableAction.Enqueue(DegRotate(deg, speed));
+			suitableAction.Enqueue(DegRotate(-deg, speed));
+			int soundID = 1;
+			int volume = 50;
+			suitableAction.Enqueue(PresetSound(soundID, volume));
 
-			Action action = new Action(suitableRotate);
+			Action action = new Action(suitableAction);
 			return action;
 		}
 		private Action ColdCautionAction()
 		{
-			Queue<Motion> CautionShiver = new Queue<Motion>();
+			Queue<Motion> cautionShiver = new Queue<Motion>();
 			float rad = (float)(10 * Math.PI / 180);
-			CautionShiver.Enqueue(RadRotate(rad, 50));
-			CautionShiver.Enqueue(RadRotate(-rad, 50));
+			double speed = 50;
+			cautionShiver.Enqueue(RadRotate(rad, speed));
+			cautionShiver.Enqueue(RadRotate(-rad, speed));
 
-			Action action = new Action(CautionShiver);
+			Action action = new Action(cautionShiver);
 			return action;
 		}
 		private Action ColdDangerAction()
 		{
-			Queue<Motion> DangerShiver = new Queue<Motion>();
+			Queue<Motion> dangerShiver = new Queue<Motion>();
 			float deg = 10f;
-			DangerShiver.Enqueue(DegRotate(deg, 100));
-			DangerShiver.Enqueue(DegRotate(-deg, 100));
+			double speed = 100;
+			dangerShiver.Enqueue(DegRotate(deg, speed));
+			dangerShiver.Enqueue(DegRotate(-deg, speed));
 
-			Action action = new Action(DangerShiver);
+			Action action = new Action(dangerShiver);
 			return action;
 		}
 		private Action HotCautionAction()
 		{
-			Queue<Motion> CautionTwist = new Queue<Motion>();
+			Queue<Motion> cautionTwist = new Queue<Motion>();
 			float deg = 50f;
-			CautionTwist.Enqueue(DegRotate(deg, 50));
-			CautionTwist.Enqueue(DegRotate(-deg, 50));
+			double speed = 50;
+			cautionTwist.Enqueue(DegRotate(deg, speed));
+			cautionTwist.Enqueue(DegRotate(-deg, speed));
 
-			Action action = new Action(CautionTwist);
+			Action action = new Action(cautionTwist);
 			return action;
 		}
 		private Action HotDangerAction()
 		{
-			Queue<Motion> DangerTwist = new Queue<Motion>();
+			Queue<Motion> dangerTwist = new Queue<Motion>();
 			float deg = 90f;
-			DangerTwist.Enqueue(DegRotate(deg, 200));
-			DangerTwist.Enqueue(DegRotate(-deg, 200));
+			double speed = 200;
+			dangerTwist.Enqueue(DegRotate(deg, speed));
+			dangerTwist.Enqueue(DegRotate(-deg, speed));
 
-			Action action = new Action(DangerTwist);
+			Action action = new Action(dangerTwist);
 			return action;
 		}
 	}
