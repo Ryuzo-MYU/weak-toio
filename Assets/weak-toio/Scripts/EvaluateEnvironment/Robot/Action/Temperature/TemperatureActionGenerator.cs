@@ -48,6 +48,7 @@ namespace Robot
 			double speed = 45;
 			suitableAction.Enqueue(DegRotate(deg, speed));
 			suitableAction.Enqueue(DegRotate(-deg, speed));
+
 			int soundID = 1;
 			int volume = 50;
 			suitableAction.Enqueue(PresetSound(soundID, volume));
