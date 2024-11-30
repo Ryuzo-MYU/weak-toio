@@ -50,7 +50,7 @@ namespace Robot
 			suitableAction.Enqueue(DegRotate(-deg, speed));
 
 			int soundID = 1;
-			int volume = 50;
+			int volume = 1;
 			suitableAction.Enqueue(PresetSound(soundID, volume));
 
 			Action action = new Action(suitableAction);

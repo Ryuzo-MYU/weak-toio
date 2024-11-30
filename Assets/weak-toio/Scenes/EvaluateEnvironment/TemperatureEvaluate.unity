@@ -1323,7 +1323,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 629861105988606596, guid: 22ae4aac2ed0681438f651f67f598956, type: 3}
       propertyPath: connectType
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1759312456876710786, guid: 22ae4aac2ed0681438f651f67f598956, type: 3}
       propertyPath: m_LocalPosition.x
