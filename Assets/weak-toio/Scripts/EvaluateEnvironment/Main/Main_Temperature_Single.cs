@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using Environment;
 using Evaluation;
+using PlasticGui.WebApi.Requests;
 using Robot;
 using toio;
 using UnityEngine;
@@ -24,15 +25,23 @@ public class Main_Temperature_Single : MonoBehaviour
 	CubeManager cubeManager;
 	private bool connected = false;
 
-	private async void Start()
+	private void Awake()
 	{
-		serial = new SerialHandler(PORTNAME,BAUDRATE);
-		if (UseDummy) sensor = new DummySensor(); // ダミーセンサーを使う場合
+		serial = new SerialHandler(PORTNAME, BAUDRATE);
+		bool portConnectSuccessed = serial.Awake();
+
+		// ダミーセンサーを使う場合
+		if (!portConnectSuccessed || UseDummy) sensor = new DummySensor();
+		// M5と接続する場合
+		else sensor = new M5DataReceiver(serial);
 
 		// 評価システムの初期化
 		tempEval = new TemperatureEvaluate(tempBoundary.UpperBound, tempBoundary.LowerBound);
 		tempAction = new TemperatureActionGenerator();
-
+	}
+	private async void Start()
+	{
+		sensor.Start();
 		try
 		{
 			// toioに接続
@@ -55,6 +64,7 @@ public class Main_Temperature_Single : MonoBehaviour
 	}
 	private void Update()
 	{
+		serial.Update();
 		sensor.Update();
 	}
 

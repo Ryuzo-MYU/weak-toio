@@ -34,7 +34,7 @@ public class SerialHandler
 		portName = _portName;
 		baudRate = _baudRate;
 	}
-	public void Awake()
+	public bool Awake()
 	{
 		try
 		{
@@ -61,11 +61,13 @@ public class SerialHandler
 			}
 
 			Open();
+			return true;
 		}
 		catch (System.Exception e)
 		{
 			Debug.LogError($"シリアルポートの初期化に失敗しました: {e.Message}");
 			OnError?.Invoke($"シリアルポート初期化エラー: {e.Message}");
+			return false;
 		}
 	}
 
