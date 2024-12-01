@@ -4,12 +4,11 @@
 /// </summary>
 
 using UnityEngine;
-using System.Collections;
 using System.IO.Ports;
 using System.Threading;
 using System.Collections.Generic;
 
-public class SerialHandler : MonoBehaviour
+public class SerialHandler
 {
 	public delegate void SerialDataReceivedEventHandler(string message);
 	public delegate void SerialErrorEventHandler(string errorMessage);
@@ -30,7 +29,12 @@ public class SerialHandler : MonoBehaviour
 	private static HashSet<string> usedPorts = new HashSet<string>();
 	private static readonly object portLock = new object();
 
-	void Awake()
+	public SerialHandler(string _portName, int _baudRate)
+	{
+		portName = _portName;
+		baudRate = _baudRate;
+	}
+	public void Awake()
 	{
 		try
 		{
@@ -104,7 +108,7 @@ public class SerialHandler : MonoBehaviour
 		}
 	}
 
-	void Update()
+	public void Update()
 	{
 		if (isNewMessageReceived_ && OnDataReceived != null)
 		{

@@ -6,11 +6,15 @@ using System.Text;
 
 namespace Environment
 {
-	public class M5DataReceiver : MonoBehaviour, SensorUnit
+	public class M5DataReceiver : SensorUnit
 	{
 		public SerialHandler serial;
 		SensorInfo sensorInfo;
 
+		public M5DataReceiver(SerialHandler _serial)
+		{
+			serial = _serial;
+		}
 		public SensorInfo GetSensorInfo()
 		{
 			return sensorInfo;

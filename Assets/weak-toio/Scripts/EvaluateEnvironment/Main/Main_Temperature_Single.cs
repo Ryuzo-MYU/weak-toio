@@ -8,11 +8,13 @@ using UnityEngine;
 
 public class Main_Temperature_Single : MonoBehaviour
 {
+	public static string PORTNAME = "COM9";
+	public static int BAUDRATE = 115200;
 	[Tooltip("UnityEditor上ならSimmurator、現実ならReal、お任せならAuto")]
 	public ConnectType connectType = ConnectType.Auto;
 
 	[Tooltip("接続したいtoioの数")] public int cubeCount = 0;
-	[Tooltip("Mainをぶち込め")][SerializeField] M5DataReceiver m5;
+	SerialHandler serial;
 	SensorUnit sensor;
 	public bool UseDummy;
 	[SerializeField] TempBoundary tempBoundary;
@@ -24,13 +26,8 @@ public class Main_Temperature_Single : MonoBehaviour
 
 	private async void Start()
 	{
-		if (m5 == null)
-		{
-			Debug.LogWarning("M5入ってねえぞ！");
-			return;
-		}
+		serial = new SerialHandler(PORTNAME,BAUDRATE);
 		if (UseDummy) sensor = new DummySensor(); // ダミーセンサーを使う場合
-		else sensor = m5;
 
 		// 評価システムの初期化
 		tempEval = new TemperatureEvaluate(tempBoundary.UpperBound, tempBoundary.LowerBound);
