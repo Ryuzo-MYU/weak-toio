@@ -48,9 +48,11 @@ public class Main_Temperature_Single : MonoBehaviour
 
 	private void OnConnectSuccessed(Queue<Toio> toios)
 	{
+		Debug.Log("接続開始");
 		toio = toios.Dequeue();
 		StartCoroutine(UpdateEvaluate());
 		connected = true;
+		StartCoroutine(toio.Move());
 	}
 	IEnumerator UpdateEvaluate()
 	{
