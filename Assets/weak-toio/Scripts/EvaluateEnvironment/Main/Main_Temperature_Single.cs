@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using Environment;
 using Evaluation;
 using Robot;
@@ -8,24 +9,21 @@ using UnityEngine;
 
 public class Main_Temperature_Single : MonoBehaviour
 {
+	public ToioConnector connector;
 	public string PORTNAME = "COM9";
 	public int BAUDRATE = 115200;
-	[Tooltip("UnityEditor上ならSimmurator、現実ならReal、お任せならAuto")]
-	public ConnectType connectType = ConnectType.Auto;
-
-	[Tooltip("接続したいtoioの数")] public int cubeCount = 0;
 	SerialHandler serial;
 	SensorUnit sensor;
 	public bool UseDummy;
 	[SerializeField] TempBoundary tempBoundary;
 	EvaluationResultSender tempEval;
 	ActionSender tempAction;
-	Toio toio;
-	CubeManager cubeManager;
 	private bool connected = false;
+	Toio toio;
 
 	private void Awake()
 	{
+		connector.OnConnectSuccessed += OnConnectSuccessed;
 		// センサー系の初期化
 		serial = new SerialHandler(PORTNAME, BAUDRATE);
 
@@ -38,35 +36,9 @@ public class Main_Temperature_Single : MonoBehaviour
 		tempEval = new TemperatureEvaluate(tempBoundary.UpperBound, tempBoundary.LowerBound);
 		tempAction = new TemperatureActionGenerator();
 	}
-	private async void Start()
+	private void Start()
 	{
 		sensor.Start();
-		try
-		{
-			// toioに接続
-			cubeManager = new CubeManager(connectType);
-			await cubeManager.MultiConnect(cubeCount);
-			Debug.Log("接続完了");
-
-			for (int id = 0; id < cubeManager.connectedCubes.Count; id++)
-			{
-				if (!cubeManager.connectedCubes[id].isConnected)
-				{
-					toio = new Toio(id, cubeManager);
-					connected = true;
-					break;
-				}
-			}
-		}
-		catch (Exception e)
-		{
-			Debug.LogError($"エラー: {e.Message}\n" +
-				  $"場所: {e.StackTrace}\n" +
-				  $"メソッド名: {System.Reflection.MethodBase.GetCurrentMethod().Name}\n" +
-				  $"行番号: {new System.Diagnostics.StackTrace(e, true).GetFrame(0).GetFileLineNumber()}");
-		}
-
-		StartCoroutine(UpdateEvaluate());
 	}
 	private void Update()
 	{
@@ -74,6 +46,11 @@ public class Main_Temperature_Single : MonoBehaviour
 		sensor.Update();
 	}
 
+	private void OnConnectSuccessed(Queue<Toio> toios)
+	{
+		toio = toios.Dequeue();
+		StartCoroutine(UpdateEvaluate());
+	}
 	IEnumerator UpdateEvaluate()
 	{
 		while (true)
