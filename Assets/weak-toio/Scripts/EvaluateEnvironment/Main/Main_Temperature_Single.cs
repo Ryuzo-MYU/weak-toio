@@ -9,8 +9,8 @@ using UnityEngine;
 
 public class Main_Temperature_Single : MonoBehaviour
 {
-	public static string PORTNAME = "COM9";
-	public static int BAUDRATE = 115200;
+	public string PORTNAME = "COM9";
+	public int BAUDRATE = 115200;
 	[Tooltip("UnityEditor上ならSimmurator、現実ならReal、お任せならAuto")]
 	public ConnectType connectType = ConnectType.Auto;
 

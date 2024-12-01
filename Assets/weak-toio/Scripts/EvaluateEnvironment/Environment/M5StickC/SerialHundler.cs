@@ -65,7 +65,7 @@ public class SerialHandler
 		}
 		catch (System.Exception e)
 		{
-			Debug.LogError($"シリアルポートの初期化に失敗しました: {e.Message}");
+			Debug.LogWarning($"シリアルポートの初期化に失敗しました: {e.Message}");
 			OnError?.Invoke($"シリアルポート初期化エラー: {e.Message}");
 			return false;
 		}
