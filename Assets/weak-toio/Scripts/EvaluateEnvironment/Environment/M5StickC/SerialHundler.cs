@@ -67,6 +67,7 @@ public class SerialHandler
 		{
 			Debug.LogWarning($"シリアルポートの初期化に失敗しました: {e.Message}");
 			OnError?.Invoke($"シリアルポート初期化エラー: {e.Message}");
+			Debug.LogWarning("接続できるポートが無いのでダミーセンサーを使用します");
 			return false;
 		}
 	}

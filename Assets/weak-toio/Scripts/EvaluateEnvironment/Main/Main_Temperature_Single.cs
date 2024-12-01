@@ -27,13 +27,13 @@ public class Main_Temperature_Single : MonoBehaviour
 
 	private void Awake()
 	{
+		// センサー系の初期化
 		serial = new SerialHandler(PORTNAME, BAUDRATE);
-		bool portConnectSuccessed = serial.Awake();
 
-		// ダミーセンサーを使う場合
-		if (!portConnectSuccessed || UseDummy) sensor = new DummySensor();
-		// M5と接続する場合
-		else sensor = new M5DataReceiver(serial);
+		// シリアルポートの初期化が失敗したらダミーを使う
+		UseDummy = !serial.Awake();
+		sensor = new M5DataReceiver(serial);
+		if (UseDummy) sensor = new DummySensor();
 
 		// 評価システムの初期化
 		tempEval = new TemperatureEvaluate(tempBoundary.UpperBound, tempBoundary.LowerBound);
