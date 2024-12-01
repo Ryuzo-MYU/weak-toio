@@ -50,24 +50,25 @@ public class Main_Temperature_Single : MonoBehaviour
 	{
 		Debug.Log("接続開始");
 		toio = toios.Dequeue();
-		StartCoroutine(UpdateEvaluate());
 		connected = true;
-		StartCoroutine(toio.Move());
+		StartCoroutine(UpdateEvaluate());
 	}
 	IEnumerator UpdateEvaluate()
 	{
-		if (connected && sensor != null)
+		while (true)
 		{
-			while (true)
+			if (!connected && sensor == null)
 			{
-				Result result = tempEval.GetEvaluationResult(sensor);
-				Robot.Action action = tempAction.GenerateAction(result);
-				if (!toio.AddNewAction(action))
-				{
-					Debug.LogWarning("アクション溜まってんね");
-				}
-				yield return StartCoroutine(toio.Move());
+				yield return new WaitForSeconds(0.1f);
+				continue;
 			}
+			Result result = tempEval.GetEvaluationResult(sensor);
+			Robot.Action action = tempAction.GenerateAction(result);
+			if (!toio.AddNewAction(action))
+			{
+				Debug.LogWarning("アクション溜まってんね");
+			}
+			yield return StartCoroutine(toio.Move());
 		}
 	}
 
