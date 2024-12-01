@@ -50,12 +50,13 @@ public class Main_Temperature_Single : MonoBehaviour
 	{
 		toio = toios.Dequeue();
 		StartCoroutine(UpdateEvaluate());
+		connected = true;
 	}
 	IEnumerator UpdateEvaluate()
 	{
-		while (true)
+		if (connected && sensor != null)
 		{
-			if (connected && sensor != null)
+			while (true)
 			{
 				Result result = tempEval.GetEvaluationResult(sensor);
 				Robot.Action action = tempAction.GenerateAction(result);
