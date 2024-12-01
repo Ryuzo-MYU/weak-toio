@@ -45,11 +45,14 @@ public class Main_Temperature_Single : MonoBehaviour
 		{
 			// toioに接続
 			cubeManager = new CubeManager(connectType);
-			await cubeManager.SingleConnect();
+			await cubeManager.MultiConnect(cubeCount);
 			connected = true;
 			Debug.Log("接続完了");
 
-			toio = new Toio(0, cubeManager);
+			for (int id = 0; id < cubeManager.connectedCubes.Count; id++)
+			{
+				if (!cubeManager.connectedCubes[id].isConnected) { toio = new Toio(id, cubeManager); }
+			}
 		}
 		catch (Exception e)
 		{
