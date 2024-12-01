@@ -1,5 +1,7 @@
+using System;
 using System.Collections.Generic;
 using toio;
+using Unity.VisualScripting.YamlDotNet.Core.Tokens;
 using UnityEngine;
 
 namespace Robot
@@ -15,11 +17,13 @@ namespace Robot
 		public event CubeConnectSuccessedEventHandler OnConnectSuccessed;
 		[Tooltip("UnityEditor上ならSimmurator、現実ならReal、お任せならAuto")]
 		public ConnectType connectType = ConnectType.Auto;
-		[Tooltip("接続したいtoioの数")] public int cubeCount = 0;
+		private int cubeCount = 0;
+		string tag = "Toio";
 		private CubeManager cubeManager;
 		private Queue<Toio> toios;
 		private async void Start()
 		{
+			cubeCount = GameObject.FindGameObjectsWithTag(tag).Length;
 			// toioに接続
 			cubeManager = new CubeManager(connectType);
 			await cubeManager.MultiConnect(cubeCount);

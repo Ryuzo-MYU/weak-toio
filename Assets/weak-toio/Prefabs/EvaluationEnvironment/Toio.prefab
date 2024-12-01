@@ -231,7 +231,7 @@ GameObject:
   - component: {fileID: 629861105988606596}
   m_Layer: 0
   m_Name: Toio
-  m_TagString: Untagged
+  m_TagString: Toio
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -264,8 +264,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 682ce7479f4c73147949ab53a5c88321, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  connectType: 1
-  cubeCount: 1
+  connector: {fileID: 0}
+  PORTNAME: COM9
+  BAUDRATE: 115200
   UseDummy: 1
   tempBoundary:
     UpperBound: 27
