@@ -1361,7 +1361,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: Toio
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 8269524101339203530, guid: 22ae4aac2ed0681438f651f67f598956, type: 3}
+    - {fileID: 6681301843531099273, guid: 22ae4aac2ed0681438f651f67f598956, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
