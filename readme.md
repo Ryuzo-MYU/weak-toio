@@ -1,8 +1,5 @@
 # ppm toio WBS 兼企画設計いろいろ書<!-- omit in toc -->
 
-進捗表は[こちら](https://docs.google.com/spreadsheets/d/1U639k4QWcusb2OYTR_0ER-CtmLVivnQl1xtwEm9VkqM/edit?usp=sharing)\
-チェックボックスを埋めていくと、なんだか仕事している気がする……
-
 ## 目次<!-- omit in toc -->
 
 1. [ドキュメント](#ドキュメント)
@@ -15,8 +12,9 @@
 
 ## ToDo
 
+-   [x] 複数台接続の実装
+    -   [ ] 役割と役割別接続の実装
 -   [ ] CO2 評価機能の実装
--   [ ] 複数台接続の実装
 -   [ ] 外部 API との通信機能の実装
--   [ ] アクション編集インタフェースの整備
 -   [ ] 対物評価機能の実装
+-   [ ] アクション編集インタフェースの整備

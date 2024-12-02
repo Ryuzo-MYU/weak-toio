@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Environment;
 using toio;
 using UnityEngine;
 
@@ -8,6 +9,7 @@ namespace Robot
 	public class Toio
 	{
 		public int ID { get; private set; }
+		public EnvType EnvType { get; set; }
 		public Cube Cube { get; private set; }
 		public CubeHandle Handle { get; private set; }
 

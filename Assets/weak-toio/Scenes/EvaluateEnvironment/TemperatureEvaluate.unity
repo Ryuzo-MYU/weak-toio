@@ -665,7 +665,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   connectType: 0
-  cubeCount: 2
 --- !u!4 &647634892
 Transform:
   m_ObjectHideFlags: 0
