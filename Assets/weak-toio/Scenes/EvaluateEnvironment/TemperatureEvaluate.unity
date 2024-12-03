@@ -1319,7 +1319,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 629861105988606596, guid: 22ae4aac2ed0681438f651f67f598956, type: 3}
       propertyPath: UseDummy
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 629861105988606596, guid: 22ae4aac2ed0681438f651f67f598956, type: 3}
       propertyPath: connectType
@@ -1371,7 +1371,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6681301843531099273, guid: 22ae4aac2ed0681438f651f67f598956, type: 3}
       propertyPath: portName
-      value: COM7
+      value: COM9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
