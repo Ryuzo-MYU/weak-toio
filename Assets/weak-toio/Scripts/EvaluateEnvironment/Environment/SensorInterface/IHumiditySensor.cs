@@ -1,6 +1,6 @@
 namespace Environment
 {
-	public interface IHumiditySensor
+	public interface IHumiditySensor : ISensorUnit
 	{
 		public float GetHumidity();
 	}
