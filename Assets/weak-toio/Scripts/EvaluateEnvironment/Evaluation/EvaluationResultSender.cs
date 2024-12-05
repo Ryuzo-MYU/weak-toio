@@ -3,9 +3,9 @@ using Environment;
 
 namespace Evaluation
 {
-	public interface EvaluationResultSender
+	public interface EvaluationResultSender<T>
 	{
-		public Result GetEvaluationResult();
+		public Result GetEvaluationResult(T sensor);
 	}
 
 }

@@ -6,9 +6,8 @@ namespace Evaluation
 	/// <summ
 	/// 気温データを取得し、評価をするクラス
 	/// </summary>
-	public class TemperatureEvaluate : EvaluationResultSender
+	public class TemperatureEvaluate : EvaluationResultSender<ITemperatureSensor>
 	{
-		private ITemperatureSensor tempSensor;
 		private float UPPER_BOUND;  // 暑すぎる基準
 		private float LOWER_BOUND; // 寒すぎる基準
 		private BoundaryRange suitableRange;
@@ -16,9 +15,8 @@ namespace Evaluation
 		public float CurrentTemperature { get; private set; }
 		private float _score;
 
-		public TemperatureEvaluate(ITemperatureSensor _tempSensor, float _upperBound, float _lowerBound)
+		public TemperatureEvaluate(float _upperBound, float _lowerBound)
 		{
-			tempSensor = _tempSensor;
 			UPPER_BOUND = _upperBound;
 			LOWER_BOUND = _lowerBound;
 			suitableRange = new BoundaryRange(UPPER_BOUND, LOWER_BOUND);
@@ -27,7 +25,7 @@ namespace Evaluation
 		/// SensorUnitから気温のデータを取得し、労働環境の適温範囲と比較した結果を返す
 		/// </summary>
 		/// <returns>評価結果を集約したResult型データ</returns>
-		public Result GetEvaluationResult()
+		public Result GetEvaluationResult(ITemperatureSensor tempSensor)
 		{
 			CurrentTemperature = tempSensor.GetTemperature(); // SensorUnitから気温を取得
 

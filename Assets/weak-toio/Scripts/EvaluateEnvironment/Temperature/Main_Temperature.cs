@@ -17,7 +17,7 @@ public class Main_Temperature : MonoBehaviour
 	public bool UseDummy;
 	[SerializeField] TempBoundary tempBoundary;
 	public EnvType envType = EnvType.NotAppointed;
-	EvaluationResultSender tempEval;
+	EvaluationResultSender<ITemperatureSensor> tempEval;
 	ActionSender tempAction;
 	private bool connected = false;
 	Toio toio;
@@ -34,7 +34,7 @@ public class Main_Temperature : MonoBehaviour
 		envType = sensor.GetEnvType();
 
 		// 評価システムの初期化
-		tempEval = new TemperatureEvaluate(sensor, tempBoundary.UpperBound, tempBoundary.LowerBound);
+		tempEval = new TemperatureEvaluate(tempBoundary.UpperBound, tempBoundary.LowerBound);
 		tempAction = new TemperatureActionGenerator();
 	}
 	private void Start()
@@ -64,7 +64,7 @@ public class Main_Temperature : MonoBehaviour
 				yield return new WaitForSeconds(0.1f);
 				continue;
 			}
-			Result result = tempEval.GetEvaluationResult();
+			Result result = tempEval.GetEvaluationResult(sensor);
 			Robot.Action action = tempAction.GenerateAction(result);
 			if (!toio.AddNewAction(action))
 			{
