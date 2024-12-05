@@ -13,7 +13,7 @@ public class Main_Temperature : MonoBehaviour
 	public string PORTNAME = "COM9";
 	public int BAUDRATE = 115200;
 	SerialHandler serial;
-	var sensor;
+	ITemperatureSensor sensor;
 	public bool UseDummy;
 	[SerializeField] TempBoundary tempBoundary;
 	public EnvType envType = EnvType.NotAppointed;
@@ -64,7 +64,7 @@ public class Main_Temperature : MonoBehaviour
 				yield return new WaitForSeconds(0.1f);
 				continue;
 			}
-			Result result = tempEval.GetEvaluationResult(sensor);
+			Result result = tempEval.GetEvaluationResult();
 			Robot.Action action = tempAction.GenerateAction(result);
 			if (!toio.AddNewAction(action))
 			{
