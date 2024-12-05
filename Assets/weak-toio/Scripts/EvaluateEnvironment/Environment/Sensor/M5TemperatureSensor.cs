@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Environment
 {
-	public class M5TemperatureSensor : ISensorUnit, IM5Sensor, IENV2Sensor
+	public class M5TemperatureSensor : ISensorUnit, IM5Sensor, IENV2Sensor, ISerialConnector
 	{
 		private SerialHandler _serial;
 		private string _deviceName;
