@@ -1,6 +1,6 @@
 namespace Environment
 {
-	public interface IToFSensor
+	public interface IToFSensor : ISensorUnit
 	{
 		public bool GetCollisionDist();
 	}

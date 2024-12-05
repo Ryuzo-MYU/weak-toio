@@ -7,6 +7,5 @@ namespace Environment
 		public EnvType GetEnvType();
 		public void Start();
 		public void Update();
-		public void OnDataReceived(string message);
 	}
 }

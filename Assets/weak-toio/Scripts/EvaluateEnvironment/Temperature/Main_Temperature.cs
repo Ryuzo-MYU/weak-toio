@@ -13,7 +13,7 @@ public class Main_Temperature : MonoBehaviour
 	public string PORTNAME = "COM9";
 	public int BAUDRATE = 115200;
 	SerialHandler serial;
-	ITemperature sensor;
+	var sensor;
 	public bool UseDummy;
 	[SerializeField] TempBoundary tempBoundary;
 	public EnvType envType = EnvType.NotAppointed;
@@ -27,7 +27,6 @@ public class Main_Temperature : MonoBehaviour
 		connector.OnConnectSuccessed += OnConnectSuccessed;
 		// センサー系の初期化
 		serial = new SerialHandler(PORTNAME, BAUDRATE);
-
 		// シリアルポートの初期化が失敗したらダミーを使う
 		UseDummy = !serial.Awake();
 		sensor = new M5TemperatureSensor(serial);
@@ -35,7 +34,7 @@ public class Main_Temperature : MonoBehaviour
 		envType = sensor.GetEnvType();
 
 		// 評価システムの初期化
-		tempEval = new TemperatureEvaluate(tempBoundary.UpperBound, tempBoundary.LowerBound);
+		tempEval = new TemperatureEvaluate(sensor, tempBoundary.UpperBound, tempBoundary.LowerBound);
 		tempAction = new TemperatureActionGenerator();
 	}
 	private void Start()
