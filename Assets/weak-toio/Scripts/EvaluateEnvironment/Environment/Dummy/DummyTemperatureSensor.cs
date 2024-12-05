@@ -3,65 +3,55 @@ using Evaluation;
 
 namespace Environment
 {
-	public class DummyTemperatureSensor : ISensorUnit, IM5Sensor
+	public class DummyTemperatureSensor : ISensorUnit, IM5Sensor, IENV2Sensor
 	{
-		public SensorInfo sensorInfo;
-		public string deviceName;
-		// 前回の値を保持するフィールド
-		public System.Numerics.Vector3 previousAccel;
-		public System.Numerics.Vector3 previousGyro;
-		public float previousTemperature;
-		public float previousHumidity;
-		public float previousPressure;
-		public float previousVbat;
+		private string deviceName;
+		private System.Numerics.Vector3 accel;
+		private System.Numerics.Vector3 gyro;
+		private float temp;
+		private float hum;
+		private float pressure;
+		private float vbat;
+
+		public string GetDeviceName() { return deviceName; }
+		public System.Numerics.Vector3 GetAcceleration() { return accel; }
+		public System.Numerics.Vector3 GetGyro() { return gyro; }
+		public float GetVbat() { return vbat; }
+		public float GetTemperature() { return temp; }
+		public float GetHumidity() { return hum; }
+		public float GetPressure() { return pressure; }
 
 		public DummyTemperatureSensor()
 		{
 			deviceName = "This-is-Dummy";
-			previousAccel = System.Numerics.Vector3.Zero;
-			previousGyro = System.Numerics.Vector3.Zero;
-			previousTemperature = 25f;
-			previousHumidity = 50f;
-			previousPressure = 101325f; // https://w.wiki/3DDH
-			previousVbat = 4.0f;
+			accel = System.Numerics.Vector3.Zero;
+			gyro = System.Numerics.Vector3.Zero;
+			temp = 25f;
+			hum = 50f;
+			pressure = 101325f; // https://w.wiki/3DDH
+			vbat = 4.0f;
 		}
-		public SensorInfo GetSensorInfo() { return sensorInfo; }
 		public EnvType GetEnvType() { return EnvType.Temperature; }
 		// 何もしない
 		public void Start() { }
 		public void Update()
 		{
 			// 加速度とジャイロのダミーデータ（前回の値に基づいて変動）
-			float accelX = previousAccel.X + UnityEngine.Random.Range(-2f, 2f);
-			float accelY = previousAccel.Y + UnityEngine.Random.Range(-2f, 2f);
-			float accelZ = previousAccel.Z + UnityEngine.Random.Range(-2f, 2f);
-			float gyroX = previousGyro.X + UnityEngine.Random.Range(-50f, 50f);
-			float gyroY = previousGyro.Y + UnityEngine.Random.Range(-50f, 50f);
-			float gyroZ = previousGyro.Z + UnityEngine.Random.Range(-50f, 50f);
+			float accelX = accel.X + UnityEngine.Random.Range(-2f, 2f);
+			float accelY = accel.Y + UnityEngine.Random.Range(-2f, 2f);
+			float accelZ = accel.Z + UnityEngine.Random.Range(-2f, 2f);
+			accel = new System.Numerics.Vector3(accelX, accelY, accelZ);
+
+			float gyroX = gyro.X + UnityEngine.Random.Range(-50f, 50f);
+			float gyroY = gyro.Y + UnityEngine.Random.Range(-50f, 50f);
+			float gyroZ = gyro.Z + UnityEngine.Random.Range(-50f, 50f);
+			gyro = new System.Numerics.Vector3(gyroX, gyroY, gyroZ);
 
 			// 気温、湿度、気圧、バッテリー電圧のダミーデータ（前回の値に基づいて変動）
-			float temperature = previousTemperature + UnityEngine.Random.Range(-1f, 1f);
-			float humidity = previousHumidity + UnityEngine.Random.Range(-1f, 1f);
-			float pressure = previousPressure + UnityEngine.Random.Range(-1f, 1f);
-			float batteryVoltage = previousVbat + UnityEngine.Random.Range(-0.01f, 0.01f);
-
-			// 新しい値をフィールドに保存
-			previousAccel = new System.Numerics.Vector3(accelX, accelY, accelZ);
-			previousGyro = new System.Numerics.Vector3(gyroX, gyroY, gyroZ);
-			previousTemperature = temperature;
-			previousHumidity = humidity;
-			previousPressure = pressure;
-			previousVbat = batteryVoltage;
-
-			sensorInfo = new SensorInfo(
-				deviceName,
-				new System.Numerics.Vector3(accelX, accelY, accelZ),
-				new System.Numerics.Vector3(gyroX, gyroY, gyroZ),
-				temperature,
-				humidity,
-				pressure,
-				batteryVoltage
-			);
+			temp += UnityEngine.Random.Range(-1f, 1f);
+			hum += UnityEngine.Random.Range(-1f, 1f);
+			pressure += UnityEngine.Random.Range(-1f, 1f);
+			vbat += UnityEngine.Random.Range(-0.01f, 0.01f);
 		}
 		public void OnDataReceived(string message) { } // 何もしない
 	}
