@@ -17,7 +17,7 @@ public class Main_Temperature : MonoBehaviour
 	public bool UseDummy;
 	[SerializeField] TempBoundary tempBoundary;
 	public EnvType envType = EnvType.NotAppointed;
-	EvaluationResultSender<ITemperatureSensor> tempEval;
+	TemperatureEvaluate tempEval;
 	ActionSender tempAction;
 	private bool connected = false;
 	Toio toio;
