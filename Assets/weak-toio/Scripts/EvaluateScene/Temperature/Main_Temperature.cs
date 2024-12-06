@@ -43,8 +43,6 @@ public class Main_Temperature : MonoBehaviour
 	}
 	private void Update()
 	{
-		serial.Update();
-		sensor.Update();
 	}
 
 	private void OnConnectSuccessed(Queue<Toio> toios)
@@ -64,6 +62,8 @@ public class Main_Temperature : MonoBehaviour
 				yield return new WaitForSeconds(0.1f);
 				continue;
 			}
+			serial.Update();
+			sensor.Update();
 			Result result = tempEval.GetEvaluationResult(sensor);
 			Robot.Action action = tempAction.GenerateAction(result);
 			if (!toio.AddNewAction(action))

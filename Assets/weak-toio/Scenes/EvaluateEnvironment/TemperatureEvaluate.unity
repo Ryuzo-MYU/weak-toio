@@ -656,9 +656,10 @@ MonoBehaviour:
   PORTNAME: COM9
   BAUDRATE: 115200
   UseDummy: 0
-  co2Boundary:
-    UpperBound: 0
-    LowerBound: 0
+  co2Bounds:
+    DangerPPM: 1000
+    CautionPPM: 900
+    SuitablePPM: 700
   envType: 0
 --- !u!1 &647634890
 GameObject:
