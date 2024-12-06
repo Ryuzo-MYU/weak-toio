@@ -18,7 +18,7 @@ public class Main_CO2 : MonoBehaviour
 
 	// 基準値参照
 	// https://www.mhlw.go.jp/content/11130500/000771220.pdf
-	[SerializeField] float ppmLimit = 1000f;
+	[SerializeField] CO2Bounds co2Bounds;
 	public EnvType envType = EnvType.NotAppointed;
 	CO2Evaluate co2Eval;
 	ActionSender co2Action;
@@ -37,8 +37,8 @@ public class Main_CO2 : MonoBehaviour
 		envType = sensor.GetEnvType();
 
 		// 評価システムの初期化
-		co2Eval = new CO2Evaluate(ppmLimit);
-		co2Action = new CO2ActionGenerator();
+		co2Eval = new CO2Evaluate(co2Bounds.DangerPPM);
+		co2Action = new CO2ActionGenerator(co2Bounds.SuitablePPM, co2Bounds.CautionPPM, co2Bounds.DangerPPM);
 	}
 	private void Start()
 	{
@@ -76,4 +76,11 @@ public class Main_CO2 : MonoBehaviour
 			yield return StartCoroutine(toio.Move());
 		}
 	}
+}
+
+struct CO2Bounds
+{
+	public float DangerPPM;
+	public float CautionPPM;
+	public float SuitablePPM;
 }
