@@ -6,17 +6,17 @@ namespace Robot
 {
 	public class CO2ActionGenerator : ActionGenerator, ActionSender
 	{
-		private float suitablePPM;
-		private float cautionPPM;
-		private float dangerPPM;
+		private float suitableScore;
+		private float cautionScore;
+		private float dangerScore;
 
 		public Action GenerateAction(Result result)
 		{
 			float score = result.Score;
 
 			Action action;
-			if (score > dangerPPM) action = DangerAction();
-			else if (score > cautionPPM) action = CautionAction();
+			if (score > dangerScore) action = DangerAction();
+			else if (score > cautionScore) action = CautionAction();
 			else action = SuitableAction();
 
 			return action;
