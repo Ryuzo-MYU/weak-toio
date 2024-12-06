@@ -25,7 +25,7 @@ namespace Environment
 			_ppm = 700f; // 初期値参照: https://www.mhlw.go.jp/content/11130500/000771220.pdf
 			_vbat = 4.0f;
 		}
-		public EnvType GetEnvType() { return EnvType.Temperature; }
+		public EnvType GetEnvType() { return EnvType.CO2; }
 		public void Start() { } // 何もしない
 
 		/// <summary>
