@@ -44,10 +44,11 @@ public class Main_CO2 : MonoBehaviour
 	{
 		sensor.Start();
 	}
-	private void Update()
+	void FixedUpdate()
 	{
+		serial.Update();
+		sensor.Update();
 	}
-
 	private void OnConnectSuccessed(Queue<Toio> toios)
 	{
 		Debug.Log("接続開始");
@@ -62,8 +63,6 @@ public class Main_CO2 : MonoBehaviour
 		{
 			if (!connected && sensor == null)
 			{
-				serial.Update();
-				sensor.Update();
 				yield return new WaitForSeconds(0.1f);
 				continue;
 			}

@@ -41,10 +41,11 @@ public class Main_Temperature : MonoBehaviour
 	{
 		sensor.Start();
 	}
-	private void Update()
+	private void FixedUpdate()
 	{
+		serial.Update();
+		sensor.Update();
 	}
-
 	private void OnConnectSuccessed(Queue<Toio> toios)
 	{
 		Debug.Log("接続開始");
@@ -59,8 +60,6 @@ public class Main_Temperature : MonoBehaviour
 		{
 			if (!connected && sensor == null)
 			{
-				serial.Update();
-				sensor.Update();
 				yield return new WaitForSeconds(0.1f);
 				continue;
 			}
