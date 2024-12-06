@@ -62,11 +62,11 @@ public class Main_CO2 : MonoBehaviour
 		{
 			if (!connected && sensor == null)
 			{
+				serial.Update();
+				sensor.Update();
 				yield return new WaitForSeconds(0.1f);
 				continue;
 			}
-			serial.Update();
-			sensor.Update();
 			Result result = co2Eval.GetEvaluationResult(sensor);
 			Robot.Action action = co2Action.GenerateAction(result);
 			if (!toio.AddNewAction(action))

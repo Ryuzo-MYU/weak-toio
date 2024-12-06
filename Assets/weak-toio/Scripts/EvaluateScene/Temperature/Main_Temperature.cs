@@ -59,11 +59,11 @@ public class Main_Temperature : MonoBehaviour
 		{
 			if (!connected && sensor == null)
 			{
+				serial.Update();
+				sensor.Update();
 				yield return new WaitForSeconds(0.1f);
 				continue;
 			}
-			serial.Update();
-			sensor.Update();
 			Result result = tempEval.GetEvaluationResult(sensor);
 			Robot.Action action = tempAction.GenerateAction(result);
 			if (!toio.AddNewAction(action))
