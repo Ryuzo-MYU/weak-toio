@@ -47,6 +47,8 @@ public class Main_CO2 : MonoBehaviour
 	}
 	void FixedUpdate()
 	{
+		serial.Update();
+		sensor.Update();
 	}
 	private void OnConnectSuccessed(Queue<Toio> toios)
 	{
@@ -65,8 +67,6 @@ public class Main_CO2 : MonoBehaviour
 				yield return new WaitForSeconds(0.1f);
 				continue;
 			}
-			serial.Update();
-			sensor.Update();
 			currentPPM = sensor.GetPPM();
 			Result result = co2Eval.GetEvaluationResult(sensor);
 			Robot.Action action = co2Action.GenerateAction(result);
