@@ -6,10 +6,17 @@ namespace Robot
 {
 	public class CO2ActionGenerator : ActionGenerator, ActionSender
 	{
-		private float suitableScore;
-		private float cautionScore;
-		private float dangerScore;
+		private float suitableScore = 0;
+		private float cautionScore = 150;
+		private float dangerScore = 300;
 
+		// コンストラクタ
+		public CO2ActionGenerator(float _suitableScore, float _cautionScore, float _dangerScore)
+		{
+			suitableScore = _suitableScore;
+			cautionScore = _cautionScore;
+			dangerScore = _dangerScore;
+		}
 		public Action GenerateAction(Result result)
 		{
 			float score = result.Score;
