@@ -1,8 +1,6 @@
 using System;
 using System.Collections.Generic;
 using Evaluation;
-using toio;
-using UnityEngine;
 
 namespace Robot
 {
@@ -14,15 +12,6 @@ namespace Robot
 
 		public Action GenerateAction(Result result)
 		{
-			// 型チェック
-			Result temperatureResult = new Result();
-			if (result.GetType() != temperatureResult.GetType())
-			{
-				Debug.Assert(false, "TemperatureResult以外のクラスをいれるな");
-				Motion doAnything = new Motion(new TranslateCommand(0, 0), 0);
-			}
-
-			// 型チェックして問題なければ処理を進める
 			float score = result.Score;
 			Action action;
 			if (score == 0)

@@ -1,8 +1,6 @@
 using System;
 using System.Collections.Generic;
 using Evaluation;
-using toio;
-using UnityEngine;
 
 namespace Robot
 {
@@ -14,15 +12,6 @@ namespace Robot
 
 		public Action GenerateAction(Result result)
 		{
-			// 型チェック
-			Result co2Result = new Result();
-			if (result.GetType() != co2Result.GetType())
-			{
-				Debug.Assert(false, "co2Result以外のクラスをいれるな");
-				Motion doAnything = new Motion(new TranslateCommand(0, 0), 0);
-			}
-
-			// 型チェックして問題なければ処理を進める
 			float score = result.Score;
 			Action action;
 			if (score == 0)
@@ -31,13 +20,13 @@ namespace Robot
 			}
 			else if (CautionRange.isWithInRange(score))
 			{
-				if (score < 0) { action = ColdCautionAction(); }
-				else { action = HotCautionAction(); }
+				if (score < 0) { action = LowPPMCautionAction(); }
+				else { action = HighPPMCautionAction(); }
 			}
 			else
 			{
-				if (score < 0) { action = ColdDangerAction(); }
-				else { action = HotDangerAction(); }
+				if (score < 0) { action = LowPPMDangerAction(); }
+				else { action = HighPPMDangerAction(); }
 			}
 			return action;
 		}
@@ -56,7 +45,7 @@ namespace Robot
 			Action action = new Action(suitableAction);
 			return action;
 		}
-		private Action ColdCautionAction()
+		private Action LowPPMCautionAction()
 		{
 			Queue<Motion> cautionShiver = new Queue<Motion>();
 			float rad = (float)(10 * Math.PI / 180);
@@ -67,7 +56,7 @@ namespace Robot
 			Action action = new Action(cautionShiver);
 			return action;
 		}
-		private Action ColdDangerAction()
+		private Action LowPPMDangerAction()
 		{
 			Queue<Motion> dangerShiver = new Queue<Motion>();
 			float deg = 10f;
@@ -78,7 +67,7 @@ namespace Robot
 			Action action = new Action(dangerShiver);
 			return action;
 		}
-		private Action HotCautionAction()
+		private Action HighPPMCautionAction()
 		{
 			Queue<Motion> cautionTwist = new Queue<Motion>();
 			float deg = 50f;
@@ -89,7 +78,7 @@ namespace Robot
 			Action action = new Action(cautionTwist);
 			return action;
 		}
-		private Action HotDangerAction()
+		private Action HighPPMDangerAction()
 		{
 			Queue<Motion> dangerTwist = new Queue<Motion>();
 			float deg = 90f;

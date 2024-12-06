@@ -13,12 +13,12 @@ public class Main_CO2 : MonoBehaviour
 	public string PORTNAME = "COM9";
 	public int BAUDRATE = 115200;
 	SerialHandler serial;
-	ITemperatureSensor sensor;
+	ICO2Sensor sensor;
 	public bool UseDummy;
-	[SerializeField] TempBoundary tempBoundary;
+	[SerializeField] CO2Boundary co2Boundary;
 	public EnvType envType = EnvType.NotAppointed;
-	TemperatureEvaluate tempEval;
-	ActionSender tempAction;
+	CO2Evaluate co2Eval;
+	ActionSender co2Action;
 	private bool connected = false;
 	Toio toio;
 
@@ -29,13 +29,13 @@ public class Main_CO2 : MonoBehaviour
 		serial = new SerialHandler(PORTNAME, BAUDRATE);
 		// シリアルポートの初期化が失敗したらダミーを使う
 		UseDummy = !serial.Awake();
-		sensor = new M5TemperatureSensor(serial);
-		if (UseDummy) sensor = new DummyTemperatureSensor();
+		sensor = new M5CO2Sensor(serial);
+		if (UseDummy) sensor = new DummyCO2Sensor();
 		envType = sensor.GetEnvType();
 
 		// 評価システムの初期化
-		tempEval = new TemperatureEvaluate(tempBoundary.UpperBound, tempBoundary.LowerBound);
-		tempAction = new TemperatureActionGenerator();
+		co2Eval = new CO2Evaluate(co2Boundary.UpperBound, co2Boundary.LowerBound);
+		co2Action = new CO2ActionGenerator();
 	}
 	private void Start()
 	{
@@ -64,8 +64,8 @@ public class Main_CO2 : MonoBehaviour
 				yield return new WaitForSeconds(0.1f);
 				continue;
 			}
-			Result result = tempEval.GetEvaluationResult(sensor);
-			Robot.Action action = tempAction.GenerateAction(result);
+			Result result = co2Eval.GetEvaluationResult(sensor);
+			Robot.Action action = co2Action.GenerateAction(result);
 			if (!toio.AddNewAction(action))
 			{
 				Debug.LogWarning("アクション溜まってんね");
@@ -75,7 +75,7 @@ public class Main_CO2 : MonoBehaviour
 	}
 
 	[Serializable]
-	struct TempBoundary
+	struct CO2Boundary
 	{
 		public float UpperBound;
 		public float LowerBound;
