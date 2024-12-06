@@ -15,7 +15,10 @@ public class Main_CO2 : MonoBehaviour
 	SerialHandler serial;
 	ICO2Sensor sensor;
 	public bool UseDummy;
-	[SerializeField] CO2Boundary co2Boundary;
+
+	// 基準値参照
+	// https://www.mhlw.go.jp/content/11130500/000771220.pdf
+	[SerializeField] float ppmLimit = 1000f;
 	public EnvType envType = EnvType.NotAppointed;
 	CO2Evaluate co2Eval;
 	ActionSender co2Action;
@@ -34,7 +37,7 @@ public class Main_CO2 : MonoBehaviour
 		envType = sensor.GetEnvType();
 
 		// 評価システムの初期化
-		co2Eval = new CO2Evaluate(co2Boundary.UpperBound, co2Boundary.LowerBound);
+		co2Eval = new CO2Evaluate(ppmLimit);
 		co2Action = new CO2ActionGenerator();
 	}
 	private void Start()
@@ -72,12 +75,5 @@ public class Main_CO2 : MonoBehaviour
 			}
 			yield return StartCoroutine(toio.Move());
 		}
-	}
-
-	[Serializable]
-	struct CO2Boundary
-	{
-		public float UpperBound;
-		public float LowerBound;
 	}
 }

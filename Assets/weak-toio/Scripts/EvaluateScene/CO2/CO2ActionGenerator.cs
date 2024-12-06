@@ -6,28 +6,19 @@ namespace Robot
 {
 	public class CO2ActionGenerator : ActionGenerator, ActionSender
 	{
-		BoundaryRange SuitableRange = new BoundaryRange(0);
-		BoundaryRange CautionRange = new BoundaryRange(-5, 5);
-		BoundaryRange DangerRange = new BoundaryRange(-10, 10);
+		private float suitablePPM;
+		private float cautionPPM;
+		private float dangerPPM;
 
 		public Action GenerateAction(Result result)
 		{
 			float score = result.Score;
+
 			Action action;
-			if (score == 0)
-			{
-				action = SuitableAction();
-			}
-			else if (CautionRange.isWithInRange(score))
-			{
-				if (score < 0) { action = LowPPMCautionAction(); }
-				else { action = HighPPMCautionAction(); }
-			}
-			else
-			{
-				if (score < 0) { action = LowPPMDangerAction(); }
-				else { action = HighPPMDangerAction(); }
-			}
+			if (score > dangerPPM) action = DangerAction();
+			else if (score > cautionPPM) action = CautionAction();
+			else action = SuitableAction();
+
 			return action;
 		}
 		private Action SuitableAction()
@@ -45,29 +36,7 @@ namespace Robot
 			Action action = new Action(suitableAction);
 			return action;
 		}
-		private Action LowPPMCautionAction()
-		{
-			Queue<Motion> cautionShiver = new Queue<Motion>();
-			float rad = (float)(10 * Math.PI / 180);
-			double speed = 50;
-			cautionShiver.Enqueue(RadRotate(rad, speed));
-			cautionShiver.Enqueue(RadRotate(-rad, speed));
-
-			Action action = new Action(cautionShiver);
-			return action;
-		}
-		private Action LowPPMDangerAction()
-		{
-			Queue<Motion> dangerShiver = new Queue<Motion>();
-			float deg = 10f;
-			double speed = 100;
-			dangerShiver.Enqueue(DegRotate(deg, speed));
-			dangerShiver.Enqueue(DegRotate(-deg, speed));
-
-			Action action = new Action(dangerShiver);
-			return action;
-		}
-		private Action HighPPMCautionAction()
+		private Action CautionAction()
 		{
 			Queue<Motion> cautionTwist = new Queue<Motion>();
 			float deg = 50f;
@@ -78,7 +47,7 @@ namespace Robot
 			Action action = new Action(cautionTwist);
 			return action;
 		}
-		private Action HighPPMDangerAction()
+		private Action DangerAction()
 		{
 			Queue<Motion> dangerTwist = new Queue<Motion>();
 			float deg = 90f;

@@ -22,7 +22,7 @@ namespace Environment
 			_deviceName = "This-is-Dummy";
 			_accel = System.Numerics.Vector3.Zero;
 			_gyro = System.Numerics.Vector3.Zero;
-			_ppm =
+			_ppm = 700f; // 初期値参照: https://www.mhlw.go.jp/content/11130500/000771220.pdf
 			_vbat = 4.0f;
 		}
 		public EnvType GetEnvType() { return EnvType.Temperature; }
