@@ -78,6 +78,7 @@ public class Main_CO2 : MonoBehaviour
 	}
 }
 
+[Serializable]
 struct CO2Bounds
 {
 	public float DangerPPM;
