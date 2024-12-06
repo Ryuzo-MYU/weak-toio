@@ -24,6 +24,7 @@ public class Main_CO2 : MonoBehaviour
 	ActionSender co2Action;
 	private bool connected = false;
 	Toio toio;
+	[SerializeField] float currentPPM;
 
 	private void Awake()
 	{
@@ -46,8 +47,6 @@ public class Main_CO2 : MonoBehaviour
 	}
 	void FixedUpdate()
 	{
-		serial.Update();
-		sensor.Update();
 	}
 	private void OnConnectSuccessed(Queue<Toio> toios)
 	{
@@ -63,9 +62,12 @@ public class Main_CO2 : MonoBehaviour
 		{
 			if (!connected && sensor == null)
 			{
+				serial.Update();
+				sensor.Update();
 				yield return new WaitForSeconds(0.1f);
 				continue;
 			}
+			currentPPM = sensor.GetPPM();
 			Result result = co2Eval.GetEvaluationResult(sensor);
 			Robot.Action action = co2Action.GenerateAction(result);
 			if (!toio.AddNewAction(action))

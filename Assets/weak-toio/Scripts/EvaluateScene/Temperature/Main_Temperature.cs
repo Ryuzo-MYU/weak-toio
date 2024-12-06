@@ -21,6 +21,7 @@ public class Main_Temperature : MonoBehaviour
 	ActionSender tempAction;
 	private bool connected = false;
 	Toio toio;
+	[SerializeField] float currentTemp;
 
 	private void Awake()
 	{
@@ -41,11 +42,6 @@ public class Main_Temperature : MonoBehaviour
 	{
 		sensor.Start();
 	}
-	private void FixedUpdate()
-	{
-		serial.Update();
-		sensor.Update();
-	}
 	private void OnConnectSuccessed(Queue<Toio> toios)
 	{
 		Debug.Log("接続開始");
@@ -60,9 +56,12 @@ public class Main_Temperature : MonoBehaviour
 		{
 			if (!connected && sensor == null)
 			{
+				serial.Update();
+				sensor.Update();
 				yield return new WaitForSeconds(0.1f);
 				continue;
 			}
+			currentTemp = sensor.GetTemperature();
 			Result result = tempEval.GetEvaluationResult(sensor);
 			Robot.Action action = tempAction.GenerateAction(result);
 			if (!toio.AddNewAction(action))
