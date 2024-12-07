@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using Environment;
 using Evaluation;
 using Robot;
-using toio;
 using UnityEngine;
 
 public class Main_Temperature : MonoBehaviour
@@ -42,7 +41,7 @@ public class Main_Temperature : MonoBehaviour
 	{
 		sensor.Start();
 	}
-	private void FixedUpdate()
+	private void Update()
 	{
 		serial.Update();
 		sensor.Update();

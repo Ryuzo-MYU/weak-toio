@@ -45,7 +45,7 @@ public class Main_CO2 : MonoBehaviour
 	{
 		sensor.Start();
 	}
-	void FixedUpdate()
+	void Update()
 	{
 		serial.Update();
 		sensor.Update();

@@ -640,7 +640,7 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 4705726750745792701, guid: 22ae4aac2ed0681438f651f67f598956, type: 3}
   m_PrefabInstance: {fileID: 873833590}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &575883198
+--- !u!114 &575883200
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -649,18 +649,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 575883195}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 98e7e797a4f48a14e97335d3222ff0b1, type: 3}
+  m_Script: {fileID: 11500000, guid: 682ce7479f4c73147949ab53a5c88321, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   connector: {fileID: 647634891}
   PORTNAME: COM9
   BAUDRATE: 115200
   UseDummy: 0
-  co2Bounds:
-    DangerPPM: 1000
-    CautionPPM: 900
-    SuitablePPM: 700
+  tempBoundary:
+    UpperBound: 27
+    LowerBound: 22
   envType: 0
+  currentTemp: 0
 --- !u!1 &647634890
 GameObject:
   m_ObjectHideFlags: 0
@@ -910,8 +910,35 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 4705726750745792701, guid: 22ae4aac2ed0681438f651f67f598956, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 575883198}
+      addedObject: {fileID: 575883200}
   m_SourcePrefab: {fileID: 100100000, guid: 22ae4aac2ed0681438f651f67f598956, type: 3}
+--- !u!1 &1167431643 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4705726750745792701, guid: 22ae4aac2ed0681438f651f67f598956, type: 3}
+  m_PrefabInstance: {fileID: 3648713546470336540}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1167431646
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1167431643}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98e7e797a4f48a14e97335d3222ff0b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  connector: {fileID: 647634891}
+  PORTNAME: COM9
+  BAUDRATE: 115200
+  UseDummy: 0
+  co2Bounds:
+    DangerPPM: 1000
+    CautionPPM: 800
+    SuitablePPM: 700
+  envType: 0
+  currentPPM: 0
 --- !u!1 &1184915143
 GameObject:
   m_ObjectHideFlags: 0
@@ -1517,10 +1544,14 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Toio
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 629861105988606596, guid: 22ae4aac2ed0681438f651f67f598956, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4705726750745792701, guid: 22ae4aac2ed0681438f651f67f598956, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1167431646}
   m_SourcePrefab: {fileID: 100100000, guid: 22ae4aac2ed0681438f651f67f598956, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
