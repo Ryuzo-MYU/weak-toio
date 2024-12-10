@@ -2,69 +2,113 @@ using UnityEngine;
 using TMPro;
 using System.Collections.Generic;
 using Robot;
+using UnityEngine.UI;
 
 public class ToioNameListUI : MonoBehaviour
 {
-    [SerializeField]
-    private GameObject listItemPrefab; // UIリストアイテムのプレハブ
+	[SerializeField]
+	private GameObject listItemPrefab;
 
-    [SerializeField]
-    private Transform contentParent; // スクロールビューのContent
+	[SerializeField]
+	private RectTransform contentParent;
 
-    [SerializeField]
-    private ToioConnector toioConnector; // ToioConnectorへの参照
+	[SerializeField]
+	private ToioConnector toioConnector;
 
-    private List<GameObject> listItems = new List<GameObject>();
+	private List<GameObject> listItems = new List<GameObject>();
 
-    private void Start()
-    {
-        // ToioConnectorの接続完了イベントにリスナーを追加
-        toioConnector.OnConnectSuccessed += OnToioConnected;
-    }
+	private void Awake()
+	{
+		// ContentのLayout設定
+		SetupContentLayout();
+	}
 
-    // toioの接続が完了したときに呼ばれるメソッド
-    private void OnToioConnected(List<Toio> toios)
-    {
-        // 既存のリストをクリア
-        ClearList();
+	private void Start()
+	{
+		toioConnector.OnConnectSuccessed += OnToioConnected;
+	}
 
-        // 接続されているtoioの名前を表示
-        foreach (string toioName in toioConnector.toioNames)
-        {
-            CreateListItem(toioName);
-        }
-    }
+	private void SetupContentLayout()
+	{
+		if (contentParent == null) return;
 
-    // リストアイテムを生成
-    private void CreateListItem(string toioName)
-    {
-        GameObject listItem = Instantiate(listItemPrefab, contentParent);
-        TMP_Text nameText = listItem.GetComponentInChildren<TMP_Text>();
-        
-        if (nameText != null)
-        {
-            nameText.text = $"Toio: {toioName}\n";
-        }
-        
-        listItems.Add(listItem);
-    }
+		// Content の VerticalLayoutGroup の設定
+		var verticalLayout = contentParent.GetComponent<VerticalLayoutGroup>();
+		if (verticalLayout == null)
+		{
+			verticalLayout = contentParent.gameObject.AddComponent<VerticalLayoutGroup>();
+		}
+		verticalLayout.spacing = 5f;
+		verticalLayout.padding = new RectOffset(5, 5, 5, 5);
+		verticalLayout.childAlignment = TextAnchor.UpperRight;
+		verticalLayout.childControlHeight = true;
+		verticalLayout.childControlWidth = true;
+		verticalLayout.childForceExpandHeight = false;
+		verticalLayout.childForceExpandWidth = true;
 
-    // リストをクリア
-    private void ClearList()
-    {
-        foreach (var item in listItems)
-        {
-            Destroy(item);
-        }
-        listItems.Clear();
-    }
+		// Content の ContentSizeFitter の設定
+		var contentSizeFitter = contentParent.GetComponent<ContentSizeFitter>();
+		if (contentSizeFitter == null)
+		{
+			contentSizeFitter = contentParent.gameObject.AddComponent<ContentSizeFitter>();
+		}
+		contentSizeFitter.verticalFit = ContentSizeFitter.FitMode.PreferredSize;
+	}
 
-    private void OnDestroy()
-    {
-        // イベントリスナーの解除
-        if (toioConnector != null)
-        {
-            toioConnector.OnConnectSuccessed -= OnToioConnected;
-        }
-    }
+	private void OnToioConnected(List<Toio> toios)
+	{
+		ClearList();
+		foreach (string toioName in toioConnector.toioNames)
+		{
+			CreateListItem(toioName);
+		}
+	}
+
+	private void CreateListItem(string toioName)
+	{
+		GameObject listItem = Instantiate(listItemPrefab, contentParent);
+
+		// ListItemのレイアウト設定
+		var itemRect = listItem.GetComponent<RectTransform>();
+		if (itemRect != null)
+		{
+			itemRect.anchorMin = new Vector2(0, 0);
+			itemRect.anchorMax = new Vector2(1, 0);
+			itemRect.pivot = new Vector2(1, 0);
+		}
+
+		var layoutElement = listItem.GetComponent<LayoutElement>();
+		if (layoutElement == null)
+		{
+			layoutElement = listItem.AddComponent<LayoutElement>();
+		}
+		layoutElement.minHeight = 30f;
+		layoutElement.flexibleWidth = 1;
+
+		TMP_Text nameText = listItem.GetComponentInChildren<TMP_Text>();
+		if (nameText != null)
+		{
+			nameText.text = $"Toio: {toioName}";
+			nameText.alignment = TextAlignmentOptions.Right;
+		}
+
+		listItems.Add(listItem);
+	}
+
+	private void ClearList()
+	{
+		foreach (var item in listItems)
+		{
+			Destroy(item);
+		}
+		listItems.Clear();
+	}
+
+	private void OnDestroy()
+	{
+		if (toioConnector != null)
+		{
+			toioConnector.OnConnectSuccessed -= OnToioConnected;
+		}
+	}
 }
