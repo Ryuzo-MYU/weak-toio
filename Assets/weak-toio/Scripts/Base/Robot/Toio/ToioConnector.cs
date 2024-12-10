@@ -23,8 +23,6 @@ namespace Robot
 		private List<Toio> toios;
 		private async void Awake()
 		{
-			cubeManager.DisconnectAll();
-
 			toioNames = new List<string>();
 
 			cubeCount = GameObject.FindGameObjectsWithTag(toioTag).Length;
@@ -42,6 +40,10 @@ namespace Robot
 
 			Debug.Log("接続完了");
 			OnConnectSuccessed(toios);
+		}
+		private void OnDestroy()
+		{
+			cubeManager.DisconnectAll();
 		}
 	}
 }
