@@ -43,7 +43,7 @@ public class ToioNameListUI : MonoBehaviour
         
         if (nameText != null)
         {
-            nameText.text = $"Toio: {toioName}";
+            nameText.text = $"Toio: {toioName}\n";
         }
         
         listItems.Add(listItem);
