@@ -1,16 +1,17 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using Environment;
 using Evaluation;
 using Robot;
-using toio;
 using UnityEngine;
 
 public class Main_Temperature : EvaluationBase<ITemperatureSensor, TemperatureEvaluate, TemperatureActionGenerator>
 {
+	[SerializeField] TempBoundary tempBoundary;
+	[SerializeField] float currentTemp;
+
 	protected override void InitializeSensor()
 	{
+		connector.OnConnectSuccessed += OnConnectSuccessed;
 		// センサー系の初期化
 		serial = new SerialHandler(PORTNAME, BAUDRATE);
 		// シリアルポートの初期化が失敗したらダミーを使う
@@ -21,6 +22,15 @@ public class Main_Temperature : EvaluationBase<ITemperatureSensor, TemperatureEv
 	}
 	protected override void InitializeEvaluator()
 	{
-		
+		// 評価システムの初期化
+		evaluator = new TemperatureEvaluate(tempBoundary.UpperBound, tempBoundary.LowerBound);
+		actionGenerator = new TemperatureActionGenerator();
+	}
+
+	[Serializable]
+	struct TempBoundary
+	{
+		public float UpperBound;
+		public float LowerBound;
 	}
 }

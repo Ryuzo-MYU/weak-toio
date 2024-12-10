@@ -15,6 +15,7 @@ public abstract class EvaluationBase<TSensor, TEvaluate, TActionSender> : MonoBe
 	public ToioConnector connector;
 	public string PORTNAME = "COM9";
 	public int BAUDRATE = 115200;
+	[SerializeField] protected float envParam;
 	protected SerialHandler serial;
 	protected TSensor sensor;
 	public bool UseDummy;
