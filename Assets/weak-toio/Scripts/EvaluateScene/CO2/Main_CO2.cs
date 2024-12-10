@@ -29,6 +29,11 @@ public class Main_CO2 : EvaluationBase<ICO2Sensor, CO2Evaluate, CO2ActionGenerat
 		evaluator = new CO2Evaluate(co2Bounds.DangerPPM);
 		actionGenerator = new CO2ActionGenerator(co2Bounds.SuitablePPM, co2Bounds.CautionPPM, co2Bounds.DangerPPM);
 	}
+
+	protected override void UpdateEnvParam()
+	{
+		currentPPM = sensor.GetPPM();
+	}
 }
 
 [Serializable]

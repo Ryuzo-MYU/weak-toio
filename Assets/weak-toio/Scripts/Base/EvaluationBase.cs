@@ -42,6 +42,7 @@ public abstract class EvaluationBase<TSensor, TEvaluate, TActionSender> : MonoBe
 	{
 		serial.Update();
 		sensor.Update();
+		UpdateEnvParam();
 	}
 
 	protected virtual void OnConnectSuccessed(List<Toio> toios)
@@ -85,4 +86,6 @@ public abstract class EvaluationBase<TSensor, TEvaluate, TActionSender> : MonoBe
 			yield return StartCoroutine(toio.Move());
 		}
 	}
+
+	protected abstract void UpdateEnvParam();
 }

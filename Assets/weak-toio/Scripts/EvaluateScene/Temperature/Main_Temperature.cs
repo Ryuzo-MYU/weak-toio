@@ -27,10 +27,15 @@ public class Main_Temperature : EvaluationBase<ITemperatureSensor, TemperatureEv
 		actionGenerator = new TemperatureActionGenerator();
 	}
 
-	[Serializable]
-	struct TempBoundary
+	protected override void UpdateEnvParam()
 	{
-		public float UpperBound;
-		public float LowerBound;
+		currentTemp = sensor.GetTemperature();
 	}
+}
+
+[Serializable]
+struct TempBoundary
+{
+	public float UpperBound;
+	public float LowerBound;
 }
