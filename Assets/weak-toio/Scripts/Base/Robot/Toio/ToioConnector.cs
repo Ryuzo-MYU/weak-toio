@@ -21,8 +21,10 @@ namespace Robot
 		private string toioTag = "Toio";
 		private CubeManager cubeManager;
 		private List<Toio> toios;
-		private async void Start()
+		private async void Awake()
 		{
+			cubeManager.DisconnectAll();
+
 			toioNames = new List<string>();
 
 			cubeCount = GameObject.FindGameObjectsWithTag(toioTag).Length;
