@@ -8,6 +8,9 @@ using UnityEngine;
 
 public class Main_Temperature : MonoBehaviour
 {
+	[Tooltip("接続したいtoioの固有名\n事前にローカルネームを出力するテンプレートなどで名前を把握しておくこと")]
+	[SerializeField] string exceptToioName;
+	[SerializeField] string toioName;
 	public ToioConnector connector;
 	public string PORTNAME = "COM9";
 	public int BAUDRATE = 115200;
@@ -46,10 +49,11 @@ public class Main_Temperature : MonoBehaviour
 		serial.Update();
 		sensor.Update();
 	}
-	private void OnConnectSuccessed(Queue<Toio> toios)
+	private void OnConnectSuccessed(List<Toio> toios)
 	{
 		Debug.Log("接続開始");
-		toio = toios.Dequeue();
+		toio = toios.Find(t => t.Name == exceptToioName);
+		toioName = toio.Name;
 		toio.EnvType = sensor.GetEnvType(); // 役割を割り当て
 		connected = true;
 		StartCoroutine(UpdateEvaluate());

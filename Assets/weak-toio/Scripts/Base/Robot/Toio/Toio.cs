@@ -9,6 +9,7 @@ namespace Robot
 	public class Toio
 	{
 		public int ID { get; private set; }
+		public string Name { get; private set; }
 		public EnvType EnvType { get; set; }
 		public Cube Cube { get; private set; }
 		public CubeHandle Handle { get; private set; }
@@ -21,6 +22,7 @@ namespace Robot
 		public Toio(int _id, CubeManager _cubeManager)
 		{
 			ID = _id;
+			Name = _cubeManager.cubes[ID].localName;
 			Cube = _cubeManager.cubes[ID];
 			Handle = _cubeManager.handles[ID];
 			actions = new Queue<Action>();

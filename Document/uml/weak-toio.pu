@@ -3,32 +3,49 @@ title weak-toio 設計
 skinparam Linetype ortho
 
 ' オブジェクト
-class RealSensor{
-	+ センサー情報を送信
-}
-class M5Stick{
-	+ GetSensorInfo() : SensorInfo
-	- Update() : void
-}
-class DummySensor{
-	+ GetSensorInfo() : SensorInfo
-	- Update() : void
-}
-struct SensorInfo{}
-
 interface ISensorUnit{
-	+ GetSensorInfo() : SensorInfo
-	- Update() : void
+	+ GetEnvType() : EnvType
+	+ Setup() : void
+	+ Update() : void
 }
+interface IAccelerationSensor{
+	+ GetAcceleration() : vector3
+}
+interface IGyroSensor{
+	+ GetGyro() : vector3
+}
+interface ICO2Sensor{
+	+ GetPPM() : float
+}
+interface ITemperetureSensor{
+	+ GetTemperature() : float
+}
+interface IHumiditySensor{
+	+ GetHumidity() : float
+}
+interface IPressureSensor{
+	+ GetPressure() : float
+}
+interface IToFSensor{
+	+ GetObjectDistance() : float
+}
+interface IENV2Sensor
+interface IM5Sensor
+enum EnvType
+interface ISerialConnector{
+	- OnDataReceived()
+}
+
 class Evaluate{
-	+ GetEvaluationResult(SensorUnit) : Result
+	+ GetEvaluationResult(T sensor) : Result
+	' 各評価クラスに応じて必要なSensorUnitを要求する
 }
 struct Result{
 	int score
 }
 
 interface IEvaluationResultSender{
-	+ GetEvaluationResult(SensorUnit) : Result
+	+ GetEvaluationResult(T sensor) : Result
 }
 class ActionGenerator{
 	+ GenerateAction(Result) : Action
@@ -113,9 +130,21 @@ class ToioCommandFactory {
 
 
 ' 関係
-ISensorUnit <-- M5Stick : 実装
-M5Stick --> RealSensor : 利用
-ISensorUnit <-- DummySensor : 実装
+ISensorUnit <|-- IAccelerationSensor : 継承
+ISensorUnit <|-- IGyroSensor : 継承
+ISensorUnit <|-- ITemperetureSensor : 継承
+ISensorUnit <|-- IHumiditySensor : 継承
+ISensorUnit <|-- IPressureSensor : 継承
+ISensorUnit <|-- ICO2Sensor : 継承
+ISensorUnit <|-- IToFSensor : 継承
+
+IM5Sensor o-- IAccelerationSensor : 継承
+IM5Sensor o-- IGyroSensor : 継承
+IM5Sensor o-- ISerialConnector : 継承
+
+IENV2Sensor o-- ITemperetureSensor : 継承
+IENV2Sensor o-- IHumiditySensor : 継承
+IENV2Sensor o-- IPressureSensor : 継承
 
 ISensorUnit <-- Evaluate : 利用
 Evaluate o-- SensorInfo : データフォーマットを定義
