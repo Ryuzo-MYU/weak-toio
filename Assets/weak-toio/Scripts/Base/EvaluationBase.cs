@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Environment;
 using Evaluation;
 using Robot;
+using toio;
 using UnityEngine;
 
 public abstract class EvaluationBase<TSensor, TEvaluate, TActionSender> : MonoBehaviour
@@ -46,7 +47,8 @@ public abstract class EvaluationBase<TSensor, TEvaluate, TActionSender> : MonoBe
 	protected virtual void OnConnectSuccessed(List<Toio> toios)
 	{
 		Debug.Log("接続開始");
-		toio = toios.Find(t => t.Name == toioName);
+		if (connector.connectType == ConnectType.Real) toio = toios.Find(t => t.Name == toioName);
+		else toio = toios.Find(t => t.Name == this.gameObject.name);
 		attachedToioName = toio.Name;
 		toio.EnvType = sensor.GetEnvType();
 		connected = true;
