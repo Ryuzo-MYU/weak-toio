@@ -10,8 +10,8 @@ using UnityEngine;
 
 public class Main_CO2 : MonoBehaviour
 {
-	[SerializeField] string exceptToioName;
 	[SerializeField] string toioName;
+	[SerializeField] string attachedToioName;
 	public ToioConnector connector;
 	public string PORTNAME = "COM9";
 	public int BAUDRATE = 115200;
@@ -56,8 +56,8 @@ public class Main_CO2 : MonoBehaviour
 	private void OnConnectSuccessed(List<Toio> toios)
 	{
 		Debug.Log("接続開始");
-		toio = toios.Find(t => t.Name == exceptToioName);
-		toioName = toio.Name;
+		toio = toios.Find(t => t.Name == toioName);
+		attachedToioName = toio.Name;
 		toio.EnvType = sensor.GetEnvType(); // 役割を割り当て
 		connected = true;
 		StartCoroutine(UpdateEvaluate());
