@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Environment;
 using Evaluation;
 using Robot;
+using toio;
 using UnityEngine;
 
 public class Main_Temperature : MonoBehaviour
@@ -52,7 +53,7 @@ public class Main_Temperature : MonoBehaviour
 	private void OnConnectSuccessed(List<Toio> toios)
 	{
 		Debug.Log("接続開始");
-		toio = toios.Find(t => t.Name == toioName);
+		if (connector.connectType == ConnectType.Real) toio = toios.Find(t => t.Name == toioName);
 		attachedToioName = toio.Name;
 		toio.EnvType = sensor.GetEnvType(); // 役割を割り当て
 		connected = true;
