@@ -11,7 +11,7 @@ public class Main_Temperature : EvaluationBase<ITemperatureSensor, TemperatureEv
 
 	protected override void InitializeSensor()
 	{
-		connector.OnConnectSuccessed += OnConnectSuccessed;
+		connector.OnConnectSucceeded += OnConnectSuccessed;
 		// センサー系の初期化
 		serial = new SerialHandler(PORTNAME, BAUDRATE);
 		// シリアルポートの初期化が失敗したらダミーを使う

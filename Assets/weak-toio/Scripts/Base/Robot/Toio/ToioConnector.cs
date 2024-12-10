@@ -12,8 +12,8 @@ namespace Robot
 	/// </summary>
 	public class ToioConnector : MonoBehaviour
 	{
-		public delegate void CubeConnectSuccessedEventHandler(List<Toio> toios);
-		public event CubeConnectSuccessedEventHandler OnConnectSuccessed;
+		public delegate void CubeConnectSucceededEventHandler(List<Toio> toios);
+		public event CubeConnectSucceededEventHandler OnConnectSucceeded;
 		[Tooltip("UnityEditor上ならSimmurator、現実ならReal、お任せならAuto")]
 		public ConnectType connectType = ConnectType.Auto;
 		public List<string> toioNames;
@@ -39,7 +39,7 @@ namespace Robot
 			}
 
 			Debug.Log("接続完了");
-			OnConnectSuccessed(toios);
+			OnConnectSucceeded(toios);
 		}
 		private void OnDestroy()
 		{

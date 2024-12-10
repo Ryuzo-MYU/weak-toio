@@ -27,7 +27,7 @@ public abstract class EvaluationBase<TSensor, TEvaluate, TActionSender> : MonoBe
 
 	protected virtual void Awake()
 	{
-		connector.OnConnectSuccessed += OnConnectSuccessed;
+		connector.OnConnectSucceeded += OnConnectSuccessed;
 		InitializeSerial();
 		InitializeSensor();
 		InitializeEvaluator();

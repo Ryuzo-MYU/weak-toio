@@ -13,7 +13,7 @@ public class Main_CO2 : EvaluationBase<ICO2Sensor, CO2Evaluate, CO2ActionGenerat
 
 	protected override void InitializeSensor()
 	{
-		connector.OnConnectSuccessed += OnConnectSuccessed;
+		connector.OnConnectSucceeded += OnConnectSuccessed;
 		// センサー系の初期化
 		serial = new SerialHandler(PORTNAME, BAUDRATE);
 		// シリアルポートの初期化が失敗したらダミーを使う
