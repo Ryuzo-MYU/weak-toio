@@ -54,6 +54,7 @@ public class Main_Temperature : MonoBehaviour
 	{
 		Debug.Log("接続開始");
 		if (connector.connectType == ConnectType.Real) toio = toios.Find(t => t.Name == toioName);
+		else toio = toios.Find(t => t.Name == this.gameObject.name);
 		attachedToioName = toio.Name;
 		toio.EnvType = sensor.GetEnvType(); // 役割を割り当て
 		connected = true;
