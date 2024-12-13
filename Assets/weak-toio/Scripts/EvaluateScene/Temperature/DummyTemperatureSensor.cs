@@ -1,6 +1,3 @@
-using System.Collections;
-using Evaluation;
-
 namespace Environment
 {
 	public class DummyTemperatureSensor : ISensorUnit, IM5Sensor, IENV2Sensor
