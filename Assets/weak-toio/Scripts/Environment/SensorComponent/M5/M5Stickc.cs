@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.Events;
 
 namespace Environment
 {
@@ -14,6 +13,10 @@ namespace Environment
 		[SerializeField] protected Vector3 _gyro;
 		[SerializeField] protected float _vbat;
 
+		private void Start()
+		{
+			_serial.OnDataReceived += OnDataReceived;
+		}
 		// ==============================
 		// ISensorUnit実装
 		// ==============================

@@ -25,7 +25,7 @@ namespace Environment
 			DeserializeMessages(receivedData);
 			_OnDeserializeCompleted();
 		}
-		private void DeserializeMessages(string[] splittedMessage)
+		private new void DeserializeMessages(string[] splittedMessage)
 		{
 			try
 			{
