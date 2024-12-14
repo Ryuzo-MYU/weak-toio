@@ -316,7 +316,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d56619a8955b5ee4e9d5a7b3f1d042cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _serial: {fileID: -843043645412373768}
+  _serial: {fileID: 0}
+  requiredLength: 8
+  _deviceName: 
+  _acceleration: {x: 0, y: 0, z: 0}
+  _gyro: {x: 0, y: 0, z: 0}
+  _vbat: 0
 --- !u!114 &4846859733049488948
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -329,8 +334,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be4f6512c6ca38242ad9099838a0c168, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _serial: {fileID: -843043645412373768}
-  _deviceName: 
+  _serial: {fileID: 0}
+  _deviceName: this_is_dummy_m5
   _accel: {x: 0, y: 0, z: 0}
   _gyro: {x: 0, y: 0, z: 0}
   _vbat: 0

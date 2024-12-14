@@ -5,7 +5,7 @@ public class SensorBase : MonoBehaviour
 {
 	[SerializeField] protected SerialHandler _serial;
 	public event Action OnDeserializeCompleted;
-	private void Start()
+	private void Awake()
 	{
 		_serial = gameObject.GetComponent<SerialHandler>();
 		_serial.OnDataReceived += OnDataReceived;

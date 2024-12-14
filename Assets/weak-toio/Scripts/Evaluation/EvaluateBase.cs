@@ -1,11 +1,11 @@
+using System;
 using UnityEngine;
-using UnityEngine.Events;
 
 namespace Evaluation
 {
 	public class EvaluateBase : MonoBehaviour
 	{
-		public UnityEvent<Result> OnResultGenerated;
+		public event Action OnResultGenerated;
 		[SerializeField] protected float _currentParam;
 		[SerializeField] protected Unit _unit;
 		[SerializeField] protected EnvType _envType;
@@ -17,7 +17,9 @@ namespace Evaluation
 		protected void Start()
 		{
 			SensorBase sensor = this.gameObject.GetComponent<SensorBase>();
+			sensor.OnDeserializeCompleted += OnDeserializeCompleted;
 		}
+
 		protected virtual void OnDeserializeCompleted() { }
 	}
 }

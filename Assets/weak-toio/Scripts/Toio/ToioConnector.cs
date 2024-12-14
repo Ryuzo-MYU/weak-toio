@@ -38,7 +38,7 @@ namespace Robot
 				toios.Add(toio);
 			}
 
-			Debug.Log("接続完了");
+			Debug.Log("Toio接続完了");
 			OnConnectSucceeded.Invoke(toios);
 		}
 		private void OnDestroy()

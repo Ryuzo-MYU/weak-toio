@@ -84,8 +84,9 @@ namespace Environment
 				throw new System.ArgumentException($"受信データが不足しています。必要な長さ: {requirLength}, 実際の長さ: {data?.Length ?? 0}");
 			}
 		}
-		public void OnConnectFailed()
+		protected override void OnConnectFailed()
 		{
+			Debug.Log("SerialHundler 接続失敗");
 			Destroy(this);
 		}
 	}

@@ -14,7 +14,7 @@ public class DummyM5Stickc : SensorBase, IM5Sensor
 	public Vector3 GetGyro() { return _gyro; }
 	public float GetVbat() { return _vbat; }
 
-	private void Awake()
+	private void Start()
 	{
 		StartSensor();
 	}
@@ -41,6 +41,7 @@ public class DummyM5Stickc : SensorBase, IM5Sensor
 	}
 	protected override void OnConnectSucceeded()
 	{
+		Debug.Log("SerialHundler 接続成功");
 		Destroy(this);
 	}
 }
