@@ -1,3 +1,4 @@
+using System.Collections;
 using Evaluation;
 using toio;
 using UnityEngine;
@@ -16,19 +17,12 @@ namespace Robot
 		{
 			EvaluateBase evaluate = gameObject.GetComponent<EvaluateBase>();
 			evaluate.OnResultGenerated += OnResultGenerated;
+			currentResult = new Result();
 		}
 
-		protected void _OnActionGenerated(Action action)
-		{
-			OnActionGenerated?.Invoke(action);
-		}
 		protected void OnResultGenerated(Result result)
 		{
 			currentResult = result;
-		}
-		public void ToioInitialized()
-		{
-
 		}
 
 		/// <summary>
