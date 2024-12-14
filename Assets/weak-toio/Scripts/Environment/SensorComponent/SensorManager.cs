@@ -5,17 +5,26 @@ using UnityEngine;
 public class SensorManager : MonoBehaviour
 {
 	public event Action OnSensorDecided;
-	[SerializeField] private Component real;
-	[SerializeField] private Component dummy;
-	public SensorBase remainedSensor;
+	[SerializeField] private SerialHandler _serial;
+	[SerializeField] private Component _real;
+	[SerializeField] private Component _dummy;
+	public SensorBase _remainedSensor;
+
+	private void Awake()
+	{
+		_real = (Component)gameObject.GetComponent<RealSensor>();
+		_dummy = (Component)gameObject.GetComponent<DummySensor>();
+		_serial.OnConnectSucceeded += OnConnectSucceeded;
+		_serial.OnConnectFailed += OnConnectFailed;
+	}
 	private void OnConnectSucceeded()
 	{
-		Destroy(dummy);
+		Destroy(_dummy);
 		OnSensorDecided.Invoke();
 	}
 	protected void OnConnectFailed()
 	{
-		Destroy(real);
+		Destroy(_real);
 		OnSensorDecided.Invoke();
 	}
 	private void Start()
@@ -23,7 +32,7 @@ public class SensorManager : MonoBehaviour
 	}
 	private void OnSensorInitialized()
 	{
-		remainedSensor = this.gameObject.GetComponent<SensorBase>();
+		_remainedSensor = this.gameObject.GetComponent<SensorBase>();
 		OnSensorDecided.Invoke();
 	}
 }
