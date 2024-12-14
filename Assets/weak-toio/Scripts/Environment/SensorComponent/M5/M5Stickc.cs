@@ -6,13 +6,14 @@ namespace Environment
 	[RequireComponent(typeof(SerialHandler))]
 	public class M5Stickc : SensorBase, IM5Sensor, ISerialConnector
 	{
-		protected int requiredLength;
+		[SerializeField] protected int requiredLength;
 		protected string[] receivedData;
+
 		[SerializeField] private SerialHandler _serial;
-		private string _deviceName;
-		private Vector3 _acceleration;
-		private Vector3 _gyro;
-		private float _vbat;
+		[SerializeField] protected string _deviceName;
+		[SerializeField] protected Vector3 _acceleration;
+		[SerializeField] protected Vector3 _gyro;
+		[SerializeField] protected float _vbat;
 
 		public void Start()
 		{
