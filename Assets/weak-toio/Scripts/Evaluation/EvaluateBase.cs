@@ -31,7 +31,7 @@ namespace Evaluation
 		}
 		protected virtual void OnDeserializeCompleted() { }
 		public void OnResultGenerated(Result result) { 
-			_onResultGenerated.Invoke(result);
+			_onResultGenerated?.Invoke(result);
 		}
 	}
 }
