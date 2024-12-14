@@ -18,6 +18,13 @@ namespace Robot
 		private Action currentAction;
 		private bool isMoving = false;
 
+		private ActionGenerator actionGenerator;
+
+		private void Start()
+		{
+			actionGenerator.OnActionGenerated += AddNewAction;
+		}
+
 		public Toio(int _id, CubeManager _cubeManager)
 		{
 			ID = _id;
@@ -58,16 +65,16 @@ namespace Robot
 			}
 		}
 
-		public bool AddNewAction(Action action)
+		public void AddNewAction(Action action)
 		{
 			if (action == null)
 			{
 				Debug.LogWarning("null のアクション送るな");
-				return false;
+				return;
 			}
 			if (actions.Count > ACTION_MAX_COUNT)
 			{
-				return false;
+				return;
 			}
 			actions.Enqueue(action);
 			Debug.Log("アクション足しました");
@@ -77,7 +84,6 @@ namespace Robot
 				isMoving = true;
 			}
 
-			return true;
 		}
 
 		public void Stop()
