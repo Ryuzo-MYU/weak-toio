@@ -14,10 +14,6 @@ namespace Environment
 		public Vector3 GetGyro() { return _gyro; }
 		public float GetVbat() { return _vbat; }
 
-		private void Start()
-		{
-			StartSensor();
-		}
 		void Update()
 		{
 			UpdateSensor();

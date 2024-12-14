@@ -1076,6 +1076,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1660035779}
     m_Modifications:
+    - target: {fileID: -843043645412373768, guid: 0572f9fa34b64be4f9936dd240aa475f, type: 3}
+      propertyPath: portName
+      value: hoge
+      objectReference: {fileID: 0}
     - target: {fileID: 1694361293120029363, guid: 0572f9fa34b64be4f9936dd240aa475f, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
