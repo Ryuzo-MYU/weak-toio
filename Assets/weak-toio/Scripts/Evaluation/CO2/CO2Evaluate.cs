@@ -27,8 +27,6 @@ namespace Evaluation
 			else _score = _currentParam - CAUTION_LIMIT;
 
 			Result co2Result = new Result(_score, _unit);
-			Debug.Log($"評価成功。Score: {_score}\n" +
-					$"もとの二酸化炭素濃度は{_currentParam}{_unit.unit}です");
 
 			_OnResultGenerated(co2Result);
 		}

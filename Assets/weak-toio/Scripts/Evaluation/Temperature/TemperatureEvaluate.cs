@@ -38,8 +38,6 @@ namespace Evaluation
 			}
 
 			Result temperatureResult = new Result(_score, _unit);
-			Debug.Log($"評価成功。Score: {_score}\n" +
-					$"もとの気温は{_currentParam}{_unit.unit}です");
 
 			_OnResultGenerated(temperatureResult);
 		}

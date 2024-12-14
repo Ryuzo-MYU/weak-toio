@@ -98,6 +98,7 @@ namespace Robot
 			}
 			if (actions.Count > actionMaxCount)
 			{
+				Debug.Log("アクション溜まりすぎ");
 				return;
 			}
 			actions.Enqueue(action);
