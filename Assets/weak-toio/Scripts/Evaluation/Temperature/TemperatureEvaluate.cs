@@ -1,3 +1,4 @@
+using System.Runtime.CompilerServices;
 using Environment;
 using UnityEngine;
 
@@ -11,6 +12,11 @@ namespace Evaluation
 	{
 		[SerializeField] private BoundaryRange suitableRange;
 		[SerializeField] private ITemperatureSensor tempSensor;
+
+		private void Start()
+		{
+			tempSensor = this.gameObject.GetComponent<ITemperatureSensor>();
+		}
 
 		/// <summary>
 		/// SensorUnitから気温のデータを取得し、労働環境の適温範囲と比較した結果を返す
