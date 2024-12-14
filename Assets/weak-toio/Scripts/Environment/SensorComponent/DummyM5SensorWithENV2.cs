@@ -9,10 +9,6 @@ public class DummyM5SensorWithENV2 : DummyM5Sensor, IENV2Sensor
 	public float GetTemperature() { return temp; }
 	public float GetHumidity() { return hum; }
 	public float GetPressure() { return pressure; }
-	void Start()
-	{
-
-	}
 
 	void Update()
 	{

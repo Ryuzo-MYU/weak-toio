@@ -1,15 +1,23 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Environment
 {
-	public class M5Sensor : MonoBehaviour, IM5Sensor, ISerialConnector
+	public class M5Stickc : MonoBehaviour, IM5Sensor, ISerialConnector
 	{
+		public UnityEvent OnDeserializeCompleted;
+		protected int requiredLength;
+		protected string[] receivedData;
 		[SerializeField] private SerialHandler _serial;
 		private string _deviceName;
 		private Vector3 _acceleration;
 		private Vector3 _gyro;
 		private float _vbat;
-		protected string[] receivedData;
+
+		public void Start()
+		{
+			StartSensor();
+		}
 
 		// ==============================
 		// ISensorUnit実装
@@ -18,7 +26,6 @@ namespace Environment
 		{
 			_serial.OnDataReceived += OnDataReceived;
 		}
-		public void UpdateSensor() { }
 
 		// ==============================
 		// IM5Sensor実装
@@ -34,24 +41,8 @@ namespace Environment
 		public virtual void OnDataReceived(string message)
 		{
 			string[] receivedData = SpritMessage(message);
-			if (receivedData.Length < 1) return;
-			try
-			{
-				_deviceName = receivedData[0];
-
-				float[] imuInfo = new float[6];
-				for (int i = 1; i <= 6; i++) { float.TryParse(receivedData[i], out imuInfo[i - 1]); }
-				_acceleration = new Vector3(imuInfo[1], imuInfo[2], imuInfo[3]);
-				_gyro = new Vector3(imuInfo[4], imuInfo[5], imuInfo[6]);
-				float.TryParse(receivedData[7], out _vbat);         // バッテリー残量
-				Debug.Log("シリアルデータの取得に成功");
-			}
-			catch (System.Exception e)
-			{
-				Debug.Log("シリアルデータの取得に失敗");
-				Debug.LogWarning(e.Message);
-				Debug.LogError(e.StackTrace);
-			}
+			DeserializeMessages(receivedData);
+			OnDeserializeCompleted.Invoke();
 		}
 
 		/// <summary>
@@ -62,7 +53,44 @@ namespace Environment
 		/// <returns>区切られたシリアルデータ</returns>	
 		protected string[] SpritMessage(string message)
 		{
-			return message.Split(new string[] { "\t" }, System.StringSplitOptions.None);
+			try
+			{
+				return message.Split(new string[] { "\t" }, System.StringSplitOptions.None);
+			}
+			catch
+			{
+				Debug.LogError("シリアルデータのフォーマットが間違ってる？");
+				Debug.Log("送信されたデータ: " + message);
+				return null;
+			}
+		}
+		protected void DeserializeMessages(string[] splittedMessage)
+		{
+			try
+			{
+				CheckDataLength(splittedMessage, requiredLength);
+				_deviceName = splittedMessage[0];
+
+				float[] imuInfo = new float[6];
+				for (int i = 1; i <= 6; i++) { float.TryParse(splittedMessage[i], out imuInfo[i - 1]); }
+				_acceleration = new Vector3(imuInfo[1], imuInfo[2], imuInfo[3]);
+				_gyro = new Vector3(imuInfo[4], imuInfo[5], imuInfo[6]);
+				float.TryParse(splittedMessage[7], out _vbat);         // バッテリー残量
+				Debug.Log("シリアルデータの取得に成功");
+			}
+			catch (System.Exception e)
+			{
+				Debug.Log("シリアルデータの取得に失敗");
+				Debug.LogWarning(e.Message);
+				Debug.LogError(e.StackTrace);
+			}
+		}
+		protected void CheckDataLength(string[] data, int requirLength)
+		{
+			if (data == null || data.Length < requirLength)
+			{
+				throw new System.ArgumentException($"受信データが不足しています。必要な長さ: {requirLength}, 実際の長さ: {data?.Length ?? 0}");
+			}
 		}
 	}
 }

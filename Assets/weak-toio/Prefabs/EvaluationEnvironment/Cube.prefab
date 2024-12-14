@@ -18,7 +18,7 @@ GameObject:
   - component: {fileID: 6345129612498160897}
   - component: {fileID: 3277888297854004344}
   - component: {fileID: -843043645412373768}
-  - component: {fileID: 5842573717362462036}
+  - component: {fileID: -1648786942832623370}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Toio
@@ -303,7 +303,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   portName: COM9
   baudRate: 115200
---- !u!114 &5842573717362462036
+--- !u!114 &-1648786942832623370
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -312,10 +312,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1789989958412639236}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a46ed315b289f4448aa7b2d5f3648029, type: 3}
+  m_Script: {fileID: 11500000, guid: d56619a8955b5ee4e9d5a7b3f1d042cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _serial: {fileID: -843043645412373768}
+  OnDeserializeCompleted:
+    m_PersistentCalls:
+      m_Calls: []
+  _serial: {fileID: 0}
 --- !u!1 &2954175430279775649
 GameObject:
   m_ObjectHideFlags: 0

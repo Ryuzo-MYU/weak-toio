@@ -320,7 +320,7 @@ GameObject:
   - component: {fileID: 5276534579175761185}
   - component: {fileID: 3203809634950946645}
   - component: {fileID: 1052994060040628363}
-  - component: {fileID: 5292340618687934405}
+  - component: {fileID: 6932164525621576195}
   - component: {fileID: -3224578954858889339}
   m_Layer: 0
   m_Name: Cube_co2_00
@@ -606,7 +606,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   portName: 
   baudRate: 0
---- !u!114 &5292340618687934405
+--- !u!114 &6932164525621576195
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -615,10 +615,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 8069329716569080345}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d56619a8955b5ee4e9d5a7b3f1d042cb, type: 3}
+  m_Script: {fileID: 11500000, guid: 17fe406bddfb32b4f9faba53268d01c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  OnDeserializeCompleted:
+    m_PersistentCalls:
+      m_Calls: []
   _serial: {fileID: 0}
+  _temp: 0
+  _hum: 0
+  _ppm: 0
 --- !u!114 &-3224578954858889339
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -631,9 +637,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f3ed513d82fafe469c28590c440ce80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CAUTION_LIMIT: 0
-  _type: 0
+  _currentParam: 0
+  _envType: 0
   _score: 0
+  CAUTION_LIMIT: 0
 --- !u!1 &8457182584080536393
 GameObject:
   m_ObjectHideFlags: 0

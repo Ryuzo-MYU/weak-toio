@@ -1,6 +1,6 @@
 namespace Environment
 {
-	public interface IPressureSensor : ISensorUnit
+	public interface IPressureSensor
 	{
 		public float GetPressure();
 	}

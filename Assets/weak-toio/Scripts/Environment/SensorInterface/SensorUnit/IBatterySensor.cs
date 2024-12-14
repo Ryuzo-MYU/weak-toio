@@ -1,6 +1,6 @@
 using Environment;
 
-public interface IBatterySensor : ISensorUnit
+public interface IBatterySensor
 {
 	public float GetBattery();
 }

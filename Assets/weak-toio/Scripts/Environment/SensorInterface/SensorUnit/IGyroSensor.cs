@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Environment
 {
-	public interface IGyroSensor : ISensorUnit
+	public interface IGyroSensor
 	{
 		public Vector3 GetGyro();
 	}
