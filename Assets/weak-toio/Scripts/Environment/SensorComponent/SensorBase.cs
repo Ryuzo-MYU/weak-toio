@@ -6,6 +6,6 @@ public class SensorBase : MonoBehaviour
 	public event Action OnDeserializeCompleted;
 	protected void DeserializeCompleted()
 	{
-		OnDeserializeCompleted.Invoke();
+		OnDeserializeCompleted?.Invoke();
 	}
 }

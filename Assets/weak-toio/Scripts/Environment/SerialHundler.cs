@@ -61,10 +61,12 @@ public class SerialHandler : MonoBehaviour
 					$"利用可能なポート: {availablePortsStr}");
 			}
 
+			OnConnectSucceeded?.Invoke();
 			Open();
 		}
 		catch (System.Exception e)
 		{
+			OnConnectFailed?.Invoke();
 			Debug.LogWarning($"シリアルポートの初期化に失敗しました: {e.Message}");
 			OnError?.Invoke($"シリアルポート初期化エラー: {e.Message}");
 			Debug.LogWarning("接続できるポートが無いのでダミーセンサーを使用します");
