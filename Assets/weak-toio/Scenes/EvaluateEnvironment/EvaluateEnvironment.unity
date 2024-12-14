@@ -870,6 +870,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1660035779}
     m_Modifications:
+    - target: {fileID: 1052994060040628363, guid: df5209d7b6f74424d96bb6e8c29872ac, type: 3}
+      propertyPath: portName
+      value: a
+      objectReference: {fileID: 0}
     - target: {fileID: 6981538736895695921, guid: df5209d7b6f74424d96bb6e8c29872ac, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.157
@@ -1749,7 +1753,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -843043645412373768, guid: 0572f9fa34b64be4f9936dd240aa475f, type: 3}
       propertyPath: portName
-      value: COM20
+      value: hoge
       objectReference: {fileID: 0}
     - target: {fileID: -843043645412373768, guid: 0572f9fa34b64be4f9936dd240aa475f, type: 3}
       propertyPath: OnConnectFailed.m_PersistentCalls.m_Calls.Array.size
@@ -2250,6 +2254,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1660035779}
     m_Modifications:
+    - target: {fileID: -130509117756858318, guid: ec5577ca3a29da14e9ca88eafe1458cb, type: 3}
+      propertyPath: portName
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1694361293120029363, guid: ec5577ca3a29da14e9ca88eafe1458cb, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.103

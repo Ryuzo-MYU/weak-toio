@@ -4,7 +4,6 @@ using UnityEngine;
 public class SensorBase : MonoBehaviour
 {
 	[SerializeField] protected SerialHandler _serial;
-	public event Action OnDeserializeCompleted;
 	private void Awake()
 	{
 		_serial = gameObject.GetComponent<SerialHandler>();
@@ -15,6 +14,8 @@ public class SensorBase : MonoBehaviour
 	protected virtual void OnDataReceived(string message) { }
 	protected virtual void OnConnectSucceeded() { }
 	protected virtual void OnConnectFailed() { }
+
+	public event Action OnDeserializeCompleted;
 	protected void DeserializeCompleted()
 	{
 		OnDeserializeCompleted?.Invoke();
