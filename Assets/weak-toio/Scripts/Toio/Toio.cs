@@ -28,6 +28,9 @@ namespace Robot
 		[SerializeField] private ToioConnector toioConnector;
 		private void Start()
 		{
+			actions = new Queue<Action>();
+			currentAction = new Action();
+
 			actionGenerator = gameObject.GetComponent<ActionGenerator>();
 			actionGenerator.OnActionGenerated += AddNewAction;
 
