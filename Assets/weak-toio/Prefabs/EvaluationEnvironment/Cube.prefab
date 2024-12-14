@@ -18,6 +18,7 @@ GameObject:
   - component: {fileID: 6345129612498160897}
   - component: {fileID: 3277888297854004344}
   - component: {fileID: -843043645412373768}
+  - component: {fileID: 8034930940168111492}
   - component: {fileID: 2700686502993268204}
   - component: {fileID: 4846859733049488948}
   m_Layer: 0
@@ -304,6 +305,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   portName: COM9
   baudRate: 115200
+--- !u!114 &8034930940168111492
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1789989958412639236}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc13e74cdf3b66846be9a83edd26cf1b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sensors: []
+  remainedSensor: {fileID: 0}
 --- !u!114 &2700686502993268204
 MonoBehaviour:
   m_ObjectHideFlags: 0
