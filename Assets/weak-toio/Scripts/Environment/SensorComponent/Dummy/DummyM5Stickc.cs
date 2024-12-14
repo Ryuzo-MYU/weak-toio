@@ -15,7 +15,7 @@ public class DummyM5Stickc : SensorBase, IM5Sensor
 	public Vector3 GetGyro() { return _gyro; }
 	public float GetVbat() { return _vbat; }
 
-	private void Start()
+	private void Awake()
 	{
 		StartSensor();
 	}
