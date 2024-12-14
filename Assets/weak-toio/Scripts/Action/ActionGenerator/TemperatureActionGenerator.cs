@@ -4,19 +4,13 @@ using Evaluation;
 
 namespace Robot
 {
-	public class TemperatureActionGenerator : ActionGenerator, ActionSender
+	public class TemperatureActionGenerator : ActionGenerator
 	{
 		BoundaryRange SuitableRange = new BoundaryRange(0);
 		BoundaryRange CautionRange = new BoundaryRange(-5, 5);
 		BoundaryRange DangerRange = new BoundaryRange(-10, 10);
 
-		protected override void OnResultGenerated(Result result)
-		{
-			var action = GenerateAction(result);
-			_OnActionGenerated(action);
-		}
-
-		public Action GenerateAction(Result result)
+		protected override Action GenerateAction(Result result)
 		{
 			float score = result.Score;
 			Action action;
@@ -88,7 +82,7 @@ namespace Robot
 			Action action = new Action(cautionTwist);
 			return action;
 		}
-		
+
 		private Action HotDangerAction()
 		{
 			Queue<Motion> dangerTwist = new Queue<Motion>();

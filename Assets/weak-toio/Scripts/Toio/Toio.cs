@@ -56,7 +56,7 @@ namespace Robot
 		}
 		private void OnRegisterCompleted()
 		{
-			StartCoroutine(Move());
+			StartCoroutine(actionGenerator.ProcessAction(this));
 		}
 
 		// 実行関連のメソッド

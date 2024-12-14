@@ -25,6 +25,18 @@ namespace Robot
 			currentResult = result;
 		}
 
+		public IEnumerator ProcessAction(Toio toio)
+		{
+			while (true)
+			{
+				Action action = GenerateAction(currentResult);
+				toio.AddNewAction(action);
+				yield return toio.Move();
+			}
+		}
+
+		protected abstract Action GenerateAction(Result result);
+
 		/// <summary>
 		/// 前後移動のMosionを返す
 		/// </summary>

@@ -3,19 +3,14 @@ using Evaluation;
 
 namespace Robot
 {
-	public class CO2ActionGenerator : ActionGenerator, ActionSender
+	public class CO2ActionGenerator : ActionGenerator
 	{
 		private float suitableScore = 0;
 		private float cautionScore = 150;
 		private float dangerScore = 300;
 
-		protected override void OnResultGenerated(Result result)
-		{
-			var action = GenerateAction(result);
-			_OnActionGenerated(action);
-		}
 
-		public Action GenerateAction(Result result)
+		protected override Action GenerateAction(Result result)
 		{
 			float score = result.Score;
 
