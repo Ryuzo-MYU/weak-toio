@@ -11,6 +11,7 @@ namespace Evaluation
 		[SerializeField] protected EnvType _envType;
 		[SerializeField] protected float _score;
 		protected SensorManager sensorManager;
+		private SensorBase sensor;
 
 		public EnvType GetEnvType()
 		{
@@ -23,11 +24,12 @@ namespace Evaluation
 			sensorManager.OnSensorDecided += OnSensorDecided;
 		}
 
-		protected virtual void OnSensorDecided() { }
+		protected virtual void OnSensorDecided()
+		{
+			sensor.OnDeserializeCompleted += OnDeserializeCompleted;
+		}
 		protected virtual void OnDeserializeCompleted()
 		{
-			SensorBase sensor = this.gameObject.GetComponent<SensorBase>();
-			sensor.OnDeserializeCompleted += OnDeserializeCompleted;
 		}
 		protected void OnResultGenerated(Result result)
 		{
