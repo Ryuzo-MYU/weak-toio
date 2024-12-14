@@ -6,7 +6,7 @@ namespace Evaluation
 	/// <summ
 	/// 気温データを取得し、評価をするクラス
 	/// </summary>
-	public class CO2Evaluate : EvaluateBase, EvaluationResultSender<ICO2Sensor>
+	public class CO2Evaluate : EvaluateBase, IEvaluationResultSender<ICO2Sensor>
 	{
 		[SerializeField] private float CAUTION_LIMIT; // 警告が必要なppm
 

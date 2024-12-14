@@ -1,6 +1,6 @@
 namespace Evaluation
 {
-	public interface EvaluationResultSender<T>
+	public interface IEvaluationResultSender<T>
 	{
 		public Result GetEvaluationResult(T sensor);
 		public EnvType GetEnvType();
