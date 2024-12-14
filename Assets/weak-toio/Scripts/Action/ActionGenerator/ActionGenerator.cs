@@ -26,6 +26,10 @@ namespace Robot
 		{
 			currentResult = result;
 		}
+		public void ToioInitialized()
+		{
+
+		}
 
 		/// <summary>
 		/// 前後移動のMosionを返す
