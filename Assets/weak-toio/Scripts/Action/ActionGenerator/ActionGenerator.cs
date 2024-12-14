@@ -11,6 +11,7 @@ namespace Robot
 	public abstract class ActionGenerator : MonoBehaviour
 	{
 		public event System.Action<Action> OnActionGenerated;
+		private Result currentResult;
 		private void Start()
 		{
 			EvaluateBase evaluate = gameObject.GetComponent<EvaluateBase>();
@@ -21,7 +22,10 @@ namespace Robot
 		{
 			OnActionGenerated?.Invoke(action);
 		}
-		protected abstract void OnResultGenerated(Result result);
+		protected void OnResultGenerated(Result result)
+		{
+			currentResult = result;
+		}
 
 		/// <summary>
 		/// 前後移動のMosionを返す
