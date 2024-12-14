@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Environment;
 using UnityEngine;
 
@@ -8,10 +9,11 @@ namespace Evaluation
 	/// </summary>
 	public class CO2Evaluate : EvaluationResultSender<ICO2Sensor>
 	{
-		private float CAUTION_LIMIT; // 警告が必要なppm
-		private Unit _ppm = new Unit("PPM");
 		public float CurrentPPM { get; private set; }
-		private float _score;
+		[SerializeField] private float CAUTION_LIMIT; // 警告が必要なppm
+		[SerializeField] private Unit _ppm;
+		[SerializeField] private List<EnvType> _types;
+		[SerializeField] private float _score;
 
 		public CO2Evaluate(float _cautionLimit)
 		{
@@ -36,6 +38,10 @@ namespace Evaluation
 					$"もとの二酸化炭素濃度は{CurrentPPM}{_ppm.unit}です");
 
 			return co2Result;
+		}
+		public List<EnvType> GetEnvTypes()
+		{
+			return _types;
 		}
 	}
 }
