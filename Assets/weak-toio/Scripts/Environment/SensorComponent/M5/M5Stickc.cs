@@ -15,7 +15,7 @@ namespace Environment
 		[SerializeField] protected Vector3 _gyro;
 		[SerializeField] protected float _vbat;
 
-		public void Start()
+		public void Awake()
 		{
 			StartSensor();
 		}
