@@ -24,6 +24,7 @@ namespace Environment
 		public void StartSensor()
 		{
 			_serial.OnDataReceived += OnDataReceived;
+			_serial.OnError += OnError;
 		}
 
 		// ==============================
@@ -91,7 +92,7 @@ namespace Environment
 				throw new System.ArgumentException($"受信データが不足しています。必要な長さ: {requirLength}, 実際の長さ: {data?.Length ?? 0}");
 			}
 		}
-		public void OnConnectFailed()
+		public void OnError(string errerMessage)
 		{
 			Destroy(this);
 		}
