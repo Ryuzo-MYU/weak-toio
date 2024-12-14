@@ -1,6 +1,4 @@
-namespace Evaluation
-{
-	public enum EnvType
+public enum EnvType
 	{
 		NotAppointed,
 		Temperature,
@@ -8,4 +6,3 @@ namespace Evaluation
 		CO2,
 		Humidity,
 	}
-}
