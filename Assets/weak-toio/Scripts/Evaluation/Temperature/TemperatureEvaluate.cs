@@ -6,6 +6,7 @@ namespace Evaluation
 	/// <summ
 	/// 気温データを取得し、評価をするクラス
 	/// </summary>
+	[RequireComponent(typeof(ITemperatureSensor))]
 	public class TemperatureEvaluate : EvaluateBase, IEvaluationResultSender<ITemperatureSensor>
 	{
 		[SerializeField] private BoundaryRange suitableRange;
