@@ -36,7 +36,7 @@ namespace Evaluation
 			Debug.Log($"評価成功。Score: {_score}\n" +
 					$"もとの二酸化炭素濃度は{_currentParam}{_unit.unit}です");
 
-			OnResultGenerated.Invoke(co2Result);
+			OnResultGenerated(co2Result);
 		}
 
 		protected override void OnDeserializeCompleted()

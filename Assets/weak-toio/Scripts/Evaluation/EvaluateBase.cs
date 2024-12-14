@@ -5,7 +5,7 @@ namespace Evaluation
 {
 	public class EvaluateBase : MonoBehaviour
 	{
-		public event Action OnResultGenerated;
+		public event Action<Result> _onResultGenerated;
 		[SerializeField] protected float _currentParam;
 		[SerializeField] protected Unit _unit;
 		[SerializeField] protected EnvType _envType;
@@ -20,6 +20,10 @@ namespace Evaluation
 			sensor.OnDeserializeCompleted += OnDeserializeCompleted;
 		}
 
+		protected void OnResultGenerated(Result result)
+		{
+			_onResultGenerated.Invoke(result);
+		}
 		protected virtual void OnDeserializeCompleted() { }
 	}
 }

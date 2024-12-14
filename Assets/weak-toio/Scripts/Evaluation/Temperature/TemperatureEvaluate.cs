@@ -48,7 +48,7 @@ namespace Evaluation
 			Debug.Log($"評価成功。Score: {_score}\n" +
 					$"もとの気温は{_currentParam}{_unit.unit}です");
 
-			OnResultGenerated.Invoke(temperatureResult);
+			OnResultGenerated(temperatureResult);
 		}
 		protected override void OnDeserializeCompleted()
 		{

@@ -339,7 +339,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _serial: {fileID: 0}
-  _deviceName: 
+  _deviceName: dummy_env2
   _accel: {x: 0, y: 0, z: 0}
   _gyro: {x: 0, y: 0, z: 0}
   _vbat: 0
@@ -358,9 +358,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2492d279c40e504aac0a15c20e378df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OnResultGenerated:
-    m_PersistentCalls:
-      m_Calls: []
   _currentParam: 0
   _envType: 1
   _score: 0
