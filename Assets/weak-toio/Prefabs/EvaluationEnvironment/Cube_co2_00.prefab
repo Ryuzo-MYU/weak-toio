@@ -641,7 +641,7 @@ MonoBehaviour:
   OnDeserializeCompleted:
     m_PersistentCalls:
       m_Calls: []
-  deviceName: 
+  deviceName: this_is_dummy_co2
   accel: {x: 0, y: 0, z: 0}
   gyro: {x: 0, y: 0, z: 0}
   vbat: 0
@@ -664,7 +664,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   _currentParam: 0
-  _envType: 0
+  _envType: 3
   _score: 0
   CAUTION_LIMIT: 0
 --- !u!1 &8457182584080536393

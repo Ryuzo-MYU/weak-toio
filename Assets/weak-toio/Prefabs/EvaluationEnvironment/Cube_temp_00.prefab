@@ -339,7 +339,7 @@ MonoBehaviour:
   OnDeserializeCompleted:
     m_PersistentCalls:
       m_Calls: []
-  deviceName: 
+  deviceName: this_is_dummy_temp
   accel: {x: 0, y: 0, z: 0}
   gyro: {x: 0, y: 0, z: 0}
   vbat: 0
@@ -362,11 +362,11 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   _currentParam: 0
-  _envType: 0
+  _envType: 1
   _score: 0
   suitableRange:
-    UpperLimit: 0
-    LowerLimit: 0
+    UpperLimit: 27
+    LowerLimit: 22
 --- !u!1 &2954175430279775649
 GameObject:
   m_ObjectHideFlags: 0
