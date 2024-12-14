@@ -1,5 +1,6 @@
 using Environment;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Evaluation
 {
@@ -15,7 +16,7 @@ namespace Evaluation
 		/// SensorUnitから気温のデータを取得し、労働環境の適温範囲と比較した結果を返す
 		/// </summary>
 		/// <returns>評価結果を集約したResult型データ</returns>
-		public Result GetEvaluationResult(ITemperatureSensor tempSensor)
+		public void GetEvaluationResult(ITemperatureSensor tempSensor)
 		{
 			_currentParam = tempSensor.GetTemperature(); // SensorUnitから気温を取得
 
@@ -39,7 +40,7 @@ namespace Evaluation
 			Debug.Log($"評価成功。Score: {_score}\n" +
 					$"もとの気温は{_currentParam}{_unit.unit}です");
 
-			return temperatureResult;
+			OnResultGenerated.Invoke(temperatureResult);
 		}
 	}
 }
