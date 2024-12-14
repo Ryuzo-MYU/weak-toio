@@ -1,7 +1,7 @@
+using System;
 using UnityEngine;
-using UnityEngine.Events;
 
 public class SensorBase : MonoBehaviour
 {
-	public UnityEvent OnDeserializeCompleted;
+	public event Action OnDeserializeCompleted;
 }
