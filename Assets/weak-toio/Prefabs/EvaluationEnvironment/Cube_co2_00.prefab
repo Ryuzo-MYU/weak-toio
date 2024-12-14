@@ -320,6 +320,7 @@ GameObject:
   - component: {fileID: 5276534579175761185}
   - component: {fileID: 3203809634950946645}
   - component: {fileID: 1052994060040628363}
+  - component: {fileID: -4444665195553016543}
   - component: {fileID: 6932164525621576195}
   - component: {fileID: -8512233577433653910}
   - component: {fileID: -3224578954858889339}
@@ -607,6 +608,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   portName: 
   baudRate: 0
+--- !u!114 &-4444665195553016543
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8069329716569080345}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc13e74cdf3b66846be9a83edd26cf1b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _serial: {fileID: 0}
+  _real: {fileID: 0}
+  _dummy: {fileID: 0}
+  _remainedSensor: {fileID: 0}
 --- !u!114 &6932164525621576195
 MonoBehaviour:
   m_ObjectHideFlags: 0
