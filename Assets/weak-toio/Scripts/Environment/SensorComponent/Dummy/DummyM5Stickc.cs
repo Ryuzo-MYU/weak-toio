@@ -2,9 +2,8 @@ using Environment;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class DummyM5Stickc : MonoBehaviour, IM5Sensor
+public class DummyM5Stickc : SensorBase, IM5Sensor
 {
-	public UnityEvent OnDeserializeCompleted;
 	[SerializeField] protected string deviceName;
 	[SerializeField] protected Vector3 accel;
 	[SerializeField] protected Vector3 gyro;

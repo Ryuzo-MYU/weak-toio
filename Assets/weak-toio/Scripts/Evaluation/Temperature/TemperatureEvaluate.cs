@@ -5,16 +5,17 @@ using UnityEngine;
 namespace Evaluation
 {
 	/// <summ
-	/// 気温データを取得し、評価をするクラス
+	/// 気温を取得し、評価するクラス
 	/// </summary>
 	[RequireComponent(typeof(ITemperatureSensor))]
 	public class TemperatureEvaluate : EvaluateBase, IEvaluationResultSender<ITemperatureSensor>
 	{
 		[SerializeField] private BoundaryRange suitableRange;
-		[SerializeField] private ITemperatureSensor tempSensor;
+		private ITemperatureSensor tempSensor;
 
-		private void Start()
+		private new void Start()
 		{
+			base.Start();
 			tempSensor = this.gameObject.GetComponent<ITemperatureSensor>();
 		}
 
@@ -22,7 +23,7 @@ namespace Evaluation
 		/// SensorUnitから気温のデータを取得し、労働環境の適温範囲と比較した結果を返す
 		/// </summary>
 		/// <returns>評価結果を集約したResult型データ</returns>
-		public void GetEvaluationResult(ITemperatureSensor tempSensor)
+		public void GenerateEvaluationResult(ITemperatureSensor tempSensor)
 		{
 			_currentParam = tempSensor.GetTemperature(); // SensorUnitから気温を取得
 
@@ -47,6 +48,10 @@ namespace Evaluation
 					$"もとの気温は{_currentParam}{_unit.unit}です");
 
 			OnResultGenerated.Invoke(temperatureResult);
+		}
+		protected override void OnDeserializeCompleted()
+		{
+			GenerateEvaluationResult(tempSensor);
 		}
 	}
 }

@@ -14,5 +14,11 @@ namespace Evaluation
 		{
 			return _envType;
 		}
+		protected void Start()
+		{
+			SensorBase sensor = this.gameObject.GetComponent<SensorBase>();
+			sensor.OnDeserializeCompleted.AddListener(OnDeserializeCompleted);
+		}
+		protected virtual void OnDeserializeCompleted() { }
 	}
 }

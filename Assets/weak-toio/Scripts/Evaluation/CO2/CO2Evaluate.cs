@@ -4,17 +4,25 @@ using UnityEngine;
 namespace Evaluation
 {
 	/// <summ
-	/// 気温データを取得し、評価をするクラス
+	/// 二酸化炭素濃度を取得し、評価するクラス
 	/// </summary>
+	[RequireComponent(typeof(ICO2Sensor))]
 	public class CO2Evaluate : EvaluateBase, IEvaluationResultSender<ICO2Sensor>
 	{
 		[SerializeField] private float CAUTION_LIMIT; // 警告が必要なppm
+		private ICO2Sensor co2Sensor;
+
+		private new void Start()
+		{
+			base.Start();
+			co2Sensor = this.gameObject.GetComponent<ICO2Sensor>();
+		}
 
 		/// <summary>
 		/// CO2センサからPPMを取得し、指定した上限値と比較した結果を返す
 		/// </summary>
 		/// <returns>評価結果を集約したResult型データ</returns>
-		public void GetEvaluationResult(ICO2Sensor co2Sensor)
+		public void GenerateEvaluationResult(ICO2Sensor co2Sensor)
 		{
 			_currentParam = co2Sensor.GetPPM(); // CO2センサからCO2濃度を取得
 
@@ -29,6 +37,11 @@ namespace Evaluation
 					$"もとの二酸化炭素濃度は{_currentParam}{_unit.unit}です");
 
 			OnResultGenerated.Invoke(co2Result);
+		}
+
+		protected override void OnDeserializeCompleted()
+		{
+			GenerateEvaluationResult(co2Sensor);
 		}
 	}
 }

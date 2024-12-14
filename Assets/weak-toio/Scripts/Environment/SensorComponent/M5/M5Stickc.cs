@@ -3,9 +3,8 @@ using UnityEngine.Events;
 
 namespace Environment
 {
-	public class M5Stickc : MonoBehaviour, IM5Sensor, ISerialConnector
+	public class M5Stickc : SensorBase, IM5Sensor, ISerialConnector
 	{
-		public UnityEvent OnDeserializeCompleted;
 		protected int requiredLength;
 		protected string[] receivedData;
 		[SerializeField] private SerialHandler _serial;
