@@ -1065,6 +1065,24 @@ weak-toioはオブジェクト指向の沼にはまったあほのせいでフ�
 
 挙動は今までと一切変化なく。拡張性は今まで以上に。それが要件。
 
+\section*{2024.12.14(土)}
+weak-toio コンポーネント指向リファクタリング，完了．
+
+最終的にこんな構成になった．
+
+\fboxsep=0pt            %画像と枠線をくっつける．
+\fboxrule=1pt            %枠線の太さを1ptにする．
+\begin{figure}[h]
+  \centering
+  \fbox{\includegraphics[keepaspectratio, clip, width=0.8\columnwidth]{resources/2024-12-14.png}}
+  \caption{}
+  \label{fig:}
+\end{figure}
+
+早速いいところがあって，コンポーネントで処理を区切ったことで，一部の挙動を変えるのが簡単になった．
+
+土日まるまる使うかと思ってた作業が１日で終わったので，明日は「他者」の評価とそれに伴う快・不快の動作の実装に取り掛かる．
+
 \section*{エラー集}
 \subsection*{Adafruit BMP280 not found}
 ENV用のサンプルスケッチを使うには別途「Adafruit BMP280 Library」のインストールが必要。Arduino IDEのライブラリマネージャーからDLしたら解決
