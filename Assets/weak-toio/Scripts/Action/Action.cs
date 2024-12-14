@@ -1,11 +1,9 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Robot
 {
-   public class Action
+	public class Action
 	{
 		Queue<Motion> motions;
 		public Action()

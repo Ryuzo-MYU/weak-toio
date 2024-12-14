@@ -1,7 +1,6 @@
 using UnityEngine;
 using TMPro;
 using Robot;
-using UnityEngine.UI;
 using System.Collections.Generic;
 
 public class ToioNameListUI : MonoBehaviour
