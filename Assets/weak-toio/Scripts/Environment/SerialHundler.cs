@@ -1,7 +1,5 @@
-/// <summary>
 /// シリアル通信を行うスクリプト
 /// https://qiita.com/mori_166/items/9487aeddd3b9fa9a8f1d 
-/// </summary>
 
 using UnityEngine;
 using System.IO.Ports;
