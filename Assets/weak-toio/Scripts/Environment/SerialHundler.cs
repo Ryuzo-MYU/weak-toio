@@ -12,7 +12,7 @@ public class SerialHandler : MonoBehaviour
 	public delegate void SerialDataReceivedEventHandler(string message);
 	public delegate void SerialErrorEventHandler(string errorMessage);
 	public event SerialDataReceivedEventHandler OnDataReceived;
-	public event SerialErrorEventHandler OnError;
+	[SerializeField] public event SerialErrorEventHandler OnError;
 
 	public UnityEvent OnConnectSucceeded;
 	public UnityEvent OnConnectFailed;
