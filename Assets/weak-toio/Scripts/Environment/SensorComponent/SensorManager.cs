@@ -8,7 +8,7 @@ public class SensorManager : MonoBehaviour
 	[SerializeField] private SerialHandler _serial;
 	[SerializeField] private Component _real;
 	[SerializeField] private Component _dummy;
-	public SensorBase _remainedSensor;
+	private SensorBase _remainedSensor;
 
 	private void Awake()
 	{
