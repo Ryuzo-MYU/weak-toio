@@ -43,10 +43,10 @@ namespace Evaluation
 
 			OnResultGenerated(temperatureResult);
 		}
-		protected override void OnSensorInitialized()
+		protected override void OnSensorDecided()
 		{
-			base.OnSensorInitialized();
-			tempSensor = this.gameObject.GetComponent<ITemperatureSensor>();
+			base.OnSensorDecided();
+			tempSensor = (ITemperatureSensor)sensorManager.GetSensor();
 		}
 		protected override void OnDeserializeCompleted()
 		{

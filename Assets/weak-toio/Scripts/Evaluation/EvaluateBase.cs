@@ -10,18 +10,20 @@ namespace Evaluation
 		[SerializeField] protected Unit _unit;
 		[SerializeField] protected EnvType _envType;
 		[SerializeField] protected float _score;
-		protected SensorBase sensor;
+		protected SensorManager sensorManager;
+
 		public EnvType GetEnvType()
 		{
 			return _envType;
 		}
-		private void Start()
+
+		private void Awake()
 		{
-			Debug.Log("EvaluateBase Start開始");
-			sensor = this.gameObject.GetComponent<SensorBase>();
+			sensorManager = gameObject.GetComponent<SensorManager>();
+			sensorManager.OnSensorDecided += OnSensorDecided;
 		}
 
-		protected virtual void OnSensorInitialized() { }
+		protected virtual void OnSensorDecided() { }
 		protected virtual void OnDeserializeCompleted()
 		{
 			SensorBase sensor = this.gameObject.GetComponent<SensorBase>();

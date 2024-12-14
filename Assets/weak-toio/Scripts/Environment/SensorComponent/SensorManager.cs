@@ -19,9 +19,6 @@ public class SensorManager : MonoBehaviour
 		_serial.OnConnectSucceeded += OnConnectSucceeded;
 		_serial.OnConnectFailed += OnConnectFailed;
 	}
-	private void Start()
-	{
-	}
 	private void OnConnectSucceeded()
 	{
 		Destroy(_dummy);
@@ -33,5 +30,9 @@ public class SensorManager : MonoBehaviour
 		Destroy(_real);
 		_remainedSensor = (SensorBase)_dummy;
 		OnSensorDecided?.Invoke();
+	}
+	public SensorBase GetSensor()
+	{
+		return _remainedSensor;
 	}
 }

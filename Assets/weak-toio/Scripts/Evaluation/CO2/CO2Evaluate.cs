@@ -33,10 +33,10 @@ namespace Evaluation
 			OnResultGenerated(co2Result);
 		}
 
-		protected override void OnSensorInitialized()
+		protected override void OnSensorDecided()
 		{
-			base.OnSensorInitialized();
-			co2Sensor = this.gameObject.GetComponent<ICO2Sensor>();
+			base.OnSensorDecided();
+			co2Sensor = (ICO2Sensor)sensorManager.GetSensor();
 		}
 		protected override void OnDeserializeCompleted()
 		{
