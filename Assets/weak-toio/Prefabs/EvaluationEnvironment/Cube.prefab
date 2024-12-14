@@ -302,36 +302,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0462734d6d79e0a4cab9162bc072ef4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OnConnectSucceeded:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 4846859733049488948}
-        m_TargetAssemblyTypeName: DummyM5Stickc, weak-toio-scripts
-        m_MethodName: OnConnectSucceeded
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  OnConnectFailed:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 2700686502993268204}
-        m_TargetAssemblyTypeName: Environment.M5Stickc, weak-toio-scripts
-        m_MethodName: OnConnectFailed
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
   portName: COM9
   baudRate: 115200
 --- !u!114 &2700686502993268204
@@ -346,10 +316,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d56619a8955b5ee4e9d5a7b3f1d042cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OnDeserializeCompleted:
-    m_PersistentCalls:
-      m_Calls: []
-  _serial: {fileID: 0}
+  _serial: {fileID: -843043645412373768}
 --- !u!114 &4846859733049488948
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -362,10 +329,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be4f6512c6ca38242ad9099838a0c168, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OnDeserializeCompleted:
-    m_PersistentCalls:
-      m_Calls: []
-  _serial: {fileID: 0}
+  _serial: {fileID: -843043645412373768}
   _deviceName: 
   _accel: {x: 0, y: 0, z: 0}
   _gyro: {x: 0, y: 0, z: 0}

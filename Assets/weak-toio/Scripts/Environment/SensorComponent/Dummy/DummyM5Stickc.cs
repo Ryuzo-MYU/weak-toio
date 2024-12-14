@@ -2,6 +2,7 @@ using Environment;
 using UnityEngine;
 using UnityEngine.Events;
 
+[RequireComponent(typeof(SerialHandler))]
 public class DummyM5Stickc : SensorBase, IM5Sensor
 {
 	[SerializeField] SerialHandler _serial;
@@ -20,8 +21,9 @@ public class DummyM5Stickc : SensorBase, IM5Sensor
 	}
 	void Update()
 	{
+		_serial = gameObject.GetComponent<SerialHandler>();
 		UpdateSensor();
-		OnDeserializeCompleted.Invoke();
+		DeserializeCompleted();
 	}
 	public void StartSensor()
 	{

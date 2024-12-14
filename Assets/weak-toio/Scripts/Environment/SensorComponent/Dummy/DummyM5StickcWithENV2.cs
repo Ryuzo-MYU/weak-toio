@@ -14,7 +14,7 @@ public class DummyM5StickcWithENV2 : DummyM5Stickc, IENV2Sensor
 	{
 		base.UpdateSensor();
 		UpdateENV2Sensor();
-		OnDeserializeCompleted.Invoke();
+		DeserializeCompleted();
 	}
 	private void UpdateENV2Sensor()
 	{

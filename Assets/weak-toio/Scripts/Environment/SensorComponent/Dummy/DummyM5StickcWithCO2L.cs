@@ -13,7 +13,7 @@ public class DummyM5StickcWithCO2L : DummyM5Stickc, ICO2LSensor
 	{
 		base.UpdateSensor();
 		UpdateCO2L2Sensor();
-		OnDeserializeCompleted.Invoke();
+		DeserializeCompleted();
 	}
 	private void UpdateCO2L2Sensor()
 	{

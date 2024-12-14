@@ -23,7 +23,7 @@ namespace Environment
 			string[] receivedData = SpritMessage(message);
 			base.DeserializeMessages(receivedData);
 			DeserializeMessages(receivedData);
-			OnDeserializeCompleted.Invoke();
+			DeserializeCompleted();
 		}
 		private void DeserializeMessages(string[] splittedMessage)
 		{

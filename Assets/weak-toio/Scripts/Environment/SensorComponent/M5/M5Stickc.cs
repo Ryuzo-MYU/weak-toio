@@ -3,6 +3,7 @@ using UnityEngine.Events;
 
 namespace Environment
 {
+	[RequireComponent(typeof(SerialHandler))]
 	public class M5Stickc : SensorBase, IM5Sensor, ISerialConnector
 	{
 		protected int requiredLength;
@@ -23,6 +24,7 @@ namespace Environment
 		// ==============================
 		public void StartSensor()
 		{
+			_serial = gameObject.GetComponent<SerialHandler>();
 			_serial.OnDataReceived += OnDataReceived;
 			_serial.OnConnectFailed += OnConnectFailed;
 		}
@@ -42,7 +44,7 @@ namespace Environment
 		{
 			string[] receivedData = SpritMessage(message);
 			DeserializeMessages(receivedData);
-			OnDeserializeCompleted.Invoke();
+			DeserializeCompleted();
 		}
 
 		/// <summary>
