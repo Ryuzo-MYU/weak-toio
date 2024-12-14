@@ -30,8 +30,7 @@ namespace Evaluation
 			sensor.OnDeserializeCompleted += OnDeserializeCompleted;
 		}
 		protected virtual void OnDeserializeCompleted() { }
-		public void OnResultGenerated(Result result)
-		{
+		public void OnResultGenerated(Result result) { 
 			_onResultGenerated.Invoke(result);
 		}
 	}
