@@ -8,10 +8,10 @@
 // 4. 	X軸ジャイロ 	gyroX			deg/s
 // 5.	Y軸ジャイロ		gyroY			deg/s
 // 6.	Z軸ジャイロ		gyroZ			deg/s
-// 7.	気温		   	temperature		℃
-// 8.	湿度			humidity		%
-// 9.	気圧			pressure		Pa
-// 10.	バッテリー電圧	 vbat			mV
+// 7.	バッテリー電圧	 vbat			mV
+// 8.	気温		   	temperature		℃
+// 9.	湿度			humidity		%
+// 10.	気圧			pressure		Pa
 // ==============================
 
 #include <Arduino.h>
@@ -66,13 +66,16 @@ void loop() {
 void sendData() {
     // 送信するデータをフォーマット
     char data[150];
+    // %s : string
+    // %t : tab
+    // %.nf : n桁のfloat
     sprintf(data,
-            "%s\t%.6f\t%.6f\t%.6f\t%.6f\t%.6f\t%.6f\t%.2f\t%.2f\t%.2f\t%.3f",
+            "%s\t%.6f\t%.6f\t%.6f\t%.6f\t%.6f\t%.6f\t%.3f\t%.2f\t%.2f\t%.2f",
             Config::DEVICE_NAME, sensorData.getAccX(), sensorData.getAccY(),
             sensorData.getAccZ(), sensorData.getGyroX(), sensorData.getGyroY(),
-            sensorData.getGyroZ(), sensorData.getTemperature(),
-            sensorData.getHumidity(), sensorData.getPressure(),
-            sensorData.getVbat());
+            sensorData.getGyroZ(), sensorData.getVbat(),
+            sensorData.getTemperature(), sensorData.getHumidity(),
+            sensorData.getPressure());
 
     // Bluetoothシリアルと通常のシリアルにデータを送信
     Serial.println(data);  // 通常のシリアルモニタにも出力

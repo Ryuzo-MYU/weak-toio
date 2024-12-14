@@ -319,7 +319,6 @@ GameObject:
   - component: {fileID: 1791307407771342213}
   - component: {fileID: 5276534579175761185}
   - component: {fileID: 3203809634950946645}
-  - component: {fileID: 7690880392544498083}
   m_Layer: 0
   m_Name: Cube_co2_00
   m_TagString: Toio
@@ -590,30 +589,6 @@ MonoBehaviour:
   note105: {fileID: 8300000, guid: 6db8ab1fcb3a3a6479d8cf836fe206df, type: 3}
   note117: {fileID: 8300000, guid: 687b3aed6c7ea544da35db9666d9545e, type: 3}
   note129: {fileID: 8300000, guid: b7ad877cd3523bc388caa85f6a78deda, type: 3}
---- !u!114 &7690880392544498083
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8069329716569080345}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 98e7e797a4f48a14e97335d3222ff0b1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  exceptToioName: Cube_co2_00
-  toioName: 
-  connector: {fileID: 0}
-  PORTNAME: COM9
-  BAUDRATE: 115200
-  UseDummy: 0
-  co2Bounds:
-    DangerPPM: 1000
-    CautionPPM: 800
-    SuitablePPM: 700
-  envType: 0
-  currentPPM: 0
 --- !u!1 &8457182584080536393
 GameObject:
   m_ObjectHideFlags: 0

@@ -17,7 +17,8 @@ GameObject:
   - component: {fileID: 838515892214030043}
   - component: {fileID: 6345129612498160897}
   - component: {fileID: 3277888297854004344}
-  - component: {fileID: 2104446637907575411}
+  - component: {fileID: -130509117756858318}
+  - component: {fileID: 4838966138468220460}
   m_Layer: 0
   m_Name: Cube_temp_00
   m_TagString: Toio
@@ -288,7 +289,7 @@ MonoBehaviour:
   note105: {fileID: 8300000, guid: 6db8ab1fcb3a3a6479d8cf836fe206df, type: 3}
   note117: {fileID: 8300000, guid: 687b3aed6c7ea544da35db9666d9545e, type: 3}
   note129: {fileID: 8300000, guid: b7ad877cd3523bc388caa85f6a78deda, type: 3}
---- !u!114 &2104446637907575411
+--- !u!114 &-130509117756858318
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -297,20 +298,24 @@ MonoBehaviour:
   m_GameObject: {fileID: 1789989958412639236}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 682ce7479f4c73147949ab53a5c88321, type: 3}
+  m_Script: {fileID: 11500000, guid: 0462734d6d79e0a4cab9162bc072ef4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  exceptToioName: Cube_temp_00
-  toioName: 
-  connector: {fileID: 0}
-  PORTNAME: COM9
-  BAUDRATE: 115200
-  UseDummy: 0
-  tempBoundary:
-    UpperBound: 27
-    LowerBound: 22
-  envType: 0
-  currentTemp: 0
+  portName: COM9
+  baudRate: 115200
+--- !u!114 &4838966138468220460
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1789989958412639236}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a46ed315b289f4448aa7b2d5f3648029, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _serial: {fileID: -130509117756858318}
 --- !u!1 &2954175430279775649
 GameObject:
   m_ObjectHideFlags: 0
