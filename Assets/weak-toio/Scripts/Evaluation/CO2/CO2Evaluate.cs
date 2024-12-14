@@ -30,7 +30,7 @@ namespace Evaluation
 			Debug.Log($"評価成功。Score: {_score}\n" +
 					$"もとの二酸化炭素濃度は{_currentParam}{_unit.unit}です");
 
-			OnResultGenerated(co2Result);
+			_OnResultGenerated(co2Result);
 		}
 
 		protected override void OnSensorDecided()

@@ -41,7 +41,7 @@ namespace Evaluation
 			Debug.Log($"評価成功。Score: {_score}\n" +
 					$"もとの気温は{_currentParam}{_unit.unit}です");
 
-			OnResultGenerated(temperatureResult);
+			_OnResultGenerated(temperatureResult);
 		}
 		protected override void OnSensorDecided()
 		{

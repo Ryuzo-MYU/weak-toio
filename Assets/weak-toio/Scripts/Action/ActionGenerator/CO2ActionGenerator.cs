@@ -9,13 +9,12 @@ namespace Robot
 		private float cautionScore = 150;
 		private float dangerScore = 300;
 
-		// コンストラクタ
-		public CO2ActionGenerator(float _suitableScore, float _cautionScore, float _dangerScore)
+		protected override void OnResultGenerated(Result result)
 		{
-			suitableScore = _suitableScore;
-			cautionScore = _cautionScore;
-			dangerScore = _dangerScore;
+			var action = GenerateAction(result);
+			_OnActionGenerated(action);
 		}
+
 		public Action GenerateAction(Result result)
 		{
 			float score = result.Score;
@@ -27,6 +26,7 @@ namespace Robot
 
 			return action;
 		}
+
 		private Action SuitableAction()
 		{
 			Queue<Motion> suitableAction = new Queue<Motion>();
@@ -42,6 +42,7 @@ namespace Robot
 			Action action = new Action(suitableAction);
 			return action;
 		}
+
 		private Action CautionAction()
 		{
 			Queue<Motion> cautionTwist = new Queue<Motion>();
@@ -53,6 +54,7 @@ namespace Robot
 			Action action = new Action(cautionTwist);
 			return action;
 		}
+
 		private Action DangerAction()
 		{
 			Queue<Motion> dangerTwist = new Queue<Motion>();

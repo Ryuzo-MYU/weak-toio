@@ -1,5 +1,6 @@
 using Evaluation;
 using toio;
+using UnityEngine;
 
 namespace Robot
 {
@@ -7,9 +8,20 @@ namespace Robot
 	/// toioのアクションを生成する抽象クラス
 	/// 各環境の具象クラス用に基本のMotion生成メソッドを提供する
 	/// </summary>
-	public abstract class ActionGenerator
+	public abstract class ActionGenerator : MonoBehaviour
 	{
-		protected Result _result;
+		public event System.Action<Action> OnActionGenerated;
+		private void Start()
+		{
+			EvaluateBase evaluate = gameObject.GetComponent<EvaluateBase>();
+			evaluate.OnResultGenerated += OnResultGenerated;
+		}
+
+		protected void _OnActionGenerated(Action action)
+		{
+			OnActionGenerated?.Invoke(action);
+		}
+		protected abstract void OnResultGenerated(Result result);
 
 		/// <summary>
 		/// 前後移動のMosionを返す

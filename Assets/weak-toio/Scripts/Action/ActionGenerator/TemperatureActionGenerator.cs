@@ -10,6 +10,12 @@ namespace Robot
 		BoundaryRange CautionRange = new BoundaryRange(-5, 5);
 		BoundaryRange DangerRange = new BoundaryRange(-10, 10);
 
+		protected override void OnResultGenerated(Result result)
+		{
+			var action = GenerateAction(result);
+			_OnActionGenerated(action);
+		}
+
 		public Action GenerateAction(Result result)
 		{
 			float score = result.Score;
@@ -30,6 +36,7 @@ namespace Robot
 			}
 			return action;
 		}
+
 		private Action SuitableAction()
 		{
 			Queue<Motion> suitableAction = new Queue<Motion>();
@@ -45,6 +52,7 @@ namespace Robot
 			Action action = new Action(suitableAction);
 			return action;
 		}
+
 		private Action ColdCautionAction()
 		{
 			Queue<Motion> cautionShiver = new Queue<Motion>();
@@ -56,6 +64,7 @@ namespace Robot
 			Action action = new Action(cautionShiver);
 			return action;
 		}
+
 		private Action ColdDangerAction()
 		{
 			Queue<Motion> dangerShiver = new Queue<Motion>();
@@ -67,6 +76,7 @@ namespace Robot
 			Action action = new Action(dangerShiver);
 			return action;
 		}
+
 		private Action HotCautionAction()
 		{
 			Queue<Motion> cautionTwist = new Queue<Motion>();
@@ -78,6 +88,7 @@ namespace Robot
 			Action action = new Action(cautionTwist);
 			return action;
 		}
+		
 		private Action HotDangerAction()
 		{
 			Queue<Motion> dangerTwist = new Queue<Motion>();
