@@ -6,25 +6,29 @@ public class SensorManager : MonoBehaviour
 {
 	public event Action OnSensorDecided;
 	[SerializeField] private SerialHandler _serial;
-	[SerializeField] private Component _real;
-	[SerializeField] private Component _dummy;
+	[SerializeField] private SensorBase _real;
+	[SerializeField] private SensorBase _dummy;
 	public SensorBase _remainedSensor;
 
 	private void Awake()
 	{
-		_real = (Component)gameObject.GetComponent<RealSensor>();
-		_dummy = (Component)gameObject.GetComponent<DummySensor>();
+		_real = gameObject.GetComponent<SensorBase>();
+		_dummy = gameObject.GetComponent<SensorBase>();
+
+		_serial = gameObject.GetComponent<SerialHandler>();
 		_serial.OnConnectSucceeded += OnConnectSucceeded;
 		_serial.OnConnectFailed += OnConnectFailed;
 	}
 	private void OnConnectSucceeded()
 	{
 		Destroy(_dummy);
+		_remainedSensor = _real;
 		OnSensorDecided.Invoke();
 	}
 	protected void OnConnectFailed()
 	{
 		Destroy(_real);
+		_remainedSensor = _dummy;
 		OnSensorDecided.Invoke();
 	}
 	private void Start()
