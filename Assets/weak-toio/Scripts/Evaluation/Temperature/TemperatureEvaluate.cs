@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using Environment;
 using UnityEngine;
 
@@ -11,7 +10,7 @@ namespace Evaluation
 	{
 		private float UPPER_BOUND;  // 暑すぎる基準
 		private float LOWER_BOUND; // 寒すぎる基準
-		private BoundaryRange suitableRange;
+		[SerializeField] private BoundaryRange suitableRange;
 		private Unit _celsius = new Unit("℃");
 		public float CurrentTemperature { get; private set; }
 		private float _score;

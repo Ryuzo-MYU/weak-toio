@@ -1,3 +1,6 @@
+using System;
+
+[Serializable]
 public struct BoundaryRange
 {
 	public float UpperLimit;
