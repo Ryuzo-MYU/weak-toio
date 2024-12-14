@@ -19,6 +19,7 @@ GameObject:
   - component: {fileID: 3277888297854004344}
   - component: {fileID: -130509117756858318}
   - component: {fileID: -5527266820538169124}
+  - component: {fileID: -2139456846086595147}
   - component: {fileID: 506279779359794596}
   m_Layer: 0
   m_Name: Cube_temp_00
@@ -319,7 +320,29 @@ MonoBehaviour:
   OnDeserializeCompleted:
     m_PersistentCalls:
       m_Calls: []
-  _serial: {fileID: 0}
+  _serial: {fileID: -130509117756858318}
+  _temp: 0
+  _hum: 0
+  _pressure: 0
+--- !u!114 &-2139456846086595147
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1789989958412639236}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7032b70e2cde2a04c92567719b49b618, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OnDeserializeCompleted:
+    m_PersistentCalls:
+      m_Calls: []
+  deviceName: 
+  accel: {x: 0, y: 0, z: 0}
+  gyro: {x: 0, y: 0, z: 0}
+  vbat: 0
   _temp: 0
   _hum: 0
   _pressure: 0
@@ -335,6 +358,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2492d279c40e504aac0a15c20e378df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  OnResultGenerated:
+    m_PersistentCalls:
+      m_Calls: []
   _currentParam: 0
   _envType: 0
   _score: 0
