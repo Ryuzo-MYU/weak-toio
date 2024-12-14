@@ -16,12 +16,11 @@ namespace Evaluation
 		private float _score;
 		private EnvType _type;
 
-		public TemperatureEvaluate(float _upperBound, float _lowerBound)
+		private void Start()
 		{
-			UPPER_BOUND = _upperBound;
-			LOWER_BOUND = _lowerBound;
 			suitableRange = new BoundaryRange(UPPER_BOUND, LOWER_BOUND);
 		}
+
 		/// <summary>
 		/// SensorUnitから気温のデータを取得し、労働環境の適温範囲と比較した結果を返す
 		/// </summary>
