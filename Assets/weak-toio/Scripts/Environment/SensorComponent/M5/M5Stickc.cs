@@ -1,9 +1,10 @@
+using System.Collections;
 using UnityEngine;
 
 namespace Environment
 {
 	[RequireComponent(typeof(SerialHandler))]
-	public class M5Stickc : SensorBase, IM5Sensor, ISerialConnector
+	public class M5Stickc : SensorBase, IM5Sensor, ISerialConnector, RealSensor
 	{
 		[SerializeField] protected int requiredLength;
 		protected string[] receivedData;
@@ -86,12 +87,6 @@ namespace Environment
 			{
 				throw new System.ArgumentException($"受信データが不足しています。必要な長さ: {requirLength}, 実際の長さ: {data?.Length ?? 0}");
 			}
-		}
-		protected override void OnConnectFailed()
-		{
-			Debug.Log("SerialHundler 接続失敗");
-			_OnSensorInitialized();
-			Destroy(this);
 		}
 	}
 }

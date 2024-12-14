@@ -1,9 +1,10 @@
+using System.Collections;
 using UnityEngine;
 
 namespace Environment
 {
 	[RequireComponent(typeof(SerialHandler))]
-	public class DummyM5Stickc : SensorBase, IM5Sensor
+	public class DummyM5Stickc : SensorBase, IM5Sensor, DummySensor
 	{
 		[SerializeField] protected string _deviceName;
 		[SerializeField] protected Vector3 _accel;
@@ -34,12 +35,6 @@ namespace Environment
 			_gyro = new Vector3(gyroX, gyroY, gyroZ);
 
 			_vbat += Random.Range(-0.01f, 0.01f);
-		}
-		protected override void OnConnectSucceeded()
-		{
-			Debug.Log("SerialHundler 接続成功");
-			_OnSensorInitialized();
-			Destroy(this);
 		}
 	}
 }

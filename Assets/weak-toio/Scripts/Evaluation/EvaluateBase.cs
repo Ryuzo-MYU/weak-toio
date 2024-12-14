@@ -19,7 +19,6 @@ namespace Evaluation
 		{
 			Debug.Log("EvaluateBase Start開始");
 			sensor = this.gameObject.GetComponent<SensorBase>();
-			sensor.OnSensorInitialized += OnSensorInitialized;
 		}
 
 		protected virtual void OnSensorInitialized() { }
