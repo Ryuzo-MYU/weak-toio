@@ -14,6 +14,7 @@ public class DummyM5SensorWithENV2 : DummyM5Sensor, IENV2Sensor
 	{
 		base.UpdateSensor();
 		UpdateENV2Sensor();
+		OnDeserializeCompleted.Invoke();
 	}
 	private void UpdateENV2Sensor()
 	{

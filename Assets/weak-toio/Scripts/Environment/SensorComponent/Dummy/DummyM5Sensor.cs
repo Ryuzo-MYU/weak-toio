@@ -1,8 +1,10 @@
 using Environment;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class DummyM5Sensor : MonoBehaviour, IM5Sensor
 {
+	public UnityEvent OnDeserializeCompleted;
 	[SerializeField] protected string deviceName;
 	[SerializeField] protected Vector3 accel;
 	[SerializeField] protected Vector3 gyro;
@@ -11,10 +13,11 @@ public class DummyM5Sensor : MonoBehaviour, IM5Sensor
 	public Vector3 GetAcceleration() { return accel; }
 	public Vector3 GetGyro() { return gyro; }
 	public float GetVbat() { return vbat; }
-	void Start() { }
-	void Update() {
+	void Update()
+	{
 		UpdateSensor();
-	 }
+		OnDeserializeCompleted.Invoke();
+	}
 	public void StartSensor() { }
 	public void UpdateSensor()
 	{
