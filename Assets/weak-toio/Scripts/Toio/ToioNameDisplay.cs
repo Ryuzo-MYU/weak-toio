@@ -11,7 +11,7 @@ public class ToioNameListUI : MonoBehaviour
 	[SerializeField] GameObject contentParent;
 	private void Start()
 	{
-		toioConnector.OnConnectSucceeded += OnConnectSucessed;
+		toioConnector.OnConnectSucceeded.AddListener(OnConnectSucessed);
 	}
 	private void OnConnectSucessed(List<Toio> toios)
 	{

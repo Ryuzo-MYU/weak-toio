@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using toio;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Robot
 {
@@ -12,8 +13,7 @@ namespace Robot
 	/// </summary>
 	public class ToioConnector : MonoBehaviour
 	{
-		public delegate void CubeConnectSucceededEventHandler(List<Toio> toios);
-		public event CubeConnectSucceededEventHandler OnConnectSucceeded;
+		public UnityEvent<List<Toio>> OnConnectSucceeded;
 		[Tooltip("UnityEditor上ならSimmurator、現実ならReal、お任せならAuto")]
 		public ConnectType connectType = ConnectType.Auto;
 		public List<string> toioNames;
@@ -39,7 +39,7 @@ namespace Robot
 			}
 
 			Debug.Log("接続完了");
-			OnConnectSucceeded(toios);
+			OnConnectSucceeded.Invoke(toios);
 		}
 		private void OnDestroy()
 		{
