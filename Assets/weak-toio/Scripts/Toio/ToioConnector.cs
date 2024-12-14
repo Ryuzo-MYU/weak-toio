@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using toio;
 using UnityEngine;
@@ -13,14 +14,13 @@ namespace Robot
 	/// </summary>
 	public class ToioConnector : MonoBehaviour
 	{
-		public UnityEvent<List<Toio>> OnConnectSucceeded;
+		public event System.Action OnConnectSucceeded;
 		[Tooltip("UnityEditor上ならSimmurator、現実ならReal、お任せならAuto")]
 		public ConnectType connectType = ConnectType.Auto;
 		public List<string> toioNames;
 		private int cubeCount = 0;
 		private string toioTag = "Toio";
 		private CubeManager cubeManager;
-		private List<Toio> toios;
 		private async void Awake()
 		{
 			toioNames = new List<string>();
@@ -30,20 +30,18 @@ namespace Robot
 			cubeManager = new CubeManager(connectType);
 			await cubeManager.MultiConnect(cubeCount);
 
-			toios = new List<Toio>();
-			for (int id = 0; id < cubeManager.cubes.Count; id++)
-			{
-				toioNames.Add(cubeManager.connectedCubes[id].localName);
-				Toio toio = new Toio(id, cubeManager);
-				toios.Add(toio);
-			}
-
 			Debug.Log("Toio接続完了");
-			OnConnectSucceeded.Invoke(toios);
+			OnConnectSucceeded.Invoke();
 		}
 		private void OnDestroy()
 		{
 			cubeManager.DisconnectAll();
+		}
+
+		public void RegisterToio(Toio toio)
+		{
+			int id = cubeManager.cubes.FindIndex(c => c.localName == toio.Name);
+			toio.Register(id, cubeManager);
 		}
 	}
 }

@@ -5,34 +5,49 @@ using toio;
 
 namespace Robot
 {
-	public class Toio
+	public class Toio : MonoBehaviour
 	{
-		public int ID { get; private set; }
-		public string Name { get; private set; }
-		public EnvType EnvType { get; set; }
-		public Cube Cube { get; private set; }
-		public CubeHandle Handle { get; private set; }
+		[SerializeField] private int _id;
+		[SerializeField] private string _name;
+		[SerializeField] private List<EnvType> type;
+		private Cube _cube;
+		private CubeHandle _handle;
 
-		private const int ACTION_MAX_COUNT = 10;
+		public int ID { get { return _id; } }
+		public string Name { get { return _name; } }
+		public List<EnvType> Type { get { return type; } }
+		public Cube Cube { get { return _cube; } }
+		public CubeHandle Handle { get { return _handle; } }
+
+		[SerializeField] private int actionMaxCount;
 		private Queue<Action> actions;
 		private Action currentAction;
 		private bool isMoving = false;
 
 		private ActionGenerator actionGenerator;
-
+		[SerializeField] private ToioConnector toioConnector;
 		private void Start()
 		{
+			actionGenerator = gameObject.GetComponent<ActionGenerator>();
 			actionGenerator.OnActionGenerated += AddNewAction;
+
+			toioConnector = GameObject.FindWithTag("ToioConnector").GetComponent<ToioConnector>();
+			toioConnector.OnConnectSucceeded += OnConnectSucceeded;
+			if (toioConnector.connectType != ConnectType.Real)
+			{
+				this._name = gameObject.name;
+			}
 		}
 
-		public Toio(int _id, CubeManager _cubeManager)
+		private void OnConnectSucceeded()
 		{
-			ID = _id;
-			Name = _cubeManager.cubes[ID].localName;
-			Cube = _cubeManager.cubes[ID];
-			Handle = _cubeManager.handles[ID];
-			actions = new Queue<Action>();
-			currentAction = new Action();
+			toioConnector.RegisterToio(this);
+		}
+		public void Register(int id, CubeManager cubeManager)
+		{
+			this._id = id;
+			this._cube = cubeManager.cubes[_id];
+			this._handle = cubeManager.handles[_id];
 		}
 
 		// 実行関連のメソッド
@@ -72,7 +87,7 @@ namespace Robot
 				Debug.LogWarning("null のアクション送るな");
 				return;
 			}
-			if (actions.Count > ACTION_MAX_COUNT)
+			if (actions.Count > actionMaxCount)
 			{
 				return;
 			}
@@ -91,8 +106,8 @@ namespace Robot
 			isMoving = false;
 			actions.Clear();
 			currentAction = null;
-			Handle.Update();
-			Handle.Move(new Movement(Handle, 0, 0));
+			_handle.Update();
+			_handle.Move(new Movement(_handle, 0, 0));
 		}
 	}
 

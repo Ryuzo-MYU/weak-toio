@@ -397,6 +397,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1660035779}
     m_Modifications:
+    - target: {fileID: 476664783648825009, guid: df5209d7b6f74424d96bb6e8c29872ac, type: 3}
+      propertyPath: actionMaxCount
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 476664783648825009, guid: df5209d7b6f74424d96bb6e8c29872ac, type: 3}
+      propertyPath: type.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 476664783648825009, guid: df5209d7b6f74424d96bb6e8c29872ac, type: 3}
+      propertyPath: type.Array.data[0]
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 1052994060040628363, guid: df5209d7b6f74424d96bb6e8c29872ac, type: 3}
       propertyPath: portName
       value: noge
@@ -971,7 +983,7 @@ GameObject:
   - component: {fileID: 647634891}
   m_Layer: 0
   m_Name: ToioConnector
-  m_TagString: Untagged
+  m_TagString: ToioConnector
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -988,9 +1000,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2a0515150431d147b64c618b87a1ea5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OnConnectSucceeded:
-    m_PersistentCalls:
-      m_Calls: []
   connectType: 0
   toioNames: []
 --- !u!4 &647634892

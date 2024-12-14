@@ -7,6 +7,10 @@ TagManager:
   - t4u_Mat
   - t4u_Cube
   - Toio
+  - t4u_StandardID
+  - t4u_Magnet
+  - trash
+  - ToioConnector
   layers:
   - Default
   - TransparentFX

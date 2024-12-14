@@ -324,6 +324,8 @@ GameObject:
   - component: {fileID: 6932164525621576195}
   - component: {fileID: -8512233577433653910}
   - component: {fileID: -3224578954858889339}
+  - component: {fileID: -7724312357427626850}
+  - component: {fileID: 476664783648825009}
   m_Layer: 0
   m_Name: Cube_co2_00
   m_TagString: Toio
@@ -623,7 +625,6 @@ MonoBehaviour:
   _serial: {fileID: 0}
   _real: {fileID: 0}
   _dummy: {fileID: 0}
-  _remainedSensor: {fileID: 0}
 --- !u!114 &6932164525621576195
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -683,6 +684,34 @@ MonoBehaviour:
   _envType: 3
   _score: 0
   CAUTION_LIMIT: 0
+--- !u!114 &-7724312357427626850
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8069329716569080345}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 672cdcd894a047a44927f968df77cc79, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &476664783648825009
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8069329716569080345}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f4750e6b8bf95a46892d7dec236b4e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _id: 0
+  _name: 
+  type: 
+  toioConnector: {fileID: 0}
 --- !u!1 &8457182584080536393
 GameObject:
   m_ObjectHideFlags: 0

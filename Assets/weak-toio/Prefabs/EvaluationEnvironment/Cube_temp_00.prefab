@@ -21,6 +21,8 @@ GameObject:
   - component: {fileID: -5527266820538169124}
   - component: {fileID: -2139456846086595147}
   - component: {fileID: 506279779359794596}
+  - component: {fileID: -4122619517973390849}
+  - component: {fileID: 3770178275054568731}
   m_Layer: 0
   m_Name: Cube_temp_00
   m_TagString: Toio
@@ -366,6 +368,34 @@ MonoBehaviour:
   suitableRange:
     UpperLimit: 27
     LowerLimit: 22
+--- !u!114 &-4122619517973390849
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1789989958412639236}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c898f75271e2a546aa15bbe64defecb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &3770178275054568731
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1789989958412639236}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f4750e6b8bf95a46892d7dec236b4e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _id: 0
+  _name: 
+  type: 
+  toioConnector: {fileID: 0}
 --- !u!1 &2954175430279775649
 GameObject:
   m_ObjectHideFlags: 0

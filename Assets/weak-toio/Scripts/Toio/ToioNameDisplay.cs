@@ -1,7 +1,6 @@
 using UnityEngine;
 using TMPro;
 using Robot;
-using System.Collections.Generic;
 
 public class ToioNameListUI : MonoBehaviour
 {
@@ -11,13 +10,15 @@ public class ToioNameListUI : MonoBehaviour
 	[SerializeField] GameObject contentParent;
 	private void Start()
 	{
-		toioConnector.OnConnectSucceeded.AddListener(OnConnectSucessed);
+		toioConnector = GameObject.FindWithTag("ToioConnector").GetComponent<ToioConnector>();
+		toioConnector.OnConnectSucceeded += OnConnectSucessed;
 	}
-	private void OnConnectSucessed(List<Toio> toios)
+	private void OnConnectSucessed()
 	{
-		foreach (Toio toio in toios)
+		var toios = GameObject.FindGameObjectsWithTag("Toio");
+		foreach (var toio in toios)
 		{
-			string name = toio.Name;
+			string name = toio.GetComponent<Toio>().Name;
 			TMP_Text text = textUI.GetComponent<TMP_Text>();
 			text.text = name;
 			Instantiate(textUI, contentParent.transform);
