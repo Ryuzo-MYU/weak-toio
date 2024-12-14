@@ -359,6 +359,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _currentParam: 0
+  _unit:
+    unit: "\u2103"
   _envType: 1
   _score: 0
   suitableRange:

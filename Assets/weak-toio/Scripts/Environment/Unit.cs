@@ -1,6 +1,9 @@
+using System;
+
 namespace Evaluation
 {
-	public class Unit
+	[Serializable]
+	public struct Unit
 	{
 		public string unit;
 		public Unit(string _unit)

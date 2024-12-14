@@ -16,8 +16,12 @@ public class SensorBase : MonoBehaviour
 	protected virtual void OnConnectFailed() { }
 
 	public event Action OnDeserializeCompleted;
-	protected void DeserializeCompleted()
+	protected void _OnDeserializeCompleted()
 	{
 		OnDeserializeCompleted?.Invoke();
+	}
+	public event Action OnSensorInitialized;
+	protected void _OnSensorInitialized(){
+		OnSensorInitialized?.Invoke();
 	}
 }

@@ -13,13 +13,6 @@ namespace Evaluation
 		[SerializeField] private BoundaryRange suitableRange;
 		private ITemperatureSensor tempSensor;
 
-		private void Start()
-		{
-			base.Start();
-			tempSensor = this.gameObject.GetComponent<ITemperatureSensor>();
-			Debug.Log("tempSensor取得できた");
-		}
-
 		/// <summary>
 		/// SensorUnitから気温のデータを取得し、労働環境の適温範囲と比較した結果を返す
 		/// </summary>
@@ -49,6 +42,11 @@ namespace Evaluation
 					$"もとの気温は{_currentParam}{_unit.unit}です");
 
 			OnResultGenerated(temperatureResult);
+		}
+		protected override void OnSensorInitialized()
+		{
+			base.OnSensorInitialized();
+			tempSensor = this.gameObject.GetComponent<ITemperatureSensor>();
 		}
 		protected override void OnDeserializeCompleted()
 		{

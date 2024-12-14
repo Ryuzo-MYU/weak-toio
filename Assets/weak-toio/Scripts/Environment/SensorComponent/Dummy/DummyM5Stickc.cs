@@ -21,7 +21,7 @@ public class DummyM5Stickc : SensorBase, IM5Sensor
 	void Update()
 	{
 		UpdateSensor();
-		DeserializeCompleted();
+		_OnDeserializeCompleted();
 	}
 	public void StartSensor() { }
 	public void UpdateSensor()
@@ -42,6 +42,7 @@ public class DummyM5Stickc : SensorBase, IM5Sensor
 	protected override void OnConnectSucceeded()
 	{
 		Debug.Log("SerialHundler 接続成功");
+		_OnSensorInitialized();
 		Destroy(this);
 	}
 }

@@ -34,7 +34,7 @@ namespace Environment
 		{
 			string[] receivedData = SpritMessage(message);
 			DeserializeMessages(receivedData);
-			DeserializeCompleted();
+			_OnDeserializeCompleted();
 		}
 
 		/// <summary>
@@ -87,6 +87,7 @@ namespace Environment
 		protected override void OnConnectFailed()
 		{
 			Debug.Log("SerialHundler 接続失敗");
+			_OnSensorInitialized();
 			Destroy(this);
 		}
 	}

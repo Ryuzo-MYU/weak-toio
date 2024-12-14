@@ -12,12 +12,6 @@ namespace Evaluation
 		[SerializeField] private float CAUTION_LIMIT; // 警告が必要なppm
 		private ICO2Sensor co2Sensor;
 
-		private void Start()
-		{
-			base.Start();
-			co2Sensor = this.gameObject.GetComponent<ICO2Sensor>();
-		}
-
 		/// <summary>
 		/// CO2センサからPPMを取得し、指定した上限値と比較した結果を返す
 		/// </summary>
@@ -39,6 +33,11 @@ namespace Evaluation
 			OnResultGenerated(co2Result);
 		}
 
+		protected override void OnSensorInitialized()
+		{
+			base.OnSensorInitialized();
+			co2Sensor = this.gameObject.GetComponent<ICO2Sensor>();
+		}
 		protected override void OnDeserializeCompleted()
 		{
 			GenerateEvaluationResult(co2Sensor);
