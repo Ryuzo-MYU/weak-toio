@@ -30,6 +30,7 @@ namespace Robot
 		{
 			actions = new Queue<Action>();
 			currentAction = new Action();
+			StartCoroutine(Move());
 
 			actionGenerator = gameObject.GetComponent<ActionGenerator>();
 			actionGenerator.OnActionGenerated += AddNewAction;
