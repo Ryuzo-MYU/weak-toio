@@ -8,18 +8,11 @@ namespace Evaluation
 	/// </summary>
 	public class TemperatureEvaluate : MonoBehaviour, EvaluationResultSender<ITemperatureSensor>
 	{
-		private float UPPER_BOUND;  // 暑すぎる基準
-		private float LOWER_BOUND; // 寒すぎる基準
 		[SerializeField] private BoundaryRange suitableRange;
-		private Unit _celsius = new Unit("℃");
-		public float CurrentTemperature { get; private set; }
-		private float _score;
-		private EnvType _type;
-
-		private void Start()
-		{
-			suitableRange = new BoundaryRange(UPPER_BOUND, LOWER_BOUND);
-		}
+		private Unit _celsius;
+		[SerializeField] public float CurrentTemperature { get; private set; }
+		[SerializeField] private float _score;
+		[SerializeField] private EnvType _type;
 
 		/// <summary>
 		/// SensorUnitから気温のデータを取得し、労働環境の適温範囲と比較した結果を返す
