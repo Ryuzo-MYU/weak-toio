@@ -30,9 +30,4 @@ public class SensorManager : MonoBehaviour
 	private void Start()
 	{
 	}
-	private void OnSensorInitialized()
-	{
-		_remainedSensor = this.gameObject.GetComponent<SensorBase>();
-		OnSensorDecided.Invoke();
-	}
 }
