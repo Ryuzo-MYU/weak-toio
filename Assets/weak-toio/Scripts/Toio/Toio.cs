@@ -51,6 +51,12 @@ namespace Robot
 			this._id = id;
 			this._cube = cubeManager.cubes[_id];
 			this._handle = cubeManager.handles[_id];
+
+			OnRegisterCompleted();
+		}
+		private void OnRegisterCompleted()
+		{
+			StartCoroutine(Move());
 		}
 
 		// 実行関連のメソッド
@@ -102,7 +108,6 @@ namespace Robot
 				isMoving = true;
 			}
 
-			StartCoroutine(Move());
 		}
 
 		public void Stop()
