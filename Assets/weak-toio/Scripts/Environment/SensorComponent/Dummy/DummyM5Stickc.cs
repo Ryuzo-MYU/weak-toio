@@ -4,14 +4,15 @@ using UnityEngine.Events;
 
 public class DummyM5Stickc : SensorBase, IM5Sensor
 {
-	[SerializeField] protected string deviceName;
-	[SerializeField] protected Vector3 accel;
-	[SerializeField] protected Vector3 gyro;
-	[SerializeField] protected float vbat;
-	public string GetDeviceName() { return deviceName; }
-	public Vector3 GetAcceleration() { return accel; }
-	public Vector3 GetGyro() { return gyro; }
-	public float GetVbat() { return vbat; }
+	[SerializeField] SerialHandler _serial;
+	[SerializeField] protected string _deviceName;
+	[SerializeField] protected Vector3 _accel;
+	[SerializeField] protected Vector3 _gyro;
+	[SerializeField] protected float _vbat;
+	public string GetDeviceName() { return _deviceName; }
+	public Vector3 GetAcceleration() { return _accel; }
+	public Vector3 GetGyro() { return _gyro; }
+	public float GetVbat() { return _vbat; }
 	void Update()
 	{
 		UpdateSensor();
@@ -21,16 +22,20 @@ public class DummyM5Stickc : SensorBase, IM5Sensor
 	public void UpdateSensor()
 	{
 		// 加速度とジャイロのダミーデータ（前回の値に基づいて変動）
-		float accelX = accel.x + Random.Range(-2f, 2f);
-		float accelY = accel.y + Random.Range(-2f, 2f);
-		float accelZ = accel.z + Random.Range(-2f, 2f);
-		accel = new Vector3(accelX, accelY, accelZ);
+		float accelX = _accel.x + Random.Range(-2f, 2f);
+		float accelY = _accel.y + Random.Range(-2f, 2f);
+		float accelZ = _accel.z + Random.Range(-2f, 2f);
+		_accel = new Vector3(accelX, accelY, accelZ);
 
-		float gyroX = gyro.x + Random.Range(-50f, 50f);
-		float gyroY = gyro.y + Random.Range(-50f, 50f);
-		float gyroZ = gyro.z + Random.Range(-50f, 50f);
-		gyro = new Vector3(gyroX, gyroY, gyroZ);
+		float gyroX = _gyro.x + Random.Range(-50f, 50f);
+		float gyroY = _gyro.y + Random.Range(-50f, 50f);
+		float gyroZ = _gyro.z + Random.Range(-50f, 50f);
+		_gyro = new Vector3(gyroX, gyroY, gyroZ);
 
-		vbat += Random.Range(-0.01f, 0.01f);
+		_vbat += Random.Range(-0.01f, 0.01f);
+	}
+	public void OnConnectSucceeded()
+	{
+		Destroy(this);
 	}
 }

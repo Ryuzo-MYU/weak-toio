@@ -13,10 +13,11 @@ namespace Evaluation
 		[SerializeField] private BoundaryRange suitableRange;
 		private ITemperatureSensor tempSensor;
 
-		private new void Start()
+		private void Start()
 		{
 			base.Start();
 			tempSensor = this.gameObject.GetComponent<ITemperatureSensor>();
+			Debug.Log("tempSensor取得できた");
 		}
 
 		/// <summary>

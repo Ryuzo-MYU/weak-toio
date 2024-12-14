@@ -5,6 +5,7 @@ using UnityEngine;
 using System.IO.Ports;
 using System.Threading;
 using System.Collections.Generic;
+using UnityEngine.Events;
 
 public class SerialHandler : MonoBehaviour
 {
@@ -12,6 +13,9 @@ public class SerialHandler : MonoBehaviour
 	public delegate void SerialErrorEventHandler(string errorMessage);
 	public event SerialDataReceivedEventHandler OnDataReceived;
 	public event SerialErrorEventHandler OnError;
+
+	public UnityEvent OnConnectSucceeded;
+	public UnityEvent OnConnectFailed;
 
 	public string portName = null;
 	public int baudRate = 115200;
@@ -58,10 +62,12 @@ public class SerialHandler : MonoBehaviour
 					$"利用可能なポート: {availablePortsStr}");
 			}
 
+			OnConnectSucceeded.Invoke();
 			Open();
 		}
 		catch (System.Exception e)
 		{
+			OnConnectFailed.Invoke();
 			Debug.LogWarning($"シリアルポートの初期化に失敗しました: {e.Message}");
 			OnError?.Invoke($"シリアルポート初期化エラー: {e.Message}");
 			Debug.LogWarning("接続できるポートが無いのでダミーセンサーを使用します");

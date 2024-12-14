@@ -17,7 +17,6 @@ namespace Evaluation
 		protected void Start()
 		{
 			SensorBase sensor = this.gameObject.GetComponent<SensorBase>();
-			sensor.OnDeserializeCompleted.AddListener(OnDeserializeCompleted);
 		}
 		protected virtual void OnDeserializeCompleted() { }
 	}

@@ -12,7 +12,7 @@ namespace Evaluation
 		[SerializeField] private float CAUTION_LIMIT; // 警告が必要なppm
 		private ICO2Sensor co2Sensor;
 
-		private new void Start()
+		private void Start()
 		{
 			base.Start();
 			co2Sensor = this.gameObject.GetComponent<ICO2Sensor>();
