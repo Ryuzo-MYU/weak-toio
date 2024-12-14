@@ -10,7 +10,8 @@ namespace Evaluation
 	public class TemperatureEvaluate : EvaluateBase, IEvaluationResultSender<ITemperatureSensor>
 	{
 		[SerializeField] private BoundaryRange suitableRange;
-		[SerializeField] private ITemperatureSensor tempSensor;
+		[SerializeField]
+		private ITemperatureSensor tempSensor;
 
 		/// <summary>
 		/// SensorUnitから気温のデータを取得し、労働環境の適温範囲と比較した結果を返す
