@@ -12,7 +12,7 @@ namespace Evaluation
 		public float CurrentPPM { get; private set; }
 		[SerializeField] private float CAUTION_LIMIT; // 警告が必要なppm
 		[SerializeField] private Unit _ppm;
-		[SerializeField] private List<EnvType> _types;
+		[SerializeField] private EnvType _type;
 		[SerializeField] private float _score;
 
 		public CO2Evaluate(float _cautionLimit)
@@ -39,9 +39,9 @@ namespace Evaluation
 
 			return co2Result;
 		}
-		public List<EnvType> GetEnvTypes()
+		public EnvType GetEnvType()
 		{
-			return _types;
+			return _type;
 		}
 	}
 }

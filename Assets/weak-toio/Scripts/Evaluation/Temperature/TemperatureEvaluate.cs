@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Environment;
 using UnityEngine;
 
@@ -14,6 +15,7 @@ namespace Evaluation
 		private Unit _celsius = new Unit("℃");
 		public float CurrentTemperature { get; private set; }
 		private float _score;
+		private EnvType _type;
 
 		public TemperatureEvaluate(float _upperBound, float _lowerBound)
 		{
@@ -50,6 +52,10 @@ namespace Evaluation
 					$"もとの気温は{CurrentTemperature}{_celsius.unit}です");
 
 			return temperatureResult;
+		}
+		public EnvType GetEnvType()
+		{
+			return _type;
 		}
 	}
 }
