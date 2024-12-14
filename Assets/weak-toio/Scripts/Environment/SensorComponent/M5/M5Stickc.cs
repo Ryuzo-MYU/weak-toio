@@ -9,26 +9,15 @@ namespace Environment
 		[SerializeField] protected int requiredLength;
 		protected string[] receivedData;
 
-		[SerializeField] private SerialHandler _serial;
 		[SerializeField] protected string _deviceName;
 		[SerializeField] protected Vector3 _acceleration;
 		[SerializeField] protected Vector3 _gyro;
 		[SerializeField] protected float _vbat;
 
-		public void Awake()
-		{
-			StartSensor();
-		}
-
 		// ==============================
 		// ISensorUnit実装
 		// ==============================
-		public void StartSensor()
-		{
-			_serial = gameObject.GetComponent<SerialHandler>();
-			_serial.OnDataReceived += OnDataReceived;
-			_serial.OnConnectFailed += OnConnectFailed;
-		}
+		public void StartSensor() { }
 
 		// ==============================
 		// IM5Sensor実装

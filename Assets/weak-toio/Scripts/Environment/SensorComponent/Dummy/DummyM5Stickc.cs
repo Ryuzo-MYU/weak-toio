@@ -5,7 +5,6 @@ using UnityEngine.Events;
 [RequireComponent(typeof(SerialHandler))]
 public class DummyM5Stickc : SensorBase, IM5Sensor
 {
-	[SerializeField] SerialHandler _serial;
 	[SerializeField] protected string _deviceName;
 	[SerializeField] protected Vector3 _accel;
 	[SerializeField] protected Vector3 _gyro;
@@ -21,14 +20,10 @@ public class DummyM5Stickc : SensorBase, IM5Sensor
 	}
 	void Update()
 	{
-		_serial = gameObject.GetComponent<SerialHandler>();
 		UpdateSensor();
 		DeserializeCompleted();
 	}
-	public void StartSensor()
-	{
-		_serial.OnConnectSucceeded += OnConnectSucceeded;
-	}
+	public void StartSensor() { }
 	public void UpdateSensor()
 	{
 		// 加速度とジャイロのダミーデータ（前回の値に基づいて変動）
@@ -44,7 +39,7 @@ public class DummyM5Stickc : SensorBase, IM5Sensor
 
 		_vbat += Random.Range(-0.01f, 0.01f);
 	}
-	public void OnConnectSucceeded()
+	protected override void OnConnectSucceeded()
 	{
 		Destroy(this);
 	}
