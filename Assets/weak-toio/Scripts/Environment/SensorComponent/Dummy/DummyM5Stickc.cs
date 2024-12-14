@@ -13,12 +13,20 @@ public class DummyM5Stickc : SensorBase, IM5Sensor
 	public Vector3 GetAcceleration() { return _accel; }
 	public Vector3 GetGyro() { return _gyro; }
 	public float GetVbat() { return _vbat; }
+
+	private void Start()
+	{
+		StartSensor();
+	}
 	void Update()
 	{
 		UpdateSensor();
 		OnDeserializeCompleted.Invoke();
 	}
-	public void StartSensor() { }
+	public void StartSensor()
+	{
+		_serial.OnConnectSucceeded += OnConnectSucceeded;
+	}
 	public void UpdateSensor()
 	{
 		// 加速度とジャイロのダミーデータ（前回の値に基づいて変動）
