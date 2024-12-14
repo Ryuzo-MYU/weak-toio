@@ -7,7 +7,7 @@ namespace Evaluation
 	/// <summ
 	/// 気温データを取得し、評価をするクラス
 	/// </summary>
-	public class TemperatureEvaluate : EvaluationResultSender<ITemperatureSensor>
+	public class TemperatureEvaluate : MonoBehaviour, EvaluationResultSender<ITemperatureSensor>
 	{
 		private float UPPER_BOUND;  // 暑すぎる基準
 		private float LOWER_BOUND; // 寒すぎる基準

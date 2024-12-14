@@ -7,7 +7,7 @@ namespace Evaluation
 	/// <summ
 	/// 気温データを取得し、評価をするクラス
 	/// </summary>
-	public class CO2Evaluate : EvaluationResultSender<ICO2Sensor>
+	public class CO2Evaluate : MonoBehaviour, EvaluationResultSender<ICO2Sensor>
 	{
 		public float CurrentPPM { get; private set; }
 		[SerializeField] private float CAUTION_LIMIT; // 警告が必要なppm
