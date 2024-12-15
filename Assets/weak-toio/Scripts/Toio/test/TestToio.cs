@@ -27,7 +27,9 @@ namespace Robot
 		{
 			while (true)
 			{
+				Debug.Log("Moveするよ");
 				Movement move = handle.TranslateByDist(50, 50);
+				handle.Update();
 				handle.Move(move);
 				yield return new WaitForSeconds(50 / 50);
 			}
