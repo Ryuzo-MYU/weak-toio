@@ -62,7 +62,7 @@ namespace Robot
 		// 実行関連のメソッド
 		public IEnumerator Move()
 		{
-			while (actions.Count > 0)
+			while (true)
 			{
 				if (currentAction == null || currentAction.Count() == 0)
 				{
@@ -86,6 +86,7 @@ namespace Robot
 					Debug.Log($"インターバル: {motion.interval}");
 					yield return new WaitForSeconds(motion.interval);
 				}
+				yield return null;
 			}
 		}
 
