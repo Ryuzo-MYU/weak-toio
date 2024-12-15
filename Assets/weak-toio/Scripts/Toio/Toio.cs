@@ -78,13 +78,16 @@ namespace Robot
 				}
 			}
 
-			Robot.Motion motion = currentAction.GetNextMotion();
-			if (motion != null)
+			while (currentAction.Count() > 0)
 			{
-				Debug.Log("ほな動きますね");
-				motion.command.Execute(this);
-				Debug.Log($"インターバル: {motion.interval}");
-				yield return new WaitForSeconds(motion.interval);
+				Motion motion = currentAction.GetNextMotion();
+				if (motion != null)
+				{
+					Debug.Log("ほな動きますね");
+					motion.command.Execute(this);
+					Debug.Log($"インターバル: {motion.interval}");
+					yield return new WaitForSeconds(motion.interval);
+				}
 			}
 			yield return null;
 		}
