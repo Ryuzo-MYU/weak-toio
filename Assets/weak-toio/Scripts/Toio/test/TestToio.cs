@@ -51,6 +51,7 @@ namespace Robot
 			{
 				Debug.Log("音がなるよ");
 				cube.PlayPresetSound(1);
+				new WaitForSeconds(1f);
 				cube.PlayPresetSound(3);
 				yield return new WaitForSeconds(1f);
 			}
