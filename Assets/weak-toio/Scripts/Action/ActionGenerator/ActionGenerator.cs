@@ -29,7 +29,7 @@ namespace Robot
 		{
 			Action action = GenerateAction(currentResult);
 			toio.AddNewAction(action);
-			yield return toio.Move();
+			yield return StartCoroutine(toio.Move());
 		}
 
 		protected abstract Action GenerateAction(Result result);
