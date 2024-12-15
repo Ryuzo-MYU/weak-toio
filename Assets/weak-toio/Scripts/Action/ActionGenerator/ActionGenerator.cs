@@ -27,12 +27,9 @@ namespace Robot
 
 		public IEnumerator ProcessAction(Toio toio)
 		{
-			while (true)
-			{
-				Action action = GenerateAction(currentResult);
-				toio.AddNewAction(action);
-				yield return toio.Move();
-			}
+			Action action = GenerateAction(currentResult);
+			toio.AddNewAction(action);
+			yield return toio.Move();
 		}
 
 		protected abstract Action GenerateAction(Result result);
