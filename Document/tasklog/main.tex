@@ -1083,6 +1083,31 @@ weak-toio コンポーネント指向リファクタリング，完了．
 
 土日まるまる使うかと思ってた作業が１日で終わったので，明日は「他者」の評価とそれに伴う快・不快の動作の実装に取り掛かる．
 
+\section*{2024.12.15(日)}
+モーションアイデアを考えた．
+
+\fboxsep=0pt            %画像と枠線をくっつける．
+\fboxrule=1pt            %枠線の太さを1ptにする．
+\begin{figure}[h]
+  \centering
+  \fbox{\includegraphics[keepaspectratio, clip, width=0.8\columnwidth]{resources/motion_idea.png}}
+  \caption{}
+  \label{fig:}
+\end{figure}
+
+なんとなくやってたけど，「最適」「危険」じゃなくて，「快．不快」だったね．モンハンの「通常・怒り・疲労」みたいなステート分けになってちょっと面白い．
+
+モンハンの流れでいくなら，モーションも1個1個各ジェネレータでつくるんじゃなくて，ある程度のモーションのまとまりをライブラリにして簡単に生成できるようにしたいな．
+
+\fboxsep=0pt            %画像と枠線をくっつける．
+\fboxrule=1pt            %枠線の太さを1ptにする．
+\begin{figure}[h]
+  \centering
+  \fbox{\includegraphics[keepaspectratio, clip, width=0.8\columnwidth]{resources/action_design_flow.png}}
+  \caption{}
+  \label{fig:}
+\end{figure}
+
 \section*{エラー集}
 \subsection*{Adafruit BMP280 not found}
 ENV用のサンプルスケッチを使うには別途「Adafruit BMP280 Library」のインストールが必要。Arduino IDEのライブラリマネージャーからDLしたら解決
