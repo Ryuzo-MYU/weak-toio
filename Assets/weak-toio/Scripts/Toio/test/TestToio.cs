@@ -17,18 +17,18 @@ namespace Robot
 
 			cube = cubeManager.cubes[0];
 			handle = cubeManager.handles[0];
+			Movement move = handle.TranslateByDist(50, 50);
 
-			StartCoroutine(StartMoveQueue());
+			StartCoroutine(StartMoveQueue(move));
 			// StartCoroutine(StartLEDQueue());
 			// StartCoroutine(StartSoundQueue());
 		}
 
-		private IEnumerator StartMoveQueue()
+		private IEnumerator StartMoveQueue(Movement move)
 		{
 			while (true)
 			{
 				Debug.Log("Moveするよ");
-				Movement move = handle.TranslateByDist(50, 50);
 				handle.Update();
 				handle.Move(move);
 				yield return new WaitForSeconds(50 / 50);
