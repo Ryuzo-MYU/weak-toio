@@ -119,342 +119,216 @@ namespace Robot
 		// 基本モーションを使ったアクションライブラリ
 		// ==============================
 
-		#region 猫のアクション（気温）
 		/// <summary>
-		/// 寒さで震える猫の様子を表現
-		/// 小刻みな左右の揺れと青いLEDで寒さを表現
+		/// 複数のコマンドを細かく分割して交互実行するためのヘルパーメソッド
 		/// </summary>
-		public static Action Cat_Cold()
+		private static Action CreateInterleavedAction(
+			float duration,
+			float speed,
+			IToioCommand movement = null,
+			(int r, int g, int b) led = default,
+			int? soundId = null)
 		{
 			var motions = new Queue<Motion>();
+			int segments = 20; // 分割数
+			float segmentTime = duration / segments;
+			int segmentMs = (int)(segmentTime * 1000);
 
-			// 青色LEDで寒さを表現
-			motions.Enqueue(TurnOnLED(0, 0, 255, 3000));
-
-			// 小刻みに震える動作を繰り返す
-			for (int i = 0; i < 6; i++)
+			for (int i = 0; i < segments; i++)
 			{
-				motions.Enqueue(DegRotate(10, 100));
-				motions.Enqueue(DegRotate(-10, 100));
+				// 移動コマンドがある場合
+				if (movement != null)
+				{
+					motions.Enqueue(new Motion(movement, segmentTime));
+				}
+
+				// LED点灯コマンドがある場合
+				if (led != default)
+				{
+					motions.Enqueue(new Motion(
+						new TurnOnLEDCommand(led.r, led.g, led.b, segmentMs),
+						0.01f));
+				}
+
+				// サウンドコマンドがある場合
+				if (soundId.HasValue && i == 0) // サウンドは最初のセグメントでのみ実行
+				{
+					motions.Enqueue(new Motion(
+						new PresetSoundCommand(soundId.Value, 255),
+						0.01f));
+				}
 			}
 
-			// 寒そうな鳴き声
-			motions.Enqueue(PresetSound(1, 255));
-
 			return new Action(motions);
 		}
 
-		/// <summary>
-		/// 暑さに不快感を示す猫の様子を表現
-		/// ゆっくりとした動きと赤いLEDで暑さを表現
-		/// </summary>
+		#region 猫のアクション（気温）
+		public static Action Cat_Cold()
+		{
+			return CreateInterleavedAction(
+				duration: 3.0f,
+				speed: 100,
+				movement: new DegRotateCommand(10, 100), // 震える動作
+				led: (0, 0, 255), // 青色LED
+				soundId: 1 // 寒そうな鳴き声
+			);
+		}
+
 		public static Action Cat_Hot()
 		{
-			var motions = new Queue<Motion>();
-
-			// 赤色LEDで暑さを表現
-			motions.Enqueue(TurnOnLED(255, 0, 0, 3000));
-
-			// だるそうにゆっくり動く
-			motions.Enqueue(Translate(50, 20));
-			motions.Enqueue(DegRotate(45, 20));
-			motions.Enqueue(Translate(-50, 20));
-
-			// 不快な鳴き声
-			motions.Enqueue(PresetSound(2, 200));
-
-			return new Action(motions);
+			return CreateInterleavedAction(
+				duration: 3.0f,
+				speed: 20,
+				movement: new TranslateCommand(50, 20), // だるそうな動き
+				led: (255, 0, 0), // 赤色LED
+				soundId: 2 // 不快な鳴き声
+			);
 		}
 
-		/// <summary>
-		/// 快適な温度でくつろぐ猫の様子を表現
-		/// なめらかな動きと温かみのある色で表現
-		/// </summary>
 		public static Action Cat_Comfortable()
 		{
-			var motions = new Queue<Motion>();
-
-			// 温かみのある黄色でLED表現
-			motions.Enqueue(TurnOnLED(255, 200, 0, 3000));
-
-			// ゆったりとした動き
-			motions.Enqueue(Translate(100, 40));
-			motions.Enqueue(DegRotate(180, 30));
-			motions.Enqueue(Translate(100, 40));
-
-			// 満足げな鳴き声
-			motions.Enqueue(PresetSound(0, 200));
-
-			return new Action(motions);
+			return CreateInterleavedAction(
+				duration: 3.0f,
+				speed: 40,
+				movement: new TranslateCommand(100, 40), // ゆったりとした動き
+				led: (255, 200, 0), // 温かみのある黄色
+				soundId: 0 // 満足げな鳴き声
+			);
 		}
 		#endregion
 
 		#region 草のアクション（湿度）
-		/// <summary>
-		/// 水不足でしなびている草の様子を表現
-		/// 不安定な揺れと黄色いLEDで表現
-		/// </summary>
 		public static Action Grass_Wilting()
 		{
-			var motions = new Queue<Motion>();
-
-			// 枯れかけの黄色でLED表現
-			motions.Enqueue(TurnOnLED(255, 255, 0, 3000));
-
-			// 弱々しく揺れる動き
-			for (int i = 0; i < 4; i++)
-			{
-				motions.Enqueue(DegRotate(15, 20));
-				motions.Enqueue(DegRotate(-15, 20));
-			}
-
-			return new Action(motions);
+			return CreateInterleavedAction(
+				duration: 3.0f,
+				speed: 20,
+				movement: new DegRotateCommand(15, 20), // 弱々しく揺れる
+				led: (255, 255, 0) // 枯れかけの黄色
+			);
 		}
 
-		/// <summary>
-		/// 水を得て元気になった草の様子を表現
-		/// 勢いのある動きと鮮やかな緑のLEDで表現
-		/// </summary>
 		public static Action Grass_Refreshed()
 		{
-			var motions = new Queue<Motion>();
-
-			// 鮮やかな緑でLED表現
-			motions.Enqueue(TurnOnLED(0, 255, 0, 3000));
-
-			// 勢いよく伸びる動き
-			motions.Enqueue(Translate(100, 80));
-			for (int i = 0; i < 3; i++)
-			{
-				motions.Enqueue(DegRotate(30, 60));
-				motions.Enqueue(DegRotate(-30, 60));
-			}
-
-			return new Action(motions);
+			return CreateInterleavedAction(
+				duration: 3.0f,
+				speed: 80,
+				movement: new TranslateCommand(100, 80), // 勢いよく伸びる
+				led: (0, 255, 0) // 鮮やかな緑
+			);
 		}
 
-		/// <summary>
-		/// 通常状態の草の様子を表現
-		/// 穏やかな揺れと緑のLEDで表現
-		/// </summary>
 		public static Action Grass_Normal()
 		{
-			var motions = new Queue<Motion>();
-
-			// 落ち着いた緑でLED表現
-			motions.Enqueue(TurnOnLED(0, 200, 0, 3000));
-
-			// ゆったりと揺れる動き
-			for (int i = 0; i < 3; i++)
-			{
-				motions.Enqueue(DegRotate(20, 40));
-				motions.Enqueue(DegRotate(-20, 40));
-			}
-
-			return new Action(motions);
+			return CreateInterleavedAction(
+				duration: 3.0f,
+				speed: 40,
+				movement: new DegRotateCommand(20, 40), // ゆったりと揺れる
+				led: (0, 200, 0) // 落ち着いた緑
+			);
 		}
 		#endregion
 
 		#region 服のアクション（湿度）
-		/// <summary>
-		/// 湿度が高くカビそうな服の様子を表現
-		/// 不規則な動きと暗い色で表現
-		/// </summary>
 		public static Action Clothes_HighHumidity()
 		{
-			var motions = new Queue<Motion>();
-
-			// くすんだ色でLED表現
-			motions.Enqueue(TurnOnLED(100, 100, 100, 3000));
-
-			// もたついた動き
-			for (int i = 0; i < 4; i++)
-			{
-				motions.Enqueue(Translate(30, 30));
-				motions.Enqueue(DegRotate(45, 40));
-				motions.Enqueue(Translate(-30, 30));
-			}
-
-			// 不快な音
-			motions.Enqueue(PresetSound(3, 200));
-
-			return new Action(motions);
+			return CreateInterleavedAction(
+				duration: 3.0f,
+				speed: 30,
+				movement: new TranslateCommand(30, 30), // もたついた動き
+				led: (100, 100, 100), // くすんだ色
+				soundId: 3 // 不快な音
+			);
 		}
 
-		/// <summary>
-		/// 最適な状態の服の様子を表現
-		/// スムーズな動きと爽やかな色で表現
-		/// </summary>
 		public static Action Clothes_Optimal()
 		{
-			var motions = new Queue<Motion>();
-
-			// 爽やかな青でLED表現
-			motions.Enqueue(TurnOnLED(100, 200, 255, 3000));
-
-			// なめらかな動き
-			motions.Enqueue(Translate(100, 60));
-			motions.Enqueue(DegRotate(360, 50));
-
-			// 清々しい音
-			motions.Enqueue(PresetSound(0, 200));
-
-			return new Action(motions);
+			return CreateInterleavedAction(
+				duration: 3.0f,
+				speed: 60,
+				movement: new TranslateCommand(100, 60), // なめらかな動き
+				led: (100, 200, 255), // 爽やかな青
+				soundId: 0 // 清々しい音
+			);
 		}
 
-		/// <summary>
-		/// 通常状態の服の様子を表現
-		/// 普通の動きと白色LEDで表現
-		/// </summary>
 		public static Action Clothes_Normal()
 		{
-			var motions = new Queue<Motion>();
-
-			// 白色でLED表現
-			motions.Enqueue(TurnOnLED(255, 255, 255, 3000));
-
-			// 標準的な動き
-			motions.Enqueue(Translate(50, 50));
-			motions.Enqueue(DegRotate(180, 50));
-
-			return new Action(motions);
+			return CreateInterleavedAction(
+				duration: 3.0f,
+				speed: 50,
+				movement: new TranslateCommand(50, 50), // 標準的な動き
+				led: (255, 255, 255) // 白色
+			);
 		}
 		#endregion
 
 		#region 人のアクション（二酸化炭素）
-		/// <summary>
-		/// 空気が籠もって苦しい様子を表現
-		/// 不安定な動きと暗い色で表現
-		/// </summary>
 		public static Action Human_HighCO2()
 		{
-			var motions = new Queue<Motion>();
-
-			// くすんだ紫でLED表現
-			motions.Enqueue(TurnOnLED(150, 0, 150, 3000));
-
-			// 不安定な動き
-			for (int i = 0; i < 3; i++)
-			{
-				motions.Enqueue(Translate(30, 30));
-				motions.Enqueue(DegRotate(60, 30));
-				motions.Enqueue(Translate(-30, 30));
-			}
-
-			// 苦しげな音
-			motions.Enqueue(PresetSound(4, 255));
-
-			return new Action(motions);
+			return CreateInterleavedAction(
+				duration: 3.0f,
+				speed: 30,
+				movement: new TranslateCommand(30, 30), // 不安定な動き
+				led: (150, 0, 150), // くすんだ紫
+				soundId: 4 // 苦しげな音
+			);
 		}
 
-		/// <summary>
-		/// 通常の空気環境での様子を表現
-		/// 標準的な動きで表現
-		/// </summary>
 		public static Action Human_Normal()
 		{
-			var motions = new Queue<Motion>();
-
-			// 標準的な白色でLED表現
-			motions.Enqueue(TurnOnLED(255, 255, 255, 3000));
-
-			// 普通の動き
-			motions.Enqueue(Translate(80, 50));
-			motions.Enqueue(DegRotate(90, 50));
-			motions.Enqueue(Translate(80, 50));
-
-			return new Action(motions);
+			return CreateInterleavedAction(
+				duration: 3.0f,
+				speed: 50,
+				movement: new TranslateCommand(80, 50), // 普通の動き
+				led: (255, 255, 255), // 標準的な白色
+				soundId: null
+			);
 		}
 
-		/// <summary>
-		/// 空気が清浄で快適な様子を表現
-		/// 活発な動きと爽やかな色で表現
-		/// </summary>
 		public static Action Human_FreshAir()
 		{
-			var motions = new Queue<Motion>();
-
-			// 爽やかな水色でLED表現
-			motions.Enqueue(TurnOnLED(100, 255, 255, 3000));
-
-			// 活発な動き
-			for (int i = 0; i < 2; i++)
-			{
-				motions.Enqueue(Translate(100, 80));
-				motions.Enqueue(DegRotate(360, 70));
-			}
-
-			// 元気な音
-			motions.Enqueue(PresetSound(0, 255));
-
-			return new Action(motions);
+			return CreateInterleavedAction(
+				duration: 3.0f,
+				speed: 80,
+				movement: new TranslateCommand(100, 80), // 活発な動き
+				led: (100, 255, 255), // 爽やかな水色
+				soundId: 0 // 元気な音
+			);
 		}
 		#endregion
 
 		#region PCのアクション（気温・湿度）
-		/// <summary>
-		/// 最適な環境でのPCの様子を表現
-		/// スムーズで効率的な動きで表現
-		/// </summary>
 		public static Action PC_Optimal()
 		{
-			var motions = new Queue<Motion>();
-
-			// クリーンな青色でLED表現
-			motions.Enqueue(TurnOnLED(0, 150, 255, 3000));
-
-			// 効率的な動き
-			motions.Enqueue(Translate(100, 100));
-			motions.Enqueue(DegRotate(90, 100));
-			motions.Enqueue(Translate(100, 100));
-			motions.Enqueue(DegRotate(90, 100));
-
-			// 快適な動作音
-			motions.Enqueue(PresetSound(0, 200));
-
-			return new Action(motions);
+			return CreateInterleavedAction(
+				duration: 3.0f,
+				speed: 100,
+				movement: new TranslateCommand(100, 100), // 効率的な動き
+				led: (0, 150, 255), // クリーンな青色
+				soundId: 0 // 快適な動作音
+			);
 		}
 
-		/// <summary>
-		/// 通常状態のPCの様子を表現
-		/// 標準的な動きで表現
-		/// </summary>
 		public static Action PC_Normal()
 		{
-			var motions = new Queue<Motion>();
-
-			// 標準的な青色でLED表現
-			motions.Enqueue(TurnOnLED(0, 0, 255, 3000));
-
-			// 通常の動き
-			motions.Enqueue(Translate(70, 50));
-			motions.Enqueue(DegRotate(90, 50));
-			motions.Enqueue(Translate(70, 50));
-
-			return new Action(motions);
+			return CreateInterleavedAction(
+				duration: 3.0f,
+				speed: 50,
+				movement: new TranslateCommand(70, 50), // 通常の動き
+				led: (0, 0, 255) // 標準的な青色
+			);
 		}
 
-		/// <summary>
-		/// 不快な環境でのPCの様子を表現
-		/// 異常な動きと警告色で表現
-		/// </summary>
 		public static Action PC_Uncomfortable()
 		{
-			var motions = new Queue<Motion>();
-
-			// 警告の赤色でLED表現
-			motions.Enqueue(TurnOnLED(255, 0, 0, 3000));
-
-			// 異常な動き
-			for (int i = 0; i < 4; i++)
-			{
-				motions.Enqueue(DegRotate(45, 100));
-				motions.Enqueue(DegRotate(-45, 100));
-				// 異常音
-				motions.Enqueue(PresetSound(5, 255));
-			}
-
-			return new Action(motions);
+			return CreateInterleavedAction(
+				duration: 3.0f,
+				speed: 100,
+				movement: new DegRotateCommand(45, 100), // 異常な動き
+				led: (255, 0, 0), // 警告の赤色
+				soundId: 5 // 異常音
+			);
 		}
 		#endregion
 	}

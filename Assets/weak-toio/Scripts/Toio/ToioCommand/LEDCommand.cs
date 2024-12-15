@@ -17,6 +17,7 @@ public class TurnOnLEDCommand : IToioCommand
 	public void Execute(Toio toio)
 	{
 		Cube cube = toio.Cube;
+		cube.TurnLedOn(red, green, blue, durationMills);
 	}
 }
 public class LEDBlinkCommand : IToioCommand
