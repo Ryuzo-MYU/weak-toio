@@ -130,7 +130,7 @@ namespace Robot
 			int? soundId = null)
 		{
 			var motions = new Queue<Motion>();
-			int segments = 50; // 分割数
+			int segments = 30; // 分割数
 			float segmentTime = duration / segments;
 			int segmentMs = (int)(segmentTime * 1000);
 
@@ -147,7 +147,7 @@ namespace Robot
 				{
 					motions.Enqueue(new Motion(
 						new TurnOnLEDCommand(led.r, led.g, led.b, segmentMs),
-						0.01f));
+						0));
 				}
 
 				// サウンドコマンドがある場合
@@ -155,7 +155,7 @@ namespace Robot
 				{
 					motions.Enqueue(new Motion(
 						new PresetSoundCommand(soundId.Value, 255),
-						0.01f));
+						0));
 				}
 			}
 
