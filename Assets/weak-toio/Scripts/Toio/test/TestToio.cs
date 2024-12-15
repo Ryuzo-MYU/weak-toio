@@ -17,6 +17,8 @@ namespace Robot
 			cubeManager = new CubeManager(connectType);
 			await cubeManager.SingleConnect();
 
+			cube = cubeManager.cubes[0];
+
 			StartCoroutine(StartMoveQueue());
 			StartCoroutine(StartLEDQueue());
 			StartCoroutine(StartSoundQueue());
