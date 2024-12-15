@@ -147,7 +147,7 @@ namespace Robot
 				{
 					motions.Enqueue(new Motion(
 						new TurnOnLEDCommand(led.r, led.g, led.b, segmentMs),
-						0));
+						0.01f));
 				}
 
 				// サウンドコマンドがある場合
@@ -155,7 +155,7 @@ namespace Robot
 				{
 					motions.Enqueue(new Motion(
 						new PresetSoundCommand(soundId.Value, 255),
-						0));
+						0.01f));
 				}
 			}
 
