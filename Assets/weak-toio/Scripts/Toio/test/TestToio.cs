@@ -22,21 +22,31 @@ namespace Robot
 			StartCoroutine(StartSoundQueue());
 		}
 
-		private IEnumerator StartMoveQueue(){
-			while(true){
-
+		private IEnumerator StartMoveQueue()
+		{
+			while (true)
+			{
+				cube.Move(10, 10, 1000);
+				yield return new WaitForSeconds(1f);
 			}
 		}
 
-		private IEnumerator StartLEDQueue(){
-			while(true){
-
+		private IEnumerator StartLEDQueue()
+		{
+			while (true)
+			{
+				cube.TurnLedOn(255, 0, 0, 500);
+				cube.TurnLedOff();
+				yield return new WaitForSeconds(1);
 			}
 		}
 
-		private IEnumerator StartSoundQueue(){
-			while(true){
-
+		private IEnumerator StartSoundQueue()
+		{
+			while (true)
+			{
+				cube.PlayPresetSound(1);
+				cube.PlayPresetSound(3);
 			}
 		}
 	}
