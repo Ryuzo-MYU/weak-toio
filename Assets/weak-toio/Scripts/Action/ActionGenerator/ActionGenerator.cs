@@ -25,11 +25,11 @@ namespace Robot
 			currentResult = result;
 		}
 
-		public IEnumerator ProcessAction(Toio toio)
+		public void ProcessAction(Toio toio)
 		{
 			Action action = GenerateAction(currentResult);
 			toio.AddNewAction(action);
-			yield return StartCoroutine(toio.Move());
+			StartCoroutine(toio.Move());
 		}
 
 		protected abstract Action GenerateAction(Result result);
