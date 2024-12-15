@@ -1226,12 +1226,24 @@ PrefabInstance:
     m_TransformParent: {fileID: 1660035779}
     m_Modifications:
     - target: {fileID: -5854147988216209431, guid: c51045368bd6441478e517fa30b7e6fb, type: 3}
+      propertyPath: _envType
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: -5854147988216209431, guid: c51045368bd6441478e517fa30b7e6fb, type: 3}
+      propertyPath: _unit.unit
+      value: '%'
+      objectReference: {fileID: 0}
+    - target: {fileID: -5854147988216209431, guid: c51045368bd6441478e517fa30b7e6fb, type: 3}
       propertyPath: suitableRange.LowerLimit
       value: 30
       objectReference: {fileID: 0}
     - target: {fileID: -5854147988216209431, guid: c51045368bd6441478e517fa30b7e6fb, type: 3}
       propertyPath: suitableRange.UpperLimit
       value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 2967492030441082689, guid: c51045368bd6441478e517fa30b7e6fb, type: 3}
+      propertyPath: type.Array.data[0]
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 3777579130281375468, guid: c51045368bd6441478e517fa30b7e6fb, type: 3}
       propertyPath: m_LocalPosition.x
