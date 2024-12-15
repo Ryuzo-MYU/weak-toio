@@ -69,7 +69,6 @@ namespace Robot
 				if (actions.Count > 0)
 				{
 					currentAction = actions.Dequeue();
-					motionCount = currentAction.Count();
 					Debug.Log("アクション無いんで入れ替えますね");
 				}
 				else
@@ -81,6 +80,7 @@ namespace Robot
 			while (currentAction.Count() > 0)
 			{
 				Motion motion = currentAction.GetNextMotion();
+				motionCount = currentAction.Count();
 				if (motion != null)
 				{
 					Debug.Log("ほな動きますね");

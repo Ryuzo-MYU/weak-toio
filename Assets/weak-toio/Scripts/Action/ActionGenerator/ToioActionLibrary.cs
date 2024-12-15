@@ -132,7 +132,7 @@ namespace Robot
 			var motions = new Queue<Motion>();
 			int segments = 35; // 分割数
 			float segmentTime = duration / segments;
-			int segmentMs = (int)(segmentTime * 1000);
+			int segmentMs = (int)(segmentTime * 500);
 
 			for (int i = 0; i < segments; i++)
 			{
