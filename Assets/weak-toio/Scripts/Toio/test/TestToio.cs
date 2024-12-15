@@ -19,7 +19,7 @@ namespace Robot
 			handle = cubeManager.handles[0];
 
 			StartCoroutine(StartMoveQueue());
-			// StartCoroutine(StartLEDQueue());
+			StartCoroutine(StartLEDQueue());
 			// StartCoroutine(StartSoundQueue());
 		}
 
@@ -29,7 +29,7 @@ namespace Robot
 			{
 				Debug.Log("Moveするよ");
 				handle.Update();
-				handle.TranslateByDist(50, 50).Exec();
+				handle.TranslateByDist(50, 50).Exec(false);
 				yield return new WaitForSeconds(50 / 50);
 			}
 		}
