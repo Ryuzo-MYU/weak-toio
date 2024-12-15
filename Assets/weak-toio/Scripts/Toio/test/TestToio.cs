@@ -20,7 +20,7 @@ namespace Robot
 
 			StartCoroutine(StartMoveQueue());
 			StartCoroutine(StartLEDQueue());
-			// StartCoroutine(StartSoundQueue());
+			StartCoroutine(StartSoundQueue());
 		}
 
 		private IEnumerator StartMoveQueue()
@@ -38,7 +38,8 @@ namespace Robot
 		{
 			while (true)
 			{
-				cube.TurnLedOn(255, 0, 0, 500);
+				Debug.Log("光るよ");
+				cube.TurnLedOn(255, 0, 0, 1000);
 				cube.TurnLedOff();
 				yield return new WaitForSeconds(1);
 			}
@@ -48,6 +49,7 @@ namespace Robot
 		{
 			while (true)
 			{
+				Debug.Log("音がなるよ");
 				cube.PlayPresetSound(1);
 				cube.PlayPresetSound(3);
 				yield return new WaitForSeconds(1f);
