@@ -18,6 +18,7 @@ namespace Robot
 		public List<EnvType> Type { get { return type; } }
 		public Cube Cube { get { return _cube; } }
 		public CubeHandle Handle { get { return _handle; } }
+		public int actionCount;
 
 		[SerializeField] private int actionMaxCount;
 		private Queue<Action> actions;
@@ -30,6 +31,7 @@ namespace Robot
 		{
 			actions = new Queue<Action>();
 			currentAction = new Action();
+			actionCount = actions.Count;
 
 			actionGenerator = gameObject.GetComponent<ActionGenerator>();
 			actionGenerator.OnActionGenerated += AddNewAction;
@@ -40,6 +42,11 @@ namespace Robot
 			{
 				this._name = gameObject.name;
 			}
+		}
+
+		private void Update()
+		{
+			actionCount = actions.Count;
 		}
 
 		private void OnConnectSucceeded()
