@@ -58,39 +58,35 @@ namespace Robot
 		}
 		private void OnRegisterCompleted()
 		{
-			actionGenerator.ProcessAction(this);
+			actionGenerator.StartMove(this);
 		}
 
 		// 実行関連のメソッド
 		public IEnumerator Move()
 		{
-			while (true)
+			if (currentAction == null || currentAction.Count() == 0)
 			{
-				if (currentAction == null || currentAction.Count() == 0)
+				if (actions.Count > 0)
 				{
-					if (actions.Count > 0)
-					{
-						currentAction = actions.Dequeue();
-						motionCount = currentAction.Count();
-						Debug.Log("アクション無いんで入れ替えますね");
-					}
-					else
-					{
-						yield return null;
-						continue;
-					}
+					currentAction = actions.Dequeue();
+					motionCount = currentAction.Count();
+					Debug.Log("アクション無いんで入れ替えますね");
 				}
-
-				Robot.Motion motion = currentAction.GetNextMotion();
-				if (motion != null)
+				else
 				{
-					Debug.Log("ほな動きますね");
-					motion.command.Execute(this);
-					Debug.Log($"インターバル: {motion.interval}");
-					yield return new WaitForSeconds(motion.interval);
+					yield return null;
 				}
-				yield return null;
 			}
+
+			Robot.Motion motion = currentAction.GetNextMotion();
+			if (motion != null)
+			{
+				Debug.Log("ほな動きますね");
+				motion.command.Execute(this);
+				Debug.Log($"インターバル: {motion.interval}");
+				yield return new WaitForSeconds(motion.interval);
+			}
+			yield return null;
 		}
 
 		public void AddNewAction(Action action)
