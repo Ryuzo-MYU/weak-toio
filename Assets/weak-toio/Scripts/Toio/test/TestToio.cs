@@ -50,10 +50,8 @@ namespace Robot
 			while (true)
 			{
 				Debug.Log("音がなるよ");
-				cube.PlayPresetSound(1);
-				new WaitForSeconds(1f);
-				cube.PlayPresetSound(3);
-				yield return new WaitForSeconds(1f);
+				cube.PlayPresetSound(5);
+				yield return new WaitForSeconds(2f);
 			}
 		}
 	}
