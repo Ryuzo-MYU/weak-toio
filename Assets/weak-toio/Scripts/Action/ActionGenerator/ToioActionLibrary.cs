@@ -130,7 +130,7 @@ namespace Robot
 			int? soundId = null)
 		{
 			var motions = new Queue<Motion>();
-			int segments = 20; // 分割数
+			int segments = 50; // 分割数
 			float segmentTime = duration / segments;
 			int segmentMs = (int)(segmentTime * 1000);
 
