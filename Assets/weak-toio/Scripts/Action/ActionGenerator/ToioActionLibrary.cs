@@ -123,67 +123,54 @@ namespace Robot
 		#region 猫のアクション（気温）
 		public static Action Cat_Cold()
 		{
-			return CreateInterleavedAction(
-				duration: 3.0f,
-				speed: 100,
-				movement: new DegRotateCommand(10, 100), // 震える動作
-				led: (0, 0, 255), // 青色LED
-				soundId: 1 // 寒そうな鳴き声
-			);
+			Action action = new Action();
+			action.AddMovement(DegRotate(10, 100));
+			action.AddLight(TurnOnLED(0, 0, 255, 3000));
+			action.AddSound(PresetSound(0, 1, 2f));
+			return action;
 		}
 
 		public static Action Cat_Hot()
 		{
-			return CreateInterleavedAction(
-				duration: 3.0f,
-				speed: 20,
-				movement: Translate(50, 20), // だるそうな動き
-				led: (255, 0, 0), // 赤色LED
-				soundId: 2 // 不快な鳴き声
-			);
+			Action action = new Action();
+			action.AddMovement(Translate(50, 20));
+			action.AddLight(TurnOnLED(255, 0, 0, 3000));
+			action.AddSound(PresetSound(2, 50, 2));
+			return action;
 		}
 
 		public static Action Cat_Comfortable()
 		{
-			return CreateInterleavedAction(
-				duration: 3.0f,
-				speed: 40,
-				movement: Translate(100, 40), // ゆったりとした動き
-				led: (255, 200, 0), // 温かみのある黄色
-				soundId: 0, // 満足げな鳴き声
-				soundDuration: 1f
-			);
+			   Action action = new Action();
+    action.AddMovement(Translate(100, 40));  // ゆったりとした動き
+    action.AddLight(TurnOnLED(255, 200, 0, 3000));  // 温かみのある黄色
+    action.AddSound(PresetSound(0, 255, 1f));  // 満足げな鳴き声
+    return action;
 		}
 		#endregion
 
 		public static Action Grass_Refreshed()
 		{
-			return CreateInterleavedAction(
-				duration: 3.0f,
-				speed: 80,
-				movement: Translate(100, 80), // 勢いよく伸びる
-				led: (0, 255, 0) // 鮮やかな緑
-			);
+    Action action = new Action();
+    action.AddMovement(Translate(100, 80));  // 勢いよく伸びる
+    action.AddLight(TurnOnLED(0, 255, 0, 3000));  // 鮮やかな緑
+    return action;
 		}
 
 		#region  草(湿度)
 		public static Action Grass_Normal()
 		{
-			return CreateInterleavedAction(
-				duration: 3.0f,
-				speed: 40,
-				movement: DegRotate(20, 40), // ゆったりと揺れる
-				led: (0, 200, 0) // 落ち着いた緑
-			);
+			   Action action = new Action();
+    action.AddMovement(DegRotate(20, 40));  // ゆったりと揺れる
+    action.AddLight(TurnOnLED(0, 200, 0, 3000));  // 落ち着いた緑
+    return action;
 		}
 		public static Action Grass_Wilting()
 		{
-			return CreateInterleavedAction(
-				duration: 3.0f,
-				speed: 20,
-				movement: DegRotate(15, 20), // 弱々しく揺れる
-				led: (255, 255, 0) // 枯れかけの黄色
-			);
+		   Action action = new Action();
+    action.AddMovement(DegRotate(15, 20));  // 弱々しく揺れる
+    action.AddLight(TurnOnLED(255, 255, 0, 3000));  // 枯れかけの黄色
+    return action;
 		}
 
 
@@ -192,26 +179,20 @@ namespace Robot
 		#region 服のアクション（湿度）
 		public static Action Clothes_HighHumidity()
 		{
-			return CreateInterleavedAction(
-				duration: 3.0f,
-				speed: 30,
-				movement: Translate(30, 30), // もたついた動き
-				led: (100, 100, 100), // くすんだ色
-				soundId: 3, // 不快な音
-				soundDuration: 2f
-			);
+	    Action action = new Action();
+    action.AddMovement(Translate(30, 30));  // もたついた動き
+    action.AddLight(TurnOnLED(100, 100, 100, 3000));  // くすんだ色
+    action.AddSound(PresetSound(3, 255, 2f));  // 不快な音
+    return action;
 		}
 
 		public static Action Clothes_Optimal()
 		{
-			return CreateInterleavedAction(
-				duration: 3.0f,
-				speed: 60,
-				movement: Translate(100, 60), // なめらかな動き
-				led: (100, 200, 255), // 爽やかな青
-				soundId: 0, // 清々しい音
-				soundDuration: 2f
-			);
+		    Action action = new Action();
+    action.AddMovement(Translate(100, 60));  // なめらかな動き
+    action.AddLight(TurnOnLED(100, 200, 255, 3000));  // 爽やかな青
+    action.AddSound(PresetSound(0, 255, 2f));  // 清々しい音
+    return action;
 		}
 		#endregion
 
