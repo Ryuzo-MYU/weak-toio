@@ -5,8 +5,9 @@ namespace Robot
 		public float Interval { get; protected set; }
 		public bool IsCompleted { get; protected set; }
 
-		protected BaseMotion()
+		protected BaseMotion(float interval)
 		{
+			this.Interval = interval;
 			this.IsCompleted = false;
 		}
 

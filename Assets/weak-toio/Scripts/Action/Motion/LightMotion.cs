@@ -6,10 +6,9 @@ namespace Robot
 	{
 		public ILightCommand LightCommand { get; private set; }
 
-		public LightMotion(ILightCommand _light, float interval) : base()
+		public LightMotion(ILightCommand _light, float interval) : base(interval)
 		{
 			LightCommand = _light;
-			Interval = interval;
 		}
 
 		public override void Exec(Toio toio)

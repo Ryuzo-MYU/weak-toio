@@ -4,7 +4,7 @@ namespace Robot
 	{
 		public IMovementCommand Move { get; private set; }
 
-		public MovementMotion(IMovementCommand _command) : base()
+		public MovementMotion(IMovementCommand _command, float interval) : base(interval)
 		{
 			Move = _command;
 		}

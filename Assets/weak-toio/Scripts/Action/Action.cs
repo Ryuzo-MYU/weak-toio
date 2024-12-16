@@ -21,9 +21,9 @@ namespace Robot
 			this.movements = motions;
 		}
 
-		public void AddMovement(IMovementCommand command)
+		public void AddMovement(IMovementCommand command, float interval)
 		{
-			movements.Enqueue(new MovementMotion(command));
+			movements.Enqueue(new MovementMotion(command, interval));
 		}
 
 		public void AddLight(ILightCommand command, float duration)
@@ -31,9 +31,9 @@ namespace Robot
 			lights.Enqueue(new LightMotion(command, duration));
 		}
 
-		public void AddSound(ISoundCommand sound)
+		public void AddSound(ISoundCommand sound, float interval)
 		{
-			sounds.Enqueue(new SoundMotion(sound));
+			sounds.Enqueue(new SoundMotion(sound, interval));
 		}
 
 		public int Count()
