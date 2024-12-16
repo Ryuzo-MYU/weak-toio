@@ -18,8 +18,10 @@ namespace Robot
 		public List<EnvType> Type { get { return type; } }
 		public Cube Cube { get { return _cube; } }
 		public CubeHandle Handle { get { return _handle; } }
-		public int motionCount;
 
+		public readonly int movementCount;
+		public readonly int ledCount;
+		public readonly int soundCount;
 		[SerializeField] private int actionMaxCount;
 		private Queue<Action> actions;
 		private Action currentAction;
@@ -79,15 +81,9 @@ namespace Robot
 
 			while (currentAction.Count() > 0)
 			{
-				MovementMotion motion = currentAction.GetNextMotion();
-				motionCount = currentAction.Count();
-				if (motion != null)
-				{
-					Debug.Log("ほな動きますね");
-					motion.command.Execute(this);
-					Debug.Log($"インターバル: {motion.interval}");
-					yield return new WaitForSeconds(motion.interval);
-				}
+				StartCoroutine(UpdateMovement());
+				StartCoroutine(UpdateLED());
+				StartCoroutine(UpdateSound());
 			}
 			yield return null;
 		}
@@ -112,6 +108,30 @@ namespace Robot
 				isMoving = true;
 			}
 
+		}
+
+		private IEnumerator UpdateMovement()
+		{
+			if (currentAction.MovementCount() < 0) yield return null;
+			MovementMotion move = currentAction.GetNextMovement();
+			move.Exec(this);
+			yield return new WaitForSeconds(move.Interval);
+		}
+
+		private IEnumerator UpdateLED()
+		{
+			if (currentAction.LightCount() < 0) yield return null;
+			LightMotion light = currentAction.GetNextLight();
+			light.Exec(this);
+			yield return new WaitForSeconds(light.Interval);
+		}
+
+		private IEnumerator UpdateSound()
+		{
+			if (currentAction.SoundCount() < 0) yield return null;
+			SoundMotion sound = currentAction.GetNextSound();
+			sound.Exec(this);
+			yield return new WaitForSeconds(sound.Interval);
 		}
 
 		public void Stop()

@@ -1,7 +1,7 @@
 using Robot;
 using toio;
 
-public class TurnOnLEDCommand : IToioCommand
+public class TurnOnLEDCommand : ILightCommand
 {
 	int red;
 	int green;
@@ -20,7 +20,7 @@ public class TurnOnLEDCommand : IToioCommand
 		cube.TurnLedOn(red, green, blue, durationMills);
 	}
 }
-public class LEDBlinkCommand : IToioCommand
+public class LEDBlinkCommand : ILightCommand
 {
 	int repeatCount;
 	Cube.LightOperation[] lightOperations;

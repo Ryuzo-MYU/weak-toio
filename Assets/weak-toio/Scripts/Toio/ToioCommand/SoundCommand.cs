@@ -5,7 +5,7 @@ using toio;
 /// <summary>
 /// 任意のサウンドを組んでtoioに鳴らさせるクラス
 /// </summary>
-public class SoundCommand : IToioCommand
+public class SoundCommand : ISoundCommand
 {
 	int repeatCount;
 	Cube.SoundOperation[] sounds;
@@ -24,7 +24,7 @@ public class SoundCommand : IToioCommand
 /// <summary>
 /// toio側に登録されているサウンドプリセットを選んで鳴らす
 /// </summary>
-public class PresetSoundCommand : IToioCommand
+public class PresetSoundCommand : ISoundCommand
 {
 	int soundId;
 	int volume;

@@ -2,7 +2,7 @@ using toio;
 
 namespace Robot
 {
-	public class TranslateCommand : IToioCommand
+	public class TranslateCommand : IMovementCommand
 	{
 		float dist;
 		double speed;

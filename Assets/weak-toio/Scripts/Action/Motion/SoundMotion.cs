@@ -1,19 +1,17 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
 namespace Robot
 {
 	public class SoundMotion : BaseMotion
 	{
-		private int soundId;
-		private int volume;
+		public ISoundCommand SoundCommand { get; private set; }
 
-		public SoundMotion(int _soundId, int _volume, float _interval) : base(_interval)
+		public SoundMotion(ISoundCommand _sound) : base()
 		{
-			soundId = _soundId;
-			volume = _volume;
+			SoundCommand = _sound;
+		}
+
+		public override void Exec(Toio toio)
+		{
+			SoundCommand.Execute(toio);
 		}
 	}
 }

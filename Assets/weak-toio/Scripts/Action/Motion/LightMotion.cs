@@ -1,16 +1,20 @@
+using UnityEngine;
+
 namespace Robot
 {
 	public class LightMotion : BaseMotion
 	{
-		private int red, green, blue;
-		private int durationMs;
+		public ILightCommand LightCommand { get; private set; }
 
-		public LightMotion(int _red, int _green, int _blue, int _durationMs, float _interval) : base(_interval)
+		public LightMotion(ILightCommand _light) : base()
 		{
-			red = _red;
-			green = _green;
-			blue = _blue;
-			durationMs = _durationMs;
+			LightCommand = _light;
+			Interval = 0.1f;
+		}
+
+		public override void Exec(Toio toio)
+		{
+			LightCommand.Execute(toio);
 		}
 	}
 }

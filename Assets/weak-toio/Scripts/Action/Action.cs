@@ -1,44 +1,86 @@
-using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Robot
 {
 	public class Action
 	{
-		private Queue<MovementMotion> motions;
+		private Queue<MovementMotion> movements;
 		private Queue<LightMotion> lights;
 		private Queue<SoundMotion> sounds;
 
 		public Action()
 		{
-			motions = new Queue<MovementMotion>();
+			movements = new Queue<MovementMotion>();
 			lights = new Queue<LightMotion>();
 			sounds = new Queue<SoundMotion>();
 		}
 
 		public Action(Queue<MovementMotion> motions)
 		{
-			this.motions = motions;
+			this.movements = motions;
+		}
+
+		public void AddMovement(IMovementCommand command)
+		{
+			movements.Enqueue(new MovementMotion(command));
+		}
+
+		public void AddLight(ILightCommand command, float interval)
+		{
+			lights.Enqueue(new LightMotion(command));
+		}
+
+		public int Count()
+		{
+			List<int> counts = new List<int>{
+				movements.Count,
+				lights.Count,
+				sounds.Count
+			};
+			return counts.Max();
 		}
 
 		/// <summary>
 		/// motionsのQueueから次(最も古い)モーションを取って返す
 		/// </summary>
 		/// <returns></returns>
-		public MovementMotion GetNextMotion()
+		public MovementMotion GetNextMovement()
 		{
 			//motionが残っていないならnull返して早期リターン
-			if (motions.Count == 0) return null;
-			return motions.Dequeue();
+			if (movements.Count == 0) return null;
+			return movements.Dequeue();
+		}
+
+		public LightMotion GetNextLight()
+		{
+			if (lights.Count == 0) return null;
+			return lights.Dequeue();
+		}
+
+		public SoundMotion GetNextSound()
+		{
+			if (sounds.Count == 0) return null;
+			return sounds.Dequeue();
 		}
 
 		/// <summary>
 		/// motionsの個数を返す
 		/// </summary>
 		/// <returns></returns>
-		public int Count()
+		public int MovementCount()
 		{
-			return motions.Count;
+			return movements.Count;
+		}
+
+		public int LightCount()
+		{
+			return lights.Count;
+		}
+
+		public int SoundCount()
+		{
+			return sounds.Count;
 		}
 
 		/// <summary>
@@ -48,11 +90,11 @@ namespace Robot
 		{
 			for (int i = 0; i < count; i++)
 			{
-				Queue<MovementMotion> repeat = new Queue<MovementMotion>(motions);
+				Queue<MovementMotion> repeat = new Queue<MovementMotion>(movements);
 				while (repeat.Count > 0)
 				{
 					MovementMotion motion = repeat.Dequeue();
-					motions.Enqueue(motion);
+					movements.Enqueue(motion);
 				}
 			}
 		}
