@@ -3,10 +3,6 @@ using toio;
 
 namespace Robot
 {
-	/// <summary>
-	/// 複数のモーションを組み合わせた、意味のあるアクションを提供するライブラリ
-	/// ActionGeneratorを継承したクラスから利用することを想定
-	/// </summary>
 	public class ToioActionLibrary
 	{
 		// ==============================
@@ -14,152 +10,113 @@ namespace Robot
 		// ==============================
 
 		/// <summary>
-		/// 前後移動のMosionを返す
+		/// 前後移動のMotionを返す
 		/// </summary>
-		/// <param name="_dist">距離</param>
-		/// <param name="_speed">速度</param>
-		/// <returns>Motion</returns>
-		public static MovementMotion Translate(float _dist, double _speed)
+		public static void AddTranslate(Action action, float _dist, double _speed)
 		{
-			IToioCommand translate = new TranslateCommand(_dist, _speed);
-			float interval = (float)_dist / (float)_speed;
-			return new MovementMotion(translate, interval);
+			IMovementCommand translate = new TranslateCommand(_dist, _speed);
+			action.AddMovement(translate);
 		}
 
 		/// <summary>
-		/// 回転移動のMotionを返す
+		/// 回転移動のMotionを返す (弧度法)
 		/// </summary>
-		/// <param name="_deg">角度(弧度法)</param>
-		/// <param name="_speed">速度</param>
-		/// <returns>Motion</returns>
-		public static MovementMotion DegRotate(float _deg, double _speed)
+		public static void AddDegRotate(Action action, float _deg, double _speed)
 		{
-			IToioCommand degRotate = new DegRotateCommand(_deg, _speed);
-			float interval = (float)_deg / (float)_speed;
-			return new MovementMotion(degRotate, interval);
+			IMovementCommand degRotate = new DegRotateCommand(_deg, _speed);
+			action.AddMovement(degRotate);
 		}
 
 		/// <summary>
-		/// 回転移動のMotionを返す
+		/// 回転移動のMotionを返す (ラジアン)
 		/// </summary>
-		/// <param name="_rad">角度(ラジアン)</param>
-		/// <param name="_speed">速度</param>
-		/// <returns>Motion</returns>
-		public static MovementMotion RadRotate(float _rad, double _speed)
+		public static void AddRadRotate(Action action, float _rad, double _speed)
 		{
-			IToioCommand radRotate = new RadRotateCommand(_rad, _speed);
-			float interval = (float)_rad / (float)_speed;
-			return new MovementMotion(radRotate, interval);
+			IMovementCommand radRotate = new RadRotateCommand(_rad, _speed);
+			action.AddMovement(radRotate);
 		}
 
 		/// <summary>
 		/// toioから任意の音を鳴らすMotionを返す
-		/// あらかじめtoio-sdkのCube.SoundOperationインスタンスの配列を作って渡す
 		/// </summary>
-		/// <param name="_repeatCount">繰り返し回数</param>
-		/// <param name="_sounds">Cube.SoundOperationインスタンスの配列</param>
-		/// <returns>Motion</returns>
-		public static MovementMotion Sound(int _repeatCount, Cube.SoundOperation[] _sounds)
+		public static void AddSound(Action action, int _repeatCount, Cube.SoundOperation[] _sounds)
 		{
-			SoundCommand soundCommand = new SoundCommand(_repeatCount, _sounds);
+			ISoundCommand soundCommand = new SoundCommand(_repeatCount, _sounds);
 			float interval = 0;
 			foreach (var sound in _sounds)
 			{
 				interval += sound.durationMs;
 			}
-			return new MovementMotion(soundCommand, interval);
+			action.AddSound(soundCommand);
 		}
 
 		/// <summary>
 		/// toioに登録されているSEを鳴らすMotionを返す
 		/// </summary>
-		/// <param name="_soundId">SEのID。0～10まで</param>
-		/// <param name="_volume">音量</param>
-		/// <returns>Motion</returns>
-		public static MovementMotion PresetSound(int _soundId, int _volume)
+		public static void AddPresetSound(Action action, int _soundId, int _volume)
 		{
-			PresetSoundCommand presetSound = new PresetSoundCommand(_soundId, _volume);
-			float interval = 0.5f; // サウンドごとの間隔を取得できないため、決め打ち。
-			return new MovementMotion(presetSound, interval);
+			ISoundCommand presetSound = new PresetSoundCommand(_soundId, _volume);
+			action.AddSound(presetSound);
 		}
 
 		/// <summary>
 		/// toioのLEDを一定時間点灯するMotionを返す
 		/// </summary>
-		/// <param name="_red">R</param>
-		/// <param name="_green">G</param>
-		/// <param name="_blue">B</param>
-		/// <param name="_durationMills">点灯時間</param>
-		/// <returns>Motion</returns>
-		public static MovementMotion TurnOnLED(int _red, int _green, int _blue, int _durationMills)
+		public static void AddTurnOnLED(Action action, int _red, int _green, int _blue, int _durationMills)
 		{
-			TurnOnLEDCommand lEDCommand = new TurnOnLEDCommand(_red, _green, _blue, _durationMills);
-			float interval = _durationMills;
-			return new MovementMotion(lEDCommand, interval);
+			ILightCommand lEDCommand = new TurnOnLEDCommand(_red, _green, _blue, _durationMills);
+			action.AddLight(lEDCommand);
 		}
 
 		/// <summary>
 		/// LEDを任意の間隔で点灯するMotionを返す
 		/// </summary>
-		/// <param name="_repeatCount">繰り返し回数</param>
-		/// <param name="_lightOperations">Cube.LightOperation。詳しくはtoio-sdkを見て</param>
-		/// <returns>Motion</returns>
-		public static MovementMotion LEDBlink(int _repeatCount, Cube.LightOperation[] _lightOperations)
+		public static void AddLEDBlink(Action action, int _repeatCount, Cube.LightOperation[] _lightOperations)
 		{
-			LEDBlinkCommand lEDBlink = new LEDBlinkCommand(_repeatCount, _lightOperations);
+			ILightCommand lEDBlink = new LEDBlinkCommand(_repeatCount, _lightOperations);
 			float interval = 0;
 			foreach (var operation in _lightOperations)
 			{
 				interval += operation.durationMs;
 			}
-			return new MovementMotion(lEDBlink, interval);
+			action.AddLight(lEDBlink);
 		}
 
 		// ==============================
-		// 基本モーションを使ったアクションライブラリ
+		// アクションライブラリ
 		// ==============================
 
-		/// <summary>
-		/// 複数のコマンドを細かく分割して交互実行するためのヘルパーメソッド
-		/// </summary>
 		private static Action CreateInterleavedAction(
 			float duration,
 			float speed,
-			IToioCommand movement = null,
+			IMovementCommand movement = null,
 			(int r, int g, int b) led = default,
 			int? soundId = null)
 		{
-			var motions = new Queue<MovementMotion>();
-			int segments = 30; // 分割数
-			float segmentTime = duration / segments;
-			int segmentMs = (int)(segmentTime * 500);
+			var action = new Action();
 
-			for (int i = 0; i < segments; i++)
+			// 移動コマンドがある場合
+			if (movement != null)
 			{
-				// 移動コマンドがある場合
-				if (movement != null)
-				{
-					motions.Enqueue(new MovementMotion(movement, segmentTime));
-				}
-
-				// LED点灯コマンドがある場合
-				if (led != default)
-				{
-					motions.Enqueue(new MovementMotion(
-						new TurnOnLEDCommand(led.r, led.g, led.b, segmentMs),
-						0));
-				}
-
-				// サウンドコマンドがある場合
-				if (soundId.HasValue && i == 0) // サウンドは最初のセグメントでのみ実行
-				{
-					motions.Enqueue(new MovementMotion(
-						new PresetSoundCommand(soundId.Value, 255),
-						0));
-				}
+				action.AddMovement(movement);
 			}
 
-			return new Action(motions);
+			// LED点灯コマンドがある場合
+			if (led != default)
+			{
+				int durationMs = (int)(duration * 1000);
+				ILightCommand ledCommand = new TurnOnLEDCommand(led.r, led.g, led.b, durationMs);
+				action.AddLight(ledCommand);
+			}
+
+			// サウンドコマンドがある場合
+			if (soundId.HasValue)
+			{
+				ISoundCommand soundCommand = new PresetSoundCommand(soundId.Value, 255);
+				action.AddSound(soundCommand);
+			}
+
+			return action;
 		}
 
 		#region 猫のアクション（気温）
@@ -251,16 +208,6 @@ namespace Robot
 				soundId: 0 // 清々しい音
 			);
 		}
-
-		public static Action Clothes_Normal()
-		{
-			return CreateInterleavedAction(
-				duration: 3.0f,
-				speed: 50,
-				movement: new TranslateCommand(50, 50), // 標準的な動き
-				led: (255, 255, 255) // 白色
-			);
-		}
 		#endregion
 
 		#region 人のアクション（二酸化炭素）
@@ -272,17 +219,6 @@ namespace Robot
 				movement: new TranslateCommand(30, 30), // 不安定な動き
 				led: (150, 0, 150), // くすんだ紫
 				soundId: 4 // 苦しげな音
-			);
-		}
-
-		public static Action Human_Normal()
-		{
-			return CreateInterleavedAction(
-				duration: 3.0f,
-				speed: 50,
-				movement: new TranslateCommand(80, 50), // 普通の動き
-				led: (255, 255, 255), // 標準的な白色
-				soundId: null
 			);
 		}
 
@@ -307,16 +243,6 @@ namespace Robot
 				movement: new TranslateCommand(100, 100), // 効率的な動き
 				led: (0, 150, 255), // クリーンな青色
 				soundId: 0 // 快適な動作音
-			);
-		}
-
-		public static Action PC_Normal()
-		{
-			return CreateInterleavedAction(
-				duration: 3.0f,
-				speed: 50,
-				movement: new TranslateCommand(70, 50), // 通常の動き
-				led: (0, 0, 255) // 標準的な青色
 			);
 		}
 
