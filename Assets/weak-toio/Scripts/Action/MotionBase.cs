@@ -1,12 +1,14 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
 namespace Robot
 {
-    public class MotionBase
-    {
-        
-    }
+	public abstract class BaseMotion
+	{
+		public float Interval { get; protected set; }
+		public bool IsCompleted { get; protected set; }
+
+		protected BaseMotion(float interval)
+		{
+			this.Interval = interval;
+			this.IsCompleted = false;
+		}
+	}
 }
