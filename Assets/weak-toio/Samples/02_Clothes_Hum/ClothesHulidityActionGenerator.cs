@@ -17,7 +17,7 @@ namespace Robot
 			}
 			else if (cautionRange.isWithInRange(score))
 			{
-				return ToioActionLibrary.Clothes_Normal();
+				return ToioActionLibrary.Clothes_Optimal();
 			}
 			else
 			{
