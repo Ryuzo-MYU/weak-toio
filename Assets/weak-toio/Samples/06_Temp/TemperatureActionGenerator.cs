@@ -33,65 +33,60 @@ namespace Robot
 
 		private Action SuitableAction()
 		{
-			Queue<MovementMotion> suitableAction = new Queue<MovementMotion>();
+			Action action = new Action();
 			float deg = 90;
 			double speed = 45;
-			suitableAction.Enqueue(ToioActionLibrary.DegRotate(deg, speed));
-			suitableAction.Enqueue(ToioActionLibrary.DegRotate(-deg, speed));
+			action.AddMovement(ToioActionLibrary.DegRotate(deg, speed));
+			action.AddMovement(ToioActionLibrary.DegRotate(-deg, speed));
 
 			int soundID = 1;
 			int volume = 1;
-			suitableAction.Enqueue(ToioActionLibrary.PresetSound(soundID, volume));
+			action.AddSound(ToioActionLibrary.PresetSound(soundID, volume, 2f));
 
-			Action action = new Action(suitableAction);
 			return action;
 		}
 
 		private Action ColdCautionAction()
 		{
-			Queue<MovementMotion> cautionShiver = new Queue<MovementMotion>();
+			Action action = new Action();
 			float rad = (float)(10 * Math.PI / 180);
 			double speed = 50;
-			cautionShiver.Enqueue(ToioActionLibrary.RadRotate(rad, speed));
-			cautionShiver.Enqueue(ToioActionLibrary.RadRotate(-rad, speed));
+			action.AddMovement(ToioActionLibrary.RadRotate(rad, speed));
+			action.AddMovement(ToioActionLibrary.RadRotate(-rad, speed));
 
-			Action action = new Action(cautionShiver);
 			return action;
 		}
 
 		private Action ColdDangerAction()
 		{
-			Queue<MovementMotion> dangerShiver = new Queue<MovementMotion>();
+			Action action = new Action();
 			float deg = 10f;
 			double speed = 100;
-			dangerShiver.Enqueue(ToioActionLibrary.DegRotate(deg, speed));
-			dangerShiver.Enqueue(ToioActionLibrary.DegRotate(-deg, speed));
+			action.AddMovement(ToioActionLibrary.DegRotate(deg, speed));
+			action.AddMovement(ToioActionLibrary.DegRotate(-deg, speed));
 
-			Action action = new Action(dangerShiver);
 			return action;
 		}
 
 		private Action HotCautionAction()
 		{
-			Queue<MovementMotion> cautionTwist = new Queue<MovementMotion>();
+			Action action = new Action();
 			float deg = 50f;
 			double speed = 50;
-			cautionTwist.Enqueue(ToioActionLibrary.DegRotate(deg, speed));
-			cautionTwist.Enqueue(ToioActionLibrary.DegRotate(-deg, speed));
+			action.AddMovement(ToioActionLibrary.DegRotate(deg, speed));
+			action.AddMovement(ToioActionLibrary.DegRotate(-deg, speed));
 
-			Action action = new Action(cautionTwist);
 			return action;
 		}
 
 		private Action HotDangerAction()
 		{
-			Queue<MovementMotion> dangerTwist = new Queue<MovementMotion>();
+			Action action = new Action();
 			float deg = 90f;
 			double speed = 200;
-			dangerTwist.Enqueue(ToioActionLibrary.DegRotate(deg, speed));
-			dangerTwist.Enqueue(ToioActionLibrary.DegRotate(-deg, speed));
+			action.AddMovement(ToioActionLibrary.DegRotate(deg, speed));
+			action.AddMovement(ToioActionLibrary.DegRotate(-deg, speed));
 
-			Action action = new Action(dangerTwist);
 			return action;
 		}
 	}
