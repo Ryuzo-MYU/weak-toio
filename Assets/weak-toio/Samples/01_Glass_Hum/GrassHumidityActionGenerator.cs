@@ -1,4 +1,3 @@
-#region 草のアクション生成
 using Evaluation;
 namespace Robot
 {
@@ -26,4 +25,3 @@ namespace Robot
 		}
 	}
 }
-#endregion
