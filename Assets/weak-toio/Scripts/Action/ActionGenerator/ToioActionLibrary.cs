@@ -61,10 +61,10 @@ namespace Robot
 		/// <summary>
 		/// toioに登録されているSEを鳴らすActionを生成
 		/// </summary>
-		public static Action PresetSound(int _soundId, int _volume)
+		public static Action PresetSound(int _soundId, int _volume, float interval)
 		{
 			Action action = new Action();
-			ISoundCommand presetSound = new PresetSoundCommand(_soundId, _volume);
+			ISoundCommand presetSound = new PresetSoundCommand(_soundId, _volume, interval);
 			action.AddSound(presetSound);
 			return action;
 		}
@@ -76,7 +76,7 @@ namespace Robot
 		{
 			Action action = new Action();
 			ILightCommand lEDCommand = new TurnOnLEDCommand(_red, _green, _blue, _durationMills);
-			action.AddLight(lEDCommand, _durationMills);
+			action.AddLight(lEDCommand);
 			return action;
 		}
 
@@ -92,7 +92,7 @@ namespace Robot
 			{
 				interval += operation.durationMs;
 			}
-			action.AddLight(lEDBlink, interval);
+			action.AddLight(lEDBlink);
 			return action;
 		}
 
@@ -105,7 +105,9 @@ namespace Robot
 			float speed,
 			IMovementCommand movement = null,
 			(int r, int g, int b) led = default,
-			int? soundId = null)
+			int? soundId = null,
+			float soundDuration = 0
+			)
 		{
 			Action action = new Action();
 
@@ -120,13 +122,13 @@ namespace Robot
 			{
 				int durationMs = (int)(duration * 1000);
 				ILightCommand ledCommand = new TurnOnLEDCommand(led.r, led.g, led.b, durationMs);
-				action.AddLight(ledCommand, duration);
+				action.AddLight(ledCommand);
 			}
 
 			// サウンドコマンドがある場合
 			if (soundId.HasValue)
 			{
-				ISoundCommand soundCommand = new PresetSoundCommand(soundId.Value, 255);
+				ISoundCommand soundCommand = new PresetSoundCommand(soundId.Value, 255, soundDuration);
 				action.AddSound(soundCommand);
 			}
 
@@ -163,7 +165,8 @@ namespace Robot
 				speed: 40,
 				movement: new TranslateCommand(100, 40), // ゆったりとした動き
 				led: (255, 200, 0), // 温かみのある黄色
-				soundId: 0 // 満足げな鳴き声
+				soundId: 0, // 満足げな鳴き声
+				soundDuration: 1f
 			);
 		}
 		#endregion
@@ -213,7 +216,8 @@ namespace Robot
 				speed: 30,
 				movement: new TranslateCommand(30, 30), // もたついた動き
 				led: (100, 100, 100), // くすんだ色
-				soundId: 3 // 不快な音
+				soundId: 3, // 不快な音
+				soundDuration: 2f
 			);
 		}
 
@@ -224,7 +228,8 @@ namespace Robot
 				speed: 60,
 				movement: new TranslateCommand(100, 60), // なめらかな動き
 				led: (100, 200, 255), // 爽やかな青
-				soundId: 0 // 清々しい音
+				soundId: 0, // 清々しい音
+				soundDuration: 2f
 			);
 		}
 		#endregion
@@ -237,7 +242,8 @@ namespace Robot
 				speed: 30,
 				movement: new TranslateCommand(30, 30), // 不安定な動き
 				led: (150, 0, 150), // くすんだ紫
-				soundId: 4 // 苦しげな音
+				soundId: 4, // 苦しげな音
+				soundDuration: 2f
 			);
 		}
 
@@ -248,7 +254,8 @@ namespace Robot
 				speed: 80,
 				movement: new TranslateCommand(100, 80), // 活発な動き
 				led: (100, 255, 255), // 爽やかな水色
-				soundId: 0 // 元気な音
+				soundId: 0, // 元気な音
+				soundDuration: 2f
 			);
 		}
 		#endregion
@@ -261,7 +268,8 @@ namespace Robot
 				speed: 100,
 				movement: new TranslateCommand(100, 100), // 効率的な動き
 				led: (0, 150, 255), // クリーンな青色
-				soundId: 0 // 快適な動作音
+				soundId: 0, // 快適な動作音
+				soundDuration: 2f
 			);
 		}
 
@@ -272,7 +280,8 @@ namespace Robot
 				speed: 100,
 				movement: new DegRotateCommand(45, 100), // 異常な動き
 				led: (255, 0, 0), // 警告の赤色
-				soundId: 5 // 異常音
+				soundId: 5, // 異常音
+				soundDuration: 2f
 			);
 		}
 		#endregion
