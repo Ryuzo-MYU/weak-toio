@@ -202,16 +202,6 @@ namespace Robot
 			);
 		}
 
-		public static Action Grass_Wilting()
-		{
-			return CreateInterleavedAction(
-				duration: 3.0f,
-				speed: 20,
-				movement: new DegRotateCommand(15, 20), // 弱々しく揺れる
-				led: (255, 255, 0) // 枯れかけの黄色
-			);
-		}
-
 
 		#endregion
 
