@@ -43,7 +43,7 @@ namespace Robot
 			Queue<MovementMotion> cautionTwist = new Queue<MovementMotion>();
 			float deg = 50f;
 			double speed = 50;
-			cautionTwist.Enqueue(ToioActionLibrary.DegRotate(deg, speed));
+			cautionTwist.Enqueue(ToioActionLibrary.AddDegRotate(deg, speed));
 			cautionTwist.Enqueue(ToioActionLibrary.DegRotate(-deg, speed));
 
 			Action action = new Action(cautionTwist);

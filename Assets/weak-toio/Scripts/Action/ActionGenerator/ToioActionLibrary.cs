@@ -6,41 +6,48 @@ namespace Robot
 	public class ToioActionLibrary
 	{
 		// ==============================
-		// 基本モーション
+		// 基本モーション生成メソッド
 		// ==============================
 
 		/// <summary>
-		/// 前後移動のMotionを返す
+		/// 前後移動のActionを生成
 		/// </summary>
-		public static void AddTranslate(Action action, float _dist, double _speed)
+		public static Action Translate(float _dist, double _speed)
 		{
+			Action action = new Action();
 			IMovementCommand translate = new TranslateCommand(_dist, _speed);
 			action.AddMovement(translate);
+			return action;
 		}
 
 		/// <summary>
-		/// 回転移動のMotionを返す (弧度法)
+		/// 回転移動のActionを生成 (弧度法)
 		/// </summary>
-		public static void AddDegRotate(Action action, float _deg, double _speed)
+		public static Action DegRotate(float _deg, double _speed)
 		{
+			Action action = new Action();
 			IMovementCommand degRotate = new DegRotateCommand(_deg, _speed);
 			action.AddMovement(degRotate);
+			return action;
 		}
 
 		/// <summary>
-		/// 回転移動のMotionを返す (ラジアン)
+		/// 回転移動のActionを生成 (ラジアン)
 		/// </summary>
-		public static void AddRadRotate(Action action, float _rad, double _speed)
+		public static Action RadRotate(float _rad, double _speed)
 		{
+			Action action = new Action();
 			IMovementCommand radRotate = new RadRotateCommand(_rad, _speed);
 			action.AddMovement(radRotate);
+			return action;
 		}
 
 		/// <summary>
-		/// toioから任意の音を鳴らすMotionを返す
+		/// toioから任意の音を鳴らすActionを生成
 		/// </summary>
-		public static void AddSound(Action action, int _repeatCount, Cube.SoundOperation[] _sounds)
+		public static Action Sound(int _repeatCount, Cube.SoundOperation[] _sounds)
 		{
+			Action action = new Action();
 			ISoundCommand soundCommand = new SoundCommand(_repeatCount, _sounds);
 			float interval = 0;
 			foreach (var sound in _sounds)
@@ -48,42 +55,49 @@ namespace Robot
 				interval += sound.durationMs;
 			}
 			action.AddSound(soundCommand);
+			return action;
 		}
 
 		/// <summary>
-		/// toioに登録されているSEを鳴らすMotionを返す
+		/// toioに登録されているSEを鳴らすActionを生成
 		/// </summary>
-		public static void AddPresetSound(Action action, int _soundId, int _volume)
+		public static Action PresetSound(int _soundId, int _volume)
 		{
+			Action action = new Action();
 			ISoundCommand presetSound = new PresetSoundCommand(_soundId, _volume);
 			action.AddSound(presetSound);
+			return action;
 		}
 
 		/// <summary>
-		/// toioのLEDを一定時間点灯するMotionを返す
+		/// toioのLEDを一定時間点灯するActionを生成
 		/// </summary>
-		public static void AddTurnOnLED(Action action, int _red, int _green, int _blue, int _durationMills)
+		public static Action TurnOnLED(int _red, int _green, int _blue, int _durationMills)
 		{
+			Action action = new Action();
 			ILightCommand lEDCommand = new TurnOnLEDCommand(_red, _green, _blue, _durationMills);
-			action.AddLight(lEDCommand);
+			action.AddLight(lEDCommand, _durationMills);
+			return action;
 		}
 
 		/// <summary>
-		/// LEDを任意の間隔で点灯するMotionを返す
+		/// LEDを任意の間隔で点灯するActionを生成
 		/// </summary>
-		public static void AddLEDBlink(Action action, int _repeatCount, Cube.LightOperation[] _lightOperations)
+		public static Action LEDBlink(int _repeatCount, Cube.LightOperation[] _lightOperations)
 		{
+			Action action = new Action();
 			ILightCommand lEDBlink = new LEDBlinkCommand(_repeatCount, _lightOperations);
 			float interval = 0;
 			foreach (var operation in _lightOperations)
 			{
 				interval += operation.durationMs;
 			}
-			action.AddLight(lEDBlink);
+			action.AddLight(lEDBlink, interval);
+			return action;
 		}
 
 		// ==============================
-		// アクションライブラリ
+		// 複合アクション生成
 		// ==============================
 
 		private static Action CreateInterleavedAction(
@@ -93,7 +107,7 @@ namespace Robot
 			(int r, int g, int b) led = default,
 			int? soundId = null)
 		{
-			var action = new Action();
+			Action action = new Action();
 
 			// 移動コマンドがある場合
 			if (movement != null)
@@ -106,7 +120,7 @@ namespace Robot
 			{
 				int durationMs = (int)(duration * 1000);
 				ILightCommand ledCommand = new TurnOnLEDCommand(led.r, led.g, led.b, durationMs);
-				action.AddLight(ledCommand);
+				action.AddLight(ledCommand, duration);
 			}
 
 			// サウンドコマンドがある場合
@@ -154,7 +168,30 @@ namespace Robot
 		}
 		#endregion
 
-		#region 草のアクション（湿度）
+
+		/// <summary>
+		/// 複数のアクションを結合するユーティリティメソッド
+		/// </summary>
+		public static Action CombineActions(params Action[] actions)
+		{
+			return CreateInterleavedAction(
+				duration: 3.0f,
+				speed: 80,
+				movement: new TranslateCommand(100, 80), // 勢いよく伸びる
+				led: (0, 255, 0) // 鮮やかな緑
+			);
+		}
+
+		#region  草(湿度)
+		public static Action Grass_Normal()
+		{
+			return CreateInterleavedAction(
+				duration: 3.0f,
+				speed: 40,
+				movement: new DegRotateCommand(20, 40), // ゆったりと揺れる
+				led: (0, 200, 0) // 落ち着いた緑
+			);
+		}
 		public static Action Grass_Wilting()
 		{
 			return CreateInterleavedAction(
@@ -165,25 +202,17 @@ namespace Robot
 			);
 		}
 
-		public static Action Grass_Refreshed()
+		public static Action Grass_Wilting()
 		{
 			return CreateInterleavedAction(
 				duration: 3.0f,
-				speed: 80,
-				movement: new TranslateCommand(100, 80), // 勢いよく伸びる
-				led: (0, 255, 0) // 鮮やかな緑
+				speed: 20,
+				movement: new DegRotateCommand(15, 20), // 弱々しく揺れる
+				led: (255, 255, 0) // 枯れかけの黄色
 			);
 		}
 
-		public static Action Grass_Normal()
-		{
-			return CreateInterleavedAction(
-				duration: 3.0f,
-				speed: 40,
-				movement: new DegRotateCommand(20, 40), // ゆったりと揺れる
-				led: (0, 200, 0) // 落ち着いた緑
-			);
-		}
+
 		#endregion
 
 		#region 服のアクション（湿度）
