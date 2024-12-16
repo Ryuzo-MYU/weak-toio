@@ -83,7 +83,6 @@ namespace Robot
 				StartCoroutine(Move());
 				StartCoroutine(ControllLED());
 				StartCoroutine(PlaySound());
-				yield return null;
 			}
 			yield return null;
 		}
