@@ -1,3 +1,4 @@
+using System;
 using toio;
 
 namespace Robot
@@ -11,7 +12,12 @@ namespace Robot
 			dist = _dist;
 			speed = _speed;
 		}
-		public void Execute(Toio toio)
+
+		public float GetInterval()
+		{
+			return Math.Abs(dist / (float)speed);
+		}
+		public void Exec(Toio toio)
 		{
 			CubeHandle handle = toio.Handle;
 			Movement translate = handle.TranslateByDist(dist, speed);

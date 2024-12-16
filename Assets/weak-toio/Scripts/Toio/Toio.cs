@@ -113,25 +113,25 @@ namespace Robot
 		private IEnumerator Move()
 		{
 			if (currentAction.MovementCount() < 0) yield return null;
-			MovementMotion move = currentAction.GetNextMovement();
+			IMovementCommand move = currentAction.GetNextMovement();
 			move.Exec(this);
-			yield return new WaitForSeconds(move.Interval);
+			yield return new WaitForSeconds(move.GetInterval());
 		}
 
 		private IEnumerator ControllLED()
 		{
 			if (currentAction.LightCount() < 0) yield return null;
-			LightMotion light = currentAction.GetNextLight();
+			ILightCommand light = currentAction.GetNextLight();
 			light.Exec(this);
-			yield return new WaitForSeconds(light.Interval);
+			yield return new WaitForSeconds(light.GetInterval());
 		}
 
 		private IEnumerator PlaySound()
 		{
 			if (currentAction.SoundCount() < 0) yield return null;
-			SoundMotion sound = currentAction.GetNextSound();
+			ISoundCommand sound = currentAction.GetNextSound();
 			sound.Exec(this);
-			yield return new WaitForSeconds(sound.Interval);
+			yield return new WaitForSeconds(sound.GetInterval());
 		}
 
 		public void Stop()

@@ -1,3 +1,4 @@
+using System;
 using Robot;
 using toio;
 
@@ -10,7 +11,12 @@ public class DegRotateCommand : IMovementCommand
 		deg = _deg;
 		speed = _speed;
 	}
-	public void Execute(Toio toio)
+
+	public float GetInterval()
+	{
+		return Math.Abs(deg / (float)speed);
+	}
+	public void Exec(Toio toio)
 	{
 		CubeHandle handle = toio.Handle;
 		Movement rotate = handle.RotateByDeg(deg, speed);
@@ -28,7 +34,12 @@ public class RadRotateCommand : IMovementCommand
 		rad = _rad;
 		speed = _speed;
 	}
-	public void Execute(Toio toio)
+	public float GetInterval()
+	{
+		return Math.Abs(rad / (float)speed);
+	}
+
+	public void Exec(Toio toio)
 	{
 		CubeHandle handle = toio.Handle;
 		Movement radRotate = handle.RotateByRad(rad, speed);

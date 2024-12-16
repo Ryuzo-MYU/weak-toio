@@ -5,41 +5,36 @@ namespace Robot
 {
 	public class Action
 	{
-		private Queue<MovementMotion> movements;
-		private Queue<LightMotion> lights;
-		private Queue<SoundMotion> sounds;
+		private Queue<IMovementCommand> motions;
+		private Queue<ILightCommand> lights;
+		private Queue<ISoundCommand> sounds;
 
 		public Action()
 		{
-			movements = new Queue<MovementMotion>();
-			lights = new Queue<LightMotion>();
-			sounds = new Queue<SoundMotion>();
+			motions = new Queue<IMovementCommand>();
+			lights = new Queue<ILightCommand>();
+			sounds = new Queue<ISoundCommand>();
 		}
 
-		public Action(Queue<MovementMotion> motions)
+		public void AddMovement(IMovementCommand command)
 		{
-			this.movements = motions;
+			motions.Enqueue(command);
 		}
 
-		public void AddMovement(IMovementCommand command, float interval)
+		public void AddLight(ILightCommand command)
 		{
-			movements.Enqueue(new MovementMotion(command, interval));
+			lights.Enqueue(command);
 		}
 
-		public void AddLight(ILightCommand command, float duration)
+		public void AddSound(ISoundCommand sound)
 		{
-			lights.Enqueue(new LightMotion(command, duration));
-		}
-
-		public void AddSound(ISoundCommand sound, float interval)
-		{
-			sounds.Enqueue(new SoundMotion(sound, interval));
+			sounds.Enqueue(sound);
 		}
 
 		public int Count()
 		{
 			List<int> counts = new List<int>{
-				movements.Count,
+				motions.Count,
 				lights.Count,
 				sounds.Count
 			};
@@ -50,20 +45,20 @@ namespace Robot
 		/// motionsのQueueから次(最も古い)モーションを取って返す
 		/// </summary>
 		/// <returns></returns>
-		public MovementMotion GetNextMovement()
+		public IMovementCommand GetNextMovement()
 		{
 			//motionが残っていないならnull返して早期リターン
-			if (movements.Count == 0) return null;
-			return movements.Dequeue();
+			if (motions.Count == 0) return null;
+			return motions.Dequeue();
 		}
 
-		public LightMotion GetNextLight()
+		public ILightCommand GetNextLight()
 		{
 			if (lights.Count == 0) return null;
 			return lights.Dequeue();
 		}
 
-		public SoundMotion GetNextSound()
+		public ISoundCommand GetNextSound()
 		{
 			if (sounds.Count == 0) return null;
 			return sounds.Dequeue();
@@ -75,7 +70,7 @@ namespace Robot
 		/// <returns></returns>
 		public int MovementCount()
 		{
-			return movements.Count;
+			return motions.Count;
 		}
 
 		public int LightCount()
@@ -89,17 +84,31 @@ namespace Robot
 		}
 
 		/// <summary>
-		/// motionsの中身をcount回複製する
+		/// actionsの各アクションキューをcount回複製する
 		/// </summary>
 		public void Repeat(int count)
 		{
 			for (int i = 0; i < count; i++)
 			{
-				Queue<MovementMotion> repeat = new Queue<MovementMotion>(movements);
-				while (repeat.Count > 0)
+				Queue<IMovementCommand> moveRepeat = new Queue<IMovementCommand>(motions);
+				while (moveRepeat.Count > 0)
 				{
-					MovementMotion motion = repeat.Dequeue();
-					movements.Enqueue(motion);
+					IMovementCommand motion = moveRepeat.Dequeue();
+					motions.Enqueue(motion);
+				}
+
+				Queue<ILightCommand> lightRepeat = new Queue<ILightCommand>(lights);
+				while (lightRepeat.Count > 0)
+				{
+					ILightCommand light = lightRepeat.Dequeue();
+					lights.Enqueue(light);
+				}
+
+				Queue<ISoundCommand> soundRepeat = new Queue<ISoundCommand>(sounds);
+				while (soundRepeat.Count > 0)
+				{
+					ISoundCommand sound = soundRepeat.Dequeue();
+					sounds.Enqueue(sound);
 				}
 			}
 		}
