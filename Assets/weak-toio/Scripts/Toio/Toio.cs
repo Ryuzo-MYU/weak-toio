@@ -19,9 +19,9 @@ namespace Robot
 		public Cube Cube { get { return _cube; } }
 		public CubeHandle Handle { get { return _handle; } }
 
-		public readonly int movementCount;
-		public readonly int ledCount;
-		public readonly int soundCount;
+		[SerializeField] private int movementCount;
+		[SerializeField] private int lightCount;
+		[SerializeField] private int soundCount;
 		[SerializeField] private int actionMaxCount;
 		private Queue<Action> actions;
 		private Action currentAction;
@@ -92,6 +92,7 @@ namespace Robot
 		{
 			if (currentAction.MovementCount() < 0) yield return null;
 			IMovementCommand move = currentAction.GetNextMovement();
+			movementCount = currentAction.MovementCount();
 			move.Exec(this);
 			yield return new WaitForSeconds(move.GetInterval());
 		}
@@ -100,6 +101,7 @@ namespace Robot
 		{
 			if (currentAction.LightCount() < 0) yield return null;
 			ILightCommand light = currentAction.GetNextLight();
+			lightCount = currentAction.LightCount();
 			light.Exec(this);
 			yield return new WaitForSeconds(light.GetInterval());
 		}
@@ -108,6 +110,7 @@ namespace Robot
 		{
 			if (currentAction.SoundCount() < 0) yield return null;
 			ISoundCommand sound = currentAction.GetNextSound();
+			soundCount = currentAction.SoundCount();
 			sound.Exec(this);
 			yield return new WaitForSeconds(sound.GetInterval());
 		}
