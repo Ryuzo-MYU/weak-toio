@@ -90,7 +90,7 @@ namespace Robot
 
 		private IEnumerator Move()
 		{
-			if (currentAction.MovementCount() < 0) yield return null;
+			if (currentAction.MovementCount() == 0) yield return null;
 			IMovementCommand move = currentAction.GetNextMovement();
 			movementCount = currentAction.MovementCount();
 			move.Exec(this);
@@ -99,7 +99,7 @@ namespace Robot
 
 		private IEnumerator ControllLED()
 		{
-			if (currentAction.LightCount() < 0) yield return null;
+			if (currentAction.LightCount() == 0) yield return null;
 			ILightCommand light = currentAction.GetNextLight();
 			lightCount = currentAction.LightCount();
 			light.Exec(this);
@@ -108,7 +108,7 @@ namespace Robot
 
 		private IEnumerator PlaySound()
 		{
-			if (currentAction.SoundCount() < 0) yield return null;
+			if (currentAction.SoundCount() == 0) yield return null;
 			ISoundCommand sound = currentAction.GetNextSound();
 			soundCount = currentAction.SoundCount();
 			sound.Exec(this);
