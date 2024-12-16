@@ -45,7 +45,6 @@ namespace Robot
 			}
 		}
 
-
 		private void OnConnectSucceeded()
 		{
 			toioConnector.RegisterToio(this);
@@ -84,30 +83,9 @@ namespace Robot
 				StartCoroutine(Move());
 				StartCoroutine(ControllLED());
 				StartCoroutine(PlaySound());
+				yield return null;
 			}
 			yield return null;
-		}
-
-		public void AddNewAction(Action action)
-		{
-			if (action == null)
-			{
-				Debug.LogWarning("null のアクション送るな");
-				return;
-			}
-			if (actions.Count > actionMaxCount)
-			{
-				Debug.Log("アクション溜まりすぎ");
-				return;
-			}
-			actions.Enqueue(action);
-			Debug.Log("アクション足しました");
-
-			if (!isMoving)
-			{
-				isMoving = true;
-			}
-
 		}
 
 		private IEnumerator Move()
@@ -141,6 +119,28 @@ namespace Robot
 			currentAction = null;
 			_handle.Update();
 			_handle.Move(new Movement(_handle, 0, 0));
+		}
+
+		public void AddNewAction(Action action)
+		{
+			if (action == null)
+			{
+				Debug.LogWarning("null のアクション送るな");
+				return;
+			}
+			if (actions.Count > actionMaxCount)
+			{
+				Debug.Log("アクション溜まりすぎ");
+				return;
+			}
+			actions.Enqueue(action);
+			Debug.Log("アクション足しました");
+
+			if (!isMoving)
+			{
+				isMoving = true;
+			}
+
 		}
 	}
 

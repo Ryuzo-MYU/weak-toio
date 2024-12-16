@@ -31,7 +31,7 @@ namespace Robot
 			{
 				Action action = GenerateAction(currentResult);
 				toio.AddNewAction(action);
-				yield return StartCoroutine(toio.Act());
+				yield return toio.Act();
 			}
 		}
 
