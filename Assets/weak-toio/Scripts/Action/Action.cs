@@ -5,11 +5,15 @@ namespace Robot
 {
 	public class Action
 	{
-		Queue<MovementMotion> motions;
+		private Queue<MovementMotion> motions;
+		private Queue<LightMotion> lights;
+		private Queue<SoundMotion> sounds;
 
 		public Action()
 		{
 			motions = new Queue<MovementMotion>();
+			lights = new Queue<LightMotion>();
+			sounds = new Queue<SoundMotion>();
 		}
 
 		public Action(Queue<MovementMotion> motions)
