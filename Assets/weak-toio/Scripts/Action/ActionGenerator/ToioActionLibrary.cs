@@ -156,11 +156,7 @@ namespace Robot
 		}
 		#endregion
 
-
-		/// <summary>
-		/// 複数のアクションを結合するユーティリティメソッド
-		/// </summary>
-		public static Action CombineActions(params Action[] actions)
+		public static Action Grass_Refreshed()
 		{
 			return CreateInterleavedAction(
 				duration: 3.0f,
