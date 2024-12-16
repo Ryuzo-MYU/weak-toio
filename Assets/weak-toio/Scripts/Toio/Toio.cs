@@ -64,7 +64,7 @@ namespace Robot
 		}
 
 		// 実行関連のメソッド
-		public IEnumerator Move()
+		public IEnumerator Act()
 		{
 			if (currentAction == null || currentAction.Count() == 0)
 			{
@@ -81,9 +81,9 @@ namespace Robot
 
 			while (currentAction.Count() > 0)
 			{
-				StartCoroutine(UpdateMovement());
-				StartCoroutine(UpdateLED());
-				StartCoroutine(UpdateSound());
+				StartCoroutine(Move());
+				StartCoroutine(ControllLED());
+				StartCoroutine(PlaySound());
 			}
 			yield return null;
 		}
@@ -110,7 +110,7 @@ namespace Robot
 
 		}
 
-		private IEnumerator UpdateMovement()
+		private IEnumerator Move()
 		{
 			if (currentAction.MovementCount() < 0) yield return null;
 			MovementMotion move = currentAction.GetNextMovement();
@@ -118,7 +118,7 @@ namespace Robot
 			yield return new WaitForSeconds(move.Interval);
 		}
 
-		private IEnumerator UpdateLED()
+		private IEnumerator ControllLED()
 		{
 			if (currentAction.LightCount() < 0) yield return null;
 			LightMotion light = currentAction.GetNextLight();
@@ -126,7 +126,7 @@ namespace Robot
 			yield return new WaitForSeconds(light.Interval);
 		}
 
-		private IEnumerator UpdateSound()
+		private IEnumerator PlaySound()
 		{
 			if (currentAction.SoundCount() < 0) yield return null;
 			SoundMotion sound = currentAction.GetNextSound();
