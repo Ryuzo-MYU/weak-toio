@@ -5,14 +5,14 @@ namespace Robot
 {
 	public class Action
 	{
-		Queue<Motion> motions;
+		Queue<MovementMotion> motions;
 
 		public Action()
 		{
-			motions = new Queue<Motion>();
+			motions = new Queue<MovementMotion>();
 		}
 
-		public Action(Queue<Motion> motions)
+		public Action(Queue<MovementMotion> motions)
 		{
 			this.motions = motions;
 		}
@@ -21,7 +21,7 @@ namespace Robot
 		/// motionsのQueueから次(最も古い)モーションを取って返す
 		/// </summary>
 		/// <returns></returns>
-		public Motion GetNextMotion()
+		public MovementMotion GetNextMotion()
 		{
 			//motionが残っていないならnull返して早期リターン
 			if (motions.Count == 0) return null;
@@ -44,10 +44,10 @@ namespace Robot
 		{
 			for (int i = 0; i < count; i++)
 			{
-				Queue<Motion> repeat = new Queue<Motion>(motions);
+				Queue<MovementMotion> repeat = new Queue<MovementMotion>(motions);
 				while (repeat.Count > 0)
 				{
-					Motion motion = repeat.Dequeue();
+					MovementMotion motion = repeat.Dequeue();
 					motions.Enqueue(motion);
 				}
 			}

@@ -24,7 +24,7 @@ namespace Robot
 
 		private Action SuitableAction()
 		{
-			Queue<Motion> suitableAction = new Queue<Motion>();
+			Queue<MovementMotion> suitableAction = new Queue<MovementMotion>();
 			float deg = 90;
 			double speed = 45;
 			suitableAction.Enqueue(ToioActionLibrary.DegRotate(deg, speed));
@@ -40,7 +40,7 @@ namespace Robot
 
 		private Action CautionAction()
 		{
-			Queue<Motion> cautionTwist = new Queue<Motion>();
+			Queue<MovementMotion> cautionTwist = new Queue<MovementMotion>();
 			float deg = 50f;
 			double speed = 50;
 			cautionTwist.Enqueue(ToioActionLibrary.DegRotate(deg, speed));
@@ -52,7 +52,7 @@ namespace Robot
 
 		private Action DangerAction()
 		{
-			Queue<Motion> dangerTwist = new Queue<Motion>();
+			Queue<MovementMotion> dangerTwist = new Queue<MovementMotion>();
 			float deg = 90f;
 			double speed = 200;
 			dangerTwist.Enqueue(ToioActionLibrary.DegRotate(deg, speed));

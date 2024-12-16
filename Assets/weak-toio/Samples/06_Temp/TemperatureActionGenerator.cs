@@ -33,7 +33,7 @@ namespace Robot
 
 		private Action SuitableAction()
 		{
-			Queue<Motion> suitableAction = new Queue<Motion>();
+			Queue<MovementMotion> suitableAction = new Queue<MovementMotion>();
 			float deg = 90;
 			double speed = 45;
 			suitableAction.Enqueue(ToioActionLibrary.DegRotate(deg, speed));
@@ -49,7 +49,7 @@ namespace Robot
 
 		private Action ColdCautionAction()
 		{
-			Queue<Motion> cautionShiver = new Queue<Motion>();
+			Queue<MovementMotion> cautionShiver = new Queue<MovementMotion>();
 			float rad = (float)(10 * Math.PI / 180);
 			double speed = 50;
 			cautionShiver.Enqueue(ToioActionLibrary.RadRotate(rad, speed));
@@ -61,7 +61,7 @@ namespace Robot
 
 		private Action ColdDangerAction()
 		{
-			Queue<Motion> dangerShiver = new Queue<Motion>();
+			Queue<MovementMotion> dangerShiver = new Queue<MovementMotion>();
 			float deg = 10f;
 			double speed = 100;
 			dangerShiver.Enqueue(ToioActionLibrary.DegRotate(deg, speed));
@@ -73,7 +73,7 @@ namespace Robot
 
 		private Action HotCautionAction()
 		{
-			Queue<Motion> cautionTwist = new Queue<Motion>();
+			Queue<MovementMotion> cautionTwist = new Queue<MovementMotion>();
 			float deg = 50f;
 			double speed = 50;
 			cautionTwist.Enqueue(ToioActionLibrary.DegRotate(deg, speed));
@@ -85,7 +85,7 @@ namespace Robot
 
 		private Action HotDangerAction()
 		{
-			Queue<Motion> dangerTwist = new Queue<Motion>();
+			Queue<MovementMotion> dangerTwist = new Queue<MovementMotion>();
 			float deg = 90f;
 			double speed = 200;
 			dangerTwist.Enqueue(ToioActionLibrary.DegRotate(deg, speed));

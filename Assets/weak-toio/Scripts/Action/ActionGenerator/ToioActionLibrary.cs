@@ -19,11 +19,11 @@ namespace Robot
 		/// <param name="_dist">距離</param>
 		/// <param name="_speed">速度</param>
 		/// <returns>Motion</returns>
-		public static Motion Translate(float _dist, double _speed)
+		public static MovementMotion Translate(float _dist, double _speed)
 		{
 			IToioCommand translate = new TranslateCommand(_dist, _speed);
 			float interval = (float)_dist / (float)_speed;
-			return new Motion(translate, interval);
+			return new MovementMotion(translate, interval);
 		}
 
 		/// <summary>
@@ -32,11 +32,11 @@ namespace Robot
 		/// <param name="_deg">角度(弧度法)</param>
 		/// <param name="_speed">速度</param>
 		/// <returns>Motion</returns>
-		public static Motion DegRotate(float _deg, double _speed)
+		public static MovementMotion DegRotate(float _deg, double _speed)
 		{
 			IToioCommand degRotate = new DegRotateCommand(_deg, _speed);
 			float interval = (float)_deg / (float)_speed;
-			return new Motion(degRotate, interval);
+			return new MovementMotion(degRotate, interval);
 		}
 
 		/// <summary>
@@ -45,11 +45,11 @@ namespace Robot
 		/// <param name="_rad">角度(ラジアン)</param>
 		/// <param name="_speed">速度</param>
 		/// <returns>Motion</returns>
-		public static Motion RadRotate(float _rad, double _speed)
+		public static MovementMotion RadRotate(float _rad, double _speed)
 		{
 			IToioCommand radRotate = new RadRotateCommand(_rad, _speed);
 			float interval = (float)_rad / (float)_speed;
-			return new Motion(radRotate, interval);
+			return new MovementMotion(radRotate, interval);
 		}
 
 		/// <summary>
@@ -59,7 +59,7 @@ namespace Robot
 		/// <param name="_repeatCount">繰り返し回数</param>
 		/// <param name="_sounds">Cube.SoundOperationインスタンスの配列</param>
 		/// <returns>Motion</returns>
-		public static Motion Sound(int _repeatCount, Cube.SoundOperation[] _sounds)
+		public static MovementMotion Sound(int _repeatCount, Cube.SoundOperation[] _sounds)
 		{
 			SoundCommand soundCommand = new SoundCommand(_repeatCount, _sounds);
 			float interval = 0;
@@ -67,7 +67,7 @@ namespace Robot
 			{
 				interval += sound.durationMs;
 			}
-			return new Motion(soundCommand, interval);
+			return new MovementMotion(soundCommand, interval);
 		}
 
 		/// <summary>
@@ -76,11 +76,11 @@ namespace Robot
 		/// <param name="_soundId">SEのID。0～10まで</param>
 		/// <param name="_volume">音量</param>
 		/// <returns>Motion</returns>
-		public static Motion PresetSound(int _soundId, int _volume)
+		public static MovementMotion PresetSound(int _soundId, int _volume)
 		{
 			PresetSoundCommand presetSound = new PresetSoundCommand(_soundId, _volume);
 			float interval = 0.5f; // サウンドごとの間隔を取得できないため、決め打ち。
-			return new Motion(presetSound, interval);
+			return new MovementMotion(presetSound, interval);
 		}
 
 		/// <summary>
@@ -91,11 +91,11 @@ namespace Robot
 		/// <param name="_blue">B</param>
 		/// <param name="_durationMills">点灯時間</param>
 		/// <returns>Motion</returns>
-		public static Motion TurnOnLED(int _red, int _green, int _blue, int _durationMills)
+		public static MovementMotion TurnOnLED(int _red, int _green, int _blue, int _durationMills)
 		{
 			TurnOnLEDCommand lEDCommand = new TurnOnLEDCommand(_red, _green, _blue, _durationMills);
 			float interval = _durationMills;
-			return new Motion(lEDCommand, interval);
+			return new MovementMotion(lEDCommand, interval);
 		}
 
 		/// <summary>
@@ -104,7 +104,7 @@ namespace Robot
 		/// <param name="_repeatCount">繰り返し回数</param>
 		/// <param name="_lightOperations">Cube.LightOperation。詳しくはtoio-sdkを見て</param>
 		/// <returns>Motion</returns>
-		public static Motion LEDBlink(int _repeatCount, Cube.LightOperation[] _lightOperations)
+		public static MovementMotion LEDBlink(int _repeatCount, Cube.LightOperation[] _lightOperations)
 		{
 			LEDBlinkCommand lEDBlink = new LEDBlinkCommand(_repeatCount, _lightOperations);
 			float interval = 0;
@@ -112,7 +112,7 @@ namespace Robot
 			{
 				interval += operation.durationMs;
 			}
-			return new Motion(lEDBlink, interval);
+			return new MovementMotion(lEDBlink, interval);
 		}
 
 		// ==============================
@@ -129,7 +129,7 @@ namespace Robot
 			(int r, int g, int b) led = default,
 			int? soundId = null)
 		{
-			var motions = new Queue<Motion>();
+			var motions = new Queue<MovementMotion>();
 			int segments = 30; // 分割数
 			float segmentTime = duration / segments;
 			int segmentMs = (int)(segmentTime * 500);
@@ -139,13 +139,13 @@ namespace Robot
 				// 移動コマンドがある場合
 				if (movement != null)
 				{
-					motions.Enqueue(new Motion(movement, segmentTime));
+					motions.Enqueue(new MovementMotion(movement, segmentTime));
 				}
 
 				// LED点灯コマンドがある場合
 				if (led != default)
 				{
-					motions.Enqueue(new Motion(
+					motions.Enqueue(new MovementMotion(
 						new TurnOnLEDCommand(led.r, led.g, led.b, segmentMs),
 						0));
 				}
@@ -153,7 +153,7 @@ namespace Robot
 				// サウンドコマンドがある場合
 				if (soundId.HasValue && i == 0) // サウンドは最初のセグメントでのみ実行
 				{
-					motions.Enqueue(new Motion(
+					motions.Enqueue(new MovementMotion(
 						new PresetSoundCommand(soundId.Value, 255),
 						0));
 				}

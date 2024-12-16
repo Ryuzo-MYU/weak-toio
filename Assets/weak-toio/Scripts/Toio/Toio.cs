@@ -79,7 +79,7 @@ namespace Robot
 
 			while (currentAction.Count() > 0)
 			{
-				Motion motion = currentAction.GetNextMotion();
+				MovementMotion motion = currentAction.GetNextMotion();
 				motionCount = currentAction.Count();
 				if (motion != null)
 				{
