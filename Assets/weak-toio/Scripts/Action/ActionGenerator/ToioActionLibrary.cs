@@ -149,31 +149,28 @@ namespace Robot
 		}
 		#endregion
 
-		public static Action Grass_Refreshed()
-		{
-			Action action = new Action();
-			action.AddMovement(Translate(100, 80));  // 勢いよく伸びる
-			action.AddLight(TurnOnLED(0, 255, 0, 3000));  // 鮮やかな緑
-			return action;
-		}
-
 		#region  草(湿度)
 		public static Action Grass_Normal()
 		{
 			Action action = new Action();
 			action.AddMovement(DegRotate(20, 40));  // ゆったりと揺れる
-			action.AddLight(TurnOnLED(0, 200, 0, 3000));  // 落ち着いた緑
+			action.AddLight(TurnOnLED(0, 200, 0, 500));  // 落ち着いた緑
 			return action;
 		}
 		public static Action Grass_Wilting()
 		{
 			Action action = new Action();
 			action.AddMovement(DegRotate(15, 20));  // 弱々しく揺れる
-			action.AddLight(TurnOnLED(255, 255, 0, 3000));  // 枯れかけの黄色
+			action.AddLight(TurnOnLED(255, 255, 0, 500));  // 枯れかけの黄色
 			return action;
 		}
-
-
+		public static Action Grass_Refreshed()
+		{
+			Action action = new Action();
+			action.AddMovement(Translate(100, 80));  // 勢いよく伸びる
+			action.AddLight(TurnOnLED(0, 255, 0, 500));  // 鮮やかな緑
+			return action;
+		}
 		#endregion
 
 		#region 服のアクション（湿度）
