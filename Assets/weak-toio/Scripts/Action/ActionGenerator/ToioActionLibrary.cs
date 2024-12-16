@@ -220,6 +220,16 @@ namespace Robot
 		#endregion
 
 		#region 人のアクション（二酸化炭素）
+
+		public static Action Human_Normal()
+		{
+			return CreateInterleavedAction(
+				duration: 3.0f,
+				speed: 50,
+				movement: Translate(60, 50),
+				led: (0, 120, 0) // 目立ちすぎない緑
+			);
+		}
 		public static Action Human_HighCO2()
 		{
 			return CreateInterleavedAction(
@@ -246,6 +256,17 @@ namespace Robot
 		#endregion
 
 		#region PCのアクション（気温・湿度）
+
+		public static Action PC_Normal()
+		{
+			return CreateInterleavedAction(
+				duration: 3.0f,
+				speed: 50,
+				movement: Translate(60, 100), // 速くも遅くもない動き
+				led: (0, 150, 0) // 正常な緑
+			);
+		}
+
 		public static Action PC_Optimal()
 		{
 			return CreateInterleavedAction(
