@@ -92,8 +92,12 @@ namespace Robot
 			if (currentAction.MovementCount() == 0) yield return null;
 			IMovementCommand move = currentAction.GetNextMovement();
 			movementCount = currentAction.MovementCount();
-			move.Exec(this);
-			yield return new WaitForSeconds(move.GetInterval());
+			if (move != null)
+			{
+				move.Exec(this);
+				yield return new WaitForSeconds(move.GetInterval());
+			}
+			yield return null;
 		}
 
 		private IEnumerator ControllLED()
@@ -101,8 +105,12 @@ namespace Robot
 			if (currentAction.LightCount() == 0) yield return null;
 			ILightCommand light = currentAction.GetNextLight();
 			lightCount = currentAction.LightCount();
-			light.Exec(this);
-			yield return new WaitForSeconds(light.GetInterval());
+			if (light != null)
+			{
+				light.Exec(this);
+				yield return new WaitForSeconds(light.GetInterval());
+			}
+			yield return null;
 		}
 
 		private IEnumerator PlaySound()
@@ -110,8 +118,12 @@ namespace Robot
 			if (currentAction.SoundCount() == 0) yield return null;
 			ISoundCommand sound = currentAction.GetNextSound();
 			soundCount = currentAction.SoundCount();
-			sound.Exec(this);
-			yield return new WaitForSeconds(sound.GetInterval());
+			if (sound != null)
+			{
+				sound.Exec(this);
+				yield return new WaitForSeconds(sound.GetInterval());
+			}
+			yield return null;
 		}
 
 		public void Stop()
