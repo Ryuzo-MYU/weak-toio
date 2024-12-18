@@ -1323,12 +1323,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   connectType: 2
-  toioNames:
-  - 
-  - 
-  - 
-  - 
-  - 
+  toioNames: []
+  cubeCount: 5
   toioTag: Toio
 --- !u!4 &647634892
 Transform:
