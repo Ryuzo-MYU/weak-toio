@@ -118,7 +118,7 @@ namespace Robot
 			// サウンドコマンドがある場合
 			if (soundId.HasValue)
 			{
-				ISoundCommand soundCommand = PresetSound(soundId.Value, 50, soundDuration);
+				ISoundCommand soundCommand = PresetSound(soundId.Value, 20, soundDuration);
 				action.AddSound(soundCommand);
 			}
 
@@ -131,7 +131,7 @@ namespace Robot
 			Action action = new Action();
 			action.AddMovement(DegRotate(10, 100));
 			action.AddLight(TurnOnLED(0, 0, 255, 3000));
-			action.AddSound(PresetSound(0, 1, 2f));
+			action.AddSound(PresetSound(0, 20, 2f));
 			return action;
 		}
 
@@ -140,7 +140,7 @@ namespace Robot
 			Action action = new Action();
 			action.AddMovement(Translate(50, 20));
 			action.AddLight(TurnOnLED(255, 0, 0, 3000));
-			action.AddSound(PresetSound(2, 50, 2));
+			action.AddSound(PresetSound(2, 20, 2));
 			return action;
 		}
 
@@ -149,7 +149,7 @@ namespace Robot
 			Action action = new Action();
 			action.AddMovement(Translate(100, 40));  // ゆったりとした動き
 			action.AddLight(TurnOnLED(255, 200, 0, 3000));  // 温かみのある黄色
-			action.AddSound(PresetSound(0, 255, 1f));  // 満足げな鳴き声
+			action.AddSound(PresetSound(0, 255, 1f));  // 20げな鳴き声
 			return action;
 		}
 		#endregion
@@ -184,7 +184,7 @@ namespace Robot
 			Action action = new Action();
 			action.AddMovement(Translate(30, 30));  // もたついた動き
 			action.AddLight(TurnOnLED(100, 100, 100, 3000));  // くすんだ色
-			action.AddSound(PresetSound(3, 255, 2f));  // 不快な音
+			action.AddSound(PresetSound(3, 25, 2f));  // 不快な音
 			return action;
 		}
 
@@ -193,7 +193,7 @@ namespace Robot
 			Action action = new Action();
 			action.AddMovement(Translate(100, 60));  // なめらかな動き
 			action.AddLight(TurnOnLED(100, 200, 255, 3000));  // 爽やかな青
-			action.AddSound(PresetSound(0, 255, 2f));  // 清々しい音
+			action.AddSound(PresetSound(0, 25, 2f));   // 清々しい音
 			return action;
 		}
 		#endregion
@@ -212,7 +212,7 @@ namespace Robot
 			Action action = new Action();
 			action.AddMovement(Translate(30, 30));  // 不安定な動き
 			action.AddLight(TurnOnLED(150, 0, 150, 3000));  // くすんだ紫
-			action.AddSound(PresetSound(4, 255, 2f));  // 苦しげな音
+			action.AddSound(PresetSound(4, 25, 2f));  // 苦しげな音
 			return action;
 		}
 
@@ -221,7 +221,7 @@ namespace Robot
 			Action action = new Action();
 			action.AddMovement(Translate(100, 80));  // 活発な動き
 			action.AddLight(TurnOnLED(100, 255, 255, 3000));  // 爽やかな水色
-			action.AddSound(PresetSound(0, 255, 2f));  // 元気な音
+			action.AddSound(PresetSound(0, 25, 2f));  // 元気な音
 			return action;
 		}
 		#endregion
@@ -241,7 +241,7 @@ namespace Robot
 			Action action = new Action();
 			action.AddMovement(Translate(100, 100));  // 効率的な動き
 			action.AddLight(TurnOnLED(0, 150, 255, 3000));  // クリーンな青色
-			action.AddSound(PresetSound(0, 255, 2f));  // 快適な動作音
+			action.AddSound(PresetSound(0, 25, 2f));  // 快適な動作音
 			return action;
 		}
 
@@ -250,7 +250,7 @@ namespace Robot
 			Action action = new Action();
 			action.AddMovement(DegRotate(45, 100));  // 異常な動き
 			action.AddLight(TurnOnLED(255, 0, 0, 3000));  // 警告の赤色
-			action.AddSound(PresetSound(5, 255, 2f));  // 異常音
+			action.AddSound(PresetSound(5, 25, 20));  // 異常音
 			return action;
 		}
 		#endregion
