@@ -18,14 +18,14 @@ namespace Robot
 		[Tooltip("UnityEditor上ならSimmurator、現実ならReal、お任せならAuto")]
 		public ConnectType connectType = ConnectType.Auto;
 		public List<string> toioNames;
-		private int cubeCount = 0;
+		[SerializeField] private int cubeCount = 0;
 		[SerializeField] private string toioTag = "Toio";
 		private CubeManager cubeManager;
 		private async void Awake()
 		{
 			toioNames = new List<string>();
 
-			cubeCount = GameObject.FindGameObjectsWithTag(toioTag).Length;
+			// cubeCount = GameObject.FindGameObjectsWithTag(toioTag).Length;
 			Debug.Log(cubeCount);
 			// toioに接続
 			cubeManager = new CubeManager(connectType);
