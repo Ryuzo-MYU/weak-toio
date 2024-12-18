@@ -55,6 +55,10 @@ namespace Robot
 		/// </summary>
 		public static ISoundCommand PresetSound(int _soundId, int _volume, float interval)
 		{
+			if (interval > 3000)
+			{
+				interval = 3000;
+			}
 			ISoundCommand presetSound = new PresetSoundCommand(_soundId, _volume, interval);
 			return presetSound;
 		}
