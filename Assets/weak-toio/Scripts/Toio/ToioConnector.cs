@@ -24,6 +24,7 @@ namespace Robot
 		private async void Awake()
 		{
 			toioNames = new List<string>();
+			OnConnectSucceeded += ConnectSucceeded;
 
 			// cubeCount = GameObject.FindGameObjectsWithTag(toioTag).Length;
 			Debug.Log(cubeCount);
