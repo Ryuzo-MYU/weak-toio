@@ -26,7 +26,7 @@ namespace Robot
 			toioNames = new List<string>();
 			OnConnectSucceeded += ConnectSucceeded;
 
-			// cubeCount = GameObject.FindGameObjectsWithTag(toioTag).Length;
+			cubeCount = GameObject.FindGameObjectsWithTag(toioTag).Length;
 			Debug.Log(cubeCount);
 			// toioに接続
 			cubeManager = new CubeManager(connectType);

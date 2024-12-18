@@ -328,7 +328,7 @@ PrefabInstance:
 =======
     - target: {fileID: 6601354619286629088, guid: 6faa98f6a7575ef48ad8aca2dd20cca4, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
 >>>>>>> d70181a (2024年12月18日 12:06)
     m_RemovedComponents: []
@@ -1094,7 +1094,7 @@ Mesh:
       objectReference: {fileID: 0}
     - target: {fileID: 6601354619286629088, guid: c51045368bd6441478e517fa30b7e6fb, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1435,7 +1435,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1215500044}
   m_HandleRect: {fileID: 1215500043}
   m_Direction: 2
-  m_Value: 1
+  m_Value: 0
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -1785,7 +1785,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1114563611}
   m_Direction: 0
   m_Value: 1
-  m_Size: 1
+  m_Size: 0.9999999
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -2514,7 +2514,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6601354619286629088, guid: 2be2e98b150b85144831b1f785d3a5f3, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2596,7 +2596,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6601354619286629088, guid: 19577c523d2674545b5f000e73e69dcb, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
