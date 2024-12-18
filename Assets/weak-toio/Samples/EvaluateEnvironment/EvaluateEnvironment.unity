@@ -256,7 +256,11 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 16870515}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+<<<<<<< HEAD
 --- !u!1001 &27493649
+=======
+--- !u!1001 &36337186
+>>>>>>> 34e46cf (2024年12月18日 12:18)
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -1034,7 +1038,7 @@ Mesh:
       objectReference: {fileID: 0}
     - target: {fileID: 3777579130281375468, guid: c51045368bd6441478e517fa30b7e6fb, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.325
+      value: 0.154
       objectReference: {fileID: 0}
     - target: {fileID: 3777579130281375468, guid: c51045368bd6441478e517fa30b7e6fb, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1042,7 +1046,7 @@ Mesh:
       objectReference: {fileID: 0}
     - target: {fileID: 3777579130281375468, guid: c51045368bd6441478e517fa30b7e6fb, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.001
+      value: 0.122
       objectReference: {fileID: 0}
     - target: {fileID: 3777579130281375468, guid: c51045368bd6441478e517fa30b7e6fb, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1091,6 +1095,7 @@ Transform:
   m_PrefabInstance: {fileID: 457286561}
 >>>>>>> d70181a (2024年12月18日 12:06)
   m_PrefabAsset: {fileID: 0}
+<<<<<<< HEAD
   m_Name: 
   serializedVersion: 11
   m_SubMeshes:
@@ -1250,6 +1255,8 @@ Transform:
     offset: 0
     size: 0
     path: 
+=======
+>>>>>>> 34e46cf (2024年12月18日 12:18)
 --- !u!1 &553522739
 GameObject:
   m_ObjectHideFlags: 0
@@ -1316,7 +1323,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   connectType: 2
-  toioNames: []
+  toioNames:
+  - 
+  - 
+  - 
+  - 
+  - 
+  toioTag: Toio
 --- !u!4 &647634892
 Transform:
   m_ObjectHideFlags: 0
@@ -2260,7 +2273,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3777579130281375468, guid: 707a0ad45b8ea93488f055cb938c3f7c, type: 3}
       propertyPath: m_LocalPosition.x
+<<<<<<< HEAD
       value: 0
+=======
+      value: -0.063
+>>>>>>> 34e46cf (2024年12月18日 12:18)
       objectReference: {fileID: 0}
     - target: {fileID: 3777579130281375468, guid: 707a0ad45b8ea93488f055cb938c3f7c, type: 3}
       propertyPath: m_LocalPosition.y
@@ -2268,7 +2285,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3777579130281375468, guid: 707a0ad45b8ea93488f055cb938c3f7c, type: 3}
       propertyPath: m_LocalPosition.z
+<<<<<<< HEAD
       value: -0.021
+=======
+      value: 0.116
+>>>>>>> 34e46cf (2024年12月18日 12:18)
       objectReference: {fileID: 0}
     - target: {fileID: 3777579130281375468, guid: 707a0ad45b8ea93488f055cb938c3f7c, type: 3}
       propertyPath: m_LocalRotation.w
@@ -2312,6 +2333,7 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3777579130281375468, guid: 707a0ad45b8ea93488f055cb938c3f7c, type: 3}
   m_PrefabInstance: {fileID: 1323028660}
   m_PrefabAsset: {fileID: 0}
+<<<<<<< HEAD
 --- !u!1001 &1323905153
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2378,6 +2400,8 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3777579130281375468, guid: 19577c523d2674545b5f000e73e69dcb, type: 3}
   m_PrefabInstance: {fileID: 1323905153}
   m_PrefabAsset: {fileID: 0}
+=======
+>>>>>>> 34e46cf (2024年12月18日 12:18)
 --- !u!1 &1463510473
 GameObject:
   m_ObjectHideFlags: 0
@@ -2503,7 +2527,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3777579130281375468, guid: 19577c523d2674545b5f000e73e69dcb, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.0265
+      value: 0.12
       objectReference: {fileID: 0}
     - target: {fileID: 3777579130281375468, guid: 19577c523d2674545b5f000e73e69dcb, type: 3}
       propertyPath: m_LocalPosition.y
@@ -2511,7 +2535,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3777579130281375468, guid: 19577c523d2674545b5f000e73e69dcb, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.312
+      value: -0.095
       objectReference: {fileID: 0}
     - target: {fileID: 3777579130281375468, guid: 19577c523d2674545b5f000e73e69dcb, type: 3}
       propertyPath: m_LocalRotation.w
@@ -2559,6 +2583,7 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3777579130281375468, guid: 19577c523d2674545b5f000e73e69dcb, type: 3}
   m_PrefabInstance: {fileID: 1507912366}
   m_PrefabAsset: {fileID: 0}
+<<<<<<< HEAD
 --- !u!1001 &1575477199
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2740,6 +2765,8 @@ Transform:
   m_PrefabInstance: {fileID: 1649070228}
   m_PrefabAsset: {fileID: 0}
 >>>>>>> d70181a (2024年12月18日 12:06)
+=======
+>>>>>>> 34e46cf (2024年12月18日 12:18)
 --- !u!1 &1660035778
 GameObject:
   m_ObjectHideFlags: 0
@@ -2755,7 +2782,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1660035779
 Transform:
   m_ObjectHideFlags: 0
@@ -2795,6 +2822,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 396031779823019, guid: cdb3cb207738d3b45ade7abf174b8f7a, type: 3}
       propertyPath: m_LocalPosition.x
+<<<<<<< HEAD
       value: -0.27931875
       objectReference: {fileID: 0}
     - target: {fileID: 396031779823019, guid: cdb3cb207738d3b45ade7abf174b8f7a, type: 3}
@@ -2804,6 +2832,17 @@ PrefabInstance:
     - target: {fileID: 396031779823019, guid: cdb3cb207738d3b45ade7abf174b8f7a, type: 3}
       propertyPath: m_LocalPosition.z
       value: 0.040681273
+=======
+      value: -0.2793187
+      objectReference: {fileID: 0}
+    - target: {fileID: 396031779823019, guid: cdb3cb207738d3b45ade7abf174b8f7a, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.024899967
+      objectReference: {fileID: 0}
+    - target: {fileID: 396031779823019, guid: cdb3cb207738d3b45ade7abf174b8f7a, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.040681273
+>>>>>>> 34e46cf (2024年12月18日 12:18)
       objectReference: {fileID: 0}
     - target: {fileID: 1507034543691288823, guid: cdb3cb207738d3b45ade7abf174b8f7a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2873,6 +2912,7 @@ PrefabInstance:
       propertyPath: matType
       value: 0
       objectReference: {fileID: 0}
+<<<<<<< HEAD
     - target: {fileID: 7366037465402533080, guid: cdb3cb207738d3b45ade7abf174b8f7a, type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -2892,6 +2932,23 @@ PrefabInstance:
     - target: {fileID: 7539581564402954391, guid: cdb3cb207738d3b45ade7abf174b8f7a, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.040681273
+=======
+    - target: {fileID: 7464212994262000193, guid: cdb3cb207738d3b45ade7abf174b8f7a, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.2793187
+      objectReference: {fileID: 0}
+    - target: {fileID: 7464212994262000193, guid: cdb3cb207738d3b45ade7abf174b8f7a, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.024899967
+      objectReference: {fileID: 0}
+    - target: {fileID: 7464212994262000193, guid: cdb3cb207738d3b45ade7abf174b8f7a, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.040681273
+      objectReference: {fileID: 0}
+    - target: {fileID: 7539581564402954391, guid: cdb3cb207738d3b45ade7abf174b8f7a, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.040681273
+>>>>>>> 34e46cf (2024年12月18日 12:18)
       objectReference: {fileID: 0}
     - target: {fileID: 7539581564402954391, guid: cdb3cb207738d3b45ade7abf174b8f7a, type: 3}
       propertyPath: m_LocalPosition.y
