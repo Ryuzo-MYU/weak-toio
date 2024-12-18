@@ -118,7 +118,7 @@ namespace Robot
 			// サウンドコマンドがある場合
 			if (soundId.HasValue)
 			{
-				ISoundCommand soundCommand = PresetSound(soundId.Value, 255, soundDuration);
+				ISoundCommand soundCommand = PresetSound(soundId.Value, 50, soundDuration);
 				action.AddSound(soundCommand);
 			}
 
