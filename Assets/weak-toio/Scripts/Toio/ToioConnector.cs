@@ -34,6 +34,13 @@ namespace Robot
 			Debug.Log("Toio接続完了");
 			OnConnectSucceeded.Invoke();
 		}
+		private void ConnectSucceeded()
+		{
+			foreach (var toio in cubeManager.cubes)
+			{
+				toioNames.Add(toio.localName);
+			}
+		}
 		private void OnDestroy()
 		{
 			cubeManager.DisconnectAll();
