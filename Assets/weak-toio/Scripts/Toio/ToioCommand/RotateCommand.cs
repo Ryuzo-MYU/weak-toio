@@ -21,7 +21,7 @@ public class DegRotateCommand : IMovementCommand
 		CubeHandle handle = toio.Handle;
 		Movement rotate = handle.RotateByDeg(deg, speed);
 		handle.Update();
-		handle.Move(rotate);
+		handle.Move(rotate, false);
 	}
 }
 
@@ -44,6 +44,6 @@ public class RadRotateCommand : IMovementCommand
 		CubeHandle handle = toio.Handle;
 		Movement radRotate = handle.RotateByRad(rad, speed);
 		handle.Update();
-		handle.Move(radRotate);
+		handle.Move(radRotate, false);
 	}
 }
