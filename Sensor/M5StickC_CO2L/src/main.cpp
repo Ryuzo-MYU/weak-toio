@@ -9,7 +9,8 @@
 
 #include <BluetoothSerial.h>
 #include <M5Unified.h>
-#include <M5UnitENV.h>
+
+#include "M5UnitENV.h"
 
 // 定数定義
 const char* DEVICE_NAME = "M5_CO2";
