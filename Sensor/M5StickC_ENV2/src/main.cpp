@@ -1,83 +1,74 @@
-// ==============================
-// M5StickC, ENV2で環境データを取得し、シリアル通信で送信
-// データリスト			対応する変数	単位
-// 0: 	デバイス名 		DEVICE_NAME		-
-// 1: 	X軸加速度 		accX			g(9.8 m/s^2)
-// 2. 	Y軸加速度 		accY			g(9.8 m/s^2)
-// 3. 	Z軸加速度 		accZ			g(9.8 m/s^2)
-// 4. 	X軸ジャイロ 	gyroX			deg/s
-// 5.	Y軸ジャイロ		gyroY			deg/s
-// 6.	Z軸ジャイロ		gyroZ			deg/s
-// 7.	バッテリー電圧	 vbat			mV
-// 8.	気温		   	temperature		℃
-// 9.	湿度			humidity		%
-// 10.	気圧			pressure		Pa
-// ==============================
-
-#include <Arduino.h>
 #include <BluetoothSerial.h>
-#include <Config.h>
-#include <SensorData.h>
+#include <M5Unified.h>
 
-// センサクラス
-SensorData sensorData;
+#include "M5UnitENV.h"
 
-// 更新間隔設定(Config.h, Timer.h)
-Timer loopTimer(Config::LOOP_DELAY);
+// 定数定義
+const char* DEVICE_NAME = "ENV_SENSOR";
+const uint32_t SERIAL_BAUD = 115200;
+const int LOOP_DELAY = 1000;  // 1秒間隔信間隔(ms)
 
-// Bluetooth
+// オブジェクト初期化
 BluetoothSerial SerialBT;
-
-// データ送信関数のプロトタイプ宣言
-void sendData();
+DHT12 dht;
+BMP280 bmp;
+unsigned long lastSendTime = 0;
 
 void setup() {
-    M5.begin();
+    auto cfg = M5.config();
+    M5.begin(cfg);
+    Serial.begin(SERIAL_BAUD);
+    SerialBT.begin(DEVICE_NAME);
 
-    M5.Lcd.setRotation(3);  // ディスプレイの向きを調整（お好みで）
-    // 輝度設定
+    // LCD初期化
+    M5.Lcd.setRotation(3);
     M5.Lcd.fillScreen(BLACK);
     M5.Lcd.setTextColor(WHITE);
-    // 文字サイズ設定とデバイス名の表示
-    M5.Lcd.setTextSize(2);
-    M5.Lcd.setCursor(10, 30);  // 表示位置調整
-    M5.Lcd.print(Config::DEVICE_NAME);
+    M5.Lcd.setTextSize(1);
+    M5.Lcd.setCursor(10, 10);
+    M5.Lcd.print(DEVICE_NAME);
 
-    // シリアル通信の初期化
-    Serial.begin(Config::SERIAL_BAUD);    // シリアル通信の初期化
-    SerialBT.begin(Config::DEVICE_NAME);  // Bluetoothシリアルの初期化
+    // センサーの初期化
+    if (!dht.begin(&Wire, DHT12_I2C_ADDR, 32, 33, 400000U)) {
+        Serial.println("DHT12 error");
+        while (1) delay(1);
+    }
+    if (!bmp.begin(&Wire, BMP280_I2C_ADDR, 32, 33, 400000U)) {
+        Serial.println("BMP280 error");
+        while (1) delay(1);
+    }
 
-    // 初期化および初回データの取得
-    sensorData.setup();
-    sensorData.update();
+    // BMP280の設定
+    bmp.setSampling(BMP280::MODE_NORMAL, BMP280::SAMPLING_X2,
+                    BMP280::SAMPLING_X16, BMP280::FILTER_X16,
+                    BMP280::STANDBY_MS_500);
 }
 
 void loop() {
-    // センサの更新
-    sensorData.update();
+    // センサーの更新
+    dht.update();
+    bmp.update();
 
-    // データを送信
-    if (loopTimer.isTimeToUpdate()) {
-        sendData();
-    }
-}
+    // データ送信文字列の作成
+    char data[100];
+    sprintf(data, "%s\t%.2f\t%.2f\t%.2f", DEVICE_NAME,
+            bmp.cTemp,      // 気温（BMP280の値を使用）
+            dht.humidity,   // 湿度
+            bmp.pressure);  // 気圧
 
-// データ送信関数
-void sendData() {
-    // 送信するデータをフォーマット
-    char data[150];
-    // %s : string
-    // %t : tab
-    // %.nf : n桁のfloat
-    sprintf(data,
-            "%s\t%.6f\t%.6f\t%.6f\t%.6f\t%.6f\t%.6f\t%.3f\t%.2f\t%.2f\t%.2f",
-            Config::DEVICE_NAME, sensorData.getAccX(), sensorData.getAccY(),
-            sensorData.getAccZ(), sensorData.getGyroX(), sensorData.getGyroY(),
-            sensorData.getGyroZ(), sensorData.getVbat(),
-            sensorData.getTemperature(), sensorData.getHumidity(),
-            sensorData.getPressure());
-
-    // Bluetoothシリアルと通常のシリアルにデータを送信
-    Serial.println(data);  // 通常のシリアルモニタにも出力
+    // データの送信
+    Serial.println(data);
     SerialBT.println(data);
+
+    M5.update();
+
+    // LCD表示の更新
+    M5.Lcd.setCursor(0, 70);
+    M5.Lcd.printf("Temp: %.1f C", bmp.cTemp);
+    M5.Lcd.setCursor(10, 35);
+    M5.Lcd.printf("Hum : %.1f %%", dht.humidity);
+    M5.Lcd.setCursor(10, 50);
+    M5.Lcd.printf("Pres: %.0f Pa", bmp.pressure);
+
+    delay(LOOP_DELAY);
 }
