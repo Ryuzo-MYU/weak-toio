@@ -4,15 +4,12 @@ using UnityEngine;
 namespace Environment
 {
 	[RequireComponent(typeof(SerialHandler))]
-	public class M5Stickc : SensorBase, IM5Sensor, ISerialConnector, RealSensor
+	public class M5Stickc : SensorBase, ISerialConnector, RealSensor
 	{
 		[SerializeField] protected int requiredLength;
 		protected string[] receivedData;
 
 		[SerializeField] protected string _deviceName;
-		[SerializeField] protected Vector3 _acceleration;
-		[SerializeField] protected Vector3 _gyro;
-		[SerializeField] protected float _vbat;
 
 		private void Start()
 		{
@@ -27,10 +24,6 @@ namespace Environment
 		// IM5Sensor実装
 		// ==============================
 		public string GetDeviceName() { return _deviceName; }
-		public Vector3 GetAcceleration() { return _acceleration; }
-		public Vector3 GetGyro() { return _gyro; }
-		public float GetVbat() { return _vbat; }
-
 		// ==============================
 		// ISerialConnector実装
 		// ==============================
@@ -66,7 +59,7 @@ namespace Environment
 			{
 				CheckDataLength(splittedMessage, requiredLength);
 				_deviceName = splittedMessage[0];
-				
+
 				Debug.Log("シリアルデータの取得に成功");
 			}
 			catch (System.Exception e)

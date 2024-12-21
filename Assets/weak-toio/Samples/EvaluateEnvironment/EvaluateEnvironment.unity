@@ -2373,6 +2373,14 @@ PrefabInstance:
       propertyPath: actionMaxCount
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 3348013124271145054, guid: 19577c523d2674545b5f000e73e69dcb, type: 3}
+      propertyPath: baudRate
+      value: 115200
+      objectReference: {fileID: 0}
+    - target: {fileID: 3348013124271145054, guid: 19577c523d2674545b5f000e73e69dcb, type: 3}
+      propertyPath: portName
+      value: CO2_SENSOR
+      objectReference: {fileID: 0}
     - target: {fileID: 3777579130281375468, guid: 19577c523d2674545b5f000e73e69dcb, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.055
@@ -2412,6 +2420,10 @@ PrefabInstance:
     - target: {fileID: 3777579130281375468, guid: 19577c523d2674545b5f000e73e69dcb, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5682064180166316849, guid: 19577c523d2674545b5f000e73e69dcb, type: 3}
+      propertyPath: requiredLength
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 6601354619286629088, guid: 19577c523d2674545b5f000e73e69dcb, type: 3}
       propertyPath: m_Name
