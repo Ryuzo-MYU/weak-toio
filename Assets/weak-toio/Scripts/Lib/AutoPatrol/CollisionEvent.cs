@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using toio.Simulator;
 using UnityEngine;
 
 public class CollisionEvent : MonoBehaviour
@@ -10,7 +7,7 @@ public class CollisionEvent : MonoBehaviour
     {
         if (collision.gameObject.name != "Mat" && autoPatrol.phase == 0)
         {
-            Debug.Log(collision.gameObject.name + "�ƏՓ�");
+            Debug.Log(collision.gameObject.name + "�ƏՓ�");
             autoPatrol.VirtualCollision();
         }
     }

@@ -1,6 +1,4 @@
-using System.Collections.Generic;
 using toio;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class AutoPatrol : MonoBehaviour
