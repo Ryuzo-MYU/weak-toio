@@ -2422,8 +2422,16 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5682064180166316849, guid: 19577c523d2674545b5f000e73e69dcb, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5682064180166316849, guid: 19577c523d2674545b5f000e73e69dcb, type: 3}
       propertyPath: requiredLength
       value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6246615144474369996, guid: 19577c523d2674545b5f000e73e69dcb, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6601354619286629088, guid: 19577c523d2674545b5f000e73e69dcb, type: 3}
       propertyPath: m_Name
@@ -3113,9 +3121,17 @@ PrefabInstance:
       propertyPath: portName
       value: COM8
       objectReference: {fileID: 0}
+    - target: {fileID: 3372622749317078845, guid: 4a6c4fbd7d96fed439ec211bc9689934, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4787052804649469774, guid: 4a6c4fbd7d96fed439ec211bc9689934, type: 3}
       propertyPath: actionMaxCount
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 7610476837336603242, guid: 4a6c4fbd7d96fed439ec211bc9689934, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7610476837336603242, guid: 4a6c4fbd7d96fed439ec211bc9689934, type: 3}
       propertyPath: requiredLength

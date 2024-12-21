@@ -10,7 +10,6 @@ public class SensorManager : MonoBehaviour
 	[SerializeField] private SensorBase _dummy;
 	private SensorBase _remainedSensor;
 
-
 	private void Awake()
 	{
 		_real = (SensorBase)gameObject.GetComponent<RealSensor>();
