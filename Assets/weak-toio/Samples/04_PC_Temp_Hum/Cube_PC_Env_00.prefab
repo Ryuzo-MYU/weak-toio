@@ -656,6 +656,7 @@ MonoBehaviour:
   _serial: {fileID: 0}
   _real: {fileID: 0}
   _dummy: {fileID: 0}
+  _finallySensor: {fileID: 0}
 --- !u!114 &5682064180166316849
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -663,7 +664,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6601354619286629088}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 17fe406bddfb32b4f9faba53268d01c3, type: 3}
   m_Name: 
@@ -671,12 +672,9 @@ MonoBehaviour:
   _serial: {fileID: 0}
   requiredLength: 11
   _deviceName: 
-  _acceleration: {x: 0, y: 0, z: 0}
-  _gyro: {x: 0, y: 0, z: 0}
-  _vbat: 0
   _temp: 0
   _hum: 0
-  _ppm: 0
+  _co2: 0
 --- !u!114 &6246615144474369996
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -684,7 +682,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6601354619286629088}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 791df73027a6d304491cf304013ea3b2, type: 3}
   m_Name: 
@@ -747,5 +745,8 @@ MonoBehaviour:
   _id: 0
   _name: 
   type: 03000000
+  movementCount: 0
+  lightCount: 0
+  soundCount: 0
   actionMaxCount: 10
   toioConnector: {fileID: 0}
