@@ -18,7 +18,7 @@ namespace Evaluation
 		/// <returns>評価結果を集約したResult型データ</returns>
 		public void GenerateEvaluationResult(ICO2Sensor co2Sensor)
 		{
-			_currentParam = co2Sensor.GetPPM(); // CO2センサからCO2濃度を取得
+			_currentParam = co2Sensor.GetCO2(); // CO2センサからCO2濃度を取得
 
 			// PPMに基づく評価
 			// 適正PPM以下ならば

@@ -12,7 +12,7 @@ public class HumanCO2Evaluate : EvaluateBase, IEvaluationResultSender<ICO2Sensor
 
 	public void GenerateEvaluationResult(ICO2Sensor co2Sensor)
 	{
-		_currentParam = co2Sensor.GetPPM();
+		_currentParam = co2Sensor.GetCO2();
 
 		if (suitableRange.isWithInRange(_currentParam))
 		{

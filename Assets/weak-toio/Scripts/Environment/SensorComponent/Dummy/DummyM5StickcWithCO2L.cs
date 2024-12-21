@@ -8,7 +8,7 @@ public class DummyM5StickcWithCO2L : DummyM5Stickc, ICO2LSensor
 	[SerializeField] protected float _ppm;
 	public float GetTemperature() { return _temp; }
 	public float GetHumidity() { return _hum; }
-	public float GetPPM() { return _ppm; }
+	public float GetCO2() { return _ppm; }
 	void Update()
 	{
 		base.UpdateSensor();

@@ -66,12 +66,7 @@ namespace Environment
 			{
 				CheckDataLength(splittedMessage, requiredLength);
 				_deviceName = splittedMessage[0];
-
-				float[] imuInfo = new float[6];
-				for (int i = 1; i <= 6; i++) { float.TryParse(splittedMessage[i], out imuInfo[i - 1]); }
-				_acceleration = new Vector3(imuInfo[1], imuInfo[2], imuInfo[3]);
-				_gyro = new Vector3(imuInfo[4], imuInfo[5], imuInfo[6]);
-				float.TryParse(splittedMessage[7], out _vbat);         // バッテリー残量
+				
 				Debug.Log("シリアルデータの取得に成功");
 			}
 			catch (System.Exception e)

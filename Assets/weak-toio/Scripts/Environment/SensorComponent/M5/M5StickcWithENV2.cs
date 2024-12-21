@@ -30,9 +30,9 @@ namespace Environment
 			try
 			{
 				CheckDataLength(splittedMessage, requiredLength);
-				float.TryParse(splittedMessage[8], out _temp);         // ENV2の気温
-				float.TryParse(splittedMessage[9], out _hum);          // ENV2の湿度
-				float.TryParse(splittedMessage[10], out _pressure);    // ENV2の気圧
+				float.TryParse(splittedMessage[1], out _temp);         // ENV2の気温
+				float.TryParse(splittedMessage[2], out _hum);          // ENV2の湿度
+				float.TryParse(splittedMessage[3], out _pressure);    // ENV2の気圧
 			}
 			catch (System.Exception e)
 			{
