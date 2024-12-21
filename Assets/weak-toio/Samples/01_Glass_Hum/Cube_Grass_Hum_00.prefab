@@ -670,7 +670,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _serial: {fileID: 0}
-  requiredLength: 11
+  requiredLength: 4
   _deviceName: 
   _temp: 0
   _hum: 0
