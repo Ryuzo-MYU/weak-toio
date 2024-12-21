@@ -8,7 +8,7 @@ public class SensorManager : MonoBehaviour
 	[SerializeField] private SerialHandler _serial;
 	[SerializeField] private SensorBase _real;
 	[SerializeField] private SensorBase _dummy;
-	private SensorBase _remainedSensor;
+	[SerializeField] private SensorBase _finallySensor;
 
 	private void Awake()
 	{
@@ -24,17 +24,17 @@ public class SensorManager : MonoBehaviour
 	private void OnConnectSucceeded()
 	{
 		_real.enabled = true;
-		_remainedSensor = (SensorBase)_real;
+		_finallySensor = (SensorBase)_real;
 		OnSensorDecided?.Invoke();
 	}
 	protected void OnConnectFailed()
 	{
 		_dummy.enabled = true;
-		_remainedSensor = (SensorBase)_dummy;
+		_finallySensor = (SensorBase)_dummy;
 		OnSensorDecided?.Invoke();
 	}
 	public SensorBase GetSensor()
 	{
-		return _remainedSensor;
+		return _finallySensor;
 	}
 }
