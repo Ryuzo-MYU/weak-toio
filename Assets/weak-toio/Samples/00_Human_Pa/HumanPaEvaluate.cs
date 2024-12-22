@@ -5,7 +5,7 @@ using Evaluation;
 using UnityEngine;
 
 [RequireComponent(typeof(ICO2Sensor))]
-public class HumanCO2Evaluate : EvaluateBase, IEvaluationResultSender<ICO2Sensor>
+public class HumanPaEvaluate : EvaluateBase, IEvaluationResultSender<ICO2Sensor>
 {
 	[SerializeField] private BoundaryRange suitableRange = new BoundaryRange(400, 1000); // CO2濃度の快適範囲(ppm)
 	private ICO2Sensor co2Sensor;

@@ -3,7 +3,7 @@ using Evaluation;
 namespace Robot
 {
 
-	public class HumanActionGenerator : ActionGenerator
+	public class HumanPaActionGenerator : ActionGenerator
 	{
 		BoundaryRange suitableRange = new BoundaryRange(0);
 		BoundaryRange cautionRange = new BoundaryRange(-200, 200);
