@@ -71,7 +71,7 @@ namespace Robot
 		}
 		private void OnRegisterCompleted()
 		{
-			StartCoroutine(actionGenerator.StartMove(this));
+			StartCoroutine(actionGenerator.AddNewAction(this));
 			StartCoroutine(HandleCollision());
 		}
 

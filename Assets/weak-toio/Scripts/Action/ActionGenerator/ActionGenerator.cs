@@ -25,12 +25,13 @@ namespace Robot
 			currentResult = result;
 		}
 
-		public IEnumerator StartMove(Toio toio)
+		public IEnumerator AddNewAction(Toio toio)
 		{
 			while (true)
 			{
 				Action action = GenerateAction(currentResult);
 				toio.AddNewAction(action);
+				yield return toio.Act();
 			}
 		}
 
