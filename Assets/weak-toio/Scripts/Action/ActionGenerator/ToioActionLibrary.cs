@@ -1,4 +1,5 @@
 using toio;
+using UnityEngine;
 
 namespace Robot
 {
@@ -303,6 +304,25 @@ namespace Robot
 			action.AddMovement(DegRotate(180, 100));  // 素早い回転
 			action.AddLight(TurnOnLED(139, 69, 19, 3000));  // 茶色
 			action.AddSound(PresetSound(5, 255, 2f));  // 警告音
+			return action;
+		}
+		#endregion
+
+		#region 衝突回避アクション
+		public static Action CollisionAvoidance()
+		{
+			Action action = new Action();
+
+			// 1. 後退
+			action.AddMovement(Translate(-50, 40));  // 50mm後退
+
+			// 2. 回転 (ランダムな角度)
+			float rotationAngle = Random.Range(30f, 150f);
+			action.AddMovement(DegRotate(rotationAngle, 30));
+
+			// 3. 前進
+			action.AddMovement(Translate(100, 50));
+
 			return action;
 		}
 		#endregion

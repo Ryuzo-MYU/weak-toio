@@ -154,8 +154,42 @@ namespace Robot
 			{
 				isMoving = true;
 			}
+		}
 
+		public void AddEmergencyAction(Action emergencyAction)
+		{
+			if (emergencyAction == null) return;
+
+			// 現在のアクションキューを保存
+			Queue<Action> tempActions = new Queue<Action>(actions);
+
+			// キューをクリアして緊急アクションを追加
+			actions.Clear();
+			actions.Enqueue(emergencyAction);
+
+			// 保存していたアクションを後ろに追加
+			foreach (var action in tempActions)
+			{
+				actions.Enqueue(action);
+			}
+
+			// 現在実行中のアクションがあれば中断
+			if (currentAction != null)
+			{
+				actions.Enqueue(currentAction);
+				currentAction = null;
+			}
+
+			if (!isMoving)
+			{
+				isMoving = true;
+			}
+		}
+
+		private void OnCollisionEnter(Collision collision)
+		{
+			var avoidanceAction = ToioActionLibrary.CollisionAvoidance();
+			AddEmergencyAction(avoidanceAction);
 		}
 	}
-
 }
