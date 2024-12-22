@@ -80,9 +80,9 @@ namespace Robot
 
 			while (currentAction.Count() > 0)
 			{
-				yield return StartCoroutine(Move());
-				yield return StartCoroutine(ControllLED());
-				yield return StartCoroutine(PlaySound());
+				StartCoroutine(Move());
+				StartCoroutine(ControllLED());
+				StartCoroutine(PlaySound());
 			}
 			yield return null;
 		}
