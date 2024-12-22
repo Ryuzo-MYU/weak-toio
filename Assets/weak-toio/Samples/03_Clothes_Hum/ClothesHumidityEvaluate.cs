@@ -1,5 +1,3 @@
-#region 服（湿度）
-
 using Environment;
 using Evaluation;
 using UnityEngine;
@@ -41,4 +39,3 @@ public class ClothesHumidityEvaluate : EvaluateBase, IEvaluationResultSender<IHu
 		GenerateEvaluationResult(humiditySensor);
 	}
 }
-#endregion
