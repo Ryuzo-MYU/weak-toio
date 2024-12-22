@@ -28,6 +28,8 @@ namespace Robot
 		private Action currentAction;
 		private bool isMoving = false;
 
+		private bool isCollisionDetected;
+
 		private ActionGenerator actionGenerator;
 		[SerializeField] private ToioConnector toioConnector;
 		private void Start()
@@ -44,6 +46,15 @@ namespace Robot
 			{
 				this._name = gameObject.name;
 			}
+		}
+
+		private void Update()
+		{
+			if (isCollisionDetected != _cube.isCollisionDetected)
+			{
+				HandleCollision();
+			}
+			isCollisionDetected = _cube.isCollisionDetected;
 		}
 
 		private void OnConnectSucceeded()
