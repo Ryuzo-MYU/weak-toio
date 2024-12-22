@@ -25,7 +25,7 @@ namespace Robot
 			currentResult = result;
 		}
 
-		public IEnumerator AddNewAction(Toio toio)
+		public IEnumerator StartMove(Toio toio)
 		{
 			while (true)
 			{

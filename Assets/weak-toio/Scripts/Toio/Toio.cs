@@ -71,7 +71,7 @@ namespace Robot
 		}
 		private void OnRegisterCompleted()
 		{
-			StartCoroutine(actionGenerator.AddNewAction(this));
+			StartCoroutine(actionGenerator.StartMove(this));
 			StartCoroutine(HandleCollision());
 		}
 
@@ -215,11 +215,6 @@ namespace Robot
 			if (actions.Count < actionMaxCount)
 			{
 				actions.Enqueue(action);
-				if (!isMoving)
-				{
-					isMoving = true;
-					StartCoroutine(Act());
-				}
 			}
 		}
 
