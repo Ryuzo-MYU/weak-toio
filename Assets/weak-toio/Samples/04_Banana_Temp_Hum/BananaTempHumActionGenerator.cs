@@ -2,7 +2,7 @@
 using Evaluation;
 namespace Robot
 {
-	public class PCActionGenerator : ActionGenerator
+	public class BananaTempHumActionGenerator : ActionGenerator
 	{
 		BoundaryRange suitableRange = new BoundaryRange(0);
 		BoundaryRange cautionRange = new BoundaryRange(-5, 5);
