@@ -354,11 +354,11 @@ GameObject:
   - component: {fileID: 1977784646829054688}
   - component: {fileID: 5682064180166316849}
   - component: {fileID: 6246615144474369996}
-  - component: {fileID: 5042779680834940716}
-  - component: {fileID: -1528766048730055932}
+  - component: {fileID: -884219169315641186}
+  - component: {fileID: -1999267704135310860}
   - component: {fileID: 2967492030441082689}
   m_Layer: 0
-  m_Name: Cube_PC_Env_00
+  m_Name: Cube_Human_Pa_00
   m_TagString: Toio
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -692,10 +692,10 @@ MonoBehaviour:
   _accel: {x: 0, y: 0, z: 0}
   _gyro: {x: 0, y: 0, z: 0}
   _vbat: 4
-  _temp: 10
+  _temp: 22
   _hum: 60
   _ppm: 700
---- !u!114 &5042779680834940716
+--- !u!114 &-884219169315641186
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -704,7 +704,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6601354619286629088}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c4dd00b2239882a4b9294e04a4d7ae35, type: 3}
+  m_Script: {fileID: 11500000, guid: 014cb6a5c5cca434ebf5d4a057468f10, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _currentParam: 0
@@ -712,13 +712,10 @@ MonoBehaviour:
     unit: 
   _envType: 0
   _score: 0
-  suitableTempRange:
-    UpperLimit: 10
-    LowerLimit: 35
-  suitableHumidRange:
-    UpperLimit: 20
-    LowerLimit: 80
---- !u!114 &-1528766048730055932
+  suitableRange:
+    UpperLimit: 400
+    LowerLimit: 1000
+--- !u!114 &-1999267704135310860
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -727,7 +724,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6601354619286629088}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 248dcc9b36bc80d4f8c1c36988b406da, type: 3}
+  m_Script: {fileID: 11500000, guid: d73cfab9f44cb0346ad6d07cbdafb2cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &2967492030441082689
