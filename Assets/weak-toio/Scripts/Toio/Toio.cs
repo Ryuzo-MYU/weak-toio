@@ -115,6 +115,7 @@ namespace Robot
 						{
 							isEmergencyAction = false;
 							yield return null;
+							continue;
 						}
 					}
 				}
@@ -131,6 +132,7 @@ namespace Robot
 						else
 						{
 							yield return null;
+							continue;
 						}
 					}
 				}
