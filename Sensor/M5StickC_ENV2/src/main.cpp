@@ -11,6 +11,7 @@
 
 #include <BluetoothSerial.h>
 #include <M5Unified.h>
+#include <Wire.h>
 
 #include "M5UnitENV.h"
 
@@ -33,21 +34,7 @@ void UpdateInfo(float temp, float hum, float pa);
 
 void setup() {
     M5.begin();
-    if (!sht.begin(&Wire, SHT3X_I2C_ADDR, 32, 33, 400000U)) {
-        Serial.println("Couldn't find DHT12");
-        while (1) delay(1);
-    }
-    if (!bmp.begin(&Wire, BMP280_I2C_ADDR, 32, 33, 400000U)) {
-        Serial.println("Couldn't find BMP280");
-        while (1) delay(1);
-    }
-    /* Default settings from datasheet. */
-    bmp.setSampling(BMP280::MODE_NORMAL,     /* Operating Mode. */
-                    BMP280::SAMPLING_X2,     /* Temp. oversampling */
-                    BMP280::SAMPLING_X16,    /* Pressure oversampling */
-                    BMP280::FILTER_X16,      /* Filtering. */
-                    BMP280::STANDBY_MS_500); /* Standby time. */
-
+    Wire.begin();
     Serial.begin(SERIAL_BAUD);
     SerialBT.begin(DEVICE_NAME);
 
@@ -87,15 +74,12 @@ void UpdateInfo(float temp, float hum, float pa) {
     M5.update();
 
     // LCD表示の更新
-    M5.Lcd.clear();
-    M5.Lcd.setTextSize(1.5);
-    M5.Lcd.setCursor(10, 10);
-    M5.Lcd.print(DEVICE_NAME);
-    M5.Lcd.setTextSize(1);
+    M5.Lcd.setCursor(0, 10);
+    M5.Lcd.printf("Temp: %.1f C", bmp.cTemp);
+    M5.Lcd.setCursor(10, 20);
+    M5.Lcd.printf("Hum : %.1f %%", dht.humidity);
     M5.Lcd.setCursor(10, 30);
-    M5.Lcd.printf("Temp: %.1f C", temp);
-    M5.Lcd.setCursor(10, 45);
-    M5.Lcd.printf("Hum : %.1f %%", hum);
-    M5.Lcd.setCursor(10, 60);
-    M5.Lcd.printf("Pres: %.0f Pa", pa);
+    M5.Lcd.printf("Pres: %.0f Pa", bmp.pressure);
+
+    delay(LOOP_DELAY);
 }
