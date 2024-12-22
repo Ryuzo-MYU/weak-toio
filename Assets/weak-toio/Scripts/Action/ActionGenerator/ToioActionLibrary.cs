@@ -278,5 +278,33 @@ namespace Robot
 			return action;
 		}
 		#endregion
+
+		#region バナナのアクション（気温・湿度）
+		public static Action Banana_Normal()
+		{
+			Action action = new Action();
+			action.AddMovement(Translate(50, 40));  // ゆっくりとした動き
+			action.AddLight(TurnOnLED(255, 255, 0, 3000));  // バナナの黄色
+			return action;
+		}
+
+		public static Action Banana_Warning()
+		{
+			Action action = new Action();
+			action.AddMovement(Translate(80, 60));  // やや早い動き
+			action.AddLight(TurnOnLED(255, 200, 0, 3000));  // 黄褐色
+			action.AddSound(PresetSound(1, 200, 1f));  // 軽い警告音
+			return action;
+		}
+
+		public static Action Banana_Rotting()
+		{
+			Action action = new Action();
+			action.AddMovement(DegRotate(180, 100));  // 素早い回転
+			action.AddLight(TurnOnLED(139, 69, 19, 3000));  // 茶色
+			action.AddSound(PresetSound(5, 255, 2f));  // 警告音
+			return action;
+		}
+		#endregion
 	}
 }

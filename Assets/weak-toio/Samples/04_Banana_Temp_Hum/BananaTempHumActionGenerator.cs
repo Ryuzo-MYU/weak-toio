@@ -1,30 +1,27 @@
-#region PCのアクション生成
 using Evaluation;
 namespace Robot
 {
-	public class BananaTempHumActionGenerator : ActionGenerator
-	{
-		BoundaryRange suitableRange = new BoundaryRange(0);
-		BoundaryRange cautionRange = new BoundaryRange(-5, 5);
+    public class BananaTempHumActionGenerator : ActionGenerator
+    {
+        BoundaryRange normalRange = new BoundaryRange(-3, 3);    // 正常範囲
+        BoundaryRange warningRange = new BoundaryRange(-6, 6);   // 警戒範囲
 
-		protected override Action GenerateAction(Result result)
-		{
-			float score = result.Score;
+        protected override Action GenerateAction(Result result)
+        {
+            float score = result.Score;
 
-			if (suitableRange.isWithInRange(score))
-			{
-				return ToioActionLibrary.PC_Optimal();
-			}
-			else if (cautionRange.isWithInRange(score))
-			{
-				return ToioActionLibrary.PC_Normal();
-			}
-			else
-			{
-				Action action = ToioActionLibrary.PC_Uncomfortable();
-				return action;
-			}
-		}
-	}
+            if (normalRange.isWithInRange(score))
+            {
+                return ToioActionLibrary.Banana_Normal();
+            }
+            else if (warningRange.isWithInRange(score))
+            {
+                return ToioActionLibrary.Banana_Warning();
+            }
+            else
+            {
+                return ToioActionLibrary.Banana_Rotting();
+            }
+        }
+    }
 }
-#endregion
