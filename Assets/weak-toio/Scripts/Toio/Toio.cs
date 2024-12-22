@@ -62,7 +62,10 @@ namespace Robot
 			this._cube = cubeManager.cubes[_id];
 			this._handle = cubeManager.handles[_id];
 
-			_cube.ConfigCollisionThreshold(collisionThreshold);
+			if (toioConnector.connectType == ConnectType.Real)
+			{
+				_cube.ConfigCollisionThreshold(collisionThreshold);
+			}
 
 			OnRegisterCompleted();
 		}
@@ -220,7 +223,7 @@ namespace Robot
 		{
 			if (emergencyAction == null) return;
 
-			 // 緊急アクションをキューの先頭に追加
+			// 緊急アクションをキューの先頭に追加
 			actions.Enqueue(emergencyAction);
 			isEmergencyAction = true;
 
