@@ -29,6 +29,7 @@ namespace Robot
 		private bool isMoving = false;
 
 		private bool isCollisionDetected; // 衝突フラグ
+		private bool isEmergencyAction = false; // 緊急アクションフラグ
 
 		private ActionGenerator actionGenerator;
 		[SerializeField] private ToioConnector toioConnector;
@@ -82,6 +83,7 @@ namespace Robot
 					{
 						var avoidanceAction = ToioActionLibrary.CollisionAvoidance();
 						Debug.Log("衝突！");
+						isEmergencyAction = true;
 						AddEmergencyAction(avoidanceAction);
 					}
 					isCollisionDetected = _cube.isCollisionDetected;
@@ -94,24 +96,48 @@ namespace Robot
 		// 実行関連のメソッド
 		public IEnumerator Act()
 		{
-			if (currentAction == null || currentAction.Count() == 0)
+			while (true)
 			{
-				if (actions.Count > 0)
+				if (isEmergencyAction)
 				{
-					currentAction = actions.Dequeue();
-					Debug.Log("アクション無いんで入れ替えますね");
+					// 緊急アクションを処理
+					if (currentAction == null || currentAction.Count() == 0)
+					{
+						if (actions.Count > 0)
+						{
+							currentAction = actions.Dequeue();
+							Debug.Log("緊急アクションを処理します");
+						}
+						else
+						{
+							isEmergencyAction = false;
+							yield return null;
+						}
+					}
 				}
 				else
 				{
-					yield return null;
+					// 通常アクションを処理
+					if (currentAction == null || currentAction.Count() == 0)
+					{
+						if (actions.Count > 0)
+						{
+							currentAction = actions.Dequeue();
+							Debug.Log("アクション無いんで入れ替えますね");
+						}
+						else
+						{
+							yield return null;
+						}
+					}
 				}
-			}
 
-			while (currentAction.Count() > 0)
-			{
-				yield return StartCoroutine(Move());
-				yield return StartCoroutine(ControllLED());
-				yield return StartCoroutine(PlaySound());
+				while (currentAction != null && currentAction.Count() > 0)
+				{
+					yield return StartCoroutine(Move());
+					yield return StartCoroutine(ControllLED());
+					yield return StartCoroutine(PlaySound());
+				}
 			}
 		}
 
@@ -194,29 +220,14 @@ namespace Robot
 		{
 			if (emergencyAction == null) return;
 
-			// 現在のアクションキューを保存
-			Queue<Action> tempActions = new Queue<Action>(actions);
-
-			// キューをクリアして緊急アクションを追加
-			actions.Clear();
+			 // 緊急アクションをキューの先頭に追加
 			actions.Enqueue(emergencyAction);
-
-			// 保存していたアクションを後ろに追加
-			foreach (var action in tempActions)
-			{
-				actions.Enqueue(action);
-			}
-
-			// 現在実行中のアクションがあれば中断
-			if (currentAction != null)
-			{
-				actions.Enqueue(currentAction);
-				currentAction = null;
-			}
+			isEmergencyAction = true;
 
 			if (!isMoving)
 			{
 				isMoving = true;
+				StartCoroutine(Act());
 			}
 		}
 	}
