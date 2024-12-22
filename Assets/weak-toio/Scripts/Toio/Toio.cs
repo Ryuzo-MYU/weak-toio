@@ -48,16 +48,6 @@ namespace Robot
 			}
 		}
 
-		private void Update()
-		{
-			// 衝突フラグの変化を1回だけ認識したい
-			if (isCollisionDetected != _cube.isCollisionDetected)
-			{
-				HandleCollision();
-			}
-			isCollisionDetected = _cube.isCollisionDetected;
-		}
-
 		// CubeConnectorでCubeにまとめて接続してから自分のCubeなどを取得させる
 		private void OnConnectSucceeded()
 		{
@@ -78,13 +68,27 @@ namespace Robot
 		private void OnRegisterCompleted()
 		{
 			StartCoroutine(actionGenerator.StartMove(this));
+			StartCoroutine(HandleCollision());
 		}
 
-		private void HandleCollision()
+		private IEnumerator HandleCollision()
 		{
-			var avoidanceAction = ToioActionLibrary.CollisionAvoidance();
-			Debug.Log("衝突！");
-			AddEmergencyAction(avoidanceAction);
+			while (true)
+			{
+				if (_cube != null && _cube.isCollisionDetected)
+				{
+					// 衝突フラグの変化を1回だけ認識したい
+					if (isCollisionDetected != _cube.isCollisionDetected)
+					{
+						var avoidanceAction = ToioActionLibrary.CollisionAvoidance();
+						Debug.Log("衝突！");
+						AddEmergencyAction(avoidanceAction);
+					}
+					isCollisionDetected = _cube.isCollisionDetected;
+				}
+
+				yield return null;
+			}
 		}
 
 		// 実行関連のメソッド
