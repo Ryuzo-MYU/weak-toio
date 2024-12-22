@@ -7,7 +7,6 @@ namespace Robot
 {
 	public class Toio : MonoBehaviour
 	{
-		[SerializeField] private int collisionThreshold;
 		[SerializeField] private int _id;
 		[SerializeField] private string _name;
 		[SerializeField] private List<EnvType> type;
@@ -28,9 +27,6 @@ namespace Robot
 		private Action currentAction;
 		private bool isMoving = false;
 
-		private bool isCollisionDetected; // 衝突フラグ
-		private bool isEmergencyAction = false; // 緊急アクションフラグ
-
 		private ActionGenerator actionGenerator;
 		[SerializeField] private ToioConnector toioConnector;
 		private void Start()
@@ -49,63 +45,45 @@ namespace Robot
 			}
 		}
 
-		// CubeConnectorでCubeにまとめて接続してから自分のCubeなどを取得させる
 		private void OnConnectSucceeded()
 		{
 			toioConnector.RegisterToio(this);
 		}
-
-		// Cubeのデータを持っているのがToioConnectorなので，あっち側で呼び出してもらう
 		public void Register(int id, CubeManager cubeManager)
 		{
 			this._id = id;
 			this._cube = cubeManager.cubes[_id];
 			this._handle = cubeManager.handles[_id];
 
-			if (toioConnector.connectType == ConnectType.Real)
-			{
-				_cube.ConfigCollisionThreshold(collisionThreshold);
-			}
-
 			OnRegisterCompleted();
 		}
 		private void OnRegisterCompleted()
 		{
 			StartCoroutine(actionGenerator.StartMove(this));
-			StartCoroutine(HandleCollision());
-		}
-
-		private IEnumerator HandleCollision()
-		{
-			while (true)
-			{
-				if (_cube != null && _cube.isCollisionDetected)
-				{
-					// 衝突フラグの変化を1回だけ認識したい
-					if (isCollisionDetected != _cube.isCollisionDetected)
-					{
-						var avoidanceAction = ToioActionLibrary.CollisionAvoidance();
-						Debug.Log("衝突！");
-						isEmergencyAction = true;
-						StartCoroutine(AddEmergencyAction(avoidanceAction));
-					}
-					isCollisionDetected = _cube.isCollisionDetected;
-				}
-
-				yield return null;
-			}
 		}
 
 		// 実行関連のメソッド
 		public IEnumerator Act()
 		{
-			while (currentAction != null && currentAction.Count() > 0)
+			if (currentAction == null || currentAction.Count() == 0)
+			{
+				if (actions.Count > 0)
+				{
+					currentAction = actions.Dequeue();
+					Debug.Log("アクション無いんで入れ替えますね");
+				}
+				else
+				{
+					yield return null;
+				}
+			}
+
+			while (currentAction.Count() > 0)
 			{
 				yield return StartCoroutine(Move());
 				yield return StartCoroutine(ControllLED());
 				yield return StartCoroutine(PlaySound());
 			}
-
 			yield return null;
 		}
 
@@ -124,36 +102,28 @@ namespace Robot
 
 		private IEnumerator ControllLED()
 		{
-			if (currentAction == null || currentAction.LightCount() == 0)
-			{
-				yield break;
-			}
-
+			if (currentAction.LightCount() == 0) yield return null;
 			ILightCommand light = currentAction.GetNextLight();
 			lightCount = currentAction.LightCount();
-
 			if (light != null)
 			{
 				light.Exec(this);
 				yield return new WaitForSeconds(light.GetInterval());
 			}
+			yield return null;
 		}
 
 		private IEnumerator PlaySound()
 		{
-			if (currentAction == null || currentAction.SoundCount() == 0)
-			{
-				yield break;
-			}
-
+			if (currentAction.SoundCount() == 0) yield return null;
 			ISoundCommand sound = currentAction.GetNextSound();
 			soundCount = currentAction.SoundCount();
-
 			if (sound != null)
 			{
 				sound.Exec(this);
 				yield return new WaitForSeconds(sound.GetInterval());
 			}
+			yield return null;
 		}
 
 		public void Stop()
@@ -172,29 +142,19 @@ namespace Robot
 				Debug.LogWarning("null のアクション送るな");
 				return;
 			}
-
-			if (actions.Count < actionMaxCount)
+			if (actions.Count > actionMaxCount)
 			{
 				Debug.Log("アクション溜まりすぎ");
 				return;
 			}
-
 			actions.Enqueue(action);
-		}
-
-		public IEnumerator AddEmergencyAction(Action emergencyAction)
-		{
-			if (emergencyAction == null) yield return null;
-
-			// 緊急アクションをキューの先頭に追加
-			actions.Enqueue(emergencyAction);
-			isEmergencyAction = true;
+			Debug.Log("アクション足しました");
 
 			if (!isMoving)
 			{
 				isMoving = true;
-				yield return Act();
 			}
+
 		}
 	}
 }
