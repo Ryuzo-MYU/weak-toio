@@ -68,6 +68,8 @@ namespace Robot
 			this._cube = cubeManager.cubes[_id];
 			this._handle = cubeManager.handles[_id];
 
+			_cube.ConfigCollisionThreshold(collisionThreshold);
+
 			OnRegisterCompleted();
 		}
 		private void OnRegisterCompleted()
@@ -75,30 +77,6 @@ namespace Robot
 			StartCoroutine(actionGenerator.StartMove(this));
 		}
 
-		private void InitializeCube()
-		{
-			if (_cube != null)
-			{
-				// 衝突検知の感度を設定
-				_cube.ConfigCollisionThreshold(collisionThreshold); // 感度の値を調整
-				StartCoroutine(MonitorCollision());
-			}
-		}
-
-		private IEnumerator MonitorCollision()
-		{
-			bool previousCollisionState = false;
-
-			while (_cube != null)
-			{
-				if (_cube.isCollisionDetected && !previousCollisionState)
-				{
-					HandleCollision();
-				}
-				previousCollisionState = _cube.isCollisionDetected;
-				yield return new WaitForSeconds(0.1f); // 100msごとにチェック
-			}
-		}
 		private void HandleCollision()
 		{
 			var avoidanceAction = ToioActionLibrary.CollisionAvoidance();
