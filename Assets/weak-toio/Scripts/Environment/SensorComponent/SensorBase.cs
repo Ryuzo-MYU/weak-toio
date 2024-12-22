@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SensorBase : MonoBehaviour
 {
-	[SerializeField] protected SerialHandler _serial;
+	protected SerialHandler _serial;
 
 	public event Action OnDeserializeCompleted;
 
