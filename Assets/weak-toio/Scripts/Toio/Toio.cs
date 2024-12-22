@@ -99,53 +99,14 @@ namespace Robot
 		// 実行関連のメソッド
 		public IEnumerator Act()
 		{
-			while (true)
+			while (currentAction != null && currentAction.Count() > 0)
 			{
-				if (isEmergencyAction)
-				{
-					// 緊急アクションを処理
-					if (currentAction == null || currentAction.Count() == 0)
-					{
-						if (actions.Count > 0)
-						{
-							currentAction = actions.Dequeue();
-							Debug.Log("緊急アクションを処理します");
-						}
-						else
-						{
-							isEmergencyAction = false;
-							yield return null;
-							continue;
-						}
-					}
-				}
-				else
-				{
-					// 通常アクションを処理
-					if (currentAction == null || currentAction.Count() == 0)
-					{
-						if (actions.Count > 0)
-						{
-							currentAction = actions.Dequeue();
-							Debug.Log("アクション無いんで入れ替えますね");
-						}
-						else
-						{
-							yield return null;
-							continue;
-						}
-					}
-				}
-
-				while (currentAction != null && currentAction.Count() > 0)
-				{
-					yield return StartCoroutine(Move());
-					yield return StartCoroutine(ControllLED());
-					yield return StartCoroutine(PlaySound());
-				}
-
-				yield return null;
+				yield return StartCoroutine(Move());
+				yield return StartCoroutine(ControllLED());
+				yield return StartCoroutine(PlaySound());
 			}
+
+			yield return null;
 		}
 
 		private IEnumerator Move()
