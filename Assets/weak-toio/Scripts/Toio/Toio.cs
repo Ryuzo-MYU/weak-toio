@@ -48,6 +48,7 @@ namespace Robot
 		private void OnConnectSucceeded()
 		{
 			toioConnector.RegisterToio(this);
+			InitializeCube();
 		}
 		public void Register(int id, CubeManager cubeManager)
 		{
@@ -60,6 +61,33 @@ namespace Robot
 		private void OnRegisterCompleted()
 		{
 			StartCoroutine(actionGenerator.StartMove(this));
+		}
+
+		private void InitializeCube()
+		{
+			if (_cube != null)
+			{
+				StartCoroutine(MonitorCollision());
+			}
+		}
+		private IEnumerator MonitorCollision()
+		{
+			bool previousCollisionState = false;
+
+			while (_cube != null)
+			{
+				if (_cube.isCollisionDetected && !previousCollisionState)
+				{
+					HandleCollision();
+				}
+				previousCollisionState = _cube.isCollisionDetected;
+				yield return new WaitForSeconds(0.1f); // 100msごとにチェック
+			}
+		}
+		private void HandleCollision()
+		{
+			var avoidanceAction = ToioActionLibrary.CollisionAvoidance();
+			AddEmergencyAction(avoidanceAction);
 		}
 
 		// 実行関連のメソッド
@@ -184,12 +212,6 @@ namespace Robot
 			{
 				isMoving = true;
 			}
-		}
-
-		private void OnCollisionEnter(Collision collision)
-		{
-			var avoidanceAction = ToioActionLibrary.CollisionAvoidance();
-			AddEmergencyAction(avoidanceAction);
 		}
 	}
 }
