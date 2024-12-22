@@ -249,5 +249,34 @@ namespace Robot
 			return action;
 		}
 		#endregion
+
+		#region 人のアクション（気圧差）
+
+		public static Action Human_NormalPressure()
+		{
+			Action action = new Action();
+			action.AddMovement(Translate(60, 50));  // 通常の動き
+			action.AddLight(TurnOnLED(0, 120, 0, 3000));  // 落ち着いた緑
+			return action;
+		}
+
+		public static Action Human_SensingPressure()
+		{
+			Action action = new Action();
+			action.AddMovement(Translate(40, 40));  // ゆっくりとした動き
+			action.AddLight(TurnOnLED(255, 165, 0, 3000));  // 注意のオレンジ
+			action.AddSound(PresetSound(1, 255, 2f));  // 軽い警告音
+			return action;
+		}
+
+		public static Action Human_SufferingPressure()
+		{
+			Action action = new Action();
+			action.AddMovement(Translate(20, 20));  // 苦しそうな動き
+			action.AddLight(TurnOnLED(255, 0, 0, 3000));  // 苦痛の赤
+			action.AddSound(PresetSound(5, 255, 2f));  // 苦しげな音
+			return action;
+		}
+		#endregion
 	}
 }
