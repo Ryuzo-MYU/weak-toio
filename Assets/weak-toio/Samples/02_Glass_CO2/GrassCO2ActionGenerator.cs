@@ -1,7 +1,7 @@
 using Evaluation;
 namespace Robot
 {
-	public class GrassHumidityActionGenerator : ActionGenerator
+	public class GrassCO2ActionGenerator : ActionGenerator
 	{
 		BoundaryRange suitableRange = new BoundaryRange(0);
 		BoundaryRange cautionRange = new BoundaryRange(-10, 10);

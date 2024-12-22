@@ -5,7 +5,7 @@ using Evaluation;
 using UnityEngine;
 
 [RequireComponent(typeof(IHumiditySensor))]
-public class GrassHumidityEvaluate : EvaluateBase, IEvaluationResultSender<IHumiditySensor>
+public class GrassCO2Evaluate : EvaluateBase, IEvaluationResultSender<IHumiditySensor>
 {
 	[SerializeField] private BoundaryRange suitableRange = new BoundaryRange(40, 60); // 草の適正湿度
 	private IHumiditySensor humiditySensor;
