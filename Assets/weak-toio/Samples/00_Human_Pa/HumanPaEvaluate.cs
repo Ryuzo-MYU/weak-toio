@@ -1,30 +1,26 @@
-#region 人（CO2）
-
 using Environment;
 using Evaluation;
 using UnityEngine;
 
 [RequireComponent(typeof(ICO2Sensor))]
-public class HumanPaEvaluate : EvaluateBase, IEvaluationResultSender<ICO2Sensor>
+public class HumanPaEvaluate : EvaluateBase, IEvaluationResultSender<IPressureSensor>
 {
-	[SerializeField] private BoundaryRange suitableRange = new BoundaryRange(400, 1000); // CO2濃度の快適範囲(ppm)
-	private ICO2Sensor co2Sensor;
+	[SerializeField] private float baselinePressure = 1013.0f; // 基準気圧(hPa)
+	[SerializeField] private float warningThreshold = 10.0f;   // 警戒しきい値(±hPa)
+	private IPressureSensor pressureSensor;
 
-	public void GenerateEvaluationResult(ICO2Sensor co2Sensor)
+	public void GenerateEvaluationResult(IPressureSensor pressureSensor)
 	{
-		_currentParam = co2Sensor.GetCO2();
+		_currentParam = pressureSensor.GetPressure();
+		float pressureDiff = _currentParam - baselinePressure;
 
-		if (suitableRange.isWithInRange(_currentParam))
+		if (Mathf.Abs(pressureDiff) <= warningThreshold)
 		{
-			_score = 0;
-		}
-		else if (_currentParam < suitableRange.LowerLimit)
-		{
-			_score = _currentParam - suitableRange.LowerLimit;
+			_score = 0; // 快適範囲
 		}
 		else
 		{
-			_score = _currentParam - suitableRange.UpperLimit;
+			_score = pressureDiff; // 気圧差をそのままスコアとして使用
 		}
 
 		_OnResultGenerated(new Result(_score, _unit));
@@ -33,12 +29,11 @@ public class HumanPaEvaluate : EvaluateBase, IEvaluationResultSender<ICO2Sensor>
 	protected override void OnSensorDecided()
 	{
 		base.OnSensorDecided();
-		co2Sensor = (ICO2Sensor)sensorManager.GetSensor();
+		pressureSensor = (IPressureSensor)sensorManager.GetSensor();
 	}
 
 	protected override void OnDeserializeCompleted()
 	{
-		GenerateEvaluationResult(co2Sensor);
+		GenerateEvaluationResult(pressureSensor);
 	}
 }
-#endregion

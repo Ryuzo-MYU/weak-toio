@@ -1,30 +1,27 @@
-#region 人のアクション生成
 using Evaluation;
 namespace Robot
 {
-
 	public class HumanPaActionGenerator : ActionGenerator
 	{
-		BoundaryRange suitableRange = new BoundaryRange(0);
-		BoundaryRange cautionRange = new BoundaryRange(-200, 200);
+		BoundaryRange comfortRange = new BoundaryRange(-10, 10);     // 快適範囲
+		BoundaryRange warningRange = new BoundaryRange(-20, 20);     // 警戒範囲
 
 		protected override Action GenerateAction(Result result)
 		{
 			float score = result.Score;
 
-			if (suitableRange.isWithInRange(score))
+			if (comfortRange.isWithInRange(score))
 			{
-				return ToioActionLibrary.Human_FreshAir();
+				return ToioActionLibrary.Human_NormalPressure();
 			}
-			else if (cautionRange.isWithInRange(score))
+			else if (warningRange.isWithInRange(score))
 			{
-				return ToioActionLibrary.Human_Normal();
+				return ToioActionLibrary.Human_SensingPressure();
 			}
 			else
 			{
-				return ToioActionLibrary.Human_HighCO2();
+				return ToioActionLibrary.Human_SufferingPressure();
 			}
 		}
 	}
 }
-#endregion
