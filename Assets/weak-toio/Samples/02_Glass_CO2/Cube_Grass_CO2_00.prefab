@@ -669,7 +669,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17fe406bddfb32b4f9faba53268d01c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _serial: {fileID: 0}
   requiredLength: 4
   _deviceName: 
   _temp: 0
@@ -687,7 +686,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 791df73027a6d304491cf304013ea3b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _serial: {fileID: 0}
   _deviceName: dummy_co2l
   _accel: {x: 0, y: 0, z: 0}
   _gyro: {x: 0, y: 0, z: 0}
@@ -712,9 +710,8 @@ MonoBehaviour:
     unit: 
   _envType: 0
   _score: 0
-  suitableRange:
-    UpperLimit: 40
-    LowerLimit: 60
+  OPTIMAL_CO2: 400
+  MAX_EFFECT: 1200
 --- !u!114 &-5487675512611925847
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -739,6 +736,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f4750e6b8bf95a46892d7dec236b4e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  collisionThreshold: 10
   _id: 0
   _name: 
   type: 03000000

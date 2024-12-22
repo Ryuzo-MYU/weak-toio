@@ -266,7 +266,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2967492030441082689, guid: 6faa98f6a7575ef48ad8aca2dd20cca4, type: 3}
       propertyPath: collisionThreshold
-      value: 7
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 3777579130281375468, guid: 6faa98f6a7575ef48ad8aca2dd20cca4, type: 3}
       propertyPath: m_LocalPosition.x
@@ -465,7 +465,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2967492030441082689, guid: 2be2e98b150b85144831b1f785d3a5f3, type: 3}
       propertyPath: collisionThreshold
-      value: 7
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 3777579130281375468, guid: 2be2e98b150b85144831b1f785d3a5f3, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1796,7 +1796,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2967492030441082689, guid: c51045368bd6441478e517fa30b7e6fb, type: 3}
       propertyPath: collisionThreshold
-      value: 7
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 3777579130281375468, guid: c51045368bd6441478e517fa30b7e6fb, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2160,7 +2160,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2967492030441082689, guid: 707a0ad45b8ea93488f055cb938c3f7c, type: 3}
       propertyPath: collisionThreshold
-      value: 7
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 3777579130281375468, guid: 707a0ad45b8ea93488f055cb938c3f7c, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2226,7 +2226,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2967492030441082689, guid: 19577c523d2674545b5f000e73e69dcb, type: 3}
       propertyPath: collisionThreshold
-      value: 7
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 3777579130281375468, guid: 19577c523d2674545b5f000e73e69dcb, type: 3}
       propertyPath: m_LocalPosition.x

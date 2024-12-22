@@ -736,6 +736,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f4750e6b8bf95a46892d7dec236b4e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  collisionThreshold: 10
   _id: 0
   _name: 
   type: 03000000
