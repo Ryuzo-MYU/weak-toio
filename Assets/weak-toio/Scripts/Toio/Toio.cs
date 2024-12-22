@@ -28,7 +28,7 @@ namespace Robot
 		private Action currentAction;
 		private bool isMoving = false;
 
-		private bool isCollisionDetected;
+		private bool isCollisionDetected; // 衝突フラグ
 
 		private ActionGenerator actionGenerator;
 		[SerializeField] private ToioConnector toioConnector;
@@ -50,6 +50,7 @@ namespace Robot
 
 		private void Update()
 		{
+			// 衝突フラグの変化を1回だけ認識したい
 			if (isCollisionDetected != _cube.isCollisionDetected)
 			{
 				HandleCollision();
@@ -57,11 +58,13 @@ namespace Robot
 			isCollisionDetected = _cube.isCollisionDetected;
 		}
 
+		// CubeConnectorでCubeにまとめて接続してから自分のCubeなどを取得させる
 		private void OnConnectSucceeded()
 		{
 			toioConnector.RegisterToio(this);
-			InitializeCube();
 		}
+
+		// Cubeのデータを持っているのがToioConnectorなので，あっち側で呼び出してもらう
 		public void Register(int id, CubeManager cubeManager)
 		{
 			this._id = id;
