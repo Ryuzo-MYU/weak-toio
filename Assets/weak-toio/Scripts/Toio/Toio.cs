@@ -62,6 +62,8 @@ namespace Robot
 			StartCoroutine(actionGenerator.StartMove(this));
 		}
 
+		
+
 		// 実行関連のメソッド
 		public IEnumerator Act()
 		{
