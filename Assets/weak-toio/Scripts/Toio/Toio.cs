@@ -108,11 +108,10 @@ namespace Robot
 
 			while (currentAction.Count() > 0)
 			{
-				StartCoroutine(Move());
-				StartCoroutine(ControllLED());
-				StartCoroutine(PlaySound());
+				yield return StartCoroutine(Move());
+				yield return StartCoroutine(ControllLED());
+				yield return StartCoroutine(PlaySound());
 			}
-			yield return null;
 		}
 
 		private IEnumerator Move()
