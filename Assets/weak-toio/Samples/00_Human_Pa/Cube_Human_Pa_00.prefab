@@ -352,11 +352,11 @@ GameObject:
   - component: {fileID: 3090529627393092581}
   - component: {fileID: 3348013124271145054}
   - component: {fileID: 1977784646829054688}
-  - component: {fileID: 5682064180166316849}
-  - component: {fileID: 6246615144474369996}
+  - component: {fileID: -362931531118039006}
   - component: {fileID: -884219169315641186}
   - component: {fileID: -1999267704135310860}
   - component: {fileID: 2967492030441082689}
+  - component: {fileID: 4155428886308682140}
   m_Layer: 0
   m_Name: Cube_Human_Pa_00
   m_TagString: Toio
@@ -657,44 +657,23 @@ MonoBehaviour:
   _real: {fileID: 0}
   _dummy: {fileID: 0}
   _finallySensor: {fileID: 0}
---- !u!114 &5682064180166316849
+--- !u!114 &-362931531118039006
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6601354619286629088}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 17fe406bddfb32b4f9faba53268d01c3, type: 3}
+  m_Script: {fileID: 11500000, guid: a46ed315b289f4448aa7b2d5f3648029, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _serial: {fileID: 0}
-  requiredLength: 4
+  requiredLength: 0
   _deviceName: 
   _temp: 0
   _hum: 0
-  _co2: 0
---- !u!114 &6246615144474369996
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6601354619286629088}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 791df73027a6d304491cf304013ea3b2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _serial: {fileID: 0}
-  _deviceName: dummy_co2l
-  _accel: {x: 0, y: 0, z: 0}
-  _gyro: {x: 0, y: 0, z: 0}
-  _vbat: 4
-  _temp: 22
-  _hum: 60
-  _ppm: 700
+  _pressure: 0
 --- !u!114 &-884219169315641186
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -712,9 +691,8 @@ MonoBehaviour:
     unit: 
   _envType: 0
   _score: 0
-  suitableRange:
-    UpperLimit: 400
-    LowerLimit: 1000
+  baselinePressure: 1013
+  warningThreshold: 10
 --- !u!114 &-1999267704135310860
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -747,3 +725,22 @@ MonoBehaviour:
   soundCount: 0
   actionMaxCount: 10
   toioConnector: {fileID: 0}
+--- !u!114 &4155428886308682140
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6601354619286629088}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7032b70e2cde2a04c92567719b49b618, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _deviceName: 
+  _accel: {x: 0, y: 0, z: 0}
+  _gyro: {x: 0, y: 0, z: 0}
+  _vbat: 0
+  _temp: 0
+  _hum: 0
+  _pressure: 0

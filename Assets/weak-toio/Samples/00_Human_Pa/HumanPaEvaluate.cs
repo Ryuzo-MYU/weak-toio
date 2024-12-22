@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Evaluation
 {
-	[RequireComponent(typeof(ICO2Sensor))]
+	[RequireComponent(typeof(IPressureSensor))]
 	public class HumanPaEvaluate : EvaluateBase, IEvaluationResultSender<IPressureSensor>
 	{
 		[SerializeField] private float baselinePressure = 1013.0f; // 基準気圧(hPa)
