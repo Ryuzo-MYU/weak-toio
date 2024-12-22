@@ -87,7 +87,7 @@ namespace Robot
 						var avoidanceAction = ToioActionLibrary.CollisionAvoidance();
 						Debug.Log("衝突！");
 						isEmergencyAction = true;
-						AddEmergencyAction(avoidanceAction);
+						StartCoroutine(AddEmergencyAction(avoidanceAction));
 					}
 					isCollisionDetected = _cube.isCollisionDetected;
 				}
@@ -214,13 +214,16 @@ namespace Robot
 
 			if (actions.Count < actionMaxCount)
 			{
-				actions.Enqueue(action);
+				Debug.Log("アクション溜まりすぎ");
+				return;
 			}
+
+			actions.Enqueue(action);
 		}
 
-		public void AddEmergencyAction(Action emergencyAction)
+		public IEnumerator AddEmergencyAction(Action emergencyAction)
 		{
-			if (emergencyAction == null) return;
+			if (emergencyAction == null) yield return null;
 
 			// 緊急アクションをキューの先頭に追加
 			actions.Enqueue(emergencyAction);
@@ -229,7 +232,7 @@ namespace Robot
 			if (!isMoving)
 			{
 				isMoving = true;
-				StartCoroutine(Act());
+				yield return Act();
 			}
 		}
 	}
