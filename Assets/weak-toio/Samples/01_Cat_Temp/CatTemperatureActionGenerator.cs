@@ -1,8 +1,8 @@
-#region 猫のアクション生成
 using Evaluation;
+
 namespace Robot
 {
-	public class CatActionGenerator : ActionGenerator
+	public class CatTemperatureActionGenerator : ActionGenerator
 	{
 		BoundaryRange suitableRange = new BoundaryRange(0);
 		BoundaryRange cautionRange = new BoundaryRange(-3, 3);
@@ -22,12 +22,10 @@ namespace Robot
 			}
 			else
 			{
-				// より激しい寒さ・暑さの表現のため、アクションを連続させる
 				Action action = score < 0 ? ToioActionLibrary.Cat_Cold() : ToioActionLibrary.Cat_Hot();
-				action.Repeat(2); // アクションを2回繰り返す
+				action.Repeat(2);
 				return action;
 			}
 		}
 	}
 }
-#endregion

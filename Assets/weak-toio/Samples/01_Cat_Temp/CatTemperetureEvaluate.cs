@@ -1,44 +1,43 @@
-#region 猫（気温）
-
 using Environment;
-using Evaluation;
 using UnityEngine;
 
-[RequireComponent(typeof(ITemperatureSensor))]
-public class CatTemperatureEvaluate : EvaluateBase, IEvaluationResultSender<ITemperatureSensor>
+namespace Evaluation
 {
-	[SerializeField] private BoundaryRange suitableRange = new BoundaryRange(18, 24); // 猫の快適温度
-	private ITemperatureSensor tempSensor;
-
-	public void GenerateEvaluationResult(ITemperatureSensor tempSensor)
+	[RequireComponent(typeof(ITemperatureSensor))]
+	public class CatTemperatureEvaluate : EvaluateBase, IEvaluationResultSender<ITemperatureSensor>
 	{
-		_currentParam = tempSensor.GetTemperature();
+		[SerializeField] private BoundaryRange suitableRange = new BoundaryRange(18, 24); // 猫の快適温度
+		private ITemperatureSensor tempSensor;
 
-		if (suitableRange.isWithInRange(_currentParam))
+		public void GenerateEvaluationResult(ITemperatureSensor tempSensor)
 		{
-			_score = 0;
+			_currentParam = tempSensor.GetTemperature();
+
+			if (suitableRange.isWithInRange(_currentParam))
+			{
+				_score = 0;
+			}
+			else if (_currentParam < suitableRange.LowerLimit)
+			{
+				_score = _currentParam - suitableRange.LowerLimit;
+			}
+			else
+			{
+				_score = _currentParam - suitableRange.UpperLimit;
+			}
+
+			_OnResultGenerated(new Result(_score, _unit));
 		}
-		else if (_currentParam < suitableRange.LowerLimit)
+
+		protected override void OnSensorDecided()
 		{
-			_score = _currentParam - suitableRange.LowerLimit;
+			base.OnSensorDecided();
+			tempSensor = (ITemperatureSensor)sensorManager.GetSensor();
 		}
-		else
+
+		protected override void OnDeserializeCompleted()
 		{
-			_score = _currentParam - suitableRange.UpperLimit;
+			GenerateEvaluationResult(tempSensor);
 		}
-
-		_OnResultGenerated(new Result(_score, _unit));
-	}
-
-	protected override void OnSensorDecided()
-	{
-		base.OnSensorDecided();
-		tempSensor = (ITemperatureSensor)sensorManager.GetSensor();
-	}
-
-	protected override void OnDeserializeCompleted()
-	{
-		GenerateEvaluationResult(tempSensor);
 	}
 }
-#endregion
