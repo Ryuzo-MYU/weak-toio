@@ -358,7 +358,7 @@ GameObject:
   - component: {fileID: -5487675512611925847}
   - component: {fileID: 2967492030441082689}
   m_Layer: 0
-  m_Name: Cube_Grass_Hum_00
+  m_Name: Cube_Grass_CO2_00
   m_TagString: Toio
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
