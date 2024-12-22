@@ -130,28 +130,36 @@ namespace Robot
 
 		private IEnumerator ControllLED()
 		{
-			if (currentAction.LightCount() == 0) yield return null;
+			if (currentAction == null || currentAction.LightCount() == 0)
+			{
+				yield break;
+			}
+
 			ILightCommand light = currentAction.GetNextLight();
 			lightCount = currentAction.LightCount();
+
 			if (light != null)
 			{
 				light.Exec(this);
 				yield return new WaitForSeconds(light.GetInterval());
 			}
-			yield return null;
 		}
 
 		private IEnumerator PlaySound()
 		{
-			if (currentAction.SoundCount() == 0) yield return null;
+			if (currentAction == null || currentAction.SoundCount() == 0)
+			{
+				yield break;
+			}
+
 			ISoundCommand sound = currentAction.GetNextSound();
 			soundCount = currentAction.SoundCount();
+
 			if (sound != null)
 			{
 				sound.Exec(this);
 				yield return new WaitForSeconds(sound.GetInterval());
 			}
-			yield return null;
 		}
 
 		public void Stop()
@@ -170,17 +178,15 @@ namespace Robot
 				Debug.LogWarning("null のアクション送るな");
 				return;
 			}
-			if (actions.Count > actionMaxCount)
-			{
-				Debug.Log("アクション溜まりすぎ");
-				return;
-			}
-			actions.Enqueue(action);
-			Debug.Log("アクション足しました");
 
-			if (!isMoving)
+			if (actions.Count < actionMaxCount)
 			{
-				isMoving = true;
+				actions.Enqueue(action);
+				if (!isMoving)
+				{
+					isMoving = true;
+					StartCoroutine(Act());
+				}
 			}
 		}
 
