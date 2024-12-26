@@ -322,13 +322,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6601354619286629088, guid: 6faa98f6a7575ef48ad8aca2dd20cca4, type: 3}
       propertyPath: m_Name
-      value: Cube_Cat_Temp_00
+      value: toiof7a_Cat_Temp_00
       objectReference: {fileID: 0}
 <<<<<<< HEAD
 =======
     - target: {fileID: 6601354619286629088, guid: 6faa98f6a7575ef48ad8aca2dd20cca4, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
 >>>>>>> d70181a (2024年12月18日 12:06)
     m_RemovedComponents: []
@@ -1090,11 +1090,11 @@ Mesh:
       objectReference: {fileID: 0}
     - target: {fileID: 6601354619286629088, guid: c51045368bd6441478e517fa30b7e6fb, type: 3}
       propertyPath: m_Name
-      value: Cube_Clothes_Hum_00
+      value: toiob8b_Clothes_Hum_00
       objectReference: {fileID: 0}
     - target: {fileID: 6601354619286629088, guid: c51045368bd6441478e517fa30b7e6fb, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2286,7 +2286,14 @@ PrefabInstance:
     - target: {fileID: 2967492030441082689, guid: 707a0ad45b8ea93488f055cb938c3f7c, type: 3}
       propertyPath: actionMaxCount
       value: 5
->>>>>>> 0e47f8b (2024年12月18日 12:54)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3348013124271145054, guid: 707a0ad45b8ea93488f055cb938c3f7c, type: 3}
+      propertyPath: baudRate
+      value: 115200
+      objectReference: {fileID: 0}
+    - target: {fileID: 3348013124271145054, guid: 707a0ad45b8ea93488f055cb938c3f7c, type: 3}
+      propertyPath: portName
+      value: COM5
       objectReference: {fileID: 0}
     - target: {fileID: 3777579130281375468, guid: 707a0ad45b8ea93488f055cb938c3f7c, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2338,7 +2345,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6601354619286629088, guid: 707a0ad45b8ea93488f055cb938c3f7c, type: 3}
       propertyPath: m_Name
-      value: Cube_Grass_CO2_00
+      value: toio-41b_Grass_Hum_00
+      objectReference: {fileID: 0}
+    - target: {fileID: 6601354619286629088, guid: 707a0ad45b8ea93488f055cb938c3f7c, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2510,11 +2521,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6601354619286629088, guid: 2be2e98b150b85144831b1f785d3a5f3, type: 3}
       propertyPath: m_Name
-      value: Cube_PC_Env_00
+      value: toioL7B_PC_Env_00
       objectReference: {fileID: 0}
     - target: {fileID: 6601354619286629088, guid: 2be2e98b150b85144831b1f785d3a5f3, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2592,11 +2603,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6601354619286629088, guid: 19577c523d2674545b5f000e73e69dcb, type: 3}
       propertyPath: m_Name
-      value: Cube_Human_CO2_00
+      value: toioA6f_Human_CO2_00
       objectReference: {fileID: 0}
     - target: {fileID: 6601354619286629088, guid: 19577c523d2674545b5f000e73e69dcb, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2833,8 +2844,6 @@ Transform:
   - {fileID: 1468240023}
   - {fileID: 36337187}
   - {fileID: 457286562}
-  - {fileID: 728744556}
->>>>>>> d70181a (2024年12月18日 12:06)
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1692395097

@@ -30,6 +30,7 @@ namespace Robot
 			Debug.Log(cubeCount);
 			// toioに接続
 			cubeManager = new CubeManager(connectType);
+			cubeManager.DisconnectAll();
 			await cubeManager.MultiConnect(cubeCount);
 
 			Debug.Log("Toio接続完了");
