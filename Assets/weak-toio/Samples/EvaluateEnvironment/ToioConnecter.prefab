@@ -9,10 +9,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9119984560599379054}
-  - component: {fileID: 3822149477227672234}
+  - component: {fileID: 1772843814761384400}
   m_Layer: 0
   m_Name: ToioConnecter
-  m_TagString: Untagged
+  m_TagString: ToioConnector
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -26,13 +26,13 @@ Transform:
   m_GameObject: {fileID: 7777893570713866054}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.03238685, y: 0.0063525625, z: -0.19371569}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3822149477227672234
+--- !u!114 &1772843814761384400
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -41,14 +41,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 7777893570713866054}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5fa983d341280da4bbeb49d12cb2ca21, type: 3}
+  m_Script: {fileID: 11500000, guid: f2a0515150431d147b64c618b87a1ea5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   connectType: 0
-  duration: 200
-  joystick: {fileID: 0}
-  wheelSpeed: {fileID: 0}
-  leftWheel: 0
-  rightWheel: 0
-  soundID: 00000000010000000200000003000000
-  rgb: 000000
+  toioNames: []
+  cubeCount: 0
+  toioTag: Toio

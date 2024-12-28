@@ -297,7 +297,8 @@ namespace Robot
 		{
 			Action action = new Action();
 			action.AddMovement(Translate(80, 60));  // やや早い動き
-			action.AddLight(TurnOnLED(255, 200, 0, 3000));  // 黄褐色
+			int moveTime = (int)((80f / 60f) * 1000);
+			action.AddLight(TurnOnLED(255, 200, 0, moveTime));  // 黄褐色
 			action.AddSound(PresetSound(1, 200, 1f));  // 軽い警告音
 			return action;
 		}

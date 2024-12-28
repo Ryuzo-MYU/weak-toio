@@ -37,7 +37,6 @@ namespace Robot
 			actionGenerator = gameObject.GetComponent<ActionGenerator>();
 			actionGenerator.OnActionGenerated += AddNewAction;
 
-			toioConnector = GameObject.FindWithTag("ToioConnector").GetComponent<ToioConnector>();
 			toioConnector.OnConnectSucceeded += OnConnectSucceeded;
 			if (toioConnector.connectType != ConnectType.Real)
 			{
@@ -62,7 +61,7 @@ namespace Robot
 			StartCoroutine(actionGenerator.StartMove(this));
 		}
 
-		
+
 
 		// 実行関連のメソッド
 		public IEnumerator Act()
