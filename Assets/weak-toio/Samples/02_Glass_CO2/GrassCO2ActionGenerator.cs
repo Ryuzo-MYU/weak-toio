@@ -1,5 +1,5 @@
 using Evaluation;
-namespace Robot
+namespace ActionGenerate
 {
 	public class GrassCO2ActionGenerator : ActionGenerator
 	{

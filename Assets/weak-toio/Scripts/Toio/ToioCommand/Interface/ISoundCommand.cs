@@ -1,4 +1,4 @@
-namespace Robot
+namespace ActionGenerate
 {
 	public interface ISoundCommand : IToioCommand
 	{

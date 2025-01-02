@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Robot
+namespace ActionGenerate
 {
 	public class CollisionActionGenerator : MonoBehaviour
 	{

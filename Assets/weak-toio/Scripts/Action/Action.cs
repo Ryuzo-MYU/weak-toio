@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Robot
+namespace ActionGenerate
 {
 	public class Action
 	{

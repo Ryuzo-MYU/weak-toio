@@ -1,6 +1,6 @@
 #region 服のアクション生成
 using Evaluation;
-namespace Robot
+namespace ActionGenerate
 {
 	public class ClothesActionGenerator : ActionGenerator
 	{

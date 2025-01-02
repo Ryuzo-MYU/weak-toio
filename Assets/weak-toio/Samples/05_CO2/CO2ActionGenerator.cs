@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using Evaluation;
 
-namespace Robot
+namespace ActionGenerate
 {
 	public class CO2ActionGenerator : ActionGenerator
 	{

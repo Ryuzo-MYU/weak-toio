@@ -2,19 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using toio;
+using UnityEditor;
 
-namespace Robot
+namespace ActionGenerate
 {
 	public class Toio : MonoBehaviour
 	{
 		[SerializeField] private int _id;
-		[SerializeField] private string _name;
+		[SerializeField, LocalName] private string _localName; // Change _name to _localName
 		[SerializeField] private List<EnvType> type;
 		private Cube _cube;
 		private CubeHandle _handle;
 
 		public int ID { get { return _id; } }
-		public string Name { get { return _name; } }
+		public string LocalName { get { return "toio-" + _localName; } }
 		public List<EnvType> Type { get { return type; } }
 		public Cube Cube { get { return _cube; } }
 		public CubeHandle Handle { get { return _handle; } }
@@ -28,7 +29,7 @@ namespace Robot
 		private bool isMoving = false;
 
 		private ActionGenerator actionGenerator;
-		[SerializeField] private ToioConnector toioConnector;
+
 		private void Start()
 		{
 			actions = new Queue<Action>();
@@ -36,18 +37,8 @@ namespace Robot
 
 			actionGenerator = gameObject.GetComponent<ActionGenerator>();
 			actionGenerator.OnActionGenerated += AddNewAction;
-
-			toioConnector.OnConnectSucceeded += OnConnectSucceeded;
-			if (toioConnector.connectType != ConnectType.Real)
-			{
-				this._name = gameObject.name;
-			}
 		}
 
-		private void OnConnectSucceeded()
-		{
-			toioConnector.RegisterToio(this);
-		}
 		public void Register(int id, CubeManager cubeManager)
 		{
 			this._id = id;
@@ -56,12 +47,18 @@ namespace Robot
 
 			OnRegisterCompleted();
 		}
+
+		public void Register(Cube cube)
+		{
+			this._cube = cube;
+			this._handle = new CubeHandle(cube);
+			OnRegisterCompleted();
+		}
+
 		private void OnRegisterCompleted()
 		{
 			StartCoroutine(actionGenerator.StartMove(this));
 		}
-
-
 
 		// 実行関連のメソッド
 		public IEnumerator Act()
@@ -159,3 +156,19 @@ namespace Robot
 		}
 	}
 }
+
+// Custom Property Drawer for LocalName
+[CustomPropertyDrawer(typeof(LocalNameAttribute))]
+public class LocalNameDrawer : PropertyDrawer
+{
+	public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
+	{
+		EditorGUI.BeginProperty(position, label, property);
+		position = EditorGUI.PrefixLabel(position, GUIUtility.GetControlID(FocusType.Passive), new GUIContent("toio-"));
+		property.stringValue = EditorGUI.TextField(position, property.stringValue);
+		EditorGUI.EndProperty();
+	}
+}
+
+// Attribute to mark the LocalName field
+public class LocalNameAttribute : PropertyAttribute { }

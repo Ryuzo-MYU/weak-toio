@@ -1,7 +1,7 @@
 using toio;
 using UnityEngine;
 
-namespace Robot
+namespace ActionGenerate
 {
 	public class ToioActionLibrary
 	{
@@ -73,6 +73,16 @@ namespace Robot
 		}
 
 		/// <summary>
+		/// toioのLEDを消すActionを生成
+		/// </summary>
+		/// <returns></returns>
+		public static ILightCommand TurnOffLED()
+		{
+			ILightCommand turnOffCommand = new TurnOffLEDCommand();
+			return turnOffCommand;
+		}
+
+		/// <summary>
 		/// LEDを任意の間隔で点灯するActionを生成
 		/// </summary>
 		public static ILightCommand LEDBlink(int _repeatCount, Cube.LightOperation[] _lightOperations)
@@ -91,20 +101,20 @@ namespace Robot
 		// ==============================
 
 		private static Action CreateInterleavedAction(
-			float duration,
 			float speed,
 			IMovementCommand movement = null,
 			(int r, int g, int b) led = default,
-			int? soundId = null,
-			float soundDuration = 0
+			int? soundId = null
 			)
 		{
 			Action action = new Action();
+			float duration = 0;
 
 			// 移動コマンドがある場合
 			if (movement != null)
 			{
 				action.AddMovement(movement);
+				duration = movement.GetInterval();
 			}
 
 			// LED点灯コマンドがある場合
@@ -118,7 +128,7 @@ namespace Robot
 			// サウンドコマンドがある場合
 			if (soundId.HasValue)
 			{
-				ISoundCommand soundCommand = PresetSound(soundId.Value, 20, soundDuration);
+				ISoundCommand soundCommand = PresetSound(soundId.Value, 20, duration);
 				action.AddSound(soundCommand);
 			}
 
@@ -128,188 +138,134 @@ namespace Robot
 		#region 猫のアクション（気温）
 		public static Action Cat_Cold()
 		{
-			Action action = new Action();
-			action.AddMovement(DegRotate(10, 100));
-			action.AddLight(TurnOnLED(0, 0, 255, 3000));
-			action.AddSound(PresetSound(0, 20, 2f));
-			return action;
+			IMovementCommand movement = DegRotate(10, 100);
+			return CreateInterleavedAction(100, movement, (0, 0, 255), 0);
 		}
 
 		public static Action Cat_Hot()
 		{
-			Action action = new Action();
-			action.AddMovement(Translate(50, 20));
-			action.AddLight(TurnOnLED(255, 0, 0, 3000));
-			action.AddSound(PresetSound(2, 20, 2));
-			return action;
+			IMovementCommand movement = Translate(50, 20);
+			return CreateInterleavedAction(20, movement, (255, 0, 0), 2);
 		}
 
 		public static Action Cat_Comfortable()
 		{
-			Action action = new Action();
-			action.AddMovement(Translate(100, 40));  // ゆったりとした動き
-			action.AddLight(TurnOnLED(255, 200, 0, 3000));  // 温かみのある黄色
-			action.AddSound(PresetSound(0, 255, 1f));  // 20げな鳴き声
-			return action;
+			IMovementCommand movement = Translate(100, 40);
+			return CreateInterleavedAction(40, movement, (255, 200, 0), 0);
 		}
 		#endregion
 
-		#region  草(湿度)
+		#region 草(湿度)
 		public static Action Grass_Normal()
 		{
-			Action action = new Action();
-			action.AddMovement(DegRotate(20, 40));  // ゆったりと揺れる
-			action.AddLight(TurnOnLED(0, 200, 0, 500));  // 落ち着いた緑
-			return action;
+			IMovementCommand movement = DegRotate(20, 40);
+			return CreateInterleavedAction(40, movement, (0, 200, 0));
 		}
+
 		public static Action Grass_Wilting()
 		{
-			Action action = new Action();
-			action.AddMovement(DegRotate(15, 20));  // 弱々しく揺れる
-			action.AddLight(TurnOnLED(255, 255, 0, 500));  // 枯れかけの黄色
-			return action;
+			IMovementCommand movement = DegRotate(15, 20);
+			return CreateInterleavedAction(20, movement, (255, 255, 0));
 		}
+
 		public static Action Grass_Refreshed()
 		{
-			Action action = new Action();
-			action.AddMovement(Translate(100, 80));  // 勢いよく伸びる
-			action.AddLight(TurnOnLED(0, 255, 0, 500));  // 鮮やかな緑
-			return action;
+			IMovementCommand movement = Translate(100, 80);
+			return CreateInterleavedAction(80, movement, (0, 255, 0));
 		}
 		#endregion
 
 		#region 服のアクション（湿度）
 		public static Action Clothes_HighHumidity()
 		{
-			Action action = new Action();
-			action.AddMovement(Translate(30, 30));  // もたついた動き
-			action.AddLight(TurnOnLED(100, 100, 100, 3000));  // くすんだ色
-			action.AddSound(PresetSound(3, 25, 2f));  // 不快な音
-			return action;
+			IMovementCommand movement = Translate(30, 30);
+			return CreateInterleavedAction(30, movement, (100, 100, 100), 3);
 		}
 
 		public static Action Clothes_Optimal()
 		{
-			Action action = new Action();
-			action.AddMovement(Translate(100, 60));  // なめらかな動き
-			action.AddLight(TurnOnLED(100, 200, 255, 3000));  // 爽やかな青
-			action.AddSound(PresetSound(0, 25, 2f));   // 清々しい音
-			return action;
+			IMovementCommand movement = Translate(100, 60);
+			return CreateInterleavedAction(60, movement, (100, 200, 255), 0);
 		}
 		#endregion
 
 		#region 人のアクション（二酸化炭素）
-
 		public static Action Human_Normal()
 		{
-			Action action = new Action();
-			action.AddMovement(Translate(60, 50));
-			action.AddLight(TurnOnLED(0, 120, 0, 3000));  // 目立ちすぎない緑
-			return action;
+			IMovementCommand movement = Translate(60, 50);
+			return CreateInterleavedAction(50, movement, (0, 120, 0));
 		}
+
 		public static Action Human_HighCO2()
 		{
-			Action action = new Action();
-			action.AddMovement(Translate(30, 30));  // 不安定な動き
-			action.AddLight(TurnOnLED(150, 0, 150, 3000));  // くすんだ紫
-			action.AddSound(PresetSound(4, 25, 2f));  // 苦しげな音
-			return action;
+			IMovementCommand movement = Translate(30, 30);
+			return CreateInterleavedAction(30, movement, (150, 0, 150), 4);
 		}
 
 		public static Action Human_FreshAir()
 		{
-			Action action = new Action();
-			action.AddMovement(Translate(100, 80));  // 活発な動き
-			action.AddLight(TurnOnLED(100, 255, 255, 3000));  // 爽やかな水色
-			action.AddSound(PresetSound(0, 25, 2f));  // 元気な音
-			return action;
+			IMovementCommand movement = Translate(100, 80);
+			return CreateInterleavedAction(80, movement, (100, 255, 255), 0);
 		}
 		#endregion
 
 		#region PCのアクション（気温・湿度）
-
 		public static Action PC_Normal()
 		{
-			Action action = new Action();
-			action.AddMovement(Translate(60, 100));  // 速くも遅くもない動き
-			action.AddLight(TurnOnLED(0, 150, 0, 3000));  // 正常な緑
-			return action;
+			IMovementCommand movement = Translate(60, 100);
+			return CreateInterleavedAction(100, movement, (0, 150, 0));
 		}
 
 		public static Action PC_Optimal()
 		{
-			Action action = new Action();
-			action.AddMovement(Translate(100, 100));  // 効率的な動き
-			action.AddLight(TurnOnLED(0, 150, 255, 3000));  // クリーンな青色
-			action.AddSound(PresetSound(0, 25, 2f));  // 快適な動作音
-			return action;
+			IMovementCommand movement = Translate(100, 100);
+			return CreateInterleavedAction(100, movement, (0, 150, 255), 0);
 		}
 
 		public static Action PC_Uncomfortable()
 		{
-			Action action = new Action();
-			action.AddMovement(DegRotate(45, 100));  // 異常な動き
-			action.AddLight(TurnOnLED(255, 0, 0, 3000));  // 警告の赤色
-			action.AddSound(PresetSound(5, 25, 20));  // 異常音
-			return action;
+			IMovementCommand movement = DegRotate(45, 100);
+			return CreateInterleavedAction(100, movement, (255, 0, 0), 5);
 		}
 		#endregion
 
 		#region 人のアクション（気圧差）
-
 		public static Action Human_NormalPressure()
 		{
-			Action action = new Action();
-			action.AddMovement(Translate(60, 50));  // 通常の動き
-			action.AddLight(TurnOnLED(0, 120, 0, 3000));  // 落ち着いた緑
-			return action;
+			IMovementCommand movement = Translate(60, 50);
+			return CreateInterleavedAction(50, movement, (0, 120, 0));
 		}
 
 		public static Action Human_SensingPressure()
 		{
-			Action action = new Action();
-			action.AddMovement(Translate(40, 40));  // ゆっくりとした動き
-			action.AddLight(TurnOnLED(255, 165, 0, 3000));  // 注意のオレンジ
-			action.AddSound(PresetSound(1, 255, 2f));  // 軽い警告音
-			return action;
+			IMovementCommand movement = Translate(40, 40);
+			return CreateInterleavedAction(40, movement, (255, 165, 0), 1);
 		}
 
 		public static Action Human_SufferingPressure()
 		{
-			Action action = new Action();
-			action.AddMovement(Translate(20, 20));  // 苦しそうな動き
-			action.AddLight(TurnOnLED(255, 0, 0, 3000));  // 苦痛の赤
-			action.AddSound(PresetSound(5, 255, 2f));  // 苦しげな音
-			return action;
+			IMovementCommand movement = Translate(20, 20);
+			return CreateInterleavedAction(20, movement, (255, 0, 0), 5);
 		}
 		#endregion
 
 		#region バナナのアクション（気温・湿度）
 		public static Action Banana_Normal()
 		{
-			Action action = new Action();
-			action.AddMovement(Translate(50, 40));  // ゆっくりとした動き
-			action.AddLight(TurnOnLED(255, 255, 0, 3000));  // バナナの黄色
-			return action;
+			IMovementCommand movement = Translate(50, 40);
+			return CreateInterleavedAction(40, movement, (255, 255, 0));
 		}
 
 		public static Action Banana_Warning()
 		{
-			Action action = new Action();
-			action.AddMovement(Translate(80, 60));  // やや早い動き
-			int moveTime = (int)((80f / 60f) * 1000);
-			action.AddLight(TurnOnLED(255, 200, 0, moveTime));  // 黄褐色
-			action.AddSound(PresetSound(1, 200, 1f));  // 軽い警告音
-			return action;
+			IMovementCommand movement = Translate(80, 60);
+			return CreateInterleavedAction(60, movement, (255, 200, 0), 1);
 		}
 
 		public static Action Banana_Rotting()
 		{
-			Action action = new Action();
-			action.AddMovement(DegRotate(180, 100));  // 素早い回転
-			action.AddLight(TurnOnLED(139, 69, 19, 3000));  // 茶色
-			action.AddSound(PresetSound(5, 255, 2f));  // 警告音
-			return action;
+			IMovementCommand movement = DegRotate(180, 100);
+			return CreateInterleavedAction(100, movement, (139, 69, 19), 5);
 		}
 		#endregion
 
@@ -319,15 +275,78 @@ namespace Robot
 			Action action = new Action();
 
 			// 1. 後退
-			action.AddMovement(Translate(-50, 40));  // 50mm後退
-
+			IMovementCommand movement1 = Translate(-50, 40);
+			action.AddMovement(movement1);
+			float duration1 = movement1.GetInterval();
 			// 2. 回転 (ランダムな角度)
 			float rotationAngle = Random.Range(30f, 150f);
-			action.AddMovement(DegRotate(rotationAngle, 30));
-
+			IMovementCommand movement2 = DegRotate(rotationAngle, 30);
+			action.AddMovement(movement2);
+			float duration2 = movement2.GetInterval();
 			// 3. 前進
-			action.AddMovement(Translate(100, 50));
+			IMovementCommand movement3 = Translate(100, 50);
+			action.AddMovement(movement3);
+			float duration3 = movement3.GetInterval();
+			float totalDuration = duration1 + duration2 + duration3;
 
+			// LEDとサウンドのコマンドを追加
+			ILightCommand ledCommand = TurnOnLED(255, 255, 255, (int)(totalDuration * 1000));
+			action.AddLight(ledCommand);
+			ISoundCommand soundCommand = PresetSound(0, 20, totalDuration);
+			action.AddSound(soundCommand);
+
+			return action;
+		}
+		#endregion
+
+		#region MOC用 Lチカアクション
+		public static Action MocLedR()
+		{
+			Action action = new Action();
+			ILightCommand onRed = TurnOnLED(255, 0, 0, 1000);
+			action.AddLight(onRed);
+			ILightCommand off = TurnOffLED();
+			action.AddLight(off);
+			return action;
+		}
+
+		public static Action MocLedB()
+		{
+			Action action = new Action();
+			ILightCommand onBlue = TurnOnLED(0, 0, 255, 1000);
+			action.AddLight(onBlue);
+			ILightCommand off = TurnOffLED();
+			action.AddLight(off);
+			return action;
+		}
+
+		public static Action MocLedG()
+		{
+			Action action = new Action();
+			ILightCommand onGreen = TurnOnLED(0, 255, 0, 1000);
+			action.AddLight(onGreen);
+			ILightCommand off = TurnOffLED();
+			action.AddLight(off);
+			return action;
+		}
+
+		public static Action MocLedY()
+		{
+			Action action = new Action();
+			ILightCommand onYellow = TurnOnLED(255, 255, 0, 1000);
+			action.AddLight(onYellow);
+			ILightCommand off = TurnOffLED();
+			action.AddLight(off);
+			return action;
+		}
+
+		public static Action MocLedP()
+		{
+			Action action = new Action();
+			ILightCommand onPurple = TurnOnLED(255, 0, 255, 1000);
+			action.AddLight(onPurple);
+			ILightCommand off = TurnOffLED();
+			action.AddLight(off);
 			return action;
 		}
 		#endregion

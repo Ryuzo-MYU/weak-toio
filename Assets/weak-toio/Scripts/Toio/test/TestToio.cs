@@ -2,7 +2,7 @@ using System.Collections;
 using toio;
 using UnityEngine;
 
-namespace Robot
+namespace ActionGenerate
 {
 	public class TestToio : MonoBehaviour
 	{

@@ -1,7 +1,7 @@
 using System.Collections;
 using toio;
 
-namespace Robot
+namespace ActionGenerate
 {
 	public interface IToioActionGenerator
 	{

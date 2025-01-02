@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using Evaluation;
 
-namespace Robot
+namespace ActionGenerate
 {
 	public class TemperatureActionGenerator : ActionGenerator
 	{

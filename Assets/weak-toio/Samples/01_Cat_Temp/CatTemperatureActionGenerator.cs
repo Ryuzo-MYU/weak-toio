@@ -1,6 +1,6 @@
 using Evaluation;
 
-namespace Robot
+namespace ActionGenerate
 {
 	public class CatTemperatureActionGenerator : ActionGenerator
 	{

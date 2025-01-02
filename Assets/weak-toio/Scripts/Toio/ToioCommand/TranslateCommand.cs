@@ -1,12 +1,13 @@
 using System;
 using toio;
 
-namespace Robot
+namespace ActionGenerate
 {
 	public class TranslateCommand : IMovementCommand
 	{
 		float dist;
 		double speed;
+
 		public TranslateCommand(float _dist, double _speed)
 		{
 			dist = _dist;

@@ -3,7 +3,7 @@ using Evaluation;
 using toio;
 using UnityEngine;
 
-namespace Robot
+namespace ActionGenerate
 {
 	/// <summary>
 	/// toioのアクションを生成する抽象クラス

@@ -1,4 +1,4 @@
-using Robot;
+using ActionGenerate;
 using toio;
 
 public class TurnOnLEDCommand : ILightCommand
@@ -24,6 +24,18 @@ public class TurnOnLEDCommand : ILightCommand
 	{
 		Cube cube = toio.Cube;
 		cube.TurnLedOn(red, green, blue, durationMills);
+	}
+}
+public class TurnOffLEDCommand : ILightCommand
+{
+	public float GetInterval()
+	{
+		return 0.01f;
+	}
+	public void Exec(Toio toio)
+	{
+		Cube cube = toio.Cube;
+		cube.TurnLedOff();
 	}
 }
 public class LEDBlinkCommand : ILightCommand
