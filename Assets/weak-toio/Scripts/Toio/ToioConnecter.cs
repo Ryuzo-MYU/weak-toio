@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using ActionGenerate;
 
-public class ToioConnector : MonoBehaviour
+public class ToioConnecter : MonoBehaviour
 {
 	public ConnectType connectType = ConnectType.Real;
 	[SerializeField] private Button scanButton;
