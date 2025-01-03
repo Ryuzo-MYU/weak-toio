@@ -5,6 +5,7 @@ Unity 上の toio と実機 toio のローカルネームを照合して，同�
 
 ```mermaid
  graph TD
+  linkStyle default orthogonal
   Start([ボタンクリック]) --> CallConnctToio
   CallConnctToio --> ConnectToio
   ConnectToio --> GetToioComponets{Toioコンポーネントを取得}
