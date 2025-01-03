@@ -7,5 +7,6 @@ Unity上のtoioと実機toioのローカルネームを照合して，同名の�
  graph TD
   Start([ボタンクリック]) --> CallConnctToio
   CallConnctToio --> ConnectToio
+  ConnectToio --> GetToioComponets
   
 ```
