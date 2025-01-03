@@ -13,6 +13,6 @@ Unity 上の toio と実機 toio のローカルネームを照合して，同�
   GetToioComponets --> |ToioComponentが1個以上| Find{同名のToioを検索}
   Find --> |いた| StartConnect[接続開始]
   Find --> |いなかった| Error
-
+  
   Error --> End([終了])
 ```
