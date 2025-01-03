@@ -19,8 +19,15 @@ namespace ActionGenerate
 		{
 			get
 			{
-				ToioConnecter toioConnecter = GameObject.FindGameObjectWithTag("ToioConnecter");
-				return "toio-" + _localName;
+				ConnectType connectType = FindObjectOfType<ToioConnecter>().connectType;
+				if (connectType == ConnectType.Real)
+				{
+					return "toio-" + _localName;
+				}
+				else
+				{
+					return this.name;
+				}
 			}
 		}
 		public List<EnvType> Type { get { return type; } }
