@@ -16,7 +16,7 @@ namespace ActionGenerate
 
 		public int ID { get { return _id; } }
 		public string LocalName { get {
-			 ToioConnecter toioConnecter = GameObject.FindGameObjectWithTag
+			 ToioConnecter toioConnecter = GameObject.FindGameObjectWithTag("ToioConnecter");
 			 return "toio-" + _localName; 
 			 } }
 		public List<EnvType> Type { get { return type; } }
