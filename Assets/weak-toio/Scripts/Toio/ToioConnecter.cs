@@ -78,6 +78,7 @@ public class ToioConnecter : MonoBehaviour
 
 			// LocalNameが一致するToioコンポーネントを探す
 			var matchingToio = toioComponents.FirstOrDefault(t => t.LocalName == peripheral.device_name);
+
 			if (matchingToio == null)
 			{
 				var existingNames = string.Join("\n", toioComponents.Select(t => t.LocalName));
