@@ -9,5 +9,5 @@ Unity 上の toio と実機 toio のローカルネームを照合して，同�
   CallConnctToio --> ConnectToio
   ConnectToio --> GetToioComponets
   GetToioComponets --> |ToioComponentが0個| Error[エラー表示]
-  GetToioComponets --> |ToioComponentが1個以上| 
+  GetToioComponets --> |ToioComponentが1個以上| Find[同名のToioを検索]
 ```
