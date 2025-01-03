@@ -15,10 +15,14 @@ namespace ActionGenerate
 		private CubeHandle _handle;
 
 		public int ID { get { return _id; } }
-		public string LocalName { get {
-			 ToioConnecter toioConnecter = GameObject.FindGameObjectWithTag("ToioConnecter");
-			 return "toio-" + _localName; 
-			 } }
+		public string LocalName
+		{
+			get
+			{
+				ToioConnecter toioConnecter = GameObject.FindGameObjectWithTag("ToioConnecter");
+				return "toio-" + _localName;
+			}
+		}
 		public List<EnvType> Type { get { return type; } }
 		public Cube Cube { get { return _cube; } }
 		public CubeHandle Handle { get { return _handle; } }
