@@ -147,4 +147,13 @@ public class ToioConnector : MonoBehaviour
 		scanButton.GetComponentInChildren<Text>().text = "スキャン";
 	}
 
+	// シーン終了時
+	private void OnDestroy()
+	{
+		var toioComponents = FindObjectsOfType<Toio>();
+		foreach (Toio toio in toioComponents)
+		{
+			connecter.Disconnect(toio.Cube);
+		}
+	}
 }
