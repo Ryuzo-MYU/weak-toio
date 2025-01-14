@@ -711,8 +711,8 @@ MonoBehaviour:
   _envType: 0
   _score: 0
   suitableRange:
-    UpperLimit: 18
-    LowerLimit: 24
+    UpperLimit: 24
+    LowerLimit: 18
 --- !u!114 &7910758778897120803
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -737,12 +737,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f4750e6b8bf95a46892d7dec236b4e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  collisionThreshold: 10
   _id: 0
-  _name: 
+  _localName: 
   type: 03000000
-  movementCount: 0
-  lightCount: 0
-  soundCount: 0
   actionMaxCount: 10
-  toioConnector: {fileID: 0}
+  CollisionThreshold: 7
+  CallbackSceneName: SampleScene

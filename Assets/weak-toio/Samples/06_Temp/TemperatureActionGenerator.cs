@@ -36,12 +36,12 @@ namespace ActionGenerate
 			Action action = new Action();
 			float deg = 90;
 			double speed = 45;
-			action.AddMovement(ToioActionLibrary.DegRotate(deg, speed));
-			action.AddMovement(ToioActionLibrary.DegRotate(-deg, speed));
+			action.AddMovement(actionLibrary.DegRotate(deg, speed));
+			action.AddMovement(actionLibrary.DegRotate(-deg, speed));
 
 			int soundID = 1;
 			int volume = 1;
-			action.AddSound(ToioActionLibrary.PresetSound(soundID, volume, 2f));
+			action.AddSound(actionLibrary.PresetSound(soundID, volume, 2f));
 
 			return action;
 		}
@@ -51,8 +51,8 @@ namespace ActionGenerate
 			Action action = new Action();
 			float rad = (float)(10 * Math.PI / 180);
 			double speed = 50;
-			action.AddMovement(ToioActionLibrary.RadRotate(rad, speed));
-			action.AddMovement(ToioActionLibrary.RadRotate(-rad, speed));
+			action.AddMovement(actionLibrary.RadRotate(rad, speed));
+			action.AddMovement(actionLibrary.RadRotate(-rad, speed));
 
 			return action;
 		}
@@ -62,8 +62,8 @@ namespace ActionGenerate
 			Action action = new Action();
 			float deg = 10f;
 			double speed = 100;
-			action.AddMovement(ToioActionLibrary.DegRotate(deg, speed));
-			action.AddMovement(ToioActionLibrary.DegRotate(-deg, speed));
+			action.AddMovement(actionLibrary.DegRotate(deg, speed));
+			action.AddMovement(actionLibrary.DegRotate(-deg, speed));
 
 			return action;
 		}
@@ -73,8 +73,8 @@ namespace ActionGenerate
 			Action action = new Action();
 			float deg = 50f;
 			double speed = 50;
-			action.AddMovement(ToioActionLibrary.DegRotate(deg, speed));
-			action.AddMovement(ToioActionLibrary.DegRotate(-deg, speed));
+			action.AddMovement(actionLibrary.DegRotate(deg, speed));
+			action.AddMovement(actionLibrary.DegRotate(-deg, speed));
 
 			return action;
 		}
@@ -84,8 +84,8 @@ namespace ActionGenerate
 			Action action = new Action();
 			float deg = 90f;
 			double speed = 200;
-			action.AddMovement(ToioActionLibrary.DegRotate(deg, speed));
-			action.AddMovement(ToioActionLibrary.DegRotate(-deg, speed));
+			action.AddMovement(actionLibrary.DegRotate(deg, speed));
+			action.AddMovement(actionLibrary.DegRotate(-deg, speed));
 
 			return action;
 		}

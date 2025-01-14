@@ -2,187 +2,247 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using toio;
-using UnityEditor;
+using ActionLibrary;
+using System;
 
 namespace ActionGenerate
 {
-	public class Toio : MonoBehaviour
-	{
-		[SerializeField] private int _id;
-		[SerializeField, LocalName] private string _localName; // Change _name to _localName
-		[SerializeField] private List<EnvType> type;
-		private Cube _cube;
-		private CubeHandle _handle;
+  public class Toio : MonoBehaviour
+  {
+    [SerializeField] private int _id;
+    [Tooltip("toio- 以降の文字列を記入")]
+    [SerializeField] private string _localName;
+    [SerializeField] private List<EnvType> type;
+    private Cube _cube;
+    private CubeHandle _handle;
 
-		public int ID { get { return _id; } }
-		public string LocalName
-		{
-			get
-			{
-				ConnectType connectType = FindObjectOfType<ToioConnecter>().connectType;
-				if (connectType == ConnectType.Real)
-				{
-					return "toio-" + _localName;
-				}
-				else
-				{
-					return this.name;
-				}
-			}
-		}
-		public List<EnvType> Type { get { return type; } }
-		public Cube Cube { get { return _cube; } }
-		public CubeHandle Handle { get { return _handle; } }
+    public int ID { get { return _id; } }
+    public string LocalName
+    {
+      get
+      {
+        ConnectType connectType = FindObjectOfType<ToioConnecter>().connectType;
+        if (connectType == ConnectType.Real)
+        {
+          return "toio-" + _localName;
+        }
+        else
+        {
+          return this.name;
+        }
+      }
+    }
+    public List<EnvType> Type { get { return type; } }
+    public Cube Cube { get { return _cube; } }
+    public CubeHandle Handle { get { return _handle; } }
 
-		[SerializeField] private int movementCount;
-		[SerializeField] private int lightCount;
-		[SerializeField] private int soundCount;
-		[SerializeField] private int actionMaxCount;
-		private Queue<Action> actions;
-		private Action currentAction;
-		private bool isMoving = false;
+    private bool moveCommandCompleted;
+    private bool lightCommandCompleted;
+    private bool soundCommandCompleted;
+    [SerializeField] private int actionMaxCount;
+    private Queue<Action> actions;
+    private Action normalAction;
+    private Action emergencyAction;
+    private bool isMoving = false;
 
-		private ActionGenerator actionGenerator;
+    private ActionGenerator actionGenerator;
 
-		private void Start()
-		{
-			actions = new Queue<Action>();
-			currentAction = new Action();
+    [SerializeField] private int CollisionThreshold = 7;
+    [SerializeField] string CallbackSceneName = "SampleScene";
 
-			actionGenerator = gameObject.GetComponent<ActionGenerator>();
-			actionGenerator.OnActionGenerated += AddNewAction;
-		}
+    private void Start()
+    {
+      actions = new Queue<Action>();
+      normalAction = new Action();
 
-		public void Register(int id, CubeManager cubeManager)
-		{
-			this._id = id;
-			this._cube = cubeManager.cubes[_id];
-			this._handle = cubeManager.handles[_id];
+      actionGenerator = gameObject.GetComponent<ActionGenerator>();
+      actionGenerator.OnActionGenerated += AddNewAction;
+    }
 
-			OnRegisterCompleted();
-		}
+    /// <summary>
+    /// ToioConnecterが接続しているToioから，自分のToioの情報をもらう
+    /// CubeManager不使用版
+    /// </summary>
+    /// <param name="cube">toio-sdkのCubeクラス</param>
+    public void Register(Cube cube)
+    {
+      this._cube = cube;
+      this._handle = new CubeHandle(cube);
+      Cube.ConfigCollisionThreshold(CollisionThreshold);
+      Cube.collisionCallback.AddListener(CallbackSceneName, OnCubeCollisioned);
+      OnRegisterCompleted();
+    }
 
-		public void Register(Cube cube)
-		{
-			this._cube = cube;
-			this._handle = new CubeHandle(cube);
-			OnRegisterCompleted();
-		}
+    /// <summary>
+    /// ToioConnecterが接続しているToioから，自分のToioの情報をもらう
+    /// CubeManager使用版
+    /// </summary>
+    /// <param name="cube"></param>
+    /// <param name="handle"></param>
+    public void Register(Cube cube, CubeHandle handle)
+    {
+      this._cube = cube;
+      this._handle = handle;
+      Cube.collisionCallback.AddListener(CallbackSceneName, OnCubeCollisioned);
+      OnRegisterCompleted();
+    }
 
-		private void OnRegisterCompleted()
-		{
-			StartCoroutine(actionGenerator.StartMove(this));
-		}
+    private void OnRegisterCompleted()
+    {
+      actionGenerator.InitializeCubeHandle(Handle);
+      StartCoroutine(StartAct());
+    }
 
-		// 実行関連のメソッド
-		public IEnumerator Act()
-		{
-			if (currentAction == null || currentAction.Count() == 0)
-			{
-				if (actions.Count > 0)
-				{
-					currentAction = actions.Dequeue();
-					Debug.Log("アクション無いんで入れ替えますね");
-				}
-				else
-				{
-					yield return null;
-				}
-			}
+    // actionを実行するコルーチン
+    // 平常時はcurrentActionを実行，緊急アクションがあればemergencyActionを処理する
+    public IEnumerator StartAct()
+    {
+      while (true)
+      {
+        if (emergencyAction != null && emergencyAction.Count() != 0)
+        {
+          Debug.Log("緊急アクションを実行します");
+          yield return Act(emergencyAction);
+          continue;
+        }
 
-			while (currentAction.Count() > 0)
-			{
-				StartCoroutine(Move());
-				StartCoroutine(ControllLED());
-				StartCoroutine(PlaySound());
-			}
-			yield return null;
-		}
+        if (normalAction == null || normalAction.Count() == 0)
+        {
+          yield return normalAction = actionGenerator.GetNewAction();
+          AllCommandFlagReset();
 
-		private IEnumerator Move()
-		{
-			if (currentAction.MovementCount() == 0) yield return null;
-			IMovementCommand move = currentAction.GetNextMovement();
-			movementCount = currentAction.MovementCount();
-			if (move != null)
-			{
-				move.Exec(this);
-				yield return new WaitForSeconds(move.GetInterval());
-			}
-			yield return null;
-		}
+          if (normalAction == null)
+          {
+            yield return new WaitForSeconds(0.1f);
+            continue;
+          }
+        }
+        yield return Act(normalAction);
+      }
+    }
 
-		private IEnumerator ControllLED()
-		{
-			if (currentAction.LightCount() == 0) yield return null;
-			ILightCommand light = currentAction.GetNextLight();
-			lightCount = currentAction.LightCount();
-			if (light != null)
-			{
-				light.Exec(this);
-				yield return new WaitForSeconds(light.GetInterval());
-			}
-			yield return null;
-		}
+    private IEnumerator ProcessCommands<T>(Action action, Func<Action, Queue<T>> getCommands) where T : IToioCommand
+    {
+      Queue<T> commands = getCommands(action);
+      while (commands.Count > 0)
+      {
+        var command = commands.Dequeue();
+        if (command != null)
+        {
+          Debug.Log($"アクション時間 : {command.GetInterval():F3}[s]\nコマンドタイプ : {command.GetType()}");
+          command.Exec(this);
+          yield return new WaitForSeconds(command.GetInterval());
+        }
+      }
+    }
 
-		private IEnumerator PlaySound()
-		{
-			if (currentAction.SoundCount() == 0) yield return null;
-			ISoundCommand sound = currentAction.GetNextSound();
-			soundCount = currentAction.SoundCount();
-			if (sound != null)
-			{
-				sound.Exec(this);
-				yield return new WaitForSeconds(sound.GetInterval());
-			}
-			yield return null;
-		}
+    private IEnumerator Act(Action action)
+    {
+      while (action != null && action.Count() > 0)
+      {
+        Debug.Log($"アクション開始\nこのアクションの時間 : {action.GetInterval():F3}[s]");
 
-		public void Stop()
-		{
-			isMoving = false;
-			actions.Clear();
-			currentAction = null;
-			_handle.Update();
-			_handle.Move(new Movement(_handle, 0, 0));
-		}
+        var moveTask = StartCoroutine(ProcessCommands<IMovementCommand>(action, a => a.GetMovements()));
+        var lightTask = StartCoroutine(ProcessCommands<ILightCommand>(action, a => a.GetLightCommands()));
+        var soundTask = StartCoroutine(ProcessCommands<ISoundCommand>(action, a => a.GetSoundCommands()));
 
-		public void AddNewAction(Action action)
-		{
-			if (action == null)
-			{
-				Debug.LogWarning("null のアクション送るな");
-				return;
-			}
-			if (actions.Count > actionMaxCount)
-			{
-				Debug.Log("アクション溜まりすぎ");
-				return;
-			}
-			actions.Enqueue(action);
-			Debug.Log("アクション足しました");
+        yield return moveTask;
+        yield return lightTask;
+        yield return soundTask;
 
-			if (!isMoving)
-			{
-				isMoving = true;
-			}
+        Debug.Log("全アクションが終了するまで待機");
 
-		}
-	}
+        yield return new WaitForSeconds(action.GetInterval());
+      }
+    }
+
+    /// <summary>
+    /// actionを消す
+    /// </summary>
+    public void Stop()
+    {
+      isMoving = false;
+      normalAction.Clear();
+    }
+
+    /// <summary>
+    /// アクションを追加する
+    /// </summary>
+    /// <param name="action"></param>
+    public void AddNewAction(Action action)
+    {
+      if (action == null)
+      {
+        Debug.LogWarning("actionがnullです");
+        return;
+      }
+      if (actions.Count > actionMaxCount)
+      {
+        Debug.Log("アクション溜まりすぎ");
+        return;
+      }
+      actions.Enqueue(action);
+      Debug.Log("アクション足しました");
+
+      Stop();
+      if (!isMoving)
+      {
+        isMoving = true;
+      }
+    }
+
+    /// <summary>
+    /// 緊急アクションを追加する
+    /// </summary>
+    /// <param name="action"></param>
+    public void AddEmergencyAction(Action action)
+    {
+      if (action == null)
+      {
+        Debug.LogWarning("null のアクション送るな");
+        return;
+      }
+      Debug.Log("緊急アクションを追加");
+      emergencyAction = action;
+      if (!isMoving)
+      {
+        isMoving = true;
+      }
+    }
+
+    /// <summary>
+    /// 衝突時に方向転換する緊急アクションを追加する
+    /// </summary>
+    /// <param name="c"></param> <summary>
+    private void OnCubeCollisioned(Cube c)
+    {
+      Debug.Log("衝突");
+      ToioActionLibrary lib = new ToioActionLibrary(Handle);
+      AddEmergencyAction(lib.Collisioned());
+    }
+
+    private bool AllCommandCompleted()
+    {
+      bool[] flags = {
+        moveCommandCompleted,
+        lightCommandCompleted,
+        soundCommandCompleted
+      };
+      foreach (bool flag in flags)
+      {
+        if (!flag)
+        {
+          return false;
+        }
+      }
+      return true;
+    }
+
+    private void AllCommandFlagReset()
+    {
+      moveCommandCompleted = false;
+      lightCommandCompleted = false;
+      soundCommandCompleted = false;
+    }
+  }
 }
-
-// Custom Property Drawer for LocalName
-[CustomPropertyDrawer(typeof(LocalNameAttribute))]
-public class LocalNameDrawer : PropertyDrawer
-{
-	public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
-	{
-		EditorGUI.BeginProperty(position, label, property);
-		position = EditorGUI.PrefixLabel(position, GUIUtility.GetControlID(FocusType.Passive), new GUIContent("toio-"));
-		property.stringValue = EditorGUI.TextField(position, property.stringValue);
-		EditorGUI.EndProperty();
-	}
-}
-
-// Attribute to mark the LocalName field
-public class LocalNameAttribute : PropertyAttribute { }
