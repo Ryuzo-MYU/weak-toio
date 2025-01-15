@@ -1031,7 +1031,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2967492030441082689, guid: 6faa98f6a7575ef48ad8aca2dd20cca4, type: 3}
       propertyPath: _localName
-      value: b8b
+      value: f7a
       objectReference: {fileID: 0}
     - target: {fileID: 2967492030441082689, guid: 6faa98f6a7575ef48ad8aca2dd20cca4, type: 3}
       propertyPath: toioConnector
@@ -1055,7 +1055,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3348013124271145054, guid: 6faa98f6a7575ef48ad8aca2dd20cca4, type: 3}
       propertyPath: portName
-      value: COM11
+      value: COM8
       objectReference: {fileID: 0}
     - target: {fileID: 3777579130281375468, guid: 6faa98f6a7575ef48ad8aca2dd20cca4, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1119,17 +1119,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3777579130281375468, guid: 6faa98f6a7575ef48ad8aca2dd20cca4, type: 3}
   m_PrefabInstance: {fileID: 752908052}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &752908056 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 419692671223026632, guid: 6faa98f6a7575ef48ad8aca2dd20cca4, type: 3}
-  m_PrefabInstance: {fileID: 752908052}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 89069eefd4900414386304e391dda167, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1055302595
 GameObject:
   m_ObjectHideFlags: 0
@@ -1455,6 +1444,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2074007199}
     - target: {fileID: -9116059160145616704, guid: 5a0287f8fbb2d3641bf6f4398a900388, type: 3}
+      propertyPath: connectType
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: -9116059160145616704, guid: 5a0287f8fbb2d3641bf6f4398a900388, type: 3}
       propertyPath: listContent
       value: 
       objectReference: {fileID: 326725738}
@@ -1563,7 +1556,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   handleTransform: {fileID: 1913438049}
-  temperatureEvaluator: {fileID: 752908056}
+  temperatureEvaluator: {fileID: 1990438949}
   minTemperature: -20
   maxTemperature: 50
   handleMovementRange: 80
@@ -1717,6 +1710,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1957327920}
   m_CullTransparentMesh: 1
+--- !u!114 &1990438949 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 419692671223026632, guid: 6faa98f6a7575ef48ad8aca2dd20cca4, type: 3}
+  m_PrefabInstance: {fileID: 752908052}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89069eefd4900414386304e391dda167, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2028975861
 GameObject:
   m_ObjectHideFlags: 0

@@ -6,11 +6,11 @@ namespace Evaluation
   public class EvaluateBase : MonoBehaviour
   {
     public event Action<Result> OnResultGenerated;
+    [SerializeField] protected float _score;
     [SerializeField] protected float _currentParam;
     public float CurrentParam { get { return _currentParam; } }
     [SerializeField] protected Unit _unit;
     [SerializeField] protected EnvType _envType;
-    [SerializeField] protected float _score;
     protected SensorManager sensorManager;
     private SensorBase sensor;
 

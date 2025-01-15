@@ -11,6 +11,7 @@
 
 #include <BluetoothSerial.h>
 #include <M5Unified.h>
+#include <esp_sleep.h>
 
 #include "M5UnitENV.h"
 
@@ -18,6 +19,7 @@
 const char* DEVICE_NAME = "CO2_SENSOR";
 const int SERIAL_BAUD = 115200;
 const int DISPLAY_TIME = 3000;  // 更新間隔
+const int SLEEP_TIME = 3000;    // スリープ時間（ミリ秒）
 
 // センサーインスタンス
 SCD4X scd4x;
@@ -53,25 +55,24 @@ void setup() {
 
     Serial.println("Waiting for first measurement... (5 sec)");
 
-    M5.Lcd.setRotation(3);
-    M5.Lcd.fillScreen(BLACK);
-    M5.Lcd.setTextColor(WHITE);
-
     Serial.begin(SERIAL_BAUD);
     SerialBT.begin(DEVICE_NAME);
 }
 
 void loop() {
     // センサーからデータ読み取り
-    if (scd4x.update()) {
-        temp = scd4x.getTemperature();
-        hum = scd4x.getHumidity();
-        co2 = scd4x.getCO2();
+    while (!scd4x.update()) {
+        delay(100);  // 更新されるまで待機
     }
+    temp = scd4x.getTemperature();
+    hum = scd4x.getHumidity();
+    co2 = scd4x.getCO2();
 
     UpdateInfo(temp, hum, co2);
 
-    delay(DISPLAY_TIME);
+    // ディープスリープモードに移行
+    esp_sleep_enable_timer_wakeup(SLEEP_TIME * 1000);
+    esp_deep_sleep_start();
 }
 
 void UpdateInfo(float temp, float hum, float co2) {
@@ -80,18 +81,4 @@ void UpdateInfo(float temp, float hum, float co2) {
     sprintf(data, "%s\t%.2f\t%.2f\t%.1f", DEVICE_NAME, temp, hum, co2);
     Serial.println(data);
     SerialBT.println(data);
-
-    // LCD表示更新
-    M5.update();
-    M5.Lcd.clear();
-    M5.Lcd.setTextSize(1.5);
-    M5.Lcd.setCursor(10, 10);
-    M5.Lcd.print(DEVICE_NAME);
-    M5.Lcd.setTextSize(1);
-    M5.Lcd.setCursor(10, 30);
-    M5.Lcd.printf("Temp: %.2f `C", temp);
-    M5.Lcd.setCursor(10, 45);
-    M5.Lcd.printf("Hum:  %.2f %%", hum);
-    M5.Lcd.setCursor(10, 60);
-    M5.Lcd.printf("CO2:  %.1f ppm", co2);
 }
