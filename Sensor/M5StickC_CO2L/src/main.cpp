@@ -11,74 +11,42 @@
 
 #include <BluetoothSerial.h>
 #include <M5Unified.h>
-#include <esp_sleep.h>
 
 #include "M5UnitENV.h"
 
 // 定数定義
 const char* DEVICE_NAME = "CO2_SENSOR";
 const int SERIAL_BAUD = 115200;
-const int DISPLAY_TIME = 3000;  // 更新間隔
-const int SLEEP_TIME = 3000;    // スリープ時間（ミリ秒）
+const int SLEEP_SECONDS = 5;  // スリープ時間（秒）
 
 // センサーインスタンス
 SCD4X scd4x;
 BluetoothSerial SerialBT;
 
-float temp;
-float hum;
-float co2;
-
-void UpdateInfo(float temp, float hum, float co2);
-
 void setup() {
-    auto cfg = M5.config();
-    M5.begin(cfg);
-
-    if (!scd4x.begin(&Wire, SCD4X_I2C_ADDR, 32, 33, 400000U)) {
-        Serial.println("Couldn't find SCD4X");
-        while (1) delay(1);
-    }
-
-    uint16_t error;
-    // stop potentially previously started measurement
-    error = scd4x.stopPeriodicMeasurement();
-    if (error) {
-        Serial.print("Error trying to execute stopPeriodicMeasurement(): ");
-    }
-
-    // Start Measurement
-    error = scd4x.startPeriodicMeasurement();
-    if (error) {
-        Serial.print("Error trying to execute startPeriodicMeasurement(): ");
-    }
-
-    Serial.println("Waiting for first measurement... (5 sec)");
-
+    M5.begin();
+    Wire.begin();
     Serial.begin(SERIAL_BAUD);
     SerialBT.begin(DEVICE_NAME);
+
+    if (!scd4x.begin(&Wire, SCD4X_I2C_ADDR, 32, 33, 400000U)) {
+        while (1) delay(1);
+    }
+    scd4x.stopPeriodicMeasurement();
+    scd4x.startPeriodicMeasurement();
 }
 
 void loop() {
-    // センサーからデータ読み取り
-    while (!scd4x.update()) {
-        delay(100);  // 更新されるまで待機
+    if (scd4x.update()) {
+        float temp = scd4x.getTemperature();
+        float hum = scd4x.getHumidity();
+        float co2 = scd4x.getCO2();
+
+        Serial.printf("%s\t%.2f\t%.2f\t%.1f\n", DEVICE_NAME, temp, hum, co2);
+        SerialBT.printf("%s\t%.2f\t%.2f\t%.1f\n", DEVICE_NAME, temp, hum, co2);
     }
-    temp = scd4x.getTemperature();
-    hum = scd4x.getHumidity();
-    co2 = scd4x.getCO2();
 
-    UpdateInfo(temp, hum, co2);
-
-    // ディープスリープモードに移行
-    esp_sleep_enable_timer_wakeup(SLEEP_TIME * 1000);
-    esp_deep_sleep_start();
-}
-
-void UpdateInfo(float temp, float hum, float co2) {
-    // データ送信
-    char data[100];
-    sprintf(data, "%s\t%.2f\t%.2f\t%.1f", DEVICE_NAME, temp, hum, co2);
-    Serial.println(data);
-    SerialBT.println(data);
+    M5.Lcd.setBrightness(0);
+    esp_sleep_enable_timer_wakeup(sleep(SLEEP_SECONDS));
+    esp_light_sleep_start();
 }

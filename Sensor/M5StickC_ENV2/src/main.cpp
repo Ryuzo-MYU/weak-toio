@@ -9,60 +9,56 @@
 
 #include <BluetoothSerial.h>
 #include <M5Unified.h>
-#include <Wire.h>
 
 #include "M5UnitENV.h"
 
-// 定数定義
 const char* DEVICE_NAME = "ENV_SENSOR";
 const int SERIAL_BAUD = 115200;
-const int SLEEP_TIME = 3000;  // スリープ時間（ミリ秒）
+const int SLEEP_SECONDS = 10;  // スリープ時間（秒）
 
 // センサーインスタンス
-SHT3X sht;
+SHT3X sht3x;
 BMP280 bmp;
 BluetoothSerial SerialBT;
 
-float temp;
-float hum;
-float pa;
-
-void UpdateInfo(float temp, float hum, float pa);
-
 void setup() {
-    auto cfg = M5.config();
-    M5.begin(cfg);
-    Wire.begin();
-
+    M5.begin();
     Serial.begin(SERIAL_BAUD);
     SerialBT.begin(DEVICE_NAME);
 
+    Wire.begin();
     // センサー初期化待機
-    while (!bmp.begin()) {
-        delay(100);
+    M5.begin();
+    if (!sht3x.begin(&Wire, SHT3X_I2C_ADDR, 32, 33, 400000U)) {
+        while (1) delay(1);
     }
+
+    if (!bmp.begin(&Wire, BMP280_I2C_ADDR, 32, 33, 400000U)) {
+        while (1) delay(1);
+    }
+    /* Default settings from datasheet. */
+    bmp.setSampling(BMP280::MODE_NORMAL,     /* Operating Mode. */
+                    BMP280::SAMPLING_X2,     /* Temp. oversampling */
+                    BMP280::SAMPLING_X16,    /* Pressure oversampling */
+                    BMP280::FILTER_X16,      /* Filtering. */
+                    BMP280::STANDBY_MS_500); /* Standby time. */
 }
 
 void loop() {
-    // センサーからデータ読み取り
-    while (!sht.update() || !bmp.update()) {
-        delay(100);  // 更新されるまで待機
+    if (!sht3x.update()) {
+        while (1) delay(1);
+    }
+    if (!bmp.update()) {
+        while (1) delay(1);
     }
 
-    temp = bmp.cTemp;
-    hum = sht.humidity;
-    pa = bmp.pressure;
+    float temp = sht3x.cTemp;
+    float hum = sht3x.humidity;
+    float pa = bmp.readPressure();
 
-    UpdateInfo(temp, hum, pa);
-
-    // ディープスリープモードに移行
-    esp_sleep_enable_timer_wakeup(SLEEP_TIME * 1000);
-    esp_deep_sleep_start();
-}
-
-void UpdateInfo(float temp, float hum, float pa) {
-    char data[100];
-    sprintf(data, "%s\t%.2f\t%.2f\t%.1f", DEVICE_NAME, temp, hum, pa);
-    Serial.println(data);
-    SerialBT.println(data);
+    Serial.printf("%s\t%.2f\t%.2f\t%.1f\n", DEVICE_NAME, temp, hum, pa);
+    SerialBT.printf("%s\t%.2f\t%.2f\t%.1f\n", DEVICE_NAME, temp, hum, pa);
+    M5.Lcd.setBrightness(0);
+    esp_sleep_enable_timer_wakeup(sleep(SLEEP_SECONDS));
+    esp_light_sleep_start();
 }
