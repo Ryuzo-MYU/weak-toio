@@ -141,7 +141,7 @@ namespace ActionGenerate
 		{
 			while (action != null && action.Count() > 0)
 			{
-				Debug.Log($"アクション開始\nこのアクションの時間 : {action.GetInterval():F3}[s]");
+				Debug.Log($"アクション開始\nこのアクションの時間 : {action.GetInterval():F3}[s]\nインターバル : {actioninterval:F3}");
 
 				var moveTask = StartCoroutine(ProcessCommands<IMovementCommand>(action, a => a.GetMovements()));
 				var lightTask = StartCoroutine(ProcessCommands<ILightCommand>(action, a => a.GetLightCommands()));
