@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Evaluation
 {
-	public class EvaluateBase<T> : MonoBehaviour, IEvaluationResultSender<T>
+	public abstract class EvaluateBase<T> : MonoBehaviour
 	{
 		public event Action<Result> OnResultGenerated;
 		[SerializeField] protected float _score;
@@ -36,6 +36,6 @@ namespace Evaluation
 			OnResultGenerated?.Invoke(result);
 		}
 
-		public virtual void GenerateEvaluationResult(T sensor) { }
+		protected abstract void GenerateEvaluationResult(T sensor);
 	}
 }

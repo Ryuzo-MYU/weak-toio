@@ -4,13 +4,13 @@ using UnityEngine;
 namespace Evaluation
 {
 	[RequireComponent(typeof(ITemperatureSensor))]
-	public class CatTemperatureEvaluate : EvaluateBase, IEvaluationResultSender<ITemperatureSensor>
+	public class CatTemperatureEvaluate : EvaluateBase<ITemperatureSensor>
 	{
 		[SerializeField] private BoundaryRange suitableRange = new BoundaryRange(24, 18); // 猫の快適温度
 		public BoundaryRange SuitableRange { get { return suitableRange; } }
 		private ITemperatureSensor tempSensor;
 
-		public void GenerateEvaluationResult(ITemperatureSensor tempSensor)
+		protected override void GenerateEvaluationResult(ITemperatureSensor tempSensor)
 		{
 			_currentParam = tempSensor.GetTemperature();
 
