@@ -14,17 +14,13 @@ namespace Evaluation
 		protected SensorManager sensorManager;
 		private SensorBase sensor;
 
-		public EnvType GetEnvType()
-		{
-			return _envType;
-		}
-
 		private void Awake()
 		{
 			sensorManager = gameObject.GetComponent<SensorManager>();
 			sensorManager.OnSensorDecided += OnSensorDecided;
 		}
 
+		public abstract EnvType GetEnvType();
 		protected virtual void OnSensorDecided()
 		{
 			sensor = sensorManager.GetSensor();
