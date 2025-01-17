@@ -42,8 +42,7 @@ void loop() {
         float hum = scd4x.getHumidity();
         float co2 = scd4x.getCO2();
 
-        Serial.printf("%s\t%.2f\t%.2f\t%.1f\n", DEVICE_NAME, temp, hum, co2);
-        SerialBT.printf("%s\t%.2f\t%.2f\t%.1f\n", DEVICE_NAME, temp, hum, co2);
+		SerialBT.printf("%s\t%.2f\t%.2f\t%.1f\t%d\n", DEVICE_NAME, temp, hum, co2, M5.Power.getBatteryLevel());
     }
 
     M5.Lcd.setBrightness(0);
