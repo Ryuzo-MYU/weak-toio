@@ -153,7 +153,7 @@ namespace ActionGenerate
 
 				Debug.Log("全アクションが終了するまで待機");
 
-				yield return new WaitForSeconds(action.GetInterval());
+				yield return new WaitForSeconds(action.GetInterval() + actioninterval);
 			}
 		}
 
