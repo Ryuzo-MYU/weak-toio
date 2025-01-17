@@ -1042,6 +1042,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2967492030441082689, guid: 6faa98f6a7575ef48ad8aca2dd20cca4, type: 3}
+      propertyPath: actioninterval
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2967492030441082689, guid: 6faa98f6a7575ef48ad8aca2dd20cca4, type: 3}
       propertyPath: CallbackSceneName
       value: CatTemperatureEvaluation
       objectReference: {fileID: 0}
