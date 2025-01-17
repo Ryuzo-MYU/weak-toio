@@ -1101,6 +1101,10 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6246615144474369996, guid: 6faa98f6a7575ef48ad8aca2dd20cca4, type: 3}
+      propertyPath: interval
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 6601354619286629088, guid: 6faa98f6a7575ef48ad8aca2dd20cca4, type: 3}
       propertyPath: m_Name
       value: Cube_Cat_Temp_00
@@ -1445,7 +1449,7 @@ PrefabInstance:
       objectReference: {fileID: 2074007199}
     - target: {fileID: -9116059160145616704, guid: 5a0287f8fbb2d3641bf6f4398a900388, type: 3}
       propertyPath: connectType
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -9116059160145616704, guid: 5a0287f8fbb2d3641bf6f4398a900388, type: 3}
       propertyPath: listContent

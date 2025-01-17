@@ -1,3 +1,4 @@
+using System.Collections;
 using Environment;
 using UnityEngine;
 
@@ -10,11 +11,17 @@ public class DummyM5StickcWithENV2 : DummyM5Stickc, IENV2Sensor
 	public float GetHumidity() { return _hum; }
 	public float GetPressure() { return _pressure; }
 
-	void Update()
+	private void Start()
+	{
+		StartCoroutine(UpdateSensorCoroutine());
+	}
+
+	new IEnumerator UpdateSensorCoroutine()
 	{
 		base.UpdateSensor();
 		UpdateENV2Sensor();
 		_OnDeserializeCompleted();
+		yield return new WaitForSeconds(interval);
 	}
 	private void UpdateENV2Sensor()
 	{

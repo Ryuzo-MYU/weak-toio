@@ -1,24 +1,32 @@
-using Environment;
+using System.Collections;
 using UnityEngine;
 
-public class DummyM5StickcWithCO2L : DummyM5Stickc, ICO2LSensor
+namespace Environment
 {
-	[SerializeField] protected float _temp;
-	[SerializeField] protected float _hum;
-	[SerializeField] protected float _ppm;
-	public float GetTemperature() { return _temp; }
-	public float GetHumidity() { return _hum; }
-	public float GetCO2() { return _ppm; }
-	void Update()
+	public class DummyM5StickcWithCO2L : DummyM5Stickc, ICO2LSensor
 	{
-		base.UpdateSensor();
-		UpdateCO2L2Sensor();
-		_OnDeserializeCompleted();
-	}
-	private void UpdateCO2L2Sensor()
-	{
-		_temp += Random.Range(-1f, 1f);
-		_hum += Random.Range(-1f, 1f);
-		_ppm += Random.Range(-1f, 1f);
+		[SerializeField] protected float _temp;
+		[SerializeField] protected float _hum;
+		[SerializeField] protected float _ppm;
+		public float GetTemperature() { return _temp; }
+		public float GetHumidity() { return _hum; }
+		public float GetCO2() { return _ppm; }
+		private void Start()
+		{
+			StartCoroutine(UpdateSensorCoroutine());
+		}
+		new IEnumerator UpdateSensorCoroutine()
+		{
+			base.UpdateSensor();
+			UpdateCO2L2Sensor();
+			_OnDeserializeCompleted();
+			yield return new WaitForSeconds(interval);
+		}
+		private void UpdateCO2L2Sensor()
+		{
+			_temp += Random.Range(-1f, 1f);
+			_hum += Random.Range(-1f, 1f);
+			_ppm += Random.Range(-1f, 1f);
+		}
 	}
 }
