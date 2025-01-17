@@ -1,4 +1,3 @@
-using System.Collections;
 using UnityEngine;
 
 namespace Environment
@@ -6,7 +5,6 @@ namespace Environment
 	[RequireComponent(typeof(SerialHandler))]
 	public class DummyM5Stickc : SensorBase, IM5Sensor, DummySensor
 	{
-		[SerializeField] protected int interval;
 		[SerializeField] protected string _deviceName;
 		[SerializeField] protected Vector3 _accel;
 		[SerializeField] protected Vector3 _gyro;
@@ -16,21 +14,13 @@ namespace Environment
 		public Vector3 GetGyro() { return _gyro; }
 		public float GetVbat() { return _vbat; }
 
-		private void Start()
+		void Update()
 		{
-			StartCoroutine(UpdateSensorCoroutine());
-		}
-		protected IEnumerator UpdateSensorCoroutine()
-		{
-			while (true)
-			{
-				UpdateSensor();
-				_OnDeserializeCompleted();
-				yield return new WaitForSeconds(interval);
-			}
+			UpdateSensor();
+			_OnDeserializeCompleted();
 		}
 		public void StartSensor() { }
-		protected void UpdateSensor()
+		public void UpdateSensor()
 		{
 			// 加速度とジャイロのダミーデータ（前回の値に基づいて変動）
 			float accelX = _accel.x + Random.Range(-2f, 2f);

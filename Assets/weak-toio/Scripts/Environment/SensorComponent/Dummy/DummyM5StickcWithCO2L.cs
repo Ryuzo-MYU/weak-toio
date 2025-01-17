@@ -1,4 +1,3 @@
-using System.Collections;
 using UnityEngine;
 
 namespace Environment
@@ -11,16 +10,11 @@ namespace Environment
 		public float GetTemperature() { return _temp; }
 		public float GetHumidity() { return _hum; }
 		public float GetCO2() { return _ppm; }
-		private void Start()
-		{
-			StartCoroutine(UpdateSensorCoroutine());
-		}
-		new IEnumerator UpdateSensorCoroutine()
+		void Update()
 		{
 			base.UpdateSensor();
 			UpdateCO2L2Sensor();
 			_OnDeserializeCompleted();
-			yield return new WaitForSeconds(interval);
 		}
 		private void UpdateCO2L2Sensor()
 		{
