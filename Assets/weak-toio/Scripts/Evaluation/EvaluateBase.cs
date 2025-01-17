@@ -31,11 +31,11 @@ namespace Evaluation
 			sensor.OnDeserializeCompleted += OnDeserializeCompleted;
 		}
 		protected virtual void OnDeserializeCompleted() { }
-		public void _OnResultGenerated(Result result)
+		protected abstract void GenerateEvaluationResult(T sensor);
+		protected void _OnResultGenerated(Result result)
 		{
 			OnResultGenerated?.Invoke(result);
 		}
 
-		protected abstract void GenerateEvaluationResult(T sensor);
 	}
 }
