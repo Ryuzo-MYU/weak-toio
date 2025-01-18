@@ -7,6 +7,13 @@ namespace Evaluation
 	[RequireComponent(typeof(IHumiditySensor))]
 	public class BananaTempHumEvaluate : EvaluateBase
 	{
+		///	低い分には最低でも外の湿度と同じ程度で，その程度であればむしろよい
+		/// 低温(<14℃)は低温障害，高温(20℃<)は本来の生育環境に近いが，保存に不適
+		/// 高低どちらも評価
+		/// 
+		/// 湿度は過多による特殊な影響は少ない．多湿の場合カビ，病気等の悪影響
+		/// 高い方だけ評価
+
 		[SerializeField] private BoundaryRange suitableTempRange = new BoundaryRange(14, 20); // https://www.dole.co.jp/lp/jp/magazine/banana/preservation/#a03
 		[SerializeField] private BoundaryRange suitableHumidRange = new BoundaryRange(45, 85); // 「なお45～85%の湿度範囲を常温という」https://kikakurui.com/z8/Z8703-1983-01.html p.2
 		private ITemperatureSensor tempSensor;
@@ -23,11 +30,11 @@ namespace Evaluation
 			{
 				if (temp < suitableTempRange.LowerLimit)
 				{
-					tempScore = (temp - suitableTempRange.LowerLimit); // 低温は比較的許容
+					tempScore = temp - suitableTempRange.LowerLimit;
 				}
 				else
 				{
-					tempScore = (temp - suitableTempRange.UpperLimit) * 1.5f; // 高温はより深刻
+					tempScore = temp - suitableTempRange.UpperLimit;
 				}
 			}
 
@@ -35,13 +42,9 @@ namespace Evaluation
 			float humidity = humiditySensor.GetHumidity();
 			if (!suitableHumidRange.isWithInRange(humidity))
 			{
-				if (humidity < suitableHumidRange.LowerLimit)
+				if (humidity > suitableHumidRange.UpperLimit)
 				{
-					humidScore = (humidity - suitableHumidRange.LowerLimit); // 低湿度は比較的許容
-				}
-				else
-				{
-					humidScore = (humidity - suitableHumidRange.UpperLimit) * 1.5f; // 高湿度はより深刻
+					humidScore = humidity - suitableHumidRange.UpperLimit;
 				}
 			}
 
