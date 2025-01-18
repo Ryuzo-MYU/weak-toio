@@ -12,7 +12,7 @@ namespace Evaluation
 		private ITemperatureSensor tempSensor;
 		private IHumiditySensor humiditySensor;
 
-		private void EvaluateEnvironment()
+		protected override void GenerateEvaluationResult()
 		{
 			float tempScore = 0;
 			float humidScore = 0;
@@ -67,7 +67,7 @@ namespace Evaluation
 
 		protected override void OnDeserializeCompleted()
 		{
-			EvaluateEnvironment();
+			GenerateEvaluationResult();
 		}
 	}
 }
