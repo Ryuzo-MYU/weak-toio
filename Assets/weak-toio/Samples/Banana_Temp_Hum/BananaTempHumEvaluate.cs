@@ -8,7 +8,7 @@ namespace Evaluation
 	public class BananaTempHumEvaluate : EvaluateBase
 	{
 		[SerializeField] private BoundaryRange suitableTempRange = new BoundaryRange(14, 20);
-		[SerializeField] private BoundaryRange suitableHumidRange = new BoundaryRange(20, 80); // PCの動作適正湿度
+		[SerializeField] private BoundaryRange suitableHumidRange = new BoundaryRange(45, 85); // 「なお45～85%の湿度範囲を常温という」https://kikakurui.com/z8/Z8703-1983-01.html
 		private ITemperatureSensor tempSensor;
 		private IHumiditySensor humiditySensor;
 

@@ -15,10 +15,10 @@ public struct BoundaryRange
 		UpperLimit = targotParam;
 		LowerLimit = targotParam;
 	}
-	public BoundaryRange(float upper, float lower)
+	public BoundaryRange(float lower, float upper)
 	{
-		UpperLimit = upper;
 		LowerLimit = lower;
+		UpperLimit = upper;
 	}
 	public bool isWithInRange(float subject)
 	{
