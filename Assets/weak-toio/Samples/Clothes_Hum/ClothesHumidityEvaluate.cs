@@ -1,41 +1,43 @@
 using Environment;
-using Evaluation;
 using UnityEngine;
 
-[RequireComponent(typeof(IHumiditySensor))]
-public class ClothesHumidityEvaluate : EvaluateBase
+namespace Evaluation
 {
-	[SerializeField] private BoundaryRange suitableRange = new BoundaryRange(30, 50); // 衣類の保管適正湿度
-	private IHumiditySensor humiditySensor;
-
-	protected override void GenerateEvaluationResult()
+	[RequireComponent(typeof(IHumiditySensor))]
+	public class ClothesHumidityEvaluate : EvaluateBase
 	{
-		_currentParam = humiditySensor.GetHumidity();
+		[SerializeField] private BoundaryRange suitableRange = new BoundaryRange(30, 50); // 衣類の保管適正湿度
+		private IHumiditySensor humiditySensor;
 
-		if (suitableRange.isWithInRange(_currentParam))
+		protected override void GenerateEvaluationResult()
 		{
-			_score = 0;
+			_currentParam = humiditySensor.GetHumidity();
+
+			if (suitableRange.isWithInRange(_currentParam))
+			{
+				_score = 0;
+			}
+			else if (_currentParam < suitableRange.LowerLimit)
+			{
+				_score = _currentParam - suitableRange.LowerLimit;
+			}
+			else
+			{
+				_score = _currentParam - suitableRange.UpperLimit;
+			}
+
+			_OnResultGenerated(new Result(_score, _unit));
 		}
-		else if (_currentParam < suitableRange.LowerLimit)
+
+		protected override void OnSensorDecided()
 		{
-			_score = _currentParam - suitableRange.LowerLimit;
+			base.OnSensorDecided();
+			humiditySensor = (IHumiditySensor)sensorManager.GetSensor();
 		}
-		else
+
+		protected override void OnDeserializeCompleted()
 		{
-			_score = _currentParam - suitableRange.UpperLimit;
+			GenerateEvaluationResult();
 		}
-
-		_OnResultGenerated(new Result(_score, _unit));
-	}
-
-	protected override void OnSensorDecided()
-	{
-		base.OnSensorDecided();
-		humiditySensor = (IHumiditySensor)sensorManager.GetSensor();
-	}
-
-	protected override void OnDeserializeCompleted()
-	{
-		GenerateEvaluationResult();
 	}
 }
