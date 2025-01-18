@@ -4,13 +4,13 @@ using UnityEngine;
 namespace Evaluation
 {
 	[RequireComponent(typeof(IPressureSensor))]
-	public class HumanPaEvaluate : EvaluateBase, IEvaluationResultSender<IPressureSensor>
+	public class HumanPaEvaluate : EvaluateBase
 	{
 		[SerializeField] private float baselinePressure = 1013.0f; // 基準気圧(hPa)
 		[SerializeField] private float warningThreshold = 10.0f;   // 警戒しきい値(±hPa)
 		private IPressureSensor pressureSensor;
 
-		public void GenerateEvaluationResult(IPressureSensor pressureSensor)
+		protected override void GenerateEvaluationResult()
 		{
 			_currentParam = pressureSensor.GetPressure();
 			float pressureDiff = _currentParam - baselinePressure;
@@ -35,7 +35,7 @@ namespace Evaluation
 
 		protected override void OnDeserializeCompleted()
 		{
-			GenerateEvaluationResult(pressureSensor);
+			GenerateEvaluationResult();
 		}
 	}
 }

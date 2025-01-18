@@ -7,7 +7,7 @@ namespace Evaluation
 	[RequireComponent(typeof(IHumiditySensor))]
 	public class BananaTempHumEvaluate : EvaluateBase
 	{
-		[SerializeField] private BoundaryRange suitableTempRange = new BoundaryRange(10, 35); // PCの動作適正温度
+		[SerializeField] private BoundaryRange suitableTempRange = new BoundaryRange(10, 35); 
 		[SerializeField] private BoundaryRange suitableHumidRange = new BoundaryRange(20, 80); // PCの動作適正湿度
 		private ITemperatureSensor tempSensor;
 		private IHumiditySensor humiditySensor;
