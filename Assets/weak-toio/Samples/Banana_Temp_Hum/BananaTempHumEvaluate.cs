@@ -58,6 +58,12 @@ namespace Evaluation
 				_score = Mathf.Max(tempScore, humidScore); // より悪い方を採用
 			}
 
+			// 低温障害の評価
+			if (temp < suitableTempRange.LowerLimit)
+			{
+				_score += (suitableTempRange.LowerLimit - temp) * 0.5f; // 低温障害のペナルティ
+			}
+
 			_OnResultGenerated(new Result(_score, _unit));
 		}
 
