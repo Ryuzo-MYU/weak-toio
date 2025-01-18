@@ -12,7 +12,6 @@ namespace ActionGenerate
 		[SerializeField] private int _id;
 		[Tooltip("toio- 以降の文字列を記入")]
 		[SerializeField] private string _localName;
-		[SerializeField] private List<EnvType> type;
 		private Cube _cube;
 		private CubeHandle _handle;
 
@@ -32,7 +31,6 @@ namespace ActionGenerate
 				}
 			}
 		}
-		public List<EnvType> Type { get { return type; } }
 		public Cube Cube { get { return _cube; } }
 		public CubeHandle Handle { get { return _handle; } }
 

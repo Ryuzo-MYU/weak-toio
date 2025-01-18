@@ -10,11 +10,6 @@ namespace Evaluation
 		public BoundaryRange SuitableRange { get { return suitableRange; } }
 		private ITemperatureSensor tempSensor;
 
-		public override EnvType GetEnvType()
-		{
-			return EnvType.Temperature;
-		}
-
 		protected override void GenerateEvaluationResult()
 		{
 			_currentParam = tempSensor.GetTemperature();

@@ -10,7 +10,6 @@ namespace Evaluation
 		[SerializeField] protected float _currentParam;
 		public float CurrentParam { get { return _currentParam; } }
 		[SerializeField] protected Unit _unit;
-		[SerializeField] protected EnvType _envType;
 		protected SensorManager sensorManager;
 		private SensorBase sensor;
 
@@ -20,7 +19,6 @@ namespace Evaluation
 			sensorManager.OnSensorDecided += OnSensorDecided;
 		}
 
-		public abstract EnvType GetEnvType();
 		protected virtual void OnSensorDecided()
 		{
 			sensor = sensorManager.GetSensor();
