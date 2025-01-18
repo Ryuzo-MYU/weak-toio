@@ -3,12 +3,12 @@ using Evaluation;
 using UnityEngine;
 
 [RequireComponent(typeof(IHumiditySensor))]
-public class ClothesHumidityEvaluate : EvaluateBase, IEvaluationResultSender<IHumiditySensor>
+public class ClothesHumidityEvaluate : EvaluateBase
 {
 	[SerializeField] private BoundaryRange suitableRange = new BoundaryRange(30, 50); // 衣類の保管適正湿度
 	private IHumiditySensor humiditySensor;
 
-	public void GenerateEvaluationResult(IHumiditySensor humiditySensor)
+	protected override void GenerateEvaluationResult()
 	{
 		_currentParam = humiditySensor.GetHumidity();
 
@@ -36,6 +36,6 @@ public class ClothesHumidityEvaluate : EvaluateBase, IEvaluationResultSender<IHu
 
 	protected override void OnDeserializeCompleted()
 	{
-		GenerateEvaluationResult(humiditySensor);
+		GenerateEvaluationResult();
 	}
 }

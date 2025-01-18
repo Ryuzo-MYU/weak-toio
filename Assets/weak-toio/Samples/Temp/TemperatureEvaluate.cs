@@ -8,7 +8,7 @@ namespace Evaluation
 	/// 気温を取得し、評価するクラス
 	/// </summary>
 	[RequireComponent(typeof(ITemperatureSensor))]
-	public class TemperatureEvaluate : EvaluateBase, IEvaluationResultSender<ITemperatureSensor>
+	public class TemperatureEvaluate : EvaluateBase
 	{
 		[SerializeField] private BoundaryRange suitableRange;
 		private ITemperatureSensor tempSensor;
@@ -17,7 +17,7 @@ namespace Evaluation
 		/// SensorUnitから気温のデータを取得し、労働環境の適温範囲と比較した結果を返す
 		/// </summary>
 		/// <returns>評価結果を集約したResult型データ</returns>
-		public void GenerateEvaluationResult(ITemperatureSensor tempSensor)
+		protected override void GenerateEvaluationResult()
 		{
 			_currentParam = tempSensor.GetTemperature(); // SensorUnitから気温を取得
 
@@ -48,7 +48,7 @@ namespace Evaluation
 		}
 		protected override void OnDeserializeCompleted()
 		{
-			GenerateEvaluationResult(tempSensor);
+			GenerateEvaluationResult();
 		}
 	}
 }
