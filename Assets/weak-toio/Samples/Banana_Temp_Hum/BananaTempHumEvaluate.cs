@@ -30,7 +30,7 @@ namespace Evaluation
 			{
 				if (temp < suitableTempRange.LowerLimit)
 				{
-					tempScore = temp - suitableTempRange.LowerLimit;
+					tempScore = suitableTempRange.LowerLimit - temp;
 				}
 				else
 				{
