@@ -634,7 +634,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 300989725}
   offset: {x: 0, y: 0, z: 0}
-  followThreshold: 1
 --- !u!1 &992897130
 GameObject:
   m_ObjectHideFlags: 0
@@ -1031,8 +1030,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 498671131}
   m_HandleRect: {fileID: 498671130}
   m_Direction: 0
-  m_Value: 0
-  m_Size: 0.99999994
+  m_Value: 1
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -1401,7 +1400,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 800, y: 600}

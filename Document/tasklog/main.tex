@@ -1348,6 +1348,32 @@ Toio.LED(Cube, LightOperation)
     \label{fig:}
   \end{figure*}
 
+  \section*{2025.01.18(土)}
+  最近は論文の赤修正とセンサーの充電改善，アクションの実装をした．
+
+  充電を改善したセンサーは，モジュールで充電の保ちに違いがあるらしい．
+
+  \begin{table*}[h]
+    \caption{M5StickC+モジュールの起動時間検証}
+    \label{tab:}
+    \centering
+    \begin{tabular}{|l|c|c||c|c|}
+      \hline
+      モジュール & 起動時間 & スリープ時間 & 画面輝度 \\
+      \hline
+      ENV II & 57分 & 10秒 & 1\\
+      CO2L & 38分 & 5秒 & 0\\
+      \hline
+    \end{tabular}
+  \end{table*}
+
+  \begin{itemize}
+    \item ENV2センサー: 57分
+    \item CO2Lセンサー: 38分
+  \end{itemize}
+
+  データの変動速度がわからないけど，もうちょっと遅くしてもよさそうであれば，スリープ時間30秒とかなら単純計算でもちは3倍に伸びる．1分ならさらに2倍で合計6倍？
+
   \section*{エラー集}
   \subsection*{Adafruit BMP280 not found}
   ENV用のサンプルスケッチを使うには別途「Adafruit BMP280 Library」のインストールが必要。Arduino

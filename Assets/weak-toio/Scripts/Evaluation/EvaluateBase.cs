@@ -24,7 +24,7 @@ namespace Evaluation
 			sensor = sensorManager.GetSensor();
 			sensor.OnDeserializeCompleted += OnDeserializeCompleted;
 		}
-		protected virtual void OnDeserializeCompleted() { }
+		protected abstract void OnDeserializeCompleted();
 		protected abstract void GenerateEvaluationResult();
 		protected void _OnResultGenerated(Result result)
 		{

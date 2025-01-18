@@ -70,8 +70,10 @@ namespace Evaluation
 		protected override void OnSensorDecided()
 		{
 			base.OnSensorDecided();
-			tempSensor = sensorManager.GetComponent<ITemperatureSensor>();
-			humiditySensor = sensorManager.GetComponent<IHumiditySensor>();
+			tempSensor = (ITemperatureSensor)sensorManager.GetSensor();
+			humiditySensor = (IHumiditySensor)sensorManager.GetSensor();
+			Debug.Log(tempSensor.GetType());
+			Debug.Log(humiditySensor.GetType());
 		}
 
 		protected override void OnDeserializeCompleted()
