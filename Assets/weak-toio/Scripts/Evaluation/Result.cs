@@ -5,12 +5,19 @@ namespace Evaluation
 	/// </summary>
 	public struct Result
 	{
-		public float Score;
-		public Unit Unit;
-		public Result(float _score, Unit _unit)
+		public float Score { get { return score; } }
+		public Unit Unit { get { return unit; } }
+		public string Message { get { return message; } }
+
+		private float score;
+		private Unit unit;
+		private string message;
+
+		public Result(float _score, Unit _unit, string _message)
 		{
-			Score = _score;
-			Unit = _unit;
+			score = _score;
+			unit = _unit;
+			message = _message;
 		}
 	}
 }

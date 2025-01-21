@@ -23,21 +23,25 @@ namespace Evaluation
 
 			// 気温に基づく評価
 			// 適温範囲内なら
+			string message;
 			if (suitableRange.isWithInRange(_currentParam))
 			{
 				_score = 0;
+				message = "適温です";
 			}
 			// 適温より寒ければ
 			else if (_currentParam < suitableRange.LowerLimit)
 			{
 				_score = _currentParam - suitableRange.LowerLimit;
+				message = "寒いです";
 			}
 			else
 			{
 				_score = _currentParam - suitableRange.UpperLimit;
+				message = "暑いです";
 			}
 
-			Result temperatureResult = new Result(_score, _unit);
+			Result temperatureResult = new Result(_score, _unit, message);
 
 			_OnResultGenerated(temperatureResult);
 		}

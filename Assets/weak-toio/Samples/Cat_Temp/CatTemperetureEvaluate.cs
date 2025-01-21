@@ -14,20 +14,24 @@ namespace Evaluation
 		{
 			_currentParam = tempSensor.GetTemperature();
 
+			string message;
 			if (suitableRange.isWithInRange(_currentParam))
 			{
 				_score = 0;
+				message = "猫にとって適温です";
 			}
 			else if (_currentParam < suitableRange.LowerLimit)
 			{
 				_score = _currentParam - suitableRange.LowerLimit;
+				message = "猫にとって寒いです";
 			}
 			else
 			{
 				_score = _currentParam - suitableRange.UpperLimit;
+				message = "猫にとって暑いです";
 			}
 
-			_OnResultGenerated(new Result(_score, _unit));
+			_OnResultGenerated(new Result(_score, _unit, message));
 		}
 
 		protected override void OnSensorDecided()

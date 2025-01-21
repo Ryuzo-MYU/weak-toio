@@ -13,20 +13,24 @@ namespace Evaluation
 		{
 			_currentParam = humiditySensor.GetHumidity();
 
+			string message;
 			if (suitableRange.isWithInRange(_currentParam))
 			{
 				_score = 0;
+				message = "湿度は適正範囲内です";
 			}
 			else if (_currentParam < suitableRange.LowerLimit)
 			{
 				_score = _currentParam - suitableRange.LowerLimit;
+				message = "湿度が低すぎます";
 			}
 			else
 			{
 				_score = _currentParam - suitableRange.UpperLimit;
+				message = "湿度が高すぎます";
 			}
 
-			_OnResultGenerated(new Result(_score, _unit));
+			_OnResultGenerated(new Result(_score, _unit, message));
 		}
 
 		protected override void OnSensorDecided()

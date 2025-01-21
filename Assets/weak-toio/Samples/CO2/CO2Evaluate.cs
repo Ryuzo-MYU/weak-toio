@@ -22,11 +22,20 @@ namespace Evaluation
 
 			// PPMに基づく評価
 			// 適正PPM以下ならば
-			if (_currentParam < CAUTION_LIMIT) _score = 0;
+			string message;
+			if (_currentParam < CAUTION_LIMIT)
+			{
+				_score = 0;
+				message = "CO2濃度は正常です";
+			}
 			// 適正より高濃度の場合
-			else _score = _currentParam - CAUTION_LIMIT;
+			else
+			{
+				_score = _currentParam - CAUTION_LIMIT;
+				message = "CO2濃度が高いです";
+			}
 
-			Result co2Result = new Result(_score, _unit);
+			Result co2Result = new Result(_score, _unit, message);
 
 			_OnResultGenerated(co2Result);
 		}

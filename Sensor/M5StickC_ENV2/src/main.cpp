@@ -14,7 +14,8 @@
 
 const char* DEVICE_NAME = "ENV_SENSOR";
 const int SERIAL_BAUD = 115200;
-const int SLEEP_SECONDS = 10;  // スリープ時間（秒）
+const int SLEEP_SECONDS = 30;      // スリープ時間（秒）
+const int DISPLAY_BRIGHTNESS = 0;  // ディスプレイ輝度
 
 // センサーインスタンス
 SHT3X sht3x;
@@ -59,7 +60,8 @@ void loop() {
     SerialBT.printf("%s\t%.2f\t%.2f\t%.1f\t%d%%\n", DEVICE_NAME, temp, hum, pa,
                     M5.Power.getBatteryLevel());
 
-    M5.Lcd.setBrightness(0);
+    M5.Lcd.setBrightness(DISPLAY_BRIGHTNESS);
+    M5.Lcd.powerSaveOn();
     esp_sleep_enable_timer_wakeup(sleep(SLEEP_SECONDS));
     esp_light_sleep_start();
 }
