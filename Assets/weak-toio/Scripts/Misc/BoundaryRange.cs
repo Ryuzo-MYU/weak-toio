@@ -28,4 +28,17 @@ public struct BoundaryRange
 		// 複数あれば通常通り判定
 		return subject > LowerLimit && subject < UpperLimit;
 	}
+
+	public float CalcDiff(float param)
+	{
+		if (param < LowerLimit)
+		{
+			return LowerLimit - param;
+		}
+		if (UpperLimit < param)
+		{
+			return param - UpperLimit;
+		}
+		return 0f;
+	}
 }

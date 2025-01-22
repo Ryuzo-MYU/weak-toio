@@ -7,24 +7,25 @@ namespace Evaluation
 	public class HumanPaEvaluate : EvaluateBase
 	{
 		[SerializeField] private float baselinePressure = 1013.0f; // 基準気圧(hPa)
-		[SerializeField] private float warningThreshold = 10.0f;   // 警戒しきい値(±hPa)
+		[SerializeField] private BoundaryRange warningThreshold = new BoundaryRange(1003.0f, 1023.0f);   // 警戒しきい値(hPa)
+																										 // https://x.gd/wHcBz
 		private IPressureSensor pressureSensor;
 
 		protected override void GenerateEvaluationResult()
 		{
 			_currentParam = pressureSensor.GetPressure();
-			float pressureDiff = _currentParam - baselinePressure;
 
-			if (Mathf.Abs(pressureDiff) <= warningThreshold)
+			_score = warningThreshold.CalcDiff(CurrentParam);
+			string _message;
+			if (_score == 0)
 			{
-				_score = 0; // 快適範囲
+				_message = "通常の気圧です";
 			}
 			else
 			{
-				_score = pressureDiff; // 気圧差をそのままスコアとして使用
+				_message = "あたまがいたい……";
 			}
-
-			_OnResultGenerated(new Result(_score, _unit));
+			_OnResultGenerated(new Result(_score, _unit, _message));
 		}
 
 		protected override void OnSensorDecided()

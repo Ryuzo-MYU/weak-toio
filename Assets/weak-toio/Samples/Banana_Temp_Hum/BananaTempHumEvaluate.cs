@@ -49,22 +49,26 @@ namespace Evaluation
 			}
 
 			// 高温多湿の場合、相乗効果で悪化
+			string message;
 			if (temp > suitableTempRange.UpperLimit && humidity > suitableHumidRange.UpperLimit)
 			{
 				_score = (tempScore + humidScore) * 1.2f; // 20%増しでペナルティ
+				message = "高温多湿です";
 			}
 			else
 			{
 				_score = Mathf.Max(tempScore, humidScore); // より悪い方を採用
+				message = "温度または湿度が適正範囲外です";
 			}
 
 			// 低温障害の評価
 			if (temp < suitableTempRange.LowerLimit)
 			{
 				_score += (suitableTempRange.LowerLimit - temp) * 0.5f; // 低温障害のペナルティ
+				message = "低温障害の可能性があります";
 			}
 
-			_OnResultGenerated(new Result(_score, _unit));
+			_OnResultGenerated(new Result(_score, _unit, message));
 		}
 
 		protected override void OnSensorDecided()
