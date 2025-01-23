@@ -410,6 +410,10 @@ PrefabInstance:
       propertyPath: actioninterval
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 2967492030441082689, guid: 2be2e98b150b85144831b1f785d3a5f3, type: 3}
+      propertyPath: CollisionThreshold
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 3348013124271145054, guid: 2be2e98b150b85144831b1f785d3a5f3, type: 3}
       propertyPath: baudRate
       value: 115200
@@ -1042,7 +1046,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 498671131}
   m_HandleRect: {fileID: 498671130}
   m_Direction: 0
-  m_Value: 0
+  m_Value: 1
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -1169,6 +1173,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 419692671223026632, guid: 6faa98f6a7575ef48ad8aca2dd20cca4, type: 3}
+      propertyPath: suitableRange.LowerLimit
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 419692671223026632, guid: 6faa98f6a7575ef48ad8aca2dd20cca4, type: 3}
+      propertyPath: suitableRange.UpperLimit
+      value: 38
+      objectReference: {fileID: 0}
     - target: {fileID: 1651841224067270247, guid: 6faa98f6a7575ef48ad8aca2dd20cca4, type: 3}
       propertyPath: requiredLength
       value: 5
@@ -1176,6 +1188,14 @@ PrefabInstance:
     - target: {fileID: 2967492030441082689, guid: 6faa98f6a7575ef48ad8aca2dd20cca4, type: 3}
       propertyPath: _localName
       value: f7a
+      objectReference: {fileID: 0}
+    - target: {fileID: 2967492030441082689, guid: 6faa98f6a7575ef48ad8aca2dd20cca4, type: 3}
+      propertyPath: actioninterval
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2967492030441082689, guid: 6faa98f6a7575ef48ad8aca2dd20cca4, type: 3}
+      propertyPath: CollisionThreshold
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 3348013124271145054, guid: 6faa98f6a7575ef48ad8aca2dd20cca4, type: 3}
       propertyPath: baudRate
