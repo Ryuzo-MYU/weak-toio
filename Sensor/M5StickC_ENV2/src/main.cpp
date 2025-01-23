@@ -57,11 +57,13 @@ void loop() {
     float hum = sht3x.humidity;
     float pa = bmp.readPressure();
 
+    Serial.printf("%s\t%.2f\t%.2f\t%.1f\t%d%%\n", DEVICE_NAME, temp, hum, pa,
+                    M5.Power.getBatteryLevel());
     SerialBT.printf("%s\t%.2f\t%.2f\t%.1f\t%d%%\n", DEVICE_NAME, temp, hum, pa,
                     M5.Power.getBatteryLevel());
 
     M5.Lcd.setBrightness(DISPLAY_BRIGHTNESS);
     M5.Lcd.powerSaveOn();
-    esp_sleep_enable_timer_wakeup(sleep(SLEEP_SECONDS));
-    esp_light_sleep_start();
+    // esp_sleep_enable_timer_wakeup(sleep(SLEEP_SECONDS));
+    // esp_light_sleep_start();
 }

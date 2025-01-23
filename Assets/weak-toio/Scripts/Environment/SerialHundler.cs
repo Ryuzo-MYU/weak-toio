@@ -164,9 +164,12 @@ public class SerialHandler : MonoBehaviour
 			{
 				message_ = serialPort_.ReadLine();
 				isNewMessageReceived_ = true;
+				// デバッグ用にメッセージ内容を確認
+				Debug.Log($"受信データ: {message_}");
 			}
 			catch (System.TimeoutException)
 			{
+				Debug.Log("タイムアウト");
 				continue;
 			}
 			catch (System.Exception e)
