@@ -173,7 +173,7 @@ PrefabInstance:
       objectReference: {fileID: 220110490}
     - target: {fileID: -9116059160145616704, guid: 5a0287f8fbb2d3641bf6f4398a900388, type: 3}
       propertyPath: connectType
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: -9116059160145616704, guid: 5a0287f8fbb2d3641bf6f4398a900388, type: 3}
       propertyPath: listContent
@@ -405,6 +405,18 @@ PrefabInstance:
     - target: {fileID: 2967492030441082689, guid: 2be2e98b150b85144831b1f785d3a5f3, type: 3}
       propertyPath: toioConnector
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2967492030441082689, guid: 2be2e98b150b85144831b1f785d3a5f3, type: 3}
+      propertyPath: actioninterval
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3348013124271145054, guid: 2be2e98b150b85144831b1f785d3a5f3, type: 3}
+      propertyPath: baudRate
+      value: 115200
+      objectReference: {fileID: 0}
+    - target: {fileID: 3348013124271145054, guid: 2be2e98b150b85144831b1f785d3a5f3, type: 3}
+      propertyPath: portName
+      value: COM11
       objectReference: {fileID: 0}
     - target: {fileID: 3777579130281375468, guid: 2be2e98b150b85144831b1f785d3a5f3, type: 3}
       propertyPath: m_LocalPosition.x
