@@ -416,7 +416,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3348013124271145054, guid: 2be2e98b150b85144831b1f785d3a5f3, type: 3}
       propertyPath: portName
-      value: COM11
+      value: COM8
       objectReference: {fileID: 0}
     - target: {fileID: 3777579130281375468, guid: 2be2e98b150b85144831b1f785d3a5f3, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1042,7 +1042,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 498671131}
   m_HandleRect: {fileID: 498671130}
   m_Direction: 0
-  m_Value: 1
+  m_Value: 0
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -1183,7 +1183,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3348013124271145054, guid: 6faa98f6a7575ef48ad8aca2dd20cca4, type: 3}
       propertyPath: portName
-      value: COM8
+      value: COM6
       objectReference: {fileID: 0}
     - target: {fileID: 3777579130281375468, guid: 6faa98f6a7575ef48ad8aca2dd20cca4, type: 3}
       propertyPath: m_LocalPosition.x
