@@ -41,17 +41,15 @@ void loop() {
     if (scd4x.update()) {
         while (1) delay(1);
     }
-
+	
     float temp = scd4x.getTemperature();
     float hum = scd4x.getHumidity();
     float co2 = scd4x.getCO2();
 
-    Serial.println(String(DEVICE_NAME) + "," + String(temp, 2) + "," +
-                   String(hum, 2) + "," + String(co2, 1) + "," +
-                   String(M5.Power.getBatteryLevel()));
-    SerialBT.println(String(DEVICE_NAME) + "," + String(temp, 2) + "," +
-                     String(hum, 2) + "," + String(co2, 1) + "," +
-                     String(M5.Power.getBatteryLevel()));
+    Serial.printf("%s\t%.2f\t%.2f\t%.1f\t%d\n", DEVICE_NAME, temp, hum, co2,
+                  M5.Power.getBatteryLevel());
+    SerialBT.printf("%s\t%.2f\t%.2f\t%.1f\t%d\n", DEVICE_NAME, temp, hum, co2,
+                    M5.Power.getBatteryLevel());
 
     M5.Lcd.setBrightness(DISPLAY_BRIGHTNESS);
     // M5.Lcd.powerSaveOn();

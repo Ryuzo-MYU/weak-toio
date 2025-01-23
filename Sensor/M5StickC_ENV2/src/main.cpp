@@ -57,12 +57,10 @@ void loop() {
     float hum = sht3x.humidity;
     float pa = bmp.readPressure();
 
-    Serial.println(String(DEVICE_NAME) + "," + String(temp, 2) + "," +
-                   String(hum, 2) + "," + String(pa, 1) + "," +
-                   String(M5.Power.getBatteryLevel()));
-    SerialBT.println(String(DEVICE_NAME) + "," + String(temp, 2) + "," +
-                     String(hum, 2) + "," + String(pa, 1) + "," +
-                     String(M5.Power.getBatteryLevel()));
+    Serial.printf("%s\t%.2f\t%.2f\t%.1f\t%d\n", DEVICE_NAME, temp, hum, pa,
+                  M5.Power.getBatteryLevel());
+    SerialBT.printf("%s\t%.2f\t%.2f\t%.1f\t%d\n", DEVICE_NAME, temp, hum, pa,
+                    M5.Power.getBatteryLevel());
 
     M5.Lcd.setBrightness(DISPLAY_BRIGHTNESS);
     // M5.Lcd.powerSaveOn();

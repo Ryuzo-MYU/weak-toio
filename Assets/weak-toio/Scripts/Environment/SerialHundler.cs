@@ -26,7 +26,7 @@ public class SerialHandler : MonoBehaviour
 	private string message_;
 	private bool isNewMessageReceived_ = false;
 
-	[SerializeField] const int Timeout = 10000;
+	[SerializeField] const int Timeout = 20;
 
 	// 使用中のポートを追跡する静的コレクション
 	private static HashSet<string> usedPorts = new HashSet<string>();
@@ -142,6 +142,7 @@ public class SerialHandler : MonoBehaviour
 			serialPort_ = new SerialPort(portName, baudRate, Parity.None, 8, StopBits.One);
 			serialPort_.ReadTimeout = Timeout;
 			serialPort_.WriteTimeout = 1000;
+			serialPort_.NewLine = "\n";
 			serialPort_.Open();
 
 			isRunning_ = true;
