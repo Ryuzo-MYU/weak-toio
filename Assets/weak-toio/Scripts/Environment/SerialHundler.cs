@@ -162,7 +162,7 @@ public class SerialHandler : MonoBehaviour
 		{
 			try
 			{
-				message_ = serialPort_.ReadLine();
+				message_ = serialPort_.ReadExisting();
 				isNewMessageReceived_ = true;
 			}
 			catch (System.TimeoutException)
