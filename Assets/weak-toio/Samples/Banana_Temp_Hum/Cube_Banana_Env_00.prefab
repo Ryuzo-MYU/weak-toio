@@ -669,7 +669,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17fe406bddfb32b4f9faba53268d01c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  requiredLength: 4
+  requiredLength: 5
   _deviceName: 
   _temp: 0
   _hum: 0
