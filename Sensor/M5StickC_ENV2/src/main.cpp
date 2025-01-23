@@ -63,9 +63,9 @@ void loop() {
                     M5.Power.getBatteryLevel());
 
     M5.Lcd.setBrightness(DISPLAY_BRIGHTNESS);
-    M5.Lcd.powerSaveOn();
+    // M5.Lcd.powerSaveOn();
 
-    delay(SLEEP_SECONDS * 1000);
+    delay(1000);
     // esp_sleep_enable_timer_wakeup(sleep(SLEEP_SECONDS));
     // esp_light_sleep_start();
 }
