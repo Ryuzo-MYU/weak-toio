@@ -172,7 +172,6 @@ public class SerialHandler : MonoBehaviour
 			}
 			catch (System.TimeoutException)
 			{
-				Debug.Log("タイムアウト");
 				continue;
 			}
 			catch (System.Exception e)
