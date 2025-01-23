@@ -1394,6 +1394,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2967492030441082689, guid: c51045368bd6441478e517fa30b7e6fb, type: 3}
+      propertyPath: _localName
+      value: f7a
+      objectReference: {fileID: 0}
     - target: {fileID: 3348013124271145054, guid: c51045368bd6441478e517fa30b7e6fb, type: 3}
       propertyPath: baudRate
       value: 115200
