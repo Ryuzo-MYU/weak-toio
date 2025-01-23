@@ -352,7 +352,7 @@ GameObject:
   - component: {fileID: 3090529627393092581}
   - component: {fileID: 3348013124271145054}
   - component: {fileID: 1977784646829054688}
-  - component: {fileID: -362931531118039006}
+  - component: {fileID: 7987085219104624953}
   - component: {fileID: 4155428886308682140}
   - component: {fileID: -884219169315641186}
   - component: {fileID: -1999267704135310860}
@@ -657,7 +657,7 @@ MonoBehaviour:
   _real: {fileID: 0}
   _dummy: {fileID: 0}
   _finallySensor: {fileID: 0}
---- !u!114 &-362931531118039006
+--- !u!114 &7987085219104624953
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -669,7 +669,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a46ed315b289f4448aa7b2d5f3648029, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  requiredLength: 4
+  requiredLength: 0
   _deviceName: 
   _temp: 0
   _hum: 0
@@ -705,13 +705,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 014cb6a5c5cca434ebf5d4a057468f10, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _score: 0
   _currentParam: 0
   _unit:
     unit: 
-  _envType: 0
-  _score: 0
   baselinePressure: 1013
-  warningThreshold: 10
+  warningThreshold:
+    UpperLimit: 1023
+    LowerLimit: 1003
 --- !u!114 &-1999267704135310860
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -736,12 +737,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f4750e6b8bf95a46892d7dec236b4e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  collisionThreshold: 10
   _id: 0
-  _name: 
-  type: 03000000
-  movementCount: 0
-  lightCount: 0
-  soundCount: 0
+  _localName: 
   actionMaxCount: 10
-  toioConnector: {fileID: 0}
+  CollisionThreshold: 7
+  CallbackSceneName: SampleScene
+  actioninterval: 0

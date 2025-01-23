@@ -400,7 +400,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2967492030441082689, guid: 2be2e98b150b85144831b1f785d3a5f3, type: 3}
       propertyPath: _localName
-      value: b8b
+      value: f7a
       objectReference: {fileID: 0}
     - target: {fileID: 2967492030441082689, guid: 2be2e98b150b85144831b1f785d3a5f3, type: 3}
       propertyPath: toioConnector
@@ -466,6 +466,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Cube_Banana_Env_00
       objectReference: {fileID: 0}
+    - target: {fileID: 6601354619286629088, guid: 2be2e98b150b85144831b1f785d3a5f3, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -494,7 +498,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3777579130281375468, guid: 19577c523d2674545b5f000e73e69dcb, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -0.122
       objectReference: {fileID: 0}
     - target: {fileID: 3777579130281375468, guid: 19577c523d2674545b5f000e73e69dcb, type: 3}
       propertyPath: m_LocalPosition.y
@@ -502,7 +506,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3777579130281375468, guid: 19577c523d2674545b5f000e73e69dcb, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -0.109
       objectReference: {fileID: 0}
     - target: {fileID: 3777579130281375468, guid: 19577c523d2674545b5f000e73e69dcb, type: 3}
       propertyPath: m_LocalRotation.w
@@ -535,6 +539,18 @@ PrefabInstance:
     - target: {fileID: 6601354619286629088, guid: 19577c523d2674545b5f000e73e69dcb, type: 3}
       propertyPath: m_Name
       value: Cube_Human_Pa_00
+      objectReference: {fileID: 0}
+    - target: {fileID: 6601354619286629088, guid: 19577c523d2674545b5f000e73e69dcb, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7987085219104624953, guid: 19577c523d2674545b5f000e73e69dcb, type: 3}
+      propertyPath: _deviceName
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7987085219104624953, guid: 19577c523d2674545b5f000e73e69dcb, type: 3}
+      propertyPath: requiredLength
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1246,10 +1262,6 @@ PrefabInstance:
       propertyPath: suitableRange.UpperLimit
       value: 38
       objectReference: {fileID: 0}
-    - target: {fileID: 1651841224067270247, guid: 6faa98f6a7575ef48ad8aca2dd20cca4, type: 3}
-      propertyPath: requiredLength
-      value: 5
-      objectReference: {fileID: 0}
     - target: {fileID: 2967492030441082689, guid: 6faa98f6a7575ef48ad8aca2dd20cca4, type: 3}
       propertyPath: _localName
       value: f7a
@@ -1314,7 +1326,12 @@ PrefabInstance:
       propertyPath: m_Name
       value: Cube_Cat_Temp_00
       objectReference: {fileID: 0}
+    - target: {fileID: 6601354619286629088, guid: 6faa98f6a7575ef48ad8aca2dd20cca4, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents:
+    - {fileID: 0}
     - {fileID: 0}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1454,9 +1471,13 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3348013124271145054, guid: c51045368bd6441478e517fa30b7e6fb, type: 3}
+      propertyPath: portName
+      value: COM6
+      objectReference: {fileID: 0}
     - target: {fileID: 3777579130281375468, guid: c51045368bd6441478e517fa30b7e6fb, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -0.167
       objectReference: {fileID: 0}
     - target: {fileID: 3777579130281375468, guid: c51045368bd6441478e517fa30b7e6fb, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1464,7 +1485,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3777579130281375468, guid: c51045368bd6441478e517fa30b7e6fb, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 0.153
       objectReference: {fileID: 0}
     - target: {fileID: 3777579130281375468, guid: c51045368bd6441478e517fa30b7e6fb, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1497,6 +1518,10 @@ PrefabInstance:
     - target: {fileID: 6601354619286629088, guid: c51045368bd6441478e517fa30b7e6fb, type: 3}
       propertyPath: m_Name
       value: Cube_Clothes_Hum_00
+      objectReference: {fileID: 0}
+    - target: {fileID: 6601354619286629088, guid: c51045368bd6441478e517fa30b7e6fb, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
