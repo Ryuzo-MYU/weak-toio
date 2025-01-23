@@ -17,7 +17,7 @@
 // 定数定義
 const char* DEVICE_NAME = "CO2_SENSOR";
 const int SERIAL_BAUD = 115200;
-const int SLEEP_SECONDS = 30;      // スリープ時間（秒）
+const int SLEEP_SECONDS = 5;      // スリープ時間（秒）
 const int DISPLAY_BRIGHTNESS = 0;  // ディスプレイ輝度
 
 // センサーインスタンス
@@ -39,22 +39,19 @@ void setup() {
 
 void loop() {
     if (scd4x.update()) {
-        while (1) delay(1);
-    }
-	
-    float temp = scd4x.getTemperature();
-    float hum = scd4x.getHumidity();
-    float co2 = scd4x.getCO2();
+        float temp = scd4x.getTemperature();
+        float hum = scd4x.getHumidity();
+        float co2 = scd4x.getCO2();
 
-    Serial.printf("%s\t%.2f\t%.2f\t%.1f\t%d\n", DEVICE_NAME, temp, hum, co2,
-                  M5.Power.getBatteryLevel());
-    SerialBT.printf("%s\t%.2f\t%.2f\t%.1f\t%d\n", DEVICE_NAME, temp, hum, co2,
-                    M5.Power.getBatteryLevel());
+        Serial.printf("%s\t%.2f\t%.2f\t%.1f\t%d\n", DEVICE_NAME, temp, hum, co2,
+                      M5.Power.getBatteryLevel());
+        SerialBT.printf("%s\t%.2f\t%.2f\t%.1f\t%d\n", DEVICE_NAME, temp, hum,
+                        co2, M5.Power.getBatteryLevel());
+    }
 
     M5.Lcd.setBrightness(DISPLAY_BRIGHTNESS);
-    // M5.Lcd.powerSaveOn();
+    M5.Lcd.powerSaveOn();
 
-    delay(1000);
-    // esp_sleep_enable_timer_wakeup(sleep(SLEEP_SECONDS));
-    // esp_light_sleep_start();
+    esp_sleep_enable_timer_wakeup(sleep(SLEEP_SECONDS));
+    esp_light_sleep_start();
 }

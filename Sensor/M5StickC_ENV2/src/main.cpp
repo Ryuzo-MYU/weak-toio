@@ -14,7 +14,7 @@
 
 const char* DEVICE_NAME = "ENV_SENSOR";
 const int SERIAL_BAUD = 115200;
-const int SLEEP_SECONDS = 30;      // スリープ時間（秒）
+const int SLEEP_SECONDS = 5;      // スリープ時間（秒）
 const int DISPLAY_BRIGHTNESS = 0;  // ディスプレイ輝度
 
 // センサーインスタンス
@@ -63,9 +63,8 @@ void loop() {
                     M5.Power.getBatteryLevel());
 
     M5.Lcd.setBrightness(DISPLAY_BRIGHTNESS);
-    // M5.Lcd.powerSaveOn();
+    M5.Lcd.powerSaveOn();
 
-    delay(1000);
-    // esp_sleep_enable_timer_wakeup(sleep(SLEEP_SECONDS));
-    // esp_light_sleep_start();
+    esp_sleep_enable_timer_wakeup(sleep(SLEEP_SECONDS));
+    esp_light_sleep_start();
 }
