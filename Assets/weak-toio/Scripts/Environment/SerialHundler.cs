@@ -26,7 +26,7 @@ public class SerialHandler : MonoBehaviour
 	private string message_;
 	private bool isNewMessageReceived_ = false;
 
-	[SerializeField] const int Timeout = 2000;
+	[SerializeField] const int Timeout = 20000;
 
 	// 使用中のポートを追跡する静的コレクション
 	private static HashSet<string> usedPorts = new HashSet<string>();
