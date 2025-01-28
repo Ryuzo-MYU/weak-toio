@@ -9,7 +9,8 @@ namespace Evaluation
 		[SerializeField] protected float _score;
 		[SerializeField] protected float _currentParam;
 		public float CurrentParam { get { return _currentParam; } }
-		[SerializeField] protected Unit _unit;
+		[SerializeField] private Unit _unit;
+		public Unit Unit { get { return _unit; } }
 		protected SensorManager sensorManager;
 		private SensorBase sensor;
 

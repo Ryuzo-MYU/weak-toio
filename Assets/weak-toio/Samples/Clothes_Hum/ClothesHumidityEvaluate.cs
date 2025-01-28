@@ -30,7 +30,7 @@ namespace Evaluation
 				message = "湿度が高すぎます";
 			}
 
-			_OnResultGenerated(new Result(_score, _unit, message));
+			_OnResultGenerated(new Result(_score, Unit, message));
 		}
 
 		protected override void OnSensorDecided()

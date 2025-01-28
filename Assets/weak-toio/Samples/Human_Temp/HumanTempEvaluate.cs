@@ -10,7 +10,6 @@ namespace Evaluation
 		/// https://www.mhlw.go.jp/bunya/kenkou/seikatsu-eisei10/
 
 		[SerializeField] BoundaryRange suitableRange = new BoundaryRange(17, 28);
-		[SerializeField] Unit unit = new Unit("℃");
 		string message;
 		private ITemperatureSensor tempSensor;
 		protected override void GenerateEvaluationResult()
@@ -34,7 +33,7 @@ namespace Evaluation
 			{
 				message = "温度は適切です。";
 			}
-			_OnResultGenerated(new Result(score, this.unit, this.message));
+			_OnResultGenerated(new Result(score, Unit, this.message));
 		}
 
 		protected override void OnDeserializeCompleted()
