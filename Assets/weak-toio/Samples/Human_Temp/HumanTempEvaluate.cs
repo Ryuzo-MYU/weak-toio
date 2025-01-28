@@ -11,7 +11,7 @@ namespace Evaluation
 
 		[SerializeField] BoundaryRange suitableRange = new BoundaryRange(17, 28);
 		[SerializeField] Unit unit = new Unit("℃");
-		[SerializeField] string message;
+		string message;
 		private ITemperatureSensor tempSensor;
 		protected override void GenerateEvaluationResult()
 		{
