@@ -88,7 +88,7 @@ namespace ActionGenerate
 
 		private void OnRegisterCompleted()
 		{
-			actionGenerator.InitializeCubeHandle(Handle);
+			actionGenerator.InitializeActionLibrary();
 			StartCoroutine(StartAct());
 		}
 
@@ -216,7 +216,7 @@ namespace ActionGenerate
 		private void OnCubeCollisioned(Cube c)
 		{
 			Debug.Log("衝突");
-			ToioActionLibrary lib = new ToioActionLibrary(Handle);
+			ToioActionLibrary lib = new ToioActionLibrary();
 			AddEmergencyAction(lib.Collisioned());
 		}
 
