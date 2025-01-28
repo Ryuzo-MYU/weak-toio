@@ -8,15 +8,15 @@ namespace ActionGenerate
 		{
 			if (result.Score == 0)
 			{
-				return actionLibrary.Human_Temp_Good();
+				return actionLibrary.Human_Temp_Suitable();
 			}
-			else if (result.Score > 0 && result.Score <= 5)
+			else if (result.Score > 0)
 			{
-				return actionLibrary.Human_Temp_Normal();
+				return actionLibrary.Human_Temp_Hot();
 			}
 			else
 			{
-				return actionLibrary.Human_Temp_Bad();
+				return actionLibrary.Human_Temp_Cold();
 			}
 		}
 	}
