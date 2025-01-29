@@ -239,7 +239,7 @@ PrefabInstance:
       objectReference: {fileID: 220110490}
     - target: {fileID: -9116059160145616704, guid: 5a0287f8fbb2d3641bf6f4398a900388, type: 3}
       propertyPath: connectType
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: -9116059160145616704, guid: 5a0287f8fbb2d3641bf6f4398a900388, type: 3}
       propertyPath: listContent
@@ -685,6 +685,10 @@ PrefabInstance:
     - target: {fileID: 184897503630774146, guid: 5c3365088e78fd54dba02dfe9aacf821, type: 3}
       propertyPath: m_Name
       value: Cube_Human_Temp_00
+      objectReference: {fileID: 0}
+    - target: {fileID: 2594854260114092945, guid: 5c3365088e78fd54dba02dfe9aacf821, type: 3}
+      propertyPath: _localName
+      value: b8b
       objectReference: {fileID: 0}
     - target: {fileID: 6482675816116818577, guid: 5c3365088e78fd54dba02dfe9aacf821, type: 3}
       propertyPath: portName
