@@ -19,7 +19,7 @@ namespace Evaluation
 			{
 				if (_currentParam < suitableRange.LowerLimit)
 				{
-					_score = suitableRange.LowerLimit - _currentParam;
+					_score = _currentParam - suitableRange.LowerLimit;
 					message = "温度が低すぎます。暖房を使用してください。";
 				}
 				else if (suitableRange.UpperLimit < _currentParam)
