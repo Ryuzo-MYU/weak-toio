@@ -31,7 +31,7 @@ namespace Evaluation
 				message = "猫にとって暑いです";
 			}
 
-			_OnResultGenerated(new Result(_score, Unit, message));
+			OnResultGenerated(new Result(_score, Unit, message));
 		}
 
 		protected override void OnSensorDecided()

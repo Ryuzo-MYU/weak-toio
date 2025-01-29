@@ -5,7 +5,7 @@ namespace Evaluation
 {
 	public abstract class EvaluateBase : MonoBehaviour
 	{
-		public event Action<Result> OnResultGenerated;
+		public event Action<Result> _OnResultGenerated;
 		[SerializeField] protected float _score;
 		[SerializeField] protected float _currentParam;
 		public float CurrentParam { get { return _currentParam; } }
@@ -27,9 +27,9 @@ namespace Evaluation
 		}
 		protected abstract void OnDeserializeCompleted();
 		protected abstract void GenerateEvaluationResult();
-		protected void _OnResultGenerated(Result result)
+		protected void OnResultGenerated(Result result)
 		{
-			OnResultGenerated?.Invoke(result);
+			_OnResultGenerated?.Invoke(result);
 		}
 	}
 }

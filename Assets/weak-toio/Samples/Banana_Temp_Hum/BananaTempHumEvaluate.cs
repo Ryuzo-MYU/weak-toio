@@ -68,7 +68,7 @@ namespace Evaluation
 				message = "低温障害の可能性があります";
 			}
 
-			_OnResultGenerated(new Result(_score, Unit, message));
+			OnResultGenerated(new Result(_score, Unit, message));
 		}
 
 		protected override void OnSensorDecided()

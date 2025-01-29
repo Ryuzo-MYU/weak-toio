@@ -16,7 +16,7 @@ namespace ActionGenerate
 		private void Start()
 		{
 			EvaluateBase evaluate = gameObject.GetComponent<EvaluateBase>();
-			evaluate.OnResultGenerated += OnResultGenerated;
+			evaluate._OnResultGenerated += OnResultGenerated;
 			currentResult = new Result();
 
 		}

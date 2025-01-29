@@ -33,7 +33,7 @@ namespace Evaluation
 				_score = 0;
 				message = "温度は適切です。";
 			}
-			_OnResultGenerated(new Result(_score, Unit, this.message));
+			OnResultGenerated(new Result(_score, Unit, this.message));
 		}
 
 		protected override void OnSensorDecided()
