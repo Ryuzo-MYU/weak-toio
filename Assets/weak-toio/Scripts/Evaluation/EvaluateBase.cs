@@ -12,7 +12,7 @@ namespace Evaluation
 		[SerializeField] private Unit _unit;
 		public Unit Unit { get { return _unit; } }
 		protected SensorManager sensorManager;
-		private SensorBase sensor;
+		protected SensorBase sensor;
 
 		private void Awake()
 		{
