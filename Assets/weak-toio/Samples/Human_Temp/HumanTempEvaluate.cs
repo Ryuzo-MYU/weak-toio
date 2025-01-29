@@ -36,6 +36,13 @@ namespace Evaluation
 			_OnResultGenerated(new Result(score, Unit, this.message));
 		}
 
+		protected override void OnSensorDecided()
+		{
+			base.OnSensorDecided();
+			tempSensor = (ITemperatureSensor)sensorManager.GetSensor();
+			Debug.Log(sensor.GetType());
+		}
+
 		protected override void OnDeserializeCompleted()
 		{
 			GenerateEvaluationResult();
