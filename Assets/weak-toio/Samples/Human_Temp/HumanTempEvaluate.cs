@@ -14,18 +14,17 @@ namespace Evaluation
 		private ITemperatureSensor tempSensor;
 		protected override void GenerateEvaluationResult()
 		{
-			float temp = tempSensor.GetTemperature();
-			float score = 0;
-			if (!suitableRange.isWithInRange(temp))
+			_currentParam = tempSensor.GetTemperature();
+			if (!suitableRange.isWithInRange(_currentParam))
 			{
-				if (temp < suitableRange.LowerLimit)
+				if (_currentParam < suitableRange.LowerLimit)
 				{
-					score = suitableRange.LowerLimit - temp;
+					_score = suitableRange.LowerLimit - _currentParam;
 					message = "温度が低すぎます。暖房を使用してください。";
 				}
-				else if (suitableRange.UpperLimit < temp)
+				else if (suitableRange.UpperLimit < _currentParam)
 				{
-					score = temp - suitableRange.UpperLimit;
+					_score = _currentParam - suitableRange.UpperLimit;
 					message = "温度が高すぎます。冷房を使用してください。";
 				}
 			}
@@ -33,7 +32,7 @@ namespace Evaluation
 			{
 				message = "温度は適切です。";
 			}
-			_OnResultGenerated(new Result(score, Unit, this.message));
+			_OnResultGenerated(new Result(_score, Unit, this.message));
 		}
 
 		protected override void OnSensorDecided()
