@@ -8,7 +8,7 @@ namespace ActionLibrary
 		{
 			Action action = new Action();
 			IMovementCommand movement = lib.Translate(100, 60);
-			IMovementCommand rotate = lib.DegRotate(360 * 2, 2);
+			IMovementCommand rotate = lib.DegRotate(360 * 2, 50);
 			action.AddMovement(movement);
 			action.AddMovement(rotate);
 			return action;
@@ -18,7 +18,7 @@ namespace ActionLibrary
 		{
 			Action action = new Action();
 			IMovementCommand movement = lib.Translate(60, 45);
-			IMovementCommand rotate = lib.DegRotate(180, 1);
+			IMovementCommand rotate = lib.DegRotate(180, 50);
 			action.AddMovement(movement);
 			action.AddMovement(rotate);
 			return action;
@@ -27,12 +27,12 @@ namespace ActionLibrary
 		public static Action Clothes_Hum_Bad(this ToioActionLibrary lib)
 		{
 			Action action = new Action();
-			IMovementCommand erraticMovement1 = lib.Translate(30, 20);
-			IMovementCommand erraticRotate1 = lib.DegRotate(90, 0.5);
-			IMovementCommand erraticMovement2 = lib.Translate(-30, 20);
-			IMovementCommand erraticRotate2 = lib.DegRotate(-90, 0.5);
-			IMovementCommand erraticMovement3 = lib.Translate(15, 10);
-			IMovementCommand erraticRotate3 = lib.DegRotate(45, 0.25);
+			IMovementCommand erraticMovement1 = lib.Translate(30, 60);
+			IMovementCommand erraticRotate1 = lib.DegRotate(90, 60);
+			IMovementCommand erraticMovement2 = lib.Translate(-30, 40);
+			IMovementCommand erraticRotate2 = lib.DegRotate(-90, 40);
+			IMovementCommand erraticMovement3 = lib.Translate(15, 40);
+			IMovementCommand erraticRotate3 = lib.DegRotate(45, 60);
 
 			action.AddMovement(erraticMovement1);
 			action.AddMovement(erraticRotate1);

@@ -2,7 +2,7 @@ using ActionLibrary;
 using Evaluation;
 namespace ActionGenerate
 {
-  public class ClothHumActionGenerator : ActionGenerator
+  public class CloteshHumActionGenerator : ActionGenerator
   {
     BoundaryRange suitableRange = new BoundaryRange(0);
     BoundaryRange cautionRange = new BoundaryRange(-10, 10);
