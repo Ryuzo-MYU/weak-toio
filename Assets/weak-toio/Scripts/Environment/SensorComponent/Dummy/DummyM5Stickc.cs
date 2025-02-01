@@ -10,26 +10,28 @@ namespace Environment
 		[SerializeField] protected Vector3 _accel;
 		[SerializeField] protected Vector3 _gyro;
 		[SerializeField] protected float _vbat;
+		[SerializeField] protected float updateInterval;
 		public string GetDeviceName() { return _deviceName; }
 		public Vector3 GetAcceleration() { return _accel; }
 		public Vector3 GetGyro() { return _gyro; }
 		public float GetVbat() { return _vbat; }
 
- /// <summary>
-/// Start is called on the frame when a script is enabled just before
-/// any of the Update methods is called the first time.
-/// </summary>
-void Start()
-{
-	
-}
-		void Update()
+		/// <summary>
+		/// Start is called on the frame when a script is enabled just before
+		/// any of the Update methods is called the first time.
+		/// </summary>
+		void Start()
+		{
+			StartCoroutine(UpdateCoroutine());
+		}
+		IEnumerator UpdateCoroutine()
 		{
 			UpdateSensor();
 			_OnDeserializeCompleted();
+			yield return new WaitForSeconds(updateInterval);
 		}
-		public void StartSensor() { }
-		public IEnumerator UpdateSensor()
+		protected void StartSensor() { }
+		protected void UpdateSensor()
 		{
 			// 加速度とジャイロのダミーデータ（前回の値に基づいて変動）
 			float accelX = _accel.x + Random.Range(-2f, 2f);
@@ -43,8 +45,6 @@ void Start()
 			_gyro = new Vector3(gyroX, gyroY, gyroZ);
 
 			_vbat += Random.Range(-0.01f, 0.01f);
-
-			yield return null;
 		}
 	}
 }
