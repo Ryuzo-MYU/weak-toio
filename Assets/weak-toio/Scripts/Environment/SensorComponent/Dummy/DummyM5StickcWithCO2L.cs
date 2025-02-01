@@ -21,10 +21,13 @@ namespace Environment
 		}
 		IEnumerator UpdateCoroutine()
 		{
-			base.UpdateSensor();
-			UpdateCO2L2Sensor();
-			_OnDeserializeCompleted();
-			yield return new WaitForSeconds(updateInterval);
+			while (true)
+			{
+				base.UpdateSensor();
+				UpdateCO2L2Sensor();
+				_OnDeserializeCompleted();
+				yield return new WaitForSeconds(updateInterval);
+			}
 		}
 		private void UpdateCO2L2Sensor()
 		{

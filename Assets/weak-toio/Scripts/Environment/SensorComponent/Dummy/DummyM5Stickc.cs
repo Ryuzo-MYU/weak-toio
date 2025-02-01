@@ -26,9 +26,12 @@ namespace Environment
 		}
 		IEnumerator UpdateCoroutine()
 		{
-			UpdateSensor();
-			_OnDeserializeCompleted();
-			yield return new WaitForSeconds(updateInterval);
+			while (true)
+			{
+				UpdateSensor();
+				_OnDeserializeCompleted();
+				yield return new WaitForSeconds(updateInterval);
+			}
 		}
 		protected void StartSensor() { }
 		protected void UpdateSensor()

@@ -22,10 +22,13 @@ namespace Environment
 		}
 		IEnumerator UpdateCoroutine()
 		{
-			base.UpdateSensor();
-			UpdateENV2Sensor();
-			_OnDeserializeCompleted();
-			yield return new WaitForSeconds(updateInterval);
+			while (true)
+			{
+				base.UpdateSensor();
+				UpdateENV2Sensor();
+				_OnDeserializeCompleted();
+				yield return new WaitForSeconds(updateInterval);
+			}
 		}
 		private void UpdateENV2Sensor()
 		{
