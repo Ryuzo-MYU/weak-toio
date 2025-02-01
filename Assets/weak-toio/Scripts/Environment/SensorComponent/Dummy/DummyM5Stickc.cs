@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 namespace Environment
@@ -14,13 +15,21 @@ namespace Environment
 		public Vector3 GetGyro() { return _gyro; }
 		public float GetVbat() { return _vbat; }
 
+ /// <summary>
+/// Start is called on the frame when a script is enabled just before
+/// any of the Update methods is called the first time.
+/// </summary>
+void Start()
+{
+	
+}
 		void Update()
 		{
 			UpdateSensor();
 			_OnDeserializeCompleted();
 		}
 		public void StartSensor() { }
-		public void UpdateSensor()
+		public IEnumerator UpdateSensor()
 		{
 			// 加速度とジャイロのダミーデータ（前回の値に基づいて変動）
 			float accelX = _accel.x + Random.Range(-2f, 2f);
@@ -34,6 +43,8 @@ namespace Environment
 			_gyro = new Vector3(gyroX, gyroY, gyroZ);
 
 			_vbat += Random.Range(-0.01f, 0.01f);
+
+			yield return null;
 		}
 	}
 }
