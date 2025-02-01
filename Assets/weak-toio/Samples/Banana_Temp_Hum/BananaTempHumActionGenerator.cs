@@ -5,8 +5,8 @@ namespace ActionGenerate
 {
 	public class BananaTempHumActionGenerator : ActionGenerator
 	{
-		BoundaryRange normalRange = new BoundaryRange(0, 3);    // 正常範囲
-		BoundaryRange warningRange = new BoundaryRange(3, 6);   // 警戒範囲
+		BoundaryRange normalRange = new BoundaryRange(0, 10);    // 正常範囲
+		BoundaryRange warningRange = new BoundaryRange(10, 20);   // 警戒範囲
 
 		protected override Action GenerateAction(Result result)
 		{
