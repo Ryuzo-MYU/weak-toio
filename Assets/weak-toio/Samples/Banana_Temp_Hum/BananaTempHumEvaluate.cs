@@ -21,6 +21,14 @@ namespace Evaluation
 
 		protected override void GenerateEvaluationResult()
 		{
+			/// スコアの値域
+			/// 
+			/// 一般的な室内環境（0-40℃、0-100%RH）を想定すると、
+			/// 温度逸脱による最大スコア：約20（40℃の場合）
+			/// 湿度逸脱による最大スコア：約15（100%RHの場合）
+			/// 高温多湿の相乗効果：(20 + 15) * 1.2 = 42
+			/// 低温障害の追加ペナルティ：(14 - 0) * 0.5 = 7
+
 			float tempScore = 0;
 			float humidScore = 0;
 
