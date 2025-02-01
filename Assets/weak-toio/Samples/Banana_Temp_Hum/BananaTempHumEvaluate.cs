@@ -15,7 +15,7 @@ namespace Evaluation
 		/// 高い方だけ評価
 
 		[SerializeField] private BoundaryRange suitableTempRange = new BoundaryRange(14, 20); // https://www.dole.co.jp/lp/jp/magazine/banana/preservation/#a03
-		[SerializeField] private BoundaryRange suitableHumidRange = new BoundaryRange(45, 85); // 「なお45～85%の湿度範囲を常温という」https://kikakurui.com/z8/Z8703-1983-01.html p.2
+		[SerializeField] private BoundaryRange suitableHumidRange = new BoundaryRange(45, 85); // 「なお45～85%の湿度範囲を常湿という」https://kikakurui.com/z8/Z8703-1983-01.html p.2
 		private ITemperatureSensor tempSensor;
 		private IHumiditySensor humiditySensor;
 
