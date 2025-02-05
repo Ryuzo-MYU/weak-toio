@@ -690,6 +690,7 @@ MonoBehaviour:
   _accel: {x: 0, y: 0, z: 0}
   _gyro: {x: 0, y: 0, z: 0}
   _vbat: 4
+  updateInterval: 5
   _temp: 21
   _hum: 60
   _ppm: 700
@@ -737,8 +738,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _id: 0
-  _localName: 
-  actionMaxCount: 10
-  CollisionThreshold: 7
+  _localName: b8b
+  actionMaxCount: 1
+  CollisionThreshold: 8
   CallbackSceneName: SampleScene
-  actioninterval: 0
+  actioninterval: 2
