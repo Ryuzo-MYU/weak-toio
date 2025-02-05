@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -60,11 +61,48 @@ namespace ActionGenerate
 			}
 			return newAction;
 		}
+
+		/// <summary>
+		/// 動き，音，光のタイミングを揃えて追加する
+		/// すべてのアクション実装がAddActionを使っていないとタイミング合わせが成立しないので，リファクタではAddMovement系を使っている部分は全修正する．
+		/// </summary>
+		/// <param name="movement"></param>
+		/// <param name="light"></param>
+		/// <param name="sound"></param>	
 		public void AddAction(IMovementCommand movement, ILightCommand light, ISoundCommand sound)
 		{
-			movements.Enqueue(movement);
-			lights.Enqueue(light);
-			sounds.Enqueue(sound);
+			// nullチェックして，nullなら他のアクションのインターバル分の「何もしない」コマンドを追加する．
+
+			float interval = 0;
+			if (movement != null)
+			{
+				interval = movement.GetInterval();
+				movements.Enqueue(movement);
+			}
+			else
+			{
+				movements.Enqueue(new StopCommand(interval));
+			}
+
+			if (light != null)
+			{
+				interval = Math.Max(interval, light.GetInterval());
+				lights.Enqueue(light);
+			}
+			else
+			{
+				lights.Enqueue(new LEDOffCommand(interval));
+			}
+
+			if (sound != null)
+			{
+				interval = Math.Max(interval, sound.GetInterval());
+				sounds.Enqueue(sound);
+			}
+			else
+			{
+				sounds.Enqueue(new MuteCommand(interval));
+			}
 		}
 
 		public void AddMovement(IMovementCommand command)
