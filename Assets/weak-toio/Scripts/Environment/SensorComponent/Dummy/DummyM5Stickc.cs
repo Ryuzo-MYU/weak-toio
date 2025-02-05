@@ -10,7 +10,7 @@ namespace Environment
 		[SerializeField] protected Vector3 _accel;
 		[SerializeField] protected Vector3 _gyro;
 		[SerializeField] protected float _vbat;
-		[SerializeField] protected float updateInterval;
+		[SerializeField] protected float updateInterval = 5;
 		public string GetDeviceName() { return _deviceName; }
 		public Vector3 GetAcceleration() { return _accel; }
 		public Vector3 GetGyro() { return _gyro; }
