@@ -26,6 +26,9 @@ namespace ActionLibrary
 
 		public static Action Clothes_Hum_Bad(this ToioActionLibrary lib)
 		{
+			// 不規則な動作と音でユーザーの注意を引く
+			// この時点でロボットはクローゼット内にいるので激しくアピールする
+
 			Action action = new Action();
 			IMovementCommand erraticMovement1 = lib.Translate(30, 60);
 			IMovementCommand erraticRotate1 = lib.DegRotate(90, 60);
