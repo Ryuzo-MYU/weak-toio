@@ -409,7 +409,7 @@ MonoBehaviour:
   actionMaxCount: 1
   CollisionThreshold: 8
   CallbackSceneName: SampleScene
-  actioninterval: 2
+  actioninterval: 0
 --- !u!1 &4228189674797666474
 GameObject:
   m_ObjectHideFlags: 0
