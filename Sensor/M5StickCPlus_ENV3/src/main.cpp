@@ -13,7 +13,7 @@
 #include "M5UnitENV.h"
 
 const char* DEVICE_NAME = "ENV-SENSOR-02";
-const int SERIAL_BAUD = 115200;
+const int SERIAL_BAUD = 9600;
 const int SLEEP_SECONDS = 5;       // スリープ時間（秒）
 const int DISPLAY_BRIGHTNESS = 0;  // ディスプレイ輝度
 
@@ -30,10 +30,11 @@ void setup() {
     Wire.begin();
     // センサー初期化待機
     M5.begin();
-    if (!sht3x.begin(&Wire, SHT3X_I2C_ADDR, 32, 33, 400000U)) {
+    if (!qmp.begin(&Wire, QMP6988_SLAVE_ADDRESS_L, 0, 26, 400000U)) {
         while (1) delay(1);
     }
-    if (!qmp.begin(&Wire, QMP6988_SLAVE_ADDRESS_L, 0, 26, 400000U)) {
+
+    if (!sht3x.begin(&Wire, SHT3X_I2C_ADDR, 0, 26, 400000U)) {
         while (1) delay(1);
     }
 }

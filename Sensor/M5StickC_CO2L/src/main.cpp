@@ -15,8 +15,8 @@
 #include "M5UnitENV.h"
 
 // 定数定義
-const char* DEVICE_NAME = "CO2_SENSOR";
-const int SERIAL_BAUD = 115200;
+const char* DEVICE_NAME = "CO2-SENSOR-01";
+const int SERIAL_BAUD = 9600;
 const int SLEEP_SECONDS = 5;      // スリープ時間（秒）
 const int DISPLAY_BRIGHTNESS = 0;  // ディスプレイ輝度
 

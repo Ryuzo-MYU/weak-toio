@@ -12,8 +12,8 @@
 
 #include "M5UnitENV.h"
 
-const char* DEVICE_NAME = "ENV_SENSOR";
-const int SERIAL_BAUD = 115200;
+const char* DEVICE_NAME = "ENV-SENSOR-01";
+const int SERIAL_BAUD = 9600;
 const int SLEEP_SECONDS = 5;      // スリープ時間（秒）
 const int DISPLAY_BRIGHTNESS = 0;  // ディスプレイ輝度
 
