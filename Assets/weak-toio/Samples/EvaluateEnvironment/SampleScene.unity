@@ -550,6 +550,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 976105441}
     m_Modifications:
+    - target: {fileID: 3348013124271145054, guid: 6faa98f6a7575ef48ad8aca2dd20cca4, type: 3}
+      propertyPath: baudRate
+      value: 9600
+      objectReference: {fileID: 0}
+    - target: {fileID: 3348013124271145054, guid: 6faa98f6a7575ef48ad8aca2dd20cca4, type: 3}
+      propertyPath: portName
+      value: COM
+      objectReference: {fileID: 0}
     - target: {fileID: 3777579130281375468, guid: 6faa98f6a7575ef48ad8aca2dd20cca4, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -596,7 +604,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6601354619286629088, guid: 6faa98f6a7575ef48ad8aca2dd20cca4, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -764,6 +772,14 @@ PrefabInstance:
       propertyPath: _localName
       value: f7a
       objectReference: {fileID: 0}
+    - target: {fileID: 3348013124271145054, guid: 2be2e98b150b85144831b1f785d3a5f3, type: 3}
+      propertyPath: baudRate
+      value: 9600
+      objectReference: {fileID: 0}
+    - target: {fileID: 3348013124271145054, guid: 2be2e98b150b85144831b1f785d3a5f3, type: 3}
+      propertyPath: portName
+      value: COM
+      objectReference: {fileID: 0}
     - target: {fileID: 3777579130281375468, guid: 2be2e98b150b85144831b1f785d3a5f3, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -810,7 +826,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6601354619286629088, guid: 2be2e98b150b85144831b1f785d3a5f3, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1039,6 +1055,14 @@ PrefabInstance:
       propertyPath: _localName
       value: f7a
       objectReference: {fileID: 0}
+    - target: {fileID: 3348013124271145054, guid: c51045368bd6441478e517fa30b7e6fb, type: 3}
+      propertyPath: baudRate
+      value: 9600
+      objectReference: {fileID: 0}
+    - target: {fileID: 3348013124271145054, guid: c51045368bd6441478e517fa30b7e6fb, type: 3}
+      propertyPath: portName
+      value: COM
+      objectReference: {fileID: 0}
     - target: {fileID: 3777579130281375468, guid: c51045368bd6441478e517fa30b7e6fb, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -1111,7 +1135,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 184897503630774146, guid: 5c3365088e78fd54dba02dfe9aacf821, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6482675816116818577, guid: 5c3365088e78fd54dba02dfe9aacf821, type: 3}
+      propertyPath: baudRate
+      value: 9600
+      objectReference: {fileID: 0}
+    - target: {fileID: 6482675816116818577, guid: 5c3365088e78fd54dba02dfe9aacf821, type: 3}
+      propertyPath: portName
+      value: COM
       objectReference: {fileID: 0}
     - target: {fileID: 8685353860950342477, guid: 5c3365088e78fd54dba02dfe9aacf821, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1245,8 +1277,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 498671131}
   m_HandleRect: {fileID: 498671130}
   m_Direction: 0
-  m_Value: 1
-  m_Size: 0.99999994
+  m_Value: 0
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
