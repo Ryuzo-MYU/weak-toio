@@ -39,7 +39,7 @@ namespace ActionLibrary
 
 			// LEDとサウンドのコマンドを追加
 			ILightCommand ledCommand = lib.TurnOnLED(255, 0, 0, 3000);
-			ISoundCommand soundCommand = lib.PresetSound(1, 100, 0.5f);
+			// ISoundCommand soundCommand = lib.PresetSound(1, 100, 0.5f);
 
 			action.AddMovement(erraticMovement1);
 			action.AddMovement(erraticRotate1);
@@ -48,7 +48,7 @@ namespace ActionLibrary
 			action.AddMovement(erraticMovement3);
 			action.AddMovement(erraticRotate3);
 			action.AddLight(ledCommand);
-			action.AddSound(soundCommand);
+			// action.AddSound(soundCommand);
 
 			return action;
 		}

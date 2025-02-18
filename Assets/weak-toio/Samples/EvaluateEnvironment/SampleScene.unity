@@ -550,17 +550,25 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 976105441}
     m_Modifications:
+    - target: {fileID: 2967492030441082689, guid: 6faa98f6a7575ef48ad8aca2dd20cca4, type: 3}
+      propertyPath: _localName
+      value: L7B
+      objectReference: {fileID: 0}
+    - target: {fileID: 2967492030441082689, guid: 6faa98f6a7575ef48ad8aca2dd20cca4, type: 3}
+      propertyPath: actioninterval
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 3348013124271145054, guid: 6faa98f6a7575ef48ad8aca2dd20cca4, type: 3}
       propertyPath: baudRate
       value: 9600
       objectReference: {fileID: 0}
     - target: {fileID: 3348013124271145054, guid: 6faa98f6a7575ef48ad8aca2dd20cca4, type: 3}
       propertyPath: portName
-      value: COM
+      value: COM10
       objectReference: {fileID: 0}
     - target: {fileID: 3777579130281375468, guid: 6faa98f6a7575ef48ad8aca2dd20cca4, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -0.119
       objectReference: {fileID: 0}
     - target: {fileID: 3777579130281375468, guid: 6faa98f6a7575ef48ad8aca2dd20cca4, type: 3}
       propertyPath: m_LocalPosition.y
@@ -568,7 +576,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3777579130281375468, guid: 6faa98f6a7575ef48ad8aca2dd20cca4, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -0.119
       objectReference: {fileID: 0}
     - target: {fileID: 3777579130281375468, guid: 6faa98f6a7575ef48ad8aca2dd20cca4, type: 3}
       propertyPath: m_LocalRotation.w
@@ -772,13 +780,17 @@ PrefabInstance:
       propertyPath: _localName
       value: f7a
       objectReference: {fileID: 0}
+    - target: {fileID: 2967492030441082689, guid: 2be2e98b150b85144831b1f785d3a5f3, type: 3}
+      propertyPath: actioninterval
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 3348013124271145054, guid: 2be2e98b150b85144831b1f785d3a5f3, type: 3}
       propertyPath: baudRate
       value: 9600
       objectReference: {fileID: 0}
     - target: {fileID: 3348013124271145054, guid: 2be2e98b150b85144831b1f785d3a5f3, type: 3}
       propertyPath: portName
-      value: COM
+      value: COM12
       objectReference: {fileID: 0}
     - target: {fileID: 3777579130281375468, guid: 2be2e98b150b85144831b1f785d3a5f3, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1053,7 +1065,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2967492030441082689, guid: c51045368bd6441478e517fa30b7e6fb, type: 3}
       propertyPath: _localName
-      value: f7a
+      value: 41b
+      objectReference: {fileID: 0}
+    - target: {fileID: 2967492030441082689, guid: c51045368bd6441478e517fa30b7e6fb, type: 3}
+      propertyPath: actioninterval
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 3348013124271145054, guid: c51045368bd6441478e517fa30b7e6fb, type: 3}
       propertyPath: baudRate
@@ -1061,11 +1077,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3348013124271145054, guid: c51045368bd6441478e517fa30b7e6fb, type: 3}
       propertyPath: portName
-      value: COM
+      value: COM5
       objectReference: {fileID: 0}
     - target: {fileID: 3777579130281375468, guid: c51045368bd6441478e517fa30b7e6fb, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 0.089
       objectReference: {fileID: 0}
     - target: {fileID: 3777579130281375468, guid: c51045368bd6441478e517fa30b7e6fb, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1137,13 +1153,17 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2594854260114092945, guid: 5c3365088e78fd54dba02dfe9aacf821, type: 3}
+      propertyPath: actioninterval
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 6482675816116818577, guid: 5c3365088e78fd54dba02dfe9aacf821, type: 3}
       propertyPath: baudRate
       value: 9600
       objectReference: {fileID: 0}
     - target: {fileID: 6482675816116818577, guid: 5c3365088e78fd54dba02dfe9aacf821, type: 3}
       propertyPath: portName
-      value: COM
+      value: COM8
       objectReference: {fileID: 0}
     - target: {fileID: 8685353860950342477, guid: 5c3365088e78fd54dba02dfe9aacf821, type: 3}
       propertyPath: m_LocalPosition.x

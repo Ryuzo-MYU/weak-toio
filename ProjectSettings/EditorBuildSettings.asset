@@ -14,7 +14,10 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/weak-toio/Samples/EvaluateEnvironment/EvaluateEnvironment.unity
     guid: 8af0bc71d0aacec4194c8b4817dd5e31
-  - enabled: 1
+  - enabled: 0
     path: Assets/weak-toio/Samples/Cat_Temp/CatTemperatureEvaluation.unity
     guid: b7936d9b5bf07314b9285620473c612d
+  - enabled: 1
+    path: Assets/weak-toio/Samples/EvaluateEnvironment/SampleScene.unity
+    guid: 4b7f7c351e0e7cf42801bdb18b987e16
   m_configObjects: {}
